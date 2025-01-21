@@ -1,0 +1,15 @@
+unstructured
+unstructured[pdf]
+PyPDF2
+chromadb
+langchain
+langchain-ollama
+langchain_community
+tqdm
+PyYAML
+jsonpatch
+orjson
+requests
+sniffio
+h11
+anyio
