@@ -1,0 +1,372 @@
+# Version 2.2
+# This version includes an interactive input window for querying the RAG-enhanced LLM
+
+import os
+import random
+import subprocess
+import logging
+from tqdm import tqdm
+from PyPDF2 import PdfReader
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_ollama.embeddings import OllamaEmbeddings
+from langchain_ollama.llms import OllamaLLM
+from langchain_community.vectorstores import Chroma
+from langchain.chains.retrieval_qa.base import RetrievalQA
+from langchain.schema import Document
+from langchain_chroma import Chroma
+import tkinter as tk
+from tkinter import messagebox
+
+# Configure logging
+logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
+
+class DocumentProcessorPipeline:
+    """
+        logging.info("Initializing vectorstore for efficient data retrieval...")
+        try:
+            if not self.text_chunks:
+                logging.error("No text chunks available. Split documents first before initializing vectorstore.")
+                exit()
+
+            if not self.selected_model:
+                logging.error("No model selected for embeddings. Select a model before initializing vectorstore.")
+                exit()
+
+            embedding_function = OllamaEmbeddings(model=self.selected_model)
+            self.vectorstore = FAISS.from_documents(self.text_chunks, embedding_function)
+            self.vectorstore.save_local(self.persist_directory)
+
+            logging.info("Vectorstore initialized and saved locally.")
+
+        except Exception as e:
+            logging.error(f"Error initializing vectorstore: {e}")
+            exit()
+
+    def load_vectorstore(self):
+        """
+    def __init__(self, input_directory, persist_directory, num_test_files):
+        """
+        Initializes an instance of the class.
+
+        This method is a constructor for the class. It sets up the fundamental
+        attributes required for the instance to function as expected. The parameters
+        supplied to the constructor are essential for defining the initial state of
+        the object, along with optional additional fields to store data in various
+        forms.
+
+        :param input_directory: The directory path where input files are located. It
+            is used as a source for reading content or performing operations on files.
+        :type input_directory: str
+        :param persist_directory: The directory path where processed output files or
+            other data should be saved or persisted.
+        :type persist_directory: str
+        :param num_test_files: The number of test files to be handled or processed
+            during specific operations.
+        :type num_test_files: int
+        """
+        self.input_directory = input_directory
+        self.persist_directory = persist_directory
+        self.num_test_files = num_test_files
+        self.documents = []
+        self.text_chunks = []
+        self.vectorstore = None
+        self.selected_model = None
+
+    def ensure_ollama_path(self):
+        """
+        Checks and ensures the `ollama` binary is available in the system's PATH. If it is unavailable,
+        the method attempts to add `/usr/local/bin` to the PATH and retries. If `ollama` is still not
+        found, the program logs an error and exits. This function logs the steps for debugging purposes
+        and confirms the location of the `ollama` utility.
+
+        :return: None
+        """
+        logging.info("Checking if `ollama` is available in PATH...")
+        ollama_path = subprocess.run(["which", "ollama"], capture_output=True, text=True).stdout.strip()
+        if not ollama_path:
+            logging.warning("`ollama` not found. Adding `/usr/local/bin` to PATH...")
+            os.environ['PATH'] += ':/usr/local/bin'
+            ollama_path = subprocess.run(["which", "ollama"], capture_output=True, text=True).stdout.strip()
+            if not ollama_path:
+                logging.error("Failed to locate `ollama`. Ensure it is installed in `/usr/local/bin`.")
+                exit()
+        logging.info(f"`ollama` found at: {ollama_path}")
+
+    def fetch_files(self):
+        """
+        Fetches and selects files from the specified input directory based on given criteria.
+
+        This method lists all the files in the directory specified by `self.input_directory`.
+        It filters files by checking their extensions, retaining only supported file types
+        such as `.pdf` and `.txt`. Among the filtered files, it randomly selects a specified
+        number of files, `self.num_test_files`, and assigns them to `self.documents`.
+
+        If there are insufficient files meeting the criteria, the method logs an error
+        and terminates the program. Any unexpected issues during file fetching are logged,
+        and the program exits.
+
+        :raises SystemExit: If not enough files are available for selection or if an
+            exception occurs during execution.
+        """
+        try:
+            logging.info("Fetching files from input directory...")
+            files = os.listdir(self.input_directory)
+            supported_extensions = ['.pdf', '.txt']
+            document_files = [f for f in files if os.path.splitext(f)[1].lower() in supported_extensions]
+
+            if len(document_files) < self.num_test_files:
+                logging.error("Not enough files to select. Exiting.")
+                exit()
+
+            self.documents = random.sample(document_files, self.num_test_files)
+            logging.info(f"Selected files: {self.documents}")
+        except Exception as e:
+            logging.error(f"Error while fetching files: {e}")
+            exit()
+
+    def load_documents(self):
+        """
+        Loads a list of documents from the input directory. The function processes PDF
+        and text files. For PDF files, it extracts text content from all pages using
+        the `PdfReader`. For text files, it reads the entire content. Unsupported file
+        types are logged as warnings, and any errors during file loading are logged
+        as errors. Each successfully loaded document is stored in a list of dictionaries
+        containing the document's content and metadata (file source).
+
+        :raises Exception: If any error occurs during the loading of a file.
+        :return: None
+        """
+        logging.info("Loading documents...")
+        loaded_documents = []
+        for file in tqdm(self.documents, desc="Loading files"):
+            file_path = os.path.join(self.input_directory, file)
+            try:
+                if file.lower().endswith('.pdf'):
+                    reader = PdfReader(file_path)
+                    content = "\n".join(page.extract_text() for page in reader.pages if page.extract_text())
+                    loaded_documents.append({"content": content, "metadata": {"source": file_path}})
+                elif file.lower().endswith('.txt'):
+                    with open(file_path, 'r') as f:
+                        content = f.read()
+                        loaded_documents.append({"content": content, "metadata": {"source": file_path}})
+                else:
+                    logging.warning(f"Unsupported file type: {file}")
+            except Exception as e:
+                logging.error(f"Failed to load {file}: {e}")
+        self.documents = loaded_documents
+
+    def split_documents(self):
+        """
+        Splits the loaded documents into smaller chunks using a text splitting strategy
+        and updates the class instance with the generated text chunks. The method ensures
+        overlap between chunks to preserve context.
+
+        :param self: Instance of the class containing documents to be split and a storage mechanism
+                     for the resulting text chunks.
+        :type self: Any
+
+        :raises Exception: Raises an exception if the split process encounters any critical errors.
+
+        :return: None
+        """
+        logging.info("Splitting documents into smaller chunks...")
+        text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
+        formatted_documents = [Document(page_content=doc["content"], metadata=doc["metadata"]) for doc in self.documents]
+        self.text_chunks = text_splitter.split_documents(formatted_documents)
+        logging.info(f"Generated {len(self.text_chunks)} text chunks.")
+
+    def list_ollama_models(self):
+        """
+        Fetches the list of available models from the Ollama tool.
+
+        This method interacts with an external subprocess to execute the "ollama list"
+        command. It parses the output to retrieve the models and returns a list of
+        model names. If an error occurs during the execution of the subprocess, the method
+        logs the error and returns an empty list. The method is designed to handle
+        unexpected exceptions gracefully.
+
+        :return: A list of model names retrieved from the "ollama list" command.
+        :rtype: list[str]
+        """
+        logging.info("Fetching available models from Ollama...")
+        try:
+            result = subprocess.run(["ollama", "list"], capture_output=True, text=True)
+            if result.returncode != 0:
+                logging.error(f"Error listing models: {result.stderr.strip()}")
+                return []
+            models_output = result.stdout.strip().split("\n")[1:]
+            return [line.split()[0] for line in models_output if line.strip()]
+        except Exception as e:
+            logging.error(f"An unexpected error occurred: {e}")
+            return []
+
+    def select_model(self):
+        """
+        Selects a model from the available list of models for embedding
+        generation. If no models are available, an error is logged and
+        the program exits. Prompts the user to input a model selection
+        by its corresponding number in the list. Validates the input
+        and assigns the selected model. Exits if the input is invalid.
+
+        :raises SystemExit: If no models are available, or if the user
+            provides invalid input.
+        """
+        logging.info("Selecting a model for embedding generation...")
+        models = self.list_ollama_models()
+        if not models:
+            logging.error("No models available. Please add models to Ollama.")
+            exit()
+
+        logging.info("Available models:")
+        for idx, model in enumerate(models):
+            logging.info(f"{idx + 1}. {model}")
+
+        try:
+            selected_idx = int(input("Select a model by number: ")) - 1
+            if 0 <= selected_idx < len(models):
+                self.selected_model = models[selected_idx]
+            else:
+                logging.error("Invalid selection. Exiting.")
+                exit()
+        except ValueError:
+            logging.error("Invalid input. Please enter a valid number.")
+            exit()
+
+    def initialize_vectorstore(self):
+        """
+        Initializes the vectorstore by generating embeddings for text chunks and adding them
+        to the vectorstore. Each text chunk is processed individually, and its embedding,
+        metadata, and content are stored in the vectorstore. The process persists the
+        vectorstore at the specified directory for later access.
+
+        :raises Exception: If an error occurs during the initialization of the vectorstore,
+            the exception is logged and the program exits.
+        """
+        logging.info("Initializing vectorstore and generating embeddings...")
+        try:
+            self.embeddings = OllamaEmbeddings(model=self.selected_model)  # Store embeddings as instance variable
+            self.vectorstore = Chroma(
+                persist_directory=self.persist_directory,
+                embedding_function=self.embeddings  # Pass embeddings during initialization
+            )
+
+            for idx, text_chunk in enumerate(tqdm(self.text_chunks, desc="Adding to vectorstore")):
+                chunk_id = f"chunk_{idx}"
+                chunk_embedding = self.embeddings.embed_documents([text_chunk.page_content])[0]
+
+                self.vectorstore._collection.upsert(
+                    ids=[chunk_id],
+                    embeddings=[chunk_embedding],
+                    metadatas=[text_chunk.metadata],
+                    documents=[text_chunk.page_content]
+                )
+
+            logging.info(f"Vectorstore persisted at '{self.persist_directory}'.")
+        except Exception as e:
+            logging.error(f"Error initializing vectorstore: {e}")
+            exit()
+
+    def setup_rag_pipeline(self):
+        """
+        Sets up the Retrieval-Augmented Generation (RAG) pipeline.
+
+        This function initializes a vector store using Chroma, configures a retriever
+        for similarity-based searches, and sets up a question-answering chain
+        with the selected large language model (LLM). The pipeline is prepared for
+        retrieval-augmented generation tasks and includes functionality to return
+        source documents alongside responses.
+
+        :raises Exception: If any error occurs during the initialization of the RAG pipeline.
+        """
+        logging.info("Setting up the Retrieval-Augmented Generation (RAG) pipeline...")
+        try:
+            self.vectorstore = Chroma(
+                persist_directory=self.persist_directory,
+                embedding_function=self.embeddings
+            )
+            retriever = self.vectorstore.as_retriever(search_type="similarity", search_kwargs={"k": 5})
+            llm = OllamaLLM(model=self.selected_model)
+            self.qa_chain = RetrievalQA.from_chain_type(llm=llm, retriever=retriever, return_source_documents=True)
+            logging.info("RAG pipeline is ready.")
+        except Exception as e:
+            logging.error(f"Error setting up RAG pipeline: {e}")
+            exit()
+
+    def query_pipeline(self, query):
+        """
+        Queries the pipeline using the provided query string and retrieves the result.
+        The function interacts with a QA chain to process the query and fetch the
+        corresponding response. Logs are maintained for both the querying process
+        and the result or any encountered errors.
+
+        :param query: The input query string to be processed by the pipeline.
+        :type query: str
+        :return: The result of the query from the QA chain or None in case of
+            an error.
+        :rtype: str or None
+        :raises Exception: If an error occurs during the querying process.
+        """
+        logging.info(f"Querying the pipeline with: {query}")
+        try:
+            response = self.qa_chain.invoke({"query": query})
+            result = response["result"]
+            logging.info(f"Result: {result}")
+            return result
+        except Exception as e:
+            logging.error(f"Error during query: {e}")
+            return None
+
+    def run_interactive_mode(self):
+        """
+        Runs an interactive GUI (Graphical User Interface) for submitting queries to a
+        RAG-enhanced LLM (Language Model). Presents the user with a simple interface to
+        input a query, submit the query to the model, and view the results or errors
+        via a message box.
+
+        This function creates a window with necessary widgets for the user to input a
+        question, submit it, and receive a response or notification.
+
+        :raises RuntimeError: If there is an issue initializing or running the GUI.
+
+        :return: None
+        """
+        def on_query_submit():
+            user_query = query_input.get()
+            if user_query.strip():
+                result = self.query_pipeline(user_query)
+                if result:
+                    messagebox.showinfo("Query Result", result)
+                else:
+                    messagebox.showerror("Error", "Failed to retrieve a response.")
+
+        root = tk.Tk()
+        root.title("RAG-enhanced LLM query interface")
+
+        frame = tk.Frame(root, padx=10, pady=10)
+        frame.pack(padx=10, pady=10)
+
+        tk.Label(frame, text="Enter your query:").pack(anchor="w")
+        query_input = tk.Entry(frame, width=50)
+        query_input.pack(pady=5)
+
+        submit_button = tk.Button(frame, text="Submit your query", command=on_query_submit)
+        submit_button.pack(pady=5)
+
+        root.mainloop()
+
+if __name__ == "__main__":
+    pipeline = DocumentProcessorPipeline(
+        input_directory="/Users/maleger/My_documents",
+        persist_directory="./chroma_data",
+        num_test_files=1000
+    )
+    pipeline.ensure_ollama_path()
+    pipeline.fetch_files()
+    pipeline.load_documents()
+    pipeline.split_documents()
+    pipeline.select_model()
+    pipeline.initialize_vectorstore()
+    pipeline.setup_rag_pipeline()
+
+    logging.info("Launching interactive query interface...")
+    pipeline.run_interactive_mode()
