@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "model": "opus",
+  "outputStyle": "CyberRiskGuardian Analyst",
+  "env": {
+    "CRG_DEFAULT_APPETITE": "0.30",
+    "CRG_FACTOR": "1000",
+    "CRG_HORIZON_MONTHS": "12",
+    "CRG_CVSS_VERSION": "4.0"
+  },
+  "permissions": {
+    "allow": [
+      "Read",
+      "Glob",
+      "Grep",
+      "Bash(python3 .claude/skills/cyber-risk-assessment/scripts/crg_calc.py:*)",
+      "Bash(python3 .claude/skills/cyber-risk-assessment/scripts/build_workbook.py:*)",
+      "Bash(python3 .claude/skills/cyber-risk-assessment/scripts/budget_calibrator.py:*)",
+      "Bash(python3 plugins/cyberriskguardian/skills/cyber-risk-assessment/scripts/crg_calc.py:*)",
+      "Bash(python3 plugins/cyberriskguardian/skills/cyber-risk-assessment/scripts/build_workbook.py:*)",
+      "Bash(python3 plugins/cyberriskguardian/skills/cyber-risk-assessment/scripts/budget_calibrator.py:*)",
+      "Bash(soffice --headless:*)",
+      "Bash(pdftoppm:*)",
+      "Bash(bash scripts/sync-project-config.sh)",
+      "mcp__crg-calculator__crg_risk",
+      "mcp__crg-calculator__cvss4_score",
+      "mcp__crg-calculator__budget_target",
+      "mcp__crg-calculator__budget_check",
+      "mcp__crg-calculator__sensitivity"
+    ],
+    "ask": [
+      "WebSearch",
+      "WebFetch",
+      "Bash(pip install:*)",
+      "Bash(npm install:*)"
+    ],
+    "deny": [
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Read(./secrets/**)",
+      "Read(**/*.pem)",
+      "Read(**/*.key)",
+      "Read(./CLAUDE.local.md)",
+      "Read(./.claude/settings.local.json)"
+    ]
+  },
+  "enabledMcpjsonServers": ["crg-calculator"],
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cat \"$CLAUDE_PROJECT_DIR/.claude/hooks/session-context.md\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}

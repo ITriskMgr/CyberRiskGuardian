@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "crg-calculator": {
+      "command": "python3",
+      "args": ["${CLAUDE_PLUGIN_ROOT}/mcp/crg_server.py"],
+      "env": {
+        "CRG_DEFAULT_APPETITE": "0.30",
+        "CRG_FACTOR": "1000"
+      }
+    }
+  }
+}

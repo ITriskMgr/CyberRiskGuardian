@@ -1,0 +1,23 @@
+{
+  "name": "cyberriskguardian",
+  "version": "1.1.0",
+  "description": "CyberRiskGuardian - AI-assisted, scenario-driven cybersecurity risk assessment: scenario selection (Sections A-E), CRG KRI quantification with CVSS v4.0, treatment portfolio, appetite-aligned cybersecurity budget and management reporting, with the author's cybersecurity governance textbook as reference.",
+  "author": {
+    "name": "Marc-André Léger"
+  },
+  "keywords": [
+    "cybersecurity",
+    "risk-assessment",
+    "risk-management",
+    "cvss",
+    "iso-27005",
+    "nist",
+    "fair",
+    "governance",
+    "budget",
+    "compliance",
+    "textbook"
+  ],
+  "outputStyles": "./output-styles/",
+  "license": "CC-BY-NC-4.0"
+}

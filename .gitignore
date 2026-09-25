@@ -1,0 +1,21 @@
+# Local, private or runtime state - never distribute
+CLAUDE.local.md
+.claude/settings.local.json
+.claude/projects/
+*.jsonl
+.env
+.env.*
+secrets/
+
+# Generated client work
+output/
+deliverables/
+!examples/medibec/deliverables/
+
+# Tooling
+__pycache__/
+*.pyc
+node_modules/
+.DS_Store
+~$*.xlsx
+~$*.docx

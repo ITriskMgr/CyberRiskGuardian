@@ -1,0 +1,493 @@
+# -*- coding: utf-8 -*-
+"""Single source of truth for the MediBec CyberRiskGuardian assessment.
+Both the Excel workbook and the Word report are generated from this file."""
+import json
+from cvss import CVSS4
+
+APPETITE = 0.30
+FACTOR = 1000
+CASE_APPETITE = 0.40
+BAND_LOW, BAND_HIGH = 0.90, 1.10   # ratio band for "approximately at tolerance"
+
+# ---------------------------------------------------------------- evidence register
+EVIDENCE = [
+    ("E1", "MediBec business case v2.0b, s.3 - Background and healthcare profile", "Documented (case)", "HQ Montreal; 10 clinics (Montreal, Quebec City, Gatineau, Saguenay); EHR, radiology, lab, pharmacy, billing, communications; sensitive health data."),
+    ("E2", "Business case s.4 - Technology environment table", "Documented (case)", "Central network hub in Montreal, WAN fibre to clinics, firewalls, IDS/IPS, antivirus/antimalware; Montreal data centre, local clinic storage, on-site and off-site backups, encrypted storage; cloud-based remote access; interconnected medical equipment."),
+    ("E3", "Business case s.4 - Operating model and budget context", "Documented (case)", "15-person IT department, 2 dedicated cybersecurity staff; stated IT budget CAD 100M incl. salaries; 2024-2030 roadmap; medical-device certification and clinical change constraints."),
+    ("E4", "Business case s.5 - Threat context", "Documented (case)", "Multiple unsuccessful attack attempts since 2020, increasing recently; no confirmed successful breach; open questions on log sufficiency, device inventories, cloud configuration."),
+    ("E5", "Business case s.8 - Risk appetite statement", "Documented (case)", "Low appetite for patient safety, health-data confidentiality, compliance, public trust; moderate for governed innovation; normalized tolerance 0.40; residual >0.25 executive review, >0.40 Board acceptance."),
+    ("E6", "Business case s.6 and Appendices A-B - Incident injects and technical evidence", "Exercise evidence (illustrative - validate)", "Phishing with .docm macro; EDR PowerShell alert closed as low severity; remote login from unusual geography with MFA push approved; cloud medical_image_export.zip downloaded from unknown IP; ehr-sync-svc service account unusual query volume; clinic backup failures."),
+    ("E7", "Business case s.7 - Audit universe", "Documented (case)", "Auditable areas incl. EHR access/IAM, cloud/remote access, backup, medical device/IoT, Wi-Fi, patching, IDS/SIEM, privacy, third parties, API keys, awareness, remediation governance."),
+    ("E8", "Business case s.9 - Scenario library MED-CYR-01 to 15", "Documented (case)", "Fifteen candidate scenario themes with suggested control families."),
+    ("E9", "Business case Instructor Annex A - Detailed scenarios", "Illustrative values (calibration only)", "Illustrative probabilities, damages, resilience, CVSS v3.1 and budgets. Used only as a calibration cross-check; not adopted as evidence."),
+    ("E10", "Project KB - Cybersecurity Risk Assessment Excel Guide v1.0c", "Methodology", "Authoritative KRI formulas; CVSS v4.0; multiplication factor 1,000 in worked example; reductions must stay within 0-1."),
+    ("E11", "Project KB - Master task specification / Scenario development guide", "Methodology", "Scenario construction standard, 20-to-10 screening, reporting structure, QC checklist."),
+    ("E12", "FIRST CVSS v4.0 specification (computed with the 'cvss' Python library)", "External reference", "Base scores (CVSS-B) computed from the documented vectors."),
+]
+
+# ---------------------------------------------------------------- crown jewels
+CROWN = [
+    ("CJ1", "Integrated EHR and clinical record data", "Clinical documentation, decision support, continuity of care across 10 clinics", "Chief Medical Officer / Clinical Ops (business); CIO (technical)", "Very high", "Very high", "High", "Identity/directory, Montreal DC, WAN, EHR database, ehr-sync-svc integration", "EHR vendor (identity not stated)"),
+    ("CJ2", "Diagnostic systems - radiology imaging, laboratory, pharmacy", "Diagnosis, results, medication management", "Clinical Ops; department heads", "High", "Very high", "High", "EHR interfaces, cloud image transfer, medical equipment", "Imaging, lab and pharmacy system vendors"),
+    ("CJ3", "Scheduling, appointments and patient online services", "Patient access, clinic throughput", "Clinic managers; COO-equivalent", "Medium", "High", "High", "Web front end, EHR, communications", "Hosting / online service providers"),
+    ("CJ4", "Billing and administrative systems", "Revenue cycle, payer claims", "Finance lead", "High", "High", "Medium", "Directory, database, email", "Billing software vendor"),
+    ("CJ5", "Identity, remote access and cloud access", "Enables every clinical and administrative service", "CIO / Cybersecurity lead", "High", "Very high", "Very high", "Directory, MFA (push), remote access gateway, cloud IdP", "Cloud / MFA providers"),
+    ("CJ6", "Montreal data centre, WAN and backup environment", "Hosting, connectivity, recoverability", "CIO (Infrastructure)", "High", "High", "Very high", "Power, WAN links, backup servers, off-site copies, local clinic storage", "Telecom carriers, off-site backup provider"),
+    ("CJ7", "Cloud storage for medical-image transfer and exports", "Sharing images and exports with clinicians/partners", "Radiology lead; CIO", "Very high", "High", "Medium", "Cloud tenant, IAM, sharing links", "Cloud service provider"),
+    ("CJ8", "Connected medical equipment and IoT", "Diagnostics and treatment devices feeding the EHR", "Biomedical engineering / Clinical Ops", "High", "Very high", "High", "Clinic LAN, EHR interfaces", "Device manufacturers (patching, certification)"),
+]
+
+# ---------------------------------------------------------------- 20 candidates
+# (id, name, threat source, vulnerability / condition, primary asset, outcome, lib ref, decision, reason)
+CANDIDATES = [
+    ("C01", "Phishing-led compromise of clinic administrator credentials", "Cybercriminal", "Push-based MFA susceptible to fatigue; macro attachments delivered", "CJ5 / CJ1", "Unauthorized EHR and remote access", "MED-CYR-01, 12", "Selected (S1)", "Most frequent initial-access path; directly evidenced by injects E6."),
+    ("C02", "Ransomware encrypting EHR support systems, shared folders and scheduling", "Ransomware group", "Flat internal network; weak alert triage; backups reachable", "CJ1 / CJ3 / CJ6", "Multi-clinic disruption and data theft", "MED-CYR-02", "Selected (S2)", "Highest combined clinical, privacy and operational consequence."),
+    ("C03", "Backup environment compromised before encryption, recovery fails", "Ransomware group / privileged attacker", "Backups in same admin domain; restore testing not evidenced", "CJ6", "Prolonged outage, loss of recoverability", "MED-CYR-07", "Selected (S3)", "Determines whether S2 is survivable; backup failures in E6."),
+    ("C04", "Cloud medical-image transfer storage exposed or accessed externally", "Opportunistic actor / cybercriminal", "Permissive sharing, weak cloud logging and posture management", "CJ7", "Bulk health-data exposure", "MED-CYR-03", "Selected (S4)", "Large-volume PHI exposure; evidenced by unusual downloads (E6)."),
+    ("C05", "API key committed to a code repository enables data access", "Opportunistic actor", "No secret scanning or vault evidenced", "CJ1 / CJ7", "Direct API data extraction", "MED-CYR-04", "Not selected", "Plausible but thin evidence on MediBec's development footprint; controls partly shared with S4/S5. Keep on watch list."),
+    ("C06", "Clinic Wi-Fi compromise or rogue access point", "Local attacker", "Guest/clinical Wi-Fi segmentation not evidenced", "Clinic LAN", "Internal network foothold", "MED-CYR-05", "Merged into S7", "Treated as an access path; the consequence driver is the flat network addressed in S7/S2."),
+    ("C07", "Exploitation of unpatched internet-facing or end-of-life systems", "Cybercriminal / state-linked actor", "Patch delays from uptime and vendor constraints", "CJ5 / CJ6", "Remote code execution and intrusion", "MED-CYR-06", "Selected (S6)", "Mass exploitation of edge devices is a leading entry vector; patching constraints documented (E3)."),
+    ("C08", "Intrusion goes undetected because monitoring and triage are insufficient", "Any external actor", "2-person team, alert closed as low severity, log coverage unknown", "All", "Extended dwell time, amplified harm", "MED-CYR-08", "Selected (S8)", "Systemic amplifier; directly evidenced (E3, E6)."),
+    ("C09", "Connected medical device used as network foothold", "Cybercriminal", "Unpatched embedded OS, incomplete inventory, weak segmentation", "CJ8", "Device disruption, lateral movement", "MED-CYR-09", "Selected (S7)", "Only scenario with direct patient-safety pathway through equipment."),
+    ("C10", "DDoS against patient-facing online services", "Hacktivist / extortionist", "No DDoS protection evidenced", "CJ3", "Online booking unavailable", "MED-CYR-10", "Not selected", "Clinics can continue care; limited privacy impact; criticality of online services not documented."),
+    ("C11", "Staff member exports health or billing records for unauthorized purposes", "Malicious or curious insider", "Broad EHR roles, limited access analytics", "CJ1 / CJ4", "Privacy breach", "MED-CYR-11", "Selected (S5, merged with C15)", "Common in healthcare; high regulatory significance."),
+    ("C12", "Alteration of patient, medication or billing records", "Attacker or insider", "Limited integrity monitoring and reconciliation", "CJ1 / CJ2", "Unsafe clinical decisions, billing errors", "MED-CYR-13", "Selected (S10)", "Lower likelihood but severe patient-safety consequence."),
+    ("C13", "Compromise of a vendor with remote access to MediBec systems", "Supply-chain attacker", "Standing vendor access, limited assurance", "CJ1 / CJ2 / CJ8", "Trusted-path intrusion", "MED-CYR-14", "Selected (S9)", "Many critical vendors (EHR, devices, cloud); controls largely absent."),
+    ("C14", "Untested incident response plan causes poor coordination", "Any incident", "No tabletop evidence across clinics", "All", "Slow, uncoordinated response", "MED-CYR-15", "Merged into S8", "A resilience condition rather than a threat; combined with detection into one response-capacity scenario."),
+    ("C15", "Over-privileged service account (ehr-sync-svc) abused for mass extraction", "External attacker or insider", "Service account privileges, no vaulting", "CJ1", "Mass PHI extraction", "Evidence E6", "Merged into S5", "Same control family (privileged and legitimate-access misuse)."),
+    ("C16", "Montreal data centre or WAN outage isolates all clinics", "Accidental / environmental", "Single hub dependency", "CJ6", "Enterprise-wide outage", "Annex B #49", "Not selected", "Non-malicious availability risk; better handled in BCP/DR review. Shares recovery controls with S3."),
+    ("C17", "Unmanaged copies on local clinic storage units exposed", "Theft / insider", "Data sprawl, local storage outside central controls", "Clinic storage", "Local data breach", "Annex B #55", "Not selected", "Encryption documented (E2); exposure absorbed into S2/S3 scope."),
+    ("C18", "Business e-mail compromise diverts billing payments", "Fraudster", "Weak payment verification", "CJ4", "Financial loss", "Annex B #71", "Not selected", "Financial only; lower mission impact than selected scenarios."),
+    ("C19", "Lost or stolen tablet or handheld with patient data", "Opportunistic thief", "Mobile device management not evidenced", "Endpoints", "Limited data exposure", "Annex B #7", "Not selected", "Lower volume of records; standard MDM control."),
+    ("C20", "MFA push-fatigue bypass of remote access", "Cybercriminal", "Push approval without number matching", "CJ5", "Account takeover", "Evidence E6", "Merged into S1", "Same causal chain as C01."),
+]
+
+# ---------------------------------------------------------------- initiatives (portfolio)
+# id, name, description, scenarios, owner, priority, initial, recurring, start, end, success, dependencies, type
+INITIATIVES = [
+    ("I01", "Phishing-resistant MFA and conditional access", "FIDO2/passkeys for privileged, remote-access and EHR administrator accounts; number-matching MFA for all other users; conditional access (geo, device health); block internet-sourced Office macros.", ["S1", "S8", "S9", "S10"], "CIO / Cybersecurity lead", "Immediate", 180000, 60000, "Month 0", "Month 6", "100% privileged and remote-access accounts on phishing-resistant MFA", "Directory clean-up and account inventory", "Prevention"),
+    ("I02", "Privileged access and service-account management (PAM)", "Tiered administration, credential vault, just-in-time elevation, rotation and least privilege for service accounts (incl. ehr-sync-svc), vendor sessions brokered and recorded.", ["S1", "S2", "S3", "S5", "S9", "S10"], "Cybersecurity lead", "Near-term", 250000, 80000, "Month 2", "Month 12", "0 standing domain-admin accounts; 100% service accounts vaulted", "I01; privileged-account inventory", "Prevention / Governance"),
+    ("I03", "24/7 managed detection and response with centralized logging", "MDR provider on full EDR coverage; SIEM ingesting identity, remote access, EHR audit, cloud, backup and firewall logs; defined escalation criteria; 12-month log retention.", ["S1", "S2", "S3", "S4", "S5", "S6", "S8", "S9", "S10"], "Cybersecurity lead", "Immediate", 200000, 420000, "Month 0", "Month 6", "MTTD < 1 h, MTTC < 4 h for high-severity alerts; >95% critical log sources", "Log-source inventory; EDR deployment completeness", "Detection / Response"),
+    ("I04", "Immutable and isolated backup with tested recovery", "Immutable/offline copies, separate backup identity domain with MFA, backup network isolation, quarterly restore tests incl. clinic storage, documented RTO/RPO per crown jewel.", ["S2", "S3", "S10"], "CIO (Infrastructure)", "Immediate", 300000, 90000, "Month 0", "Month 9", "100% crown-jewel restore tests pass within RTO", "Crown-jewel RTO/RPO agreed with Clinical Ops", "Recovery / Resilience"),
+    ("I05", "Risk-based vulnerability and patch management", "Complete asset inventory, authenticated scanning, external attack-surface monitoring, SLAs (known-exploited: 72 h internet-facing / 14 days internal), exception governance, retirement of end-of-life systems; 1 dedicated FTE.", ["S2", "S6", "S7"], "CIO / Cybersecurity lead", "Near-term", 150000, 216000, "Month 1", "Month 9", ">95% critical vulns remediated within SLA; 0 unsupported internet-facing systems", "Asset inventory; change windows agreed with clinics", "Prevention"),
+    ("I06", "Network segmentation and network access control", "Zones for clinical systems, medical devices, administration, guest Wi-Fi (WPA3), backups and servers; NAC at clinics; east-west firewall rules.", ["S2", "S3", "S6", "S7"], "CIO (Infrastructure)", "Planned", 450000, 70000, "Month 6", "Month 24", "100% medical devices and guest Wi-Fi in isolated segments", "I05 inventory; I07 device mapping", "Prevention / Resilience"),
+    ("I07", "Medical device security programme", "Device inventory and criticality, manufacturer MDS2 collection, passive IoMT network monitoring, compensating controls where patching is restricted, procurement security clauses.", ["S7"], "Biomedical engineering / Clinical Ops", "Near-term", 180000, 90000, "Month 3", "Month 12", "100% networked devices inventoried and risk-rated", "I06; vendor cooperation", "Identify / Detection"),
+    ("I08", "Cloud security posture and secure image transfer", "Cloud posture management, organization-wide block on public access, expiring authenticated sharing links, object-access logging to SIEM, encryption with customer-managed keys.", ["S4"], "CIO / Radiology lead", "Immediate", 120000, 60000, "Month 0", "Month 6", "0 publicly accessible storage objects; 100% object access logged", "Cloud inventory", "Prevention / Detection"),
+    ("I09", "Data access governance and EHR privacy monitoring", "Role-based access redesign, quarterly access recertification, EHR access analytics (break-the-glass, VIP, bulk queries), endpoint/cloud DLP for health data.", ["S4", "S5", "S10"], "Privacy officer / CIO", "Near-term", 200000, 90000, "Month 3", "Month 12", "100% EHR roles recertified quarterly; bulk-access alerts reviewed within 24 h", "I02; data classification", "Governance / Detection"),
+    ("I10", "Third-party cyber risk management", "Vendor tiering, security assessments of critical vendors, contract clauses (24-72 h incident notification, right to audit, MFA), vendor remote access only via PAM gateway.", ["S9"], "Procurement / Cybersecurity lead", "Near-term", 90000, 70000, "Month 2", "Month 12", "100% critical vendors assessed and under revised clauses", "I02 (vendor session brokering)", "Governance"),
+    ("I11", "Incident response and clinical continuity readiness", "Updated IR plan and playbooks (ransomware, privacy breach, device), IR/forensics retainer, semi-annual tabletop including clinics, clinical downtime procedures.", ["S2", "S3", "S8", "S9", "S10"], "Cybersecurity lead / Clinical Ops", "Immediate", 120000, 80000, "Month 0", "Month 6", "2 tabletops/year; all 10 clinics with tested downtime procedures", "Executive sponsorship", "Response / Resilience"),
+    ("I12", "Governance, awareness and risk reporting", "Role-based awareness and phishing simulation, quarterly KRI dashboard to Steering Committee, risk register and acceptance workflow, cyber-insurance coverage review.", ["S1", "S2", "S5", "S8"], "Cybersecurity lead / Executive sponsor", "Immediate", 70000, 90000, "Month 0", "Month 3", "Quarterly KRI report delivered; phishing report rate > 70%", "Steering Committee mandate", "Governance"),
+    ("I13", "Clinical data integrity controls", "Audit trails and alerting on changes to medication, allergy, lab and billing records; automated reconciliation; integrity verification after restore.", ["S10"], "CIO / Clinical Ops / Pharmacy lead", "Planned", 100000, 40000, "Month 6", "Month 15", "100% critical record changes attributable and reconciled", "I03 logging; EHR vendor capability", "Detection / Recovery"),
+]
+
+# ---------------------------------------------------------------- scenarios
+def P(v, q, r, e, c):
+    return {"v": v, "qual": q, "rat": r, "ev": e, "conf": c}
+
+SCEN = []
+
+SCEN.append(dict(
+    id="S1", ref="MED-CYR-01 / 12", name="Credential compromise of clinical administrator accounts through phishing and MFA fatigue",
+    statement="A financially motivated external actor phishes clinic administrators and billing staff with an EHR-themed lure, captures credentials and obtains approval of an MFA push prompt, gaining remote access to the EHR, billing and administrative systems, enabling unauthorized access to patient records and follow-on intrusion.",
+    stakeholders="Clinic administrators and billing staff; CIO; Cybersecurity lead; Privacy officer; Clinical Ops; patients; EHR vendor; Steering Committee.",
+    background="MediBec relies on remote and cloud access for staff and clinicians (E2). Exercise evidence shows an EHR-themed phishing lure with a macro attachment and a successful login from an unusual geography approved by MFA push (E6). Attack attempts are rising (E4).",
+    threat_source="Cybercriminal (initial-access broker or ransomware affiliate).",
+    threat_event="Credential phishing and MFA push-fatigue against remote access.",
+    vulns=["Push-based MFA without number matching or phishing resistance (E6 - validate)", "No evidence of conditional access (geo/device) policies", "Internet-sourced macro documents reach users (E6)", "Awareness programme maturity unknown (Evidence gap)"],
+    assets="CJ5 identity and remote access; CJ1 EHR; CJ4 billing.",
+    processes="Scheduling, clinical documentation, billing.",
+    controls=["Email filtering / antimalware (E2 - effectiveness unknown)", "MFA push on remote access (E6)", "EDR alerting (E6 - triage weak)"],
+    narrative="A newly registered look-alike domain sends 'Urgent: updated EHR access procedure' messages to clinic administrators. One user enters credentials on the fake portal; the attacker triggers repeated MFA pushes late at night until one is approved. With a valid clinical administrator session, the attacker browses EHR records, harvests address books for internal phishing and stages for privilege escalation.",
+    sequence=["Initial access - credential phishing and MFA push approval", "Exploitation - valid session on remote access gateway", "Privilege escalation - search for admin credentials and service-account secrets", "Persistence - register attacker MFA device / mailbox rules", "Discovery - enumerate EHR, file shares, clinics", "Lateral movement - internal phishing from trusted mailbox", "Collection - patient and billing extracts", "Exfiltration - over remote session", "Detection - unusual geography flagged late or not at all", "Business impact - privacy breach, possible precursor to S2"],
+    consequences={"Confidentiality/privacy": "Unauthorized access to patient records; likely reportable confidentiality incident.", "Integrity": "Possible record or mailbox manipulation.", "Availability": "Limited directly; high if it leads to S2.", "Operations": "Account resets and investigation across clinics.", "Financial": "Investigation, notification, legal costs.", "Regulatory": "Quebec privacy-law incident register, assessment and notification obligations (counsel to confirm).", "Reputation": "Loss of patient trust if disclosed.", "Safety": "Indirect."},
+    params={
+        "PbA": P(0.85, "Very likely", "Phishing is constant and attempts are increasing; lures already observed.", "E4, E6", "Medium"),
+        "Pbx": P(0.55, "Moderate-high", "Push MFA is bypassable by fatigue; no conditional access or macro blocking evidenced.", "E6", "Low"),
+        "De": P(0.55, "Material", "Access to a subset of records; containment possible if detected.", "E1, E6", "Medium"),
+        "Dm": P(0.85, "Severe", "Full EHR access or pivot to ransomware.", "E1", "Medium"),
+        "Th": P(0.40, "Limited", "Two-person team; alert triage weak; IR untested.", "E3, E6", "Medium"),
+        "Mu": P(0.85, "Very high", "Identity is the gateway to every crown jewel.", "E2", "High"),
+    },
+    cvss="CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:A/VC:H/VI:H/VA:N/SC:H/SI:L/SA:L",
+    cvss_note="Representative weakness: remote-access authentication accepting MFA push approval (CWE-308-type single-channel weakness). AV:N internet-reachable gateway; AC:L no special conditions; AT:N; PR:N attacker starts unauthenticated; UI:A user must actively approve; VC/VI:H full session on gateway; VA:N; SC:H EHR data behind the gateway; SI:L/SA:L limited downstream change/disruption. Applicability: moderate - human factor dominates.",
+    red_p=0.80, red_i=0.75, inits=["I01", "I02", "I03", "I12"],
+    treatment="Phishing-resistant MFA and conditional access (I01) is the primary lever; PAM (I02) limits blast radius; MDR (I03) shortens dwell time; awareness and reporting (I12).",
+    owner="CIO", horizon="0-6 months",
+))
+
+SCEN.append(dict(
+    id="S2", ref="MED-CYR-02", name="Ransomware disrupting EHR access and clinic operations across the network",
+    statement="A ransomware group gains a foothold through a macro-enabled phishing attachment or exposed service, moves laterally across an insufficiently segmented network, exfiltrates health data and encrypts EHR support servers, shared folders and scheduling systems, halting clinical and administrative operations at multiple clinics.",
+    stakeholders="Executive leadership; Board/ownership group; CIO; Cybersecurity lead; Clinical Ops; clinic managers; Privacy/Legal; Communications; EHR vendor; insurer; forensic provider; patients; media.",
+    background="Clinics depend heavily on central services in Montreal (E1, E2). The exercise timeline shows the full chain - phishing, PowerShell alert closed as low, backup failures, ransom note (E6). Segmentation and backup isolation are listed as open questions (E2, E7).",
+    threat_source="Ransomware-as-a-service affiliate (double extortion).",
+    threat_event="Encryption of servers and endpoints with prior data theft and extortion.",
+    vulns=["Macro execution and weak alert triage (E6)", "Segmentation between clinics, servers and backups not evidenced (E2, E7)", "Privileged credential hygiene unknown (Evidence gap)", "Clinic downtime procedures untested (E7)"],
+    assets="CJ1 EHR, CJ3 scheduling, CJ4 billing, CJ6 data centre and clinic storage.",
+    processes="Care delivery, appointments, diagnostics, billing, communications.",
+    controls=["Firewalls, IDS/IPS, antimalware (E2)", "EDR (E6)", "On-site and off-site backups (E2 - isolation and testing unknown)", "Incident command structure defined (E6 - untested)"],
+    narrative="Following initial access (see S1/S6), the actor escalates to domain administrator within days, disables security tooling where possible, deletes or encrypts reachable backups, exfiltrates EHR exports and deploys ransomware at 07:00 on a weekday. Several clinics lose EHR and scheduling; staff revert to paper; imaging and lab results are delayed.",
+    sequence=["Initial access - phishing macro or exposed service", "Exploitation - PowerShell loader", "Privilege escalation - credential dumping to domain admin", "Persistence - scheduled tasks, remote tools", "Discovery - AD, backups, file shares", "Lateral movement - flat network to servers and clinics", "Collection - EHR and billing exports", "Exfiltration then encryption of servers and clinic storage", "Detection - ransom note / user reports", "Business impact - multi-day multi-clinic disruption"],
+    consequences={"Confidentiality/privacy": "Probable health-data theft and publication threat.", "Integrity": "Encrypted and possibly corrupted data.", "Availability": "EHR, scheduling and file shares down for days.", "Operations": "Cancelled or delayed appointments at several clinics.", "Financial": "Recovery, forensics, lost revenue, possible extortion demand.", "Regulatory": "Notification to regulator and patients likely.", "Reputation": "Media attention (E6 inject).", "Safety": "Delayed diagnosis and treatment; medication-history gaps."},
+    params={
+        "PbA": P(0.75, "Likely", "Healthcare is a sustained ransomware target; attempts rising.", "E4", "Medium"),
+        "Pbx": P(0.50, "Plausible", "Multiple weak links (triage, segmentation, backup isolation) but perimeter controls exist.", "E2, E6", "Low"),
+        "De": P(0.70, "Major", "Multi-day disruption of several clinics.", "E1, E6", "Medium"),
+        "Dm": P(0.95, "Extreme", "Network-wide outage with data theft and failed recovery.", "E1", "Medium"),
+        "Th": P(0.35, "Weak", "Recovery and workarounds untested; small team.", "E3, E7", "Medium"),
+        "Mu": P(0.95, "Mission-critical", "EHR and scheduling underpin care delivery.", "E1", "High"),
+    },
+    cvss="CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:P/VC:H/VI:H/VA:H/SC:H/SI:H/SA:H",
+    cvss_note="Representative weakness: malicious macro document leading to code execution (initial vector in E6). AV:N delivered by e-mail; AC:L; AT:N; PR:N; UI:P user opens the document; VC/VI/VA:H on the workstation; SC/SI/SA:H because EHR and clinic systems are subsequently affected. CVSS describes the entry weakness only, not the enterprise impact.",
+    red_p=0.75, red_i=0.75, inits=["I02", "I03", "I04", "I05", "I06", "I11", "I12"],
+    treatment="Layered: MDR/EDR (I03), PAM (I02), segmentation (I06), immutable backup (I04), patching (I05), IR and downtime procedures (I11), awareness (I12). Residual remains material - consider cyber-insurance transfer.",
+    owner="Executive leadership (COO) with CIO", horizon="0-24 months",
+))
+
+SCEN.append(dict(
+    id="S3", ref="MED-CYR-07", name="Backup environment compromised, preventing recovery after a destructive attack",
+    statement="An attacker holding administrative credentials reaches backup servers that share the production identity domain and network, deletes or encrypts backup sets and clinic storage copies, so that MediBec cannot restore EHR and clinic systems within clinically acceptable time after a destructive event.",
+    stakeholders="CIO; Infrastructure team; Cybersecurity lead; Clinical Ops; clinic managers; off-site backup provider; Executive leadership.",
+    background="MediBec has on-site and off-site backups (E2) but isolation, immutability and restore testing are not evidenced. Exercise evidence shows unexplained backup failures on several clinic storage units before encryption (E6).",
+    threat_source="Ransomware operator or other attacker with administrative access.",
+    threat_event="Deletion/encryption of backups and recovery tooling.",
+    vulns=["Backup consoles authenticated through production directory (Analyst assumption - validate)", "No immutable or offline copy evidenced", "Restore testing and RTO/RPO not evidenced (E7)", "Backup failure alerts not escalated (E6)"],
+    assets="CJ6 backup servers, off-site copies, local clinic storage.",
+    processes="Disaster recovery for all clinical and administrative services.",
+    controls=["On-site and off-site backups (E2)", "Encrypted storage (E2)"],
+    narrative="Days before detonation, the attacker logs into the backup console with a domain administrator account, shortens retention, deletes restore points and corrupts clinic storage replicas. Failed backup jobs raise tickets that are treated as capacity issues. After encryption, restoration attempts fail or reach only stale copies.",
+    sequence=["Initial access - via S1/S2 chain", "Privilege escalation - domain admin", "Discovery - locate backup servers and schedules", "Lateral movement - to backup network", "Manipulation - retention changes, deletion of restore points", "Disruption - encryption of backup repositories", "Detection - failed restore during incident", "Business impact - prolonged outage and potential permanent data loss"],
+    consequences={"Confidentiality/privacy": "Backup data sets also exfiltrated.", "Integrity": "Loss of historical clinical data.", "Availability": "Recovery time extends from days to weeks.", "Operations": "Prolonged paper-based operation.", "Financial": "Pressure to pay ransom; rebuild costs.", "Regulatory": "Record-keeping and continuity obligations at risk.", "Reputation": "Severe.", "Safety": "Missing history for ongoing treatment."},
+    params={
+        "PbA": P(0.55, "Plausible", "Conditional on an intrusion reaching administrative level (S1/S2).", "E4, E6", "Medium"),
+        "Pbx": P(0.50, "Plausible", "Isolation unknown; failures in E6 suggest exposure.", "E2, E6", "Low"),
+        "De": P(0.60, "Major", "Partial loss of recent restore points.", "E2", "Medium"),
+        "Dm": P(0.90, "Extreme", "No usable backup for EHR.", "E1", "Medium"),
+        "Th": P(0.35, "Weak", "No restore testing evidence.", "E7", "Medium"),
+        "Mu": P(0.90, "Very high", "Recoverability of every crown jewel depends on it.", "E2", "High"),
+    },
+    cvss="CVSS:4.0/AV:N/AC:L/AT:N/PR:H/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:H",
+    cvss_note="Representative weakness: backup management console reachable from production network and trusting production administrator accounts. PR:H attacker already holds admin credentials; VC/VI/VA:H on the backup system; SA:H because recovery of all subsequent systems is lost.",
+    red_p=0.80, red_i=0.85, inits=["I02", "I03", "I04", "I06", "I11"],
+    treatment="Immutable/offline copies with separate backup identity (I04), segmentation (I06), PAM (I02), backup-alert monitoring (I03), quarterly restore tests and IR integration (I11).",
+    owner="CIO", horizon="0-9 months",
+))
+
+SCEN.append(dict(
+    id="S4", ref="MED-CYR-03", name="Cloud medical-image transfer storage exposed, enabling bulk health-data exfiltration",
+    statement="An opportunistic or targeted actor discovers a cloud storage location used for medical-image transfer and exports that is shared through long-lived public or weakly authenticated links, downloads large volumes of images and associated patient identifiers, and causes a large-scale health-data breach.",
+    stakeholders="Radiology lead; CIO; Cybersecurity lead; Privacy officer; Legal; cloud provider; referring clinicians; patients.",
+    background="MediBec uses cloud integration for remote data access (E2). Exercise evidence shows medical_image_export.zip downloaded from an unrecognized IP (E6). Cloud configuration, logging and shared-responsibility understanding are open questions (E4).",
+    threat_source="Opportunistic scanner or cybercriminal data broker.",
+    threat_event="Unauthorized bulk download from cloud storage.",
+    vulns=["Permissive or long-lived sharing links (Analyst assumption)", "No cloud posture management evidenced", "Object-level access logging unknown (E4)", "Exports contain identifiers alongside images"],
+    assets="CJ7 cloud image storage; CJ2 radiology.",
+    processes="Image sharing with clinicians and partners, referrals.",
+    controls=["Encrypted storage (E2 - at-rest only, not access control)", "Cloud access via identity (E2)"],
+    narrative="An export bucket created for a referral workflow keeps an anonymous access link. Automated scanners find it; an actor downloads several thousand studies with DICOM headers containing patient identifiers. MediBec learns of it from anomalous egress or from a third party.",
+    sequence=["Discovery - scanning for open storage", "Initial access - anonymous or leaked link", "Collection - enumeration of objects", "Exfiltration - bulk download", "Detection - late, via egress anomaly or external notice", "Business impact - large privacy breach"],
+    consequences={"Confidentiality/privacy": "Bulk exposure of images and identifiers.", "Integrity": "Low.", "Availability": "Sharing workflow suspended.", "Operations": "Referral delays.", "Financial": "Notification, legal and forensic costs.", "Regulatory": "High - large number of affected individuals.", "Reputation": "High.", "Safety": "Low."},
+    params={
+        "PbA": P(0.60, "Likely", "Cloud storage is continuously scanned.", "E4", "Medium"),
+        "Pbx": P(0.45, "Plausible", "Depends on sharing configuration - unknown; E6 suggests weakness.", "E6", "Low"),
+        "De": P(0.55, "Material", "Partial data set exposed.", "E6", "Medium"),
+        "Dm": P(0.80, "Severe", "Entire export history exposed.", "E1", "Medium"),
+        "Th": P(0.40, "Limited", "Logging and detection uncertain.", "E4", "Low"),
+        "Mu": P(0.75, "High", "Important but not essential to same-day care.", "E2", "Medium"),
+    },
+    cvss="CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:N/VA:N/SC:N/SI:N/SA:N",
+    cvss_note="Representative weakness: storage object accessible without authentication (CWE-284 misconfiguration). AV:N, AC:L, AT:N, PR:N, UI:N; confidentiality only (VC:H).",
+    red_p=0.85, red_i=0.70, inits=["I03", "I08", "I09"],
+    treatment="Block public access and enforce expiring authenticated links (I08); DLP and data minimization in exports (I09); object-access logging to MDR (I03).",
+    owner="CIO with Privacy officer", horizon="0-6 months",
+))
+
+SCEN.append(dict(
+    id="S5", ref="MED-CYR-11 (+ service-account evidence)", name="Misuse of legitimate clinical, privileged or service-account access to extract patient records",
+    statement="A malicious or curious insider, or an attacker who has taken over the over-privileged ehr-sync-svc service account, uses legitimate but excessive EHR access to query and export large volumes of patient or billing records without triggering review, resulting in a privacy breach and loss of trust.",
+    stakeholders="Privacy officer; HR; Clinical Ops; CIO; Cybersecurity lead; Legal; patients; professional orders.",
+    background="EHR access is central to care (E7). Exercise evidence shows unusual query volume from ehr-sync-svc (E6). The appetite statement requires least privilege and logging for high-risk data stores (E5).",
+    threat_source="Malicious or negligent insider; external actor using a service account.",
+    threat_event="Unauthorized query and export of health records.",
+    vulns=["Broad role-based access in EHR (Analyst assumption)", "Over-privileged service account without vaulting (E6)", "No EHR access analytics or periodic recertification evidenced (E7)", "No DLP evidenced"],
+    assets="CJ1 EHR data; CJ4 billing data.",
+    processes="Clinical documentation, billing, EHR integration.",
+    controls=["EHR audit log exists (E6)", "Encrypted storage (E2)"],
+    narrative="An employee leaving for a competitor exports patient contact and billing lists; separately, ehr-sync-svc credentials stored in a script are reused to pull records at night. Audit logs capture the activity but nobody reviews them until a patient complaint.",
+    sequence=["Initial access - legitimate account or reused service credential", "Collection - bulk queries and exports", "Exfiltration - USB, e-mail, personal cloud", "Detection - patient complaint or after-the-fact log review", "Business impact - privacy breach, disciplinary and legal action"],
+    consequences={"Confidentiality/privacy": "Targeted or bulk disclosure of health data.", "Integrity": "Low.", "Availability": "None.", "Operations": "Investigations, HR processes.", "Financial": "Legal and notification costs.", "Regulatory": "High.", "Reputation": "High, especially for sensitive patients.", "Safety": "Low."},
+    params={
+        "PbA": P(0.60, "Likely", "Insider snooping is recurrent in healthcare; service-account anomaly observed.", "E6", "Medium"),
+        "Pbx": P(0.55, "Moderate-high", "Legitimate access bypasses perimeter controls; no analytics.", "E6, E7", "Medium"),
+        "De": P(0.45, "Moderate", "Limited set of records.", "E1", "Medium"),
+        "Dm": P(0.75, "Severe", "Bulk extraction through the service account.", "E6", "Medium"),
+        "Th": P(0.40, "Limited", "Logs exist but not monitored.", "E6", "Medium"),
+        "Mu": P(0.80, "Very high", "EHR confidentiality is core to trust.", "E5", "High"),
+    },
+    cvss="CVSS:4.0/AV:N/AC:L/AT:N/PR:L/UI:N/VC:H/VI:L/VA:N/SC:N/SI:N/SA:N",
+    cvss_note="Limited applicability: insider misuse is not a software vulnerability. Representative weakness used for the workbook: excessive privileges on an authenticated account (CWE-269). PR:L legitimate low-privilege access; VC:H bulk read; VI:L. Interpret with caution.",
+    red_p=0.60, red_i=0.65, inits=["I02", "I03", "I09", "I12"],
+    treatment="Least-privilege redesign and access recertification plus EHR access analytics and DLP (I09); vault and restrict service accounts (I02); MDR use-cases (I03); HR/awareness (I12).",
+    owner="Privacy officer", horizon="3-12 months",
+))
+
+SCEN.append(dict(
+    id="S6", ref="MED-CYR-06", name="Exploitation of unpatched internet-facing or end-of-life systems",
+    statement="A cybercriminal or state-linked actor mass-exploits a known vulnerability in an internet-facing remote access gateway, firewall or web application that MediBec has not patched because of uptime concerns, vendor constraints or limited staff, obtaining remote code execution and a foothold for data theft or ransomware.",
+    stakeholders="CIO; Infrastructure; Cybersecurity lead; application owners; vendors; Clinical Ops (change windows).",
+    background="Patch delays are documented as a healthcare constraint (E3, E7). Asset inventory completeness and scan coverage are unknown (E4).",
+    threat_source="Cybercriminal / state-linked actor using public exploits.",
+    threat_event="Remote exploitation of a known vulnerability.",
+    vulns=["Patch SLAs and exception governance not evidenced (E7)", "Incomplete asset inventory (E4)", "Possible end-of-life systems (Evidence gap)"],
+    assets="CJ5 remote access; CJ6 perimeter; internet-facing applications.",
+    processes="Remote access for clinicians; online services.",
+    controls=["Firewalls, IDS/IPS (E2)", "Antimalware (E2)"],
+    narrative="A critical flaw in the remote access appliance is disclosed and exploited within days. MediBec schedules the patch for the next quarterly window. The actor implants a web shell, harvests session tokens and pivots internally.",
+    sequence=["Initial access - exploit of edge device", "Persistence - web shell / implant", "Credential access - session tokens", "Lateral movement - into server network", "Collection / disruption - leads to S2 or data theft", "Detection - external notice or threat hunt", "Business impact - intrusion, possible outage"],
+    consequences={"Confidentiality/privacy": "Potential access to health data.", "Integrity": "Device configuration tampering.", "Availability": "Remote access outage during emergency patching.", "Operations": "Clinician remote access disrupted.", "Financial": "Incident response costs.", "Regulatory": "Moderate to high.", "Reputation": "Moderate.", "Safety": "Indirect."},
+    params={
+        "PbA": P(0.80, "Very likely", "Edge-device exploitation campaigns are frequent.", "E4", "Medium"),
+        "Pbx": P(0.50, "Plausible", "Patching lag documented; inventory incomplete.", "E3, E7", "Low"),
+        "De": P(0.60, "Major", "Foothold with some data access.", "E2", "Medium"),
+        "Dm": P(0.90, "Extreme", "Precursor to network-wide ransomware.", "E1", "Medium"),
+        "Th": P(0.40, "Limited", "Detection of implants uncertain.", "E3", "Medium"),
+        "Mu": P(0.85, "Very high", "Remote access and perimeter serve all clinics.", "E2", "High"),
+    },
+    cvss="CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:H/SI:H/SA:H",
+    cvss_note="Representative weakness: unauthenticated remote code execution in an internet-facing gateway (typical of known-exploited edge vulnerabilities). All impacts High because the gateway fronts the internal network. Replace with the actual CVE vector once scan data is available.",
+    red_p=0.85, red_i=0.70, inits=["I03", "I05", "I06"],
+    treatment="Risk-based vulnerability and patch management with KEV SLAs and EOL retirement (I05); segmentation behind the edge (I06); MDR threat hunting (I03).",
+    owner="CIO", horizon="1-9 months",
+))
+
+SCEN.append(dict(
+    id="S7", ref="MED-CYR-09 (+ Wi-Fi path MED-CYR-05)", name="Connected medical device used as a foothold to disrupt clinical equipment and reach the EHR network",
+    statement="An attacker reaching a clinic network (through malware, a compromised clinic Wi-Fi or vendor access) exploits an unpatched or default-credential medical device on a network shared with EHR workstations, disrupting device operation and using it as a persistent foothold, with potential consequences for patient care.",
+    stakeholders="Biomedical engineering; Clinical Ops; clinic managers; device manufacturers; CIO; Cybersecurity lead; patients.",
+    background="Medical equipment is interconnected with the EHR environment; inventory, patch levels and segmentation are unknown (E2, E4). Patching is constrained by certification (E3).",
+    threat_source="Cybercriminal (opportunistic or during ransomware operation).",
+    threat_event="Exploitation of a medical/IoT device and lateral movement.",
+    vulns=["Incomplete device inventory (E4)", "Embedded OS patching restricted by certification (E3)", "Devices and guest/clinical Wi-Fi not segmented (E4, E7 - validate)", "Default credentials (Analyst assumption)"],
+    assets="CJ8 medical devices; CJ2 diagnostics; clinic LAN.",
+    processes="Diagnostic imaging, monitoring, device-to-EHR data flows.",
+    controls=["Firewalls and IDS/IPS at hub (E2 - east-west coverage unknown)"],
+    narrative="Ransomware spreading in a clinic encrypts the Windows-based console of an imaging device; separately, an attacker on guest Wi-Fi reaches a device with default credentials and uses it as a pivot that endpoint tools do not cover.",
+    sequence=["Initial access - adjacent network (Wi-Fi or infected workstation)", "Exploitation - unpatched service / default credentials", "Persistence - implant on unmanaged device", "Lateral movement - to EHR workstations", "Disruption - device unavailable or data altered", "Detection - clinical staff notice malfunction", "Business impact - postponed procedures, safety review"],
+    consequences={"Confidentiality/privacy": "Device-stored images and identifiers.", "Integrity": "Possible altered readings.", "Availability": "Devices out of service.", "Operations": "Procedure cancellations.", "Financial": "Device remediation with vendor.", "Regulatory": "Device-safety reporting may apply (validate).", "Reputation": "High if patient harm.", "Safety": "Direct - delayed or incorrect diagnostics."},
+    params={
+        "PbA": P(0.45, "Plausible", "Targeting of devices is less frequent than IT, but collateral infection is common.", "E4", "Low"),
+        "Pbx": P(0.50, "Plausible", "Patch and segmentation constraints documented.", "E3, E4", "Low"),
+        "De": P(0.55, "Material", "Some devices unavailable at one clinic.", "E1", "Medium"),
+        "Dm": P(0.95, "Extreme", "Patient harm from altered or unavailable equipment.", "E5", "Medium"),
+        "Th": P(0.35, "Weak", "No device monitoring or inventory evidence.", "E4", "Medium"),
+        "Mu": P(0.90, "Very high", "Direct link to patient safety.", "E5", "High"),
+    },
+    cvss="CVSS:4.0/AV:A/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:L/SI:L/SA:L",
+    cvss_note="Representative weakness: unpatched embedded service or default credential on a networked device. AV:A reachable from the clinic LAN/Wi-Fi only; PR:N; full device impact; SC/SI/SA:L onward effects. CVSS supplemental metric Safety (S:P) would apply but is not part of the base score.",
+    red_p=0.70, red_i=0.60, inits=["I05", "I06", "I07"],
+    treatment="Medical device security programme (I07), segmentation and NAC including guest Wi-Fi isolation (I06), patch/compensating controls (I05). Residual depends on manufacturers.",
+    owner="Clinical Ops with Biomedical engineering", horizon="3-24 months",
+))
+
+SCEN.append(dict(
+    id="S8", ref="MED-CYR-08 / 15", name="Detection and response gaps allow an intrusion to persist and escalate",
+    statement="An intrusion by any external actor goes unnoticed or is misclassified because alert triage, log coverage and after-hours monitoring are insufficient for a two-person cybersecurity team, and the untested incident response plan leads to slow, uncoordinated containment, turning a contained event into a major privacy and operational incident.",
+    stakeholders="Cybersecurity lead; CIO; Executive leadership; Clinical Ops; clinic managers; Privacy/Legal; Communications; MDR/forensic providers.",
+    background="Two dedicated cybersecurity staff (E3); a PowerShell alert was closed as low severity; unusual logins, cloud downloads and service-account queries were not correlated (E6). The IR plan has not been tested across clinics (E8 MED-CYR-15).",
+    threat_source="Any external actor (amplifier scenario).",
+    threat_event="Undetected dwell time and delayed, uncoordinated response.",
+    vulns=["No 24/7 monitoring (E3 - inferred)", "Alert triage criteria weak (E6)", "Log coverage and retention unknown (E4)", "IR plan untested; decision rights unclear (E8)"],
+    assets="All crown jewels; especially CJ1, CJ5.",
+    processes="Incident management, clinical continuity, privacy breach assessment.",
+    controls=["IDS/IPS (E2)", "EDR (E6)", "Incident command roles defined (E6)"],
+    narrative="Across ten days, four weak signals (phishing, PowerShell, unusual login, cloud download) are visible in different consoles but no one correlates them. When encryption begins, roles, forensic engagement and clinical workarounds are improvised.",
+    sequence=["Initial access - via S1/S6", "Weak signals generated but not triaged", "Dwell time of days to weeks", "Escalation to data theft / encryption", "Detection - by impact, not by monitoring", "Response - delayed decisions, evidence loss", "Business impact - amplified harm"],
+    consequences={"Confidentiality/privacy": "Larger breach scope; weaker evidence of what was accessed.", "Integrity": "Uncertainty over what was changed.", "Availability": "Longer outage.", "Operations": "Poor coordination across clinics.", "Financial": "Higher total incident cost.", "Regulatory": "Inability to substantiate breach assessment.", "Reputation": "Perceived mismanagement.", "Safety": "Indirect via prolonged outage."},
+    params={
+        "PbA": P(0.80, "Very likely", "Attempts ongoing; some will pass perimeter controls.", "E4", "Medium"),
+        "Pbx": P(0.60, "Likely", "Evidence of mis-triaged alerts and uncorrelated signals.", "E6", "Medium"),
+        "De": P(0.60, "Major", "Incident escalates before containment.", "E6", "Medium"),
+        "Dm": P(0.90, "Extreme", "Full ransomware and breach scenario.", "E6", "Medium"),
+        "Th": P(0.30, "Weak", "Detection and response are the weak capability itself.", "E3", "Medium"),
+        "Mu": P(0.85, "Very high", "Response capacity protects every service.", "E1", "High"),
+    },
+    cvss="CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:P/VC:H/VI:H/VA:L/SC:H/SI:L/SA:L",
+    cvss_note="Limited applicability: a detection gap is a control weakness, not a vulnerability. Representative weakness for the workbook: the undetected initial code-execution vector (macro/PowerShell, E6). Do not interpret the score as the severity of the detection gap.",
+    red_p=0.70, red_i=0.80, inits=["I01", "I03", "I11", "I12"],
+    treatment="24/7 MDR with centralized logging and escalation criteria (I03); IR plan, playbooks, retainer and tabletop exercises across clinics (I11); governance reporting (I12).",
+    owner="Cybersecurity lead", horizon="0-6 months",
+))
+
+SCEN.append(dict(
+    id="S9", ref="MED-CYR-14", name="Compromise of a critical vendor with remote access to MediBec systems",
+    statement="A threat actor compromises an EHR, diagnostic, device or IT support vendor and uses the vendor's standing remote access or software update channel to enter MediBec's environment, bypassing perimeter controls to access health data or deploy malware.",
+    stakeholders="Procurement; CIO; Cybersecurity lead; Vendor coordination lead; Privacy/Legal; Clinical Ops; affected vendors.",
+    background="MediBec depends on EHR, cloud, device and support vendors (E2, E7). Vendor assurance, contract clauses and access restrictions are listed as areas to assess, not as existing controls (E5, E7).",
+    threat_source="Supply-chain attacker (cybercriminal or state-linked).",
+    threat_event="Intrusion through a trusted third-party access path.",
+    vulns=["Standing vendor remote access (Analyst assumption)", "No vendor tiering or assessments evidenced (E7)", "Incident-notification clauses unknown (E5)", "Vendor sessions not brokered or recorded"],
+    assets="CJ1, CJ2, CJ8 and vendor-managed components.",
+    processes="EHR support, device maintenance, IT support.",
+    controls=["Firewalls (E2)", "Vendor coordination role defined for incidents (E6)"],
+    narrative="A remote-support tool used by a diagnostic-system vendor is compromised; the attacker uses the vendor's always-on connection to access the imaging server and pivot. The vendor notifies customers two weeks later.",
+    sequence=["Initial access - via vendor remote access", "Exploitation - trusted session", "Discovery - vendor-managed servers", "Lateral movement - into MediBec network", "Collection / disruption", "Detection - vendor notice or MDR alert", "Business impact - breach and outage, contractual disputes"],
+    consequences={"Confidentiality/privacy": "Health data exposed via vendor path.", "Integrity": "Possible tampering with vendor-managed systems.", "Availability": "Vendor systems isolated during investigation.", "Operations": "Diagnostic services degraded.", "Financial": "Shared-liability disputes.", "Regulatory": "MediBec remains accountable for its data.", "Reputation": "High.", "Safety": "Indirect."},
+    params={
+        "PbA": P(0.55, "Plausible", "Supply-chain attacks on healthcare vendors are recurrent.", "E7", "Low"),
+        "Pbx": P(0.45, "Plausible", "Controls over vendor access not evidenced.", "E7", "Low"),
+        "De": P(0.60, "Major", "Breach through one vendor path.", "E2", "Medium"),
+        "Dm": P(0.90, "Extreme", "EHR vendor compromise affecting all clinics.", "E1", "Medium"),
+        "Th": P(0.35, "Weak", "Limited visibility into vendor activity.", "E7", "Low"),
+        "Mu": P(0.85, "Very high", "Vendors support crown-jewel systems.", "E2", "High"),
+    },
+    cvss="CVSS:4.0/AV:N/AC:L/AT:P/PR:L/UI:N/VC:H/VI:H/VA:H/SC:H/SI:H/SA:H",
+    cvss_note="Limited applicability: supplier concentration is not a single vulnerability. Representative weakness: standing authenticated remote-access channel. AT:P the vendor must first be compromised; PR:L vendor account; full impacts. Validate against actual vendor access design.",
+    red_p=0.55, red_i=0.70, inits=["I01", "I02", "I03", "I10", "I11"],
+    treatment="Third-party risk programme and contract clauses (I10); vendor access only through PAM with MFA and recording (I01/I02); MDR monitoring of vendor sessions (I03); joint IR (I11). Residual largely outside MediBec's control - consider contractual and insurance transfer.",
+    owner="Procurement with CIO", horizon="2-12 months",
+))
+
+SCEN.append(dict(
+    id="S10", ref="MED-CYR-13", name="Manipulation of patient, medication or billing records undermining clinical decisions",
+    statement="An attacker with compromised clinical credentials, or a malicious insider, alters medication, allergy, laboratory or billing records in the EHR or pharmacy system without detection, leading to incorrect clinical decisions, patient harm and loss of confidence in the record.",
+    stakeholders="Clinical Ops; Pharmacy lead; Laboratory lead; physicians; Privacy officer; CIO; Cybersecurity lead; patients; professional orders.",
+    background="Clinical decisions rely on EHR, lab and pharmacy data (E1). Integrity controls are listed among expected controls but are not evidenced (E8). The appetite statement allows no residual risk that creates credible immediate threat to patient care (E5).",
+    threat_source="External attacker (extortion or sabotage) or malicious insider.",
+    threat_event="Unauthorized modification of clinical or billing records.",
+    vulns=["No integrity monitoring or reconciliation evidenced (E8)", "Broad write privileges (Analyst assumption)", "Audit trail review not evidenced", "Post-restore integrity verification absent"],
+    assets="CJ1 EHR; CJ2 pharmacy and laboratory systems; CJ4 billing.",
+    processes="Prescribing, dispensing, diagnosis, billing.",
+    controls=["EHR audit logging (E6)", "Encrypted storage (E2 - no integrity protection)"],
+    narrative="Following a credential compromise, an extortion group alters allergy entries for a sample of patients and then demands payment to reveal which records were changed. MediBec must verify thousands of records manually.",
+    sequence=["Initial access - compromised clinical account", "Manipulation - targeted record changes", "Detection - clinician notices inconsistency or extortion note", "Response - verification against backups", "Business impact - clinical safety review, loss of trust in record"],
+    consequences={"Confidentiality/privacy": "Moderate.", "Integrity": "Severe - trust in clinical record.", "Availability": "EHR in restricted mode during verification.", "Operations": "Manual verification workload.", "Financial": "Verification, legal costs.", "Regulatory": "Professional and privacy obligations.", "Reputation": "Severe if harm occurs.", "Safety": "Direct - wrong medication or diagnosis."},
+    params={
+        "PbA": P(0.30, "Unlikely-plausible", "Integrity attacks are rarer than theft or encryption.", "E4", "Low"),
+        "Pbx": P(0.40, "Moderate", "Requires write access; monitoring absent.", "E8", "Low"),
+        "De": P(0.55, "Material", "Limited record set altered and detected.", "E1", "Medium"),
+        "Dm": P(0.95, "Extreme", "Patient harm from undetected alteration.", "E5", "Medium"),
+        "Th": P(0.40, "Limited", "Backups exist but integrity verification absent.", "E2", "Low"),
+        "Mu": P(0.95, "Mission-critical", "Clinical record integrity underpins safe care.", "E1", "High"),
+    },
+    cvss="CVSS:4.0/AV:N/AC:L/AT:N/PR:L/UI:N/VC:L/VI:H/VA:N/SC:N/SI:H/SA:N",
+    cvss_note="Representative weakness: authenticated user able to modify records beyond need (improper authorization, CWE-285). PR:L; VI:H; SI:H because pharmacy/lab downstream systems consume the altered data.",
+    red_p=0.70, red_i=0.75, inits=["I01", "I02", "I03", "I04", "I09", "I11", "I13"],
+    treatment="Integrity monitoring and reconciliation (I13), least-privilege write access (I09/I02), strong authentication (I01), backup-based verification (I04), MDR (I03), clinical playbook (I11).",
+    owner="Clinical Ops (CMO)", horizon="3-15 months",
+))
+
+# ---------------------------------------------------------------- KRIs (monitoring)
+KRIS = [
+    ("KRI-01", "% privileged and remote-access accounts on phishing-resistant MFA", "S1, S8, S9", "Accounts with FIDO2 / total in-scope accounts", "IdP / directory report", "Cybersecurity lead", "Monthly", "100%", "< 95%", "< 85%"),
+    ("KRI-02", "Phishing simulation report rate / click rate", "S1, S2", "Reported vs clicked in simulations", "Awareness platform", "Cybersecurity lead", "Quarterly", "> 70% / < 5%", "< 50% / > 8%", "< 30% / > 15%"),
+    ("KRI-03", "% critical/known-exploited vulnerabilities remediated within SLA", "S6, S2", "Closed within SLA / total", "Vulnerability scanner", "CIO", "Monthly", "> 95%", "< 90%", "< 75%"),
+    ("KRI-04", "Number of unsupported (end-of-life) systems on patient-data or internet-facing networks", "S6, S7", "Count from inventory", "CMDB / scanner", "CIO", "Monthly", "0", ">= 1", ">= 5"),
+    ("KRI-05", "Crown-jewel backup restore-test success rate within RTO", "S2, S3, S10", "Successful tests / tests run", "Backup platform, DR test records", "CIO (Infrastructure)", "Quarterly", "100%", "< 95%", "< 80%"),
+    ("KRI-06", "EDR and log coverage of critical assets", "S2, S8", "Assets reporting / inventory", "EDR console, SIEM", "Cybersecurity lead", "Monthly", "> 98%", "< 95%", "< 90%"),
+    ("KRI-07", "Mean time to detect / contain high-severity incidents", "S8, S2", "Median hours from first signal to detection / containment", "MDR reports", "Cybersecurity lead", "Monthly", "< 1 h / < 4 h", "> 4 h / > 24 h", "> 24 h / > 72 h"),
+    ("KRI-08", "Publicly accessible cloud storage objects containing health data", "S4", "Count from CSPM", "CSPM", "CIO", "Weekly", "0", ">= 1", ">= 1 with PHI"),
+    ("KRI-09", "% EHR roles recertified and bulk-access alerts reviewed within 24 h", "S5, S10", "Recertified / total; reviewed / raised", "EHR access analytics, IAM", "Privacy officer", "Quarterly", "100%", "< 95%", "< 85%"),
+    ("KRI-10", "% networked medical devices inventoried and in isolated segments", "S7", "Segmented devices / inventoried", "IoMT monitoring, NAC", "Biomedical engineering", "Quarterly", "100%", "< 90%", "< 70%"),
+    ("KRI-11", "% critical vendors assessed with current notification clauses", "S9", "Assessed / critical vendors", "TPRM register", "Procurement", "Quarterly", "100%", "< 90%", "< 70%"),
+    ("KRI-12", "Clinics with tested downtime procedures (last 12 months)", "S2, S8", "Clinics tested / 10", "Tabletop records", "Clinical Ops", "Semi-annual", "10/10", "< 8", "< 5"),
+]
+
+# ---------------------------------------------------------------- calculations
+def calc(s, appetite=APPETITE, factor=FACTOR):
+    p = {k: v["v"] for k, v in s["params"].items()}
+    c = s["cvss_score"]
+    base = p["PbA"] * p["Pbx"] * c * p["Mu"] / p["Th"] * factor
+    est = base * (p["De"] + p["Dm"]) / 2
+    tol = base * appetite
+    mit = est * s["red_p"] * s["red_i"]
+    res = est - mit
+    return dict(est=est, tol=tol, mit=mit, res=res, ratio=res / tol, pre_ratio=est / tol)
+
+def classify(r):
+    if r < BAND_LOW:
+        return "Below tolerance"
+    if r <= BAND_HIGH:
+        return "Approximately at tolerance"
+    return "Above tolerance"
+
+def case_norm(s):
+    """Case-native escalation view (s.8): T x E x I x (1 - C), C proxied by resilience."""
+    p = {k: v["v"] for k, v in s["params"].items()}
+    cur = p["PbA"] * p["Pbx"] * (p["De"] + p["Dm"]) / 2 * (1 - p["Th"])
+    post = cur * (1 - s["red_p"] * s["red_i"])
+    return cur, post
+
+def level(x):
+    if x <= 0.07: return "Low"
+    if x <= 0.15: return "Moderate"
+    if x <= 0.25: return "High"
+    return "Critical"
+
+def authority(x):
+    if x > 0.40: return "Board / ownership group"
+    if x > 0.25: return "Executive leadership"
+    return "CIO / Cybersecurity lead"
+
+for s in SCEN:
+    s["cvss_score"] = CVSS4(s["cvss"]).base_score
+    s["cvss_sev"] = CVSS4(s["cvss"]).severities()[0]
+
+# cost allocation: initiative Year-1 cost split equally across scenarios addressed
+init_map = {i[0]: i for i in INITIATIVES}
+for s in SCEN:
+    s["alloc_initial"] = 0.0
+    s["alloc_recurring"] = 0.0
+for i in INITIATIVES:
+    n = len(i[3])
+    for sid in i[3]:
+        s = next(x for x in SCEN if x["id"] == sid)
+        s["alloc_initial"] += i[6] / n
+        s["alloc_recurring"] += i[7] / n
+# consistency: scenario init lists must match initiative scenario lists
+for s in SCEN:
+    derived = sorted([i[0] for i in INITIATIVES if s["id"] in i[3]])
+    assert derived == sorted(s["inits"]), (s["id"], derived, s["inits"])
+
+for s in SCEN:
+    r = calc(s)
+    s.update(r)
+    s["cost_y1"] = s["alloc_initial"] + s["alloc_recurring"]
+    s["ce"] = (s["est"] - s["res"]) / s["cost_y1"] * 1000
+    s["class"] = classify(s["ratio"])
+    s["norm_cur"], s["norm_post"] = case_norm(s)
+    s["ratio_case"] = calc(s, appetite=CASE_APPETITE)["ratio"]
+
+# sensitivity (lower / central / higher) for key scenarios
+SENS_IDS = ["S2", "S7", "S9", "S1", "S8"]
+def shift(s, d):
+    import copy
+    t = copy.deepcopy(s)
+    pr = t["params"]
+    clamp = lambda x: max(0.05, min(0.99, x))
+    for k in ("PbA", "Pbx", "De", "Dm"):
+        pr[k]["v"] = clamp(pr[k]["v"] + d)
+    pr["Th"]["v"] = clamp(pr["Th"]["v"] - d)
+    t["red_p"] = clamp(t["red_p"] - d)
+    t["red_i"] = clamp(t["red_i"] - d)
+    return t
+SENS = []
+for sid in SENS_IDS:
+    s = next(x for x in SCEN if x["id"] == sid)
+    row = {"id": sid, "name": s["name"]}
+    for lab, d in (("lower", -0.10), ("central", 0.0), ("higher", 0.10)):
+        t = shift(s, d)
+        r = calc(t)
+        row[lab] = dict(est=r["est"], res=r["res"], ratio=r["res"] / r["tol"], cls=classify(r["res"] / r["tol"]))
+    SENS.append(row)
+
+TOT_INITIAL = sum(i[6] for i in INITIATIVES)
+TOT_RECUR = sum(i[7] for i in INITIATIVES)
+
+if __name__ == "__main__":
+    for s in SCEN:
+        print(f'{s["id"]:4} CVSS {s["cvss_score"]:4} est {s["est"]:8.1f} tol {s["tol"]:8.1f} res {s["res"]:8.1f} '
+              f'ratio {s["ratio"]:.2f} ({s["class"]}) case@0.40 {s["ratio_case"]:.2f} norm {s["norm_cur"]:.3f}->{s["norm_post"]:.3f} '
+              f'cost {s["cost_y1"]:9.0f} CE {s["ce"]:.2f}')
+    print("initial", TOT_INITIAL, "recurring", TOT_RECUR, "Y1", TOT_INITIAL + TOT_RECUR)
+    for r in SENS:
+        print(r["id"], {k: round(r[k]["ratio"], 2) for k in ("lower", "central", "higher")})

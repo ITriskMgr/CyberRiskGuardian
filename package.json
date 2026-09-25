@@ -1,0 +1,10 @@
+{
+  "name": "cyberriskguardian-agent",
+  "version": "1.1.0",
+  "private": true,
+  "description": "Node dependency for Word report generation (docx-js) used by CyberRiskGuardian.",
+  "dependencies": {
+    "docx": "^9.0.0"
+  },
+  "license": "CC-BY-NC-4.0"
+}

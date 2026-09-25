@@ -1,0 +1,2287 @@
+{
+ "IT_BUDGET": 100000000,
+ "BAND": {
+  "min": 0.04,
+  "median": 0.078,
+  "max": 0.12
+ },
+ "FTE": 156000,
+ "TARGET_030": 0.12,
+ "TARGET_040": 0.09899999999999999,
+ "CYBER_SHARE": {
+  "I01": 1.0,
+  "I02": 1.0,
+  "I03": 1.0,
+  "I04": 0.5,
+  "I05": 0.75,
+  "I06": 0.5,
+  "I07": 0.7,
+  "I08": 1.0,
+  "I09": 1.0,
+  "I10": 1.0,
+  "I11": 0.7,
+  "I12": 1.0,
+  "I13": 0.5,
+  "I14": 0.8,
+  "I15": 1.0,
+  "I16": 1.0,
+  "I17": 0.3,
+  "I18": 0.0,
+  "I19": 0.5,
+  "I20": 0.5,
+  "I21": 0.5,
+  "I22": 0.3,
+  "I23": 1.0
+ },
+ "SHARE_WHY": {
+  "I04": "Backup platform is IT disaster recovery; immutability and isolation are security.",
+  "I05": "Scanning, SLAs and the analyst FTE are security; patch deployment effort sits in IT operations.",
+  "I06": "Network re-architecture is IT; security zoning and NAC policy are security.",
+  "I07": "Device inventory and monitoring are security; biomedical engineering effort is clinical/IT.",
+  "I11": "IR plan, retainer and exercises are security; clinical downtime procedures are operations.",
+  "I13": "Integrity monitoring is security; EHR reconciliation work is application support.",
+  "I14": "Security tooling and pen tests are security; developer remediation time is IT.",
+  "I17": "MDM and endpoint encryption are IT endpoint management; disposal certification is security.",
+  "I18": "Carrier redundancy, SD-WAN and failover are IT infrastructure resilience.",
+  "I19": "Data discovery is security/privacy; consolidation and referral channel are IT.",
+  "I20": "Policy and web controls are security; the sanctioned AI tool licence is IT.",
+  "I21": "Verification procedure is security; help-desk tooling and time are IT.",
+  "I22": "TLS on interfaces and platform hardening split with integration and telehealth delivery."
+ },
+ "BASELINE": [
+  [
+   "B1",
+   "Existing cybersecurity staff (2 FTE)",
+   312000,
+   "E3: two dedicated staff; FTE valued at workbook convention 1,950 h x $80."
+  ],
+  [
+   "B2",
+   "Existing security tooling and support (firewalls, IDS/IPS, antimalware/EDR, e-mail filtering)",
+   600000,
+   "E2 lists these controls; cost is an analyst estimate."
+  ]
+ ],
+ "STAFF": [
+  [
+   "H1",
+   "IAM / PAM engineer",
+   3,
+   "S1, S5, S20, S23, S27, S28"
+  ],
+  [
+   "H2",
+   "Security architect (cloud and network)",
+   6,
+   "S4, S6, S11, S12, S16, S20"
+  ],
+  [
+   "H3",
+   "Governance, risk and privacy-security analyst",
+   6,
+   "S5, S9, S19, S21, S26 and KRI reporting"
+  ],
+  [
+   "H4",
+   "Application security engineer",
+   12,
+   "S11, S18, S19"
+  ],
+  [
+   "H5",
+   "Medical device / OT security specialist",
+   12,
+   "S7, S24, S29"
+  ]
+ ],
+ "SECOND": [
+  [
+   "E01",
+   "Zero-trust network access replacing VPN",
+   [
+    "S1",
+    "S6",
+    "S9",
+    "S20",
+    "S23",
+    "S27"
+   ],
+   400000,
+   150000,
+   12,
+   24,
+   1.0,
+   "Identity- and device-aware access per application; removes exposed VPN appliance and brokers vendor access."
+  ],
+  [
+   "E02",
+   "Identity governance and administration (IGA)",
+   [
+    "S5",
+    "S10",
+    "S27",
+    "S28"
+   ],
+   300000,
+   100000,
+   9,
+   18,
+   1.0,
+   "Automated joiner-mover-leaver, access certification and separation-of-duties rules."
+  ],
+  [
+   "E03",
+   "Data security posture management and advanced DLP",
+   [
+    "S4",
+    "S11",
+    "S17",
+    "S21",
+    "S26"
+   ],
+   150000,
+   120000,
+   9,
+   15,
+   1.0,
+   "Continuous discovery and classification of PHI across cloud, clinic storage and SaaS."
+  ],
+  [
+   "E04",
+   "Secondary site / cloud disaster recovery for EHR and core services",
+   [
+    "S2",
+    "S3",
+    "S16",
+    "S28"
+   ],
+   1200000,
+   300000,
+   12,
+   30,
+   0.2,
+   "Warm standby for EHR, identity and imaging with tested failover."
+  ],
+  [
+   "E05",
+   "Legacy medical-device replacement and isolation fund",
+   [
+    "S7",
+    "S24",
+    "S29"
+   ],
+   900000,
+   0,
+   12,
+   36,
+   0.2,
+   "Replace or isolate devices that cannot be patched or monitored."
+  ],
+  [
+   "E06",
+   "Independent assurance programme",
+   [
+    "S8",
+    "S18",
+    "S19",
+    "S28"
+   ],
+   0,
+   250000,
+   3,
+   3,
+   1.0,
+   "Annual red-team / penetration test, cyber audit by internal audit, compromise assessment."
+  ],
+  [
+   "E07",
+   "Software supply-chain security",
+   [
+    "S11",
+    "S18",
+    "S19"
+   ],
+   80000,
+   50000,
+   6,
+   12,
+   1.0,
+   "SBOM collection, software composition analysis, staged update environment for critical software."
+  ],
+  [
+   "E08",
+   "SaaS and cloud backup",
+   [
+    "S2",
+    "S20"
+   ],
+   40000,
+   60000,
+   3,
+   6,
+   0.5,
+   "Independent backup of cloud mail, files and tenant configuration."
+  ],
+  [
+   "E09",
+   "Cyber insurance (risk transfer)",
+   [
+    "S2",
+    "S9",
+    "S19",
+    "S28"
+   ],
+   0,
+   350000,
+   0,
+   0,
+   1.0,
+   "Placeholder premium - broker quotation required (Evidence gap)."
+  ]
+ ],
+ "RESERVE_PCT": 0.1,
+ "ENHANCED": {
+  "S1": [
+   0.85,
+   0.8
+  ],
+  "S2": [
+   0.8,
+   0.8
+  ],
+  "S3": [
+   0.85,
+   0.9
+  ],
+  "S4": [
+   0.9,
+   0.75
+  ],
+  "S5": [
+   0.7,
+   0.7
+  ],
+  "S6": [
+   0.9,
+   0.7
+  ],
+  "S7": [
+   0.8,
+   0.72
+  ],
+  "S8": [
+   0.75,
+   0.8
+  ],
+  "S9": [
+   0.6,
+   0.75
+  ],
+  "S10": [
+   0.75,
+   0.8
+  ],
+  "S11": [
+   0.9,
+   0.7
+  ],
+  "S16": [
+   0.85,
+   0.8
+  ],
+  "S17": [
+   0.8,
+   0.75
+  ],
+  "S18": [
+   0.85,
+   0.7
+  ],
+  "S19": [
+   0.5,
+   0.7
+  ],
+  "S20": [
+   0.85,
+   0.75
+  ],
+  "S21": [
+   0.7,
+   0.6
+  ],
+  "S23": [
+   0.9,
+   0.7
+  ],
+  "S24": [
+   0.8,
+   0.7
+  ],
+  "S26": [
+   0.75,
+   0.65
+  ],
+  "S27": [
+   0.85,
+   0.7
+  ],
+  "S28": [
+   0.65,
+   0.7
+  ],
+  "S29": [
+   0.8,
+   0.75
+  ]
+ },
+ "lines": [
+  {
+   "group": "A. Existing baseline",
+   "id": "B1",
+   "name": "Existing cybersecurity staff (2 FTE)",
+   "cyber": [
+    312000.0,
+    312000.0,
+    312000.0
+   ],
+   "it": [
+    0,
+    0,
+    0
+   ],
+   "kind": "run"
+  },
+  {
+   "group": "A. Existing baseline",
+   "id": "B2",
+   "name": "Existing security tooling and support (firewalls, IDS/IPS, antimalware/EDR, e-mail filtering)",
+   "cyber": [
+    600000.0,
+    600000.0,
+    600000.0
+   ],
+   "it": [
+    0,
+    0,
+    0
+   ],
+   "kind": "run"
+  },
+  {
+   "group": "B. Risk-treatment portfolio - projects",
+   "id": "I01",
+   "name": "Phishing-resistant MFA and conditional access",
+   "cyber": [
+    180000.0,
+    0.0,
+    0.0
+   ],
+   "it": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "kind": "project"
+  },
+  {
+   "group": "C. Risk-treatment portfolio - run",
+   "id": "I01",
+   "name": "Phishing-resistant MFA and conditional access",
+   "cyber": [
+    30000.0,
+    60000.0,
+    60000.0
+   ],
+   "it": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "kind": "run"
+  },
+  {
+   "group": "B. Risk-treatment portfolio - projects",
+   "id": "I02",
+   "name": "Privileged access and service-account management (PAM)",
+   "cyber": [
+    250000.0,
+    0.0,
+    0.0
+   ],
+   "it": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "kind": "project"
+  },
+  {
+   "group": "C. Risk-treatment portfolio - run",
+   "id": "I02",
+   "name": "Privileged access and service-account management (PAM)",
+   "cyber": [
+    0.0,
+    80000.0,
+    80000.0
+   ],
+   "it": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "kind": "run"
+  },
+  {
+   "group": "B. Risk-treatment portfolio - projects",
+   "id": "I03",
+   "name": "24/7 managed detection and response with centralized logging",
+   "cyber": [
+    200000.00000000003,
+    0.0,
+    0.0
+   ],
+   "it": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "kind": "project"
+  },
+  {
+   "group": "C. Risk-treatment portfolio - run",
+   "id": "I03",
+   "name": "24/7 managed detection and response with centralized logging",
+   "cyber": [
+    210000.0,
+    420000.0,
+    420000.0
+   ],
+   "it": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "kind": "run"
+  },
+  {
+   "group": "B. Risk-treatment portfolio - projects",
+   "id": "I04",
+   "name": "Immutable and isolated backup with tested recovery",
+   "cyber": [
+    150000.0,
+    0.0,
+    0.0
+   ],
+   "it": [
+    150000.0,
+    0.0,
+    0.0
+   ],
+   "kind": "project"
+  },
+  {
+   "group": "C. Risk-treatment portfolio - run",
+   "id": "I04",
+   "name": "Immutable and isolated backup with tested recovery",
+   "cyber": [
+    11250.0,
+    45000.0,
+    45000.0
+   ],
+   "it": [
+    11250.0,
+    45000.0,
+    45000.0
+   ],
+   "kind": "run"
+  },
+  {
+   "group": "B. Risk-treatment portfolio - projects",
+   "id": "I05",
+   "name": "Risk-based vulnerability and patch management",
+   "cyber": [
+    112500.0,
+    0.0,
+    0.0
+   ],
+   "it": [
+    37500.0,
+    0.0,
+    0.0
+   ],
+   "kind": "project"
+  },
+  {
+   "group": "C. Risk-treatment portfolio - run",
+   "id": "I05",
+   "name": "Risk-based vulnerability and patch management",
+   "cyber": [
+    40500.0,
+    162000.0,
+    162000.0
+   ],
+   "it": [
+    13500.0,
+    54000.0,
+    54000.0
+   ],
+   "kind": "run"
+  },
+  {
+   "group": "B. Risk-treatment portfolio - projects",
+   "id": "I06",
+   "name": "Network segmentation and network access control",
+   "cyber": [
+    75000.0,
+    150000.0,
+    0.0
+   ],
+   "it": [
+    75000.0,
+    150000.0,
+    0.0
+   ],
+   "kind": "project"
+  },
+  {
+   "group": "C. Risk-treatment portfolio - run",
+   "id": "I06",
+   "name": "Network segmentation and network access control",
+   "cyber": [
+    0.0,
+    0.0,
+    35000.00000000001
+   ],
+   "it": [
+    0.0,
+    0.0,
+    35000.00000000001
+   ],
+   "kind": "run"
+  },
+  {
+   "group": "B. Risk-treatment portfolio - projects",
+   "id": "I07",
+   "name": "Medical device security programme",
+   "cyber": [
+    126000.0,
+    0.0,
+    0.0
+   ],
+   "it": [
+    54000.00000000001,
+    0.0,
+    0.0
+   ],
+   "kind": "project"
+  },
+  {
+   "group": "C. Risk-treatment portfolio - run",
+   "id": "I07",
+   "name": "Medical device security programme",
+   "cyber": [
+    0.0,
+    63000.0,
+    63000.0
+   ],
+   "it": [
+    0.0,
+    27000.000000000004,
+    27000.000000000004
+   ],
+   "kind": "run"
+  },
+  {
+   "group": "B. Risk-treatment portfolio - projects",
+   "id": "I08",
+   "name": "Cloud security posture and secure image transfer",
+   "cyber": [
+    120000.0,
+    0.0,
+    0.0
+   ],
+   "it": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "kind": "project"
+  },
+  {
+   "group": "C. Risk-treatment portfolio - run",
+   "id": "I08",
+   "name": "Cloud security posture and secure image transfer",
+   "cyber": [
+    30000.0,
+    60000.0,
+    60000.0
+   ],
+   "it": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "kind": "run"
+  },
+  {
+   "group": "B. Risk-treatment portfolio - projects",
+   "id": "I09",
+   "name": "Data access governance and EHR privacy monitoring",
+   "cyber": [
+    200000.0,
+    0.0,
+    0.0
+   ],
+   "it": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "kind": "project"
+  },
+  {
+   "group": "C. Risk-treatment portfolio - run",
+   "id": "I09",
+   "name": "Data access governance and EHR privacy monitoring",
+   "cyber": [
+    0.0,
+    90000.0,
+    90000.0
+   ],
+   "it": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "kind": "run"
+  },
+  {
+   "group": "B. Risk-treatment portfolio - projects",
+   "id": "I10",
+   "name": "Third-party cyber risk management",
+   "cyber": [
+    90000.0,
+    0.0,
+    0.0
+   ],
+   "it": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "kind": "project"
+  },
+  {
+   "group": "C. Risk-treatment portfolio - run",
+   "id": "I10",
+   "name": "Third-party cyber risk management",
+   "cyber": [
+    0.0,
+    70000.00000000001,
+    70000.00000000001
+   ],
+   "it": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "kind": "run"
+  },
+  {
+   "group": "B. Risk-treatment portfolio - projects",
+   "id": "I11",
+   "name": "Incident response and clinical continuity readiness",
+   "cyber": [
+    84000.0,
+    0.0,
+    0.0
+   ],
+   "it": [
+    36000.00000000001,
+    0.0,
+    0.0
+   ],
+   "kind": "project"
+  },
+  {
+   "group": "C. Risk-treatment portfolio - run",
+   "id": "I11",
+   "name": "Incident response and clinical continuity readiness",
+   "cyber": [
+    28000.000000000004,
+    55999.99999999999,
+    55999.99999999999
+   ],
+   "it": [
+    12000.000000000002,
+    24000.000000000004,
+    24000.000000000004
+   ],
+   "kind": "run"
+  },
+  {
+   "group": "B. Risk-treatment portfolio - projects",
+   "id": "I12",
+   "name": "Governance, awareness and risk reporting",
+   "cyber": [
+    70000.0,
+    0.0,
+    0.0
+   ],
+   "it": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "kind": "project"
+  },
+  {
+   "group": "C. Risk-treatment portfolio - run",
+   "id": "I12",
+   "name": "Governance, awareness and risk reporting",
+   "cyber": [
+    67500.0,
+    90000.0,
+    90000.0
+   ],
+   "it": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "kind": "run"
+  },
+  {
+   "group": "B. Risk-treatment portfolio - projects",
+   "id": "I13",
+   "name": "Clinical data integrity controls",
+   "cyber": [
+    33333.333333333336,
+    16666.666666666668,
+    0.0
+   ],
+   "it": [
+    33333.333333333336,
+    16666.666666666668,
+    0.0
+   ],
+   "kind": "project"
+  },
+  {
+   "group": "C. Risk-treatment portfolio - run",
+   "id": "I13",
+   "name": "Clinical data integrity controls",
+   "cyber": [
+    0.0,
+    14999.999999999998,
+    20000.0
+   ],
+   "it": [
+    0.0,
+    14999.999999999998,
+    20000.0
+   ],
+   "kind": "run"
+  },
+  {
+   "group": "B. Risk-treatment portfolio - projects",
+   "id": "I14",
+   "name": "Application security and secrets management",
+   "cyber": [
+    112000.00000000001,
+    0.0,
+    0.0
+   ],
+   "it": [
+    27999.99999999999,
+    0.0,
+    0.0
+   ],
+   "kind": "project"
+  },
+  {
+   "group": "C. Risk-treatment portfolio - run",
+   "id": "I14",
+   "name": "Application security and secrets management",
+   "cyber": [
+    14000.0,
+    55999.99999999999,
+    55999.99999999999
+   ],
+   "it": [
+    3499.999999999999,
+    13999.999999999995,
+    13999.999999999995
+   ],
+   "kind": "run"
+  },
+  {
+   "group": "B. Risk-treatment portfolio - projects",
+   "id": "I15",
+   "name": "DDoS protection, CDN and web application firewall",
+   "cyber": [
+    40000.0,
+    0.0,
+    0.0
+   ],
+   "it": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "kind": "project"
+  },
+  {
+   "group": "C. Risk-treatment portfolio - run",
+   "id": "I15",
+   "name": "DDoS protection, CDN and web application firewall",
+   "cyber": [
+    40000.0,
+    60000.0,
+    60000.0
+   ],
+   "it": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "kind": "run"
+  },
+  {
+   "group": "B. Risk-treatment portfolio - projects",
+   "id": "I16",
+   "name": "Payment-fraud controls and e-mail authentication",
+   "cyber": [
+    30000.0,
+    0.0,
+    0.0
+   ],
+   "it": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "kind": "project"
+  },
+  {
+   "group": "C. Risk-treatment portfolio - run",
+   "id": "I16",
+   "name": "Payment-fraud controls and e-mail authentication",
+   "cyber": [
+    11250.0,
+    15000.0,
+    15000.0
+   ],
+   "it": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "kind": "run"
+  },
+  {
+   "group": "B. Risk-treatment portfolio - projects",
+   "id": "I17",
+   "name": "Mobile device management, encryption and secure disposal",
+   "cyber": [
+    24000.0,
+    0.0,
+    0.0
+   ],
+   "it": [
+    56000.0,
+    0.0,
+    0.0
+   ],
+   "kind": "project"
+  },
+  {
+   "group": "C. Risk-treatment portfolio - run",
+   "id": "I17",
+   "name": "Mobile device management, encryption and secure disposal",
+   "cyber": [
+    3750.0,
+    15000.0,
+    15000.0
+   ],
+   "it": [
+    8750.0,
+    35000.00000000001,
+    35000.00000000001
+   ],
+   "kind": "run"
+  },
+  {
+   "group": "B. Risk-treatment portfolio - projects",
+   "id": "I18",
+   "name": "Network and hosting resilience",
+   "cyber": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "it": [
+    150000.0,
+    200000.0,
+    0.0
+   ],
+   "kind": "project"
+  },
+  {
+   "group": "C. Risk-treatment portfolio - run",
+   "id": "I18",
+   "name": "Network and hosting resilience",
+   "cyber": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "it": [
+    0.0,
+    40000.0,
+    120000.0
+   ],
+   "kind": "run"
+  },
+  {
+   "group": "B. Risk-treatment portfolio - projects",
+   "id": "I19",
+   "name": "Data lifecycle and minimization",
+   "cyber": [
+    59999.99999999999,
+    0.0,
+    0.0
+   ],
+   "it": [
+    59999.99999999999,
+    0.0,
+    0.0
+   ],
+   "kind": "project"
+  },
+  {
+   "group": "C. Risk-treatment portfolio - run",
+   "id": "I19",
+   "name": "Data lifecycle and minimization",
+   "cyber": [
+    0.0,
+    20000.0,
+    20000.0
+   ],
+   "it": [
+    0.0,
+    20000.0,
+    20000.0
+   ],
+   "kind": "run"
+  },
+  {
+   "group": "B. Risk-treatment portfolio - projects",
+   "id": "I20",
+   "name": "Responsible use of generative AI",
+   "cyber": [
+    30000.0,
+    0.0,
+    0.0
+   ],
+   "it": [
+    30000.0,
+    0.0,
+    0.0
+   ],
+   "kind": "project"
+  },
+  {
+   "group": "C. Risk-treatment portfolio - run",
+   "id": "I20",
+   "name": "Responsible use of generative AI",
+   "cyber": [
+    10000.0,
+    20000.0,
+    20000.0
+   ],
+   "it": [
+    10000.0,
+    20000.0,
+    20000.0
+   ],
+   "kind": "run"
+  },
+  {
+   "group": "B. Risk-treatment portfolio - projects",
+   "id": "I21",
+   "name": "Help-desk identity verification",
+   "cyber": [
+    12500.0,
+    0.0,
+    0.0
+   ],
+   "it": [
+    12500.0,
+    0.0,
+    0.0
+   ],
+   "kind": "project"
+  },
+  {
+   "group": "C. Risk-treatment portfolio - run",
+   "id": "I21",
+   "name": "Help-desk identity verification",
+   "cyber": [
+    4166.666666666666,
+    5000.0,
+    5000.0
+   ],
+   "it": [
+    4166.666666666666,
+    5000.0,
+    5000.0
+   ],
+   "kind": "run"
+  },
+  {
+   "group": "B. Risk-treatment portfolio - projects",
+   "id": "I22",
+   "name": "Secure clinical communications and interfaces",
+   "cyber": [
+    33000.0,
+    0.0,
+    0.0
+   ],
+   "it": [
+    77000.0,
+    0.0,
+    0.0
+   ],
+   "kind": "project"
+  },
+  {
+   "group": "C. Risk-treatment portfolio - run",
+   "id": "I22",
+   "name": "Secure clinical communications and interfaces",
+   "cyber": [
+    0.0,
+    9000.0,
+    9000.0
+   ],
+   "it": [
+    0.0,
+    21000.0,
+    21000.0
+   ],
+   "kind": "run"
+  },
+  {
+   "group": "B. Risk-treatment portfolio - projects",
+   "id": "I23",
+   "name": "Brand protection and patient anti-fraud communication",
+   "cyber": [
+    25000.0,
+    0.0,
+    0.0
+   ],
+   "it": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "kind": "project"
+  },
+  {
+   "group": "C. Risk-treatment portfolio - run",
+   "id": "I23",
+   "name": "Brand protection and patient anti-fraud communication",
+   "cyber": [
+    22500.0,
+    30000.0,
+    30000.0
+   ],
+   "it": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "kind": "run"
+  },
+  {
+   "group": "D. Security team expansion",
+   "id": "H1",
+   "name": "IAM / PAM engineer",
+   "cyber": [
+    117000.0,
+    156000.0,
+    156000.0
+   ],
+   "it": [
+    0,
+    0,
+    0
+   ],
+   "kind": "run"
+  },
+  {
+   "group": "D. Security team expansion",
+   "id": "H2",
+   "name": "Security architect (cloud and network)",
+   "cyber": [
+    78000.0,
+    156000.0,
+    156000.0
+   ],
+   "it": [
+    0,
+    0,
+    0
+   ],
+   "kind": "run"
+  },
+  {
+   "group": "D. Security team expansion",
+   "id": "H3",
+   "name": "Governance, risk and privacy-security analyst",
+   "cyber": [
+    78000.0,
+    156000.0,
+    156000.0
+   ],
+   "it": [
+    0,
+    0,
+    0
+   ],
+   "kind": "run"
+  },
+  {
+   "group": "D. Security team expansion",
+   "id": "H4",
+   "name": "Application security engineer",
+   "cyber": [
+    0.0,
+    156000.0,
+    156000.0
+   ],
+   "it": [
+    0,
+    0,
+    0
+   ],
+   "kind": "run"
+  },
+  {
+   "group": "D. Security team expansion",
+   "id": "H5",
+   "name": "Medical device / OT security specialist",
+   "cyber": [
+    0.0,
+    156000.0,
+    156000.0
+   ],
+   "it": [
+    0,
+    0,
+    0
+   ],
+   "kind": "run"
+  },
+  {
+   "group": "E. Second-wave treatment - projects",
+   "id": "E01",
+   "name": "Zero-trust network access replacing VPN",
+   "cyber": [
+    0.0,
+    399999.99999999994,
+    0.0
+   ],
+   "it": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "kind": "project"
+  },
+  {
+   "group": "F. Second-wave treatment - run",
+   "id": "E01",
+   "name": "Zero-trust network access replacing VPN",
+   "cyber": [
+    0.0,
+    0.0,
+    150000.0
+   ],
+   "it": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "kind": "run"
+  },
+  {
+   "group": "E. Second-wave treatment - projects",
+   "id": "E02",
+   "name": "Identity governance and administration (IGA)",
+   "cyber": [
+    100000.0,
+    200000.00000000003,
+    0.0
+   ],
+   "it": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "kind": "project"
+  },
+  {
+   "group": "F. Second-wave treatment - run",
+   "id": "E02",
+   "name": "Identity governance and administration (IGA)",
+   "cyber": [
+    0.0,
+    50000.00000000001,
+    99999.99999999999
+   ],
+   "it": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "kind": "run"
+  },
+  {
+   "group": "E. Second-wave treatment - projects",
+   "id": "E03",
+   "name": "Data security posture management and advanced DLP",
+   "cyber": [
+    75000.0,
+    75000.0,
+    0.0
+   ],
+   "it": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "kind": "project"
+  },
+  {
+   "group": "F. Second-wave treatment - run",
+   "id": "E03",
+   "name": "Data security posture management and advanced DLP",
+   "cyber": [
+    0.0,
+    90000.0,
+    120000.0
+   ],
+   "it": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "kind": "run"
+  },
+  {
+   "group": "E. Second-wave treatment - projects",
+   "id": "E04",
+   "name": "Secondary site / cloud disaster recovery for EHR and core services",
+   "cyber": [
+    0.0,
+    160000.0000000001,
+    80000.00000000003
+   ],
+   "it": [
+    0.0,
+    640000.0000000003,
+    320000.0000000001
+   ],
+   "kind": "project"
+  },
+  {
+   "group": "F. Second-wave treatment - run",
+   "id": "E04",
+   "name": "Secondary site / cloud disaster recovery for EHR and core services",
+   "cyber": [
+    0.0,
+    0.0,
+    30000.0
+   ],
+   "it": [
+    0.0,
+    0.0,
+    120000.0
+   ],
+   "kind": "run"
+  },
+  {
+   "group": "E. Second-wave treatment - projects",
+   "id": "E05",
+   "name": "Legacy medical-device replacement and isolation fund",
+   "cyber": [
+    0.0,
+    90000.0,
+    90000.0
+   ],
+   "it": [
+    0.0,
+    360000.0,
+    360000.0
+   ],
+   "kind": "project"
+  },
+  {
+   "group": "F. Second-wave treatment - run",
+   "id": "E05",
+   "name": "Legacy medical-device replacement and isolation fund",
+   "cyber": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "it": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "kind": "run"
+  },
+  {
+   "group": "E. Second-wave treatment - projects",
+   "id": "E06",
+   "name": "Independent assurance programme",
+   "cyber": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "it": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "kind": "project"
+  },
+  {
+   "group": "F. Second-wave treatment - run",
+   "id": "E06",
+   "name": "Independent assurance programme",
+   "cyber": [
+    187500.0,
+    250000.00000000003,
+    250000.00000000003
+   ],
+   "it": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "kind": "run"
+  },
+  {
+   "group": "E. Second-wave treatment - projects",
+   "id": "E07",
+   "name": "Software supply-chain security",
+   "cyber": [
+    80000.0,
+    0.0,
+    0.0
+   ],
+   "it": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "kind": "project"
+  },
+  {
+   "group": "F. Second-wave treatment - run",
+   "id": "E07",
+   "name": "Software supply-chain security",
+   "cyber": [
+    0.0,
+    49999.99999999999,
+    49999.99999999999
+   ],
+   "it": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "kind": "run"
+  },
+  {
+   "group": "E. Second-wave treatment - projects",
+   "id": "E08",
+   "name": "SaaS and cloud backup",
+   "cyber": [
+    20000.0,
+    0.0,
+    0.0
+   ],
+   "it": [
+    20000.0,
+    0.0,
+    0.0
+   ],
+   "kind": "project"
+  },
+  {
+   "group": "F. Second-wave treatment - run",
+   "id": "E08",
+   "name": "SaaS and cloud backup",
+   "cyber": [
+    15000.0,
+    30000.0,
+    30000.0
+   ],
+   "it": [
+    15000.0,
+    30000.0,
+    30000.0
+   ],
+   "kind": "run"
+  },
+  {
+   "group": "E. Second-wave treatment - projects",
+   "id": "E09",
+   "name": "Cyber insurance (risk transfer)",
+   "cyber": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "it": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "kind": "project"
+  },
+  {
+   "group": "F. Second-wave treatment - run",
+   "id": "E09",
+   "name": "Cyber insurance (risk transfer)",
+   "cyber": [
+    350000.00000000006,
+    350000.00000000006,
+    350000.00000000006
+   ],
+   "it": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "kind": "run"
+  }
+ ],
+ "OPTIONS": {
+  "A": {
+   "label": "Baseline only (status quo)",
+   "groups": "A",
+   "pre": [
+    912000.0,
+    912000.0,
+    912000.0
+   ],
+   "reserve": [
+    0,
+    0,
+    0
+   ],
+   "cyber": [
+    912000.0,
+    912000.0,
+    912000.0
+   ],
+   "pct": [
+    0.00912,
+    0.00912,
+    0.00912
+   ],
+   "it": [
+    0,
+    0,
+    0
+   ]
+  },
+  "B": {
+   "label": "Baseline + 30-scenario portfolio",
+   "groups": "ABC",
+   "pre": [
+    3492250.0,
+    2519666.6666666665,
+    2393000.0
+   ],
+   "reserve": [
+    0,
+    0,
+    0
+   ],
+   "cyber": [
+    3492250.0,
+    2519666.6666666665,
+    2393000.0
+   ],
+   "pct": [
+    0.0349225,
+    0.025196666666666666,
+    0.02393
+   ],
+   "it": [
+    862499.9999999999,
+    686666.6666666667,
+    440000.0
+   ]
+  },
+  "C": {
+   "label": "B + security team expansion",
+   "groups": "ABCD",
+   "pre": [
+    3765250.0,
+    3299666.6666666665,
+    3173000.0
+   ],
+   "reserve": [
+    376525.0,
+    329966.6666666667,
+    317300.0
+   ],
+   "cyber": [
+    4141775.0,
+    3629633.333333333,
+    3490300.0
+   ],
+   "pct": [
+    0.04141775,
+    0.03629633333333333,
+    0.034903
+   ],
+   "it": [
+    862499.9999999999,
+    686666.6666666667,
+    440000.0
+   ]
+  },
+  "D": {
+   "label": "C + second-wave treatment (risk-driven budget)",
+   "groups": "ABCDEF",
+   "pre": [
+    4592750.0,
+    5044666.666666667,
+    4423000.0
+   ],
+   "reserve": [
+    459275.0,
+    504466.66666666674,
+    442300.0
+   ],
+   "cyber": [
+    5052025.0,
+    5549133.333333334,
+    4865300.0
+   ],
+   "pct": [
+    0.05052025,
+    0.05549133333333334,
+    0.048653
+   ],
+   "it": [
+    897499.9999999999,
+    1716666.666666667,
+    1270000.0
+   ]
+  }
+ },
+ "proj_cyber": [
+  2332333.333333333,
+  1091666.6666666667,
+  170000.00000000003
+ ],
+ "proj_it": [
+  819333.3333333333,
+  1366666.666666667,
+  680000.0000000001
+ ],
+ "run_cyber": [
+  2260416.666666667,
+  3953000.0,
+  4253000.0
+ ],
+ "BASE_RES": {
+  "S1": {
+   "res": 2586.9112499999997,
+   "ratio": 0.9333333333333333,
+   "cls": "Approximately at tolerance",
+   "p": 0.8,
+   "q": 0.75
+  },
+  "S2": {
+   "res": 3453.398437500001,
+   "ratio": 1.203125,
+   "cls": "Above tolerance",
+   "p": 0.75,
+   "q": 0.75
+  },
+  "S3": {
+   "res": 1561.3714285714286,
+   "ratio": 0.8,
+   "cls": "Below tolerance",
+   "p": 0.8,
+   "q": 0.85
+  },
+  "S4": {
+   "res": 1204.046015625,
+   "ratio": 0.9112500000000002,
+   "cls": "Approximately at tolerance",
+   "p": 0.85,
+   "q": 0.7
+  },
+  "S5": {
+   "res": 1715.076,
+   "ratio": 1.22,
+   "cls": "Above tolerance",
+   "p": 0.6,
+   "q": 0.65
+  },
+  "S6": {
+   "res": 2581.8750000000005,
+   "ratio": 1.0125000000000002,
+   "cls": "Approximately at tolerance",
+   "p": 0.85,
+   "q": 0.7
+  },
+  "S7": {
+   "res": 2189.6035714285717,
+   "ratio": 1.4500000000000004,
+   "cls": "Above tolerance",
+   "p": 0.7,
+   "q": 0.6
+  },
+  "S8": {
+   "res": 4173.840000000001,
+   "ratio": 1.1,
+   "cls": "Approximately at tolerance",
+   "p": 0.7,
+   "q": 0.8
+  },
+  "S9": {
+   "res": 2495.197767857143,
+   "ratio": 1.5374999999999999,
+   "cls": "Above tolerance",
+   "p": 0.55,
+   "q": 0.7
+  },
+  "S10": {
+   "res": 842.7093749999999,
+   "ratio": 1.1875,
+   "cls": "Above tolerance",
+   "p": 0.7,
+   "q": 0.75
+  },
+  "S11": {
+   "res": 1003.7228906250002,
+   "ratio": 1.0616666666666668,
+   "cls": "Approximately at tolerance",
+   "p": 0.85,
+   "q": 0.6
+  },
+  "S12": {
+   "res": 556.4159999999998,
+   "ratio": 0.9199999999999998,
+   "cls": "Approximately at tolerance",
+   "p": 0.8,
+   "q": 0.65
+  },
+  "S13": {
+   "res": 596.5300000000002,
+   "ratio": 0.6233333333333335,
+   "cls": "Below tolerance",
+   "p": 0.8,
+   "q": 0.7
+  },
+  "S14": {
+   "res": 400.3046666666666,
+   "ratio": 0.8233333333333334,
+   "cls": "Below tolerance",
+   "p": 0.8,
+   "q": 0.6
+  },
+  "S15": {
+   "res": 228.48000000000002,
+   "ratio": 0.5333333333333334,
+   "cls": "Below tolerance",
+   "p": 0.75,
+   "q": 0.8
+  },
+  "S16": {
+   "res": 1612.7912499999993,
+   "ratio": 1.2716666666666663,
+   "cls": "Above tolerance",
+   "p": 0.7,
+   "q": 0.65
+  },
+  "S17": {
+   "res": 646.1142187500001,
+   "ratio": 0.9350000000000002,
+   "cls": "Approximately at tolerance",
+   "p": 0.7,
+   "q": 0.7
+  },
+  "S18": {
+   "res": 817.7203125,
+   "ratio": 1.17,
+   "cls": "Above tolerance",
+   "p": 0.8,
+   "q": 0.6
+  },
+  "S19": {
+   "res": 1653.9330357142853,
+   "ratio": 1.9116666666666664,
+   "cls": "Above tolerance",
+   "p": 0.4,
+   "q": 0.65
+  },
+  "S20": {
+   "res": 1529.2860000000003,
+   "ratio": 1.1600000000000001,
+   "cls": "Above tolerance",
+   "p": 0.8,
+   "q": 0.65
+  },
+  "S21": {
+   "res": 592.28,
+   "ratio": 0.7258333333333334,
+   "cls": "Below tolerance",
+   "p": 0.6,
+   "q": 0.55
+  },
+  "S22": {
+   "res": 313.06916666666655,
+   "ratio": 0.7791666666666667,
+   "cls": "Below tolerance",
+   "p": 0.75,
+   "q": 0.6
+  },
+  "S23": {
+   "res": 1659.9802734374998,
+   "ratio": 1.1187500000000001,
+   "cls": "Above tolerance",
+   "p": 0.85,
+   "q": 0.65
+  },
+  "S24": {
+   "res": 627.8124999999999,
+   "ratio": 1.0677083333333333,
+   "cls": "Approximately at tolerance",
+   "p": 0.75,
+   "q": 0.65
+  },
+  "S25": {
+   "res": 213.8033333333333,
+   "ratio": 0.8166666666666668,
+   "cls": "Below tolerance",
+   "p": 0.85,
+   "q": 0.6
+  },
+  "S26": {
+   "res": 1484.175,
+   "ratio": 1.0708333333333333,
+   "cls": "Approximately at tolerance",
+   "p": 0.65,
+   "q": 0.55
+  },
+  "S27": {
+   "res": 2048.8771875,
+   "ratio": 1.2566666666666668,
+   "cls": "Above tolerance",
+   "p": 0.8,
+   "q": 0.6
+  },
+  "S28": {
+   "res": 1129.5912857142853,
+   "ratio": 1.730833333333333,
+   "cls": "Above tolerance",
+   "p": 0.55,
+   "q": 0.6
+  },
+  "S29": {
+   "res": 564.240625,
+   "ratio": 1.0291666666666668,
+   "cls": "Approximately at tolerance",
+   "p": 0.75,
+   "q": 0.7
+  },
+  "S30": {
+   "res": 621.2295833333333,
+   "ratio": 0.9491666666666669,
+   "cls": "Approximately at tolerance",
+   "p": 0.55,
+   "q": 0.6
+  }
+ },
+ "ENH_RES": {
+  "S1": {
+   "res": 2069.5289999999995,
+   "ratio": 0.7466666666666666,
+   "cls": "Below tolerance",
+   "p": 0.85,
+   "q": 0.8
+  },
+  "S2": {
+   "res": 2841.653571428571,
+   "ratio": 0.9899999999999997,
+   "cls": "Approximately at tolerance",
+   "p": 0.8,
+   "q": 0.8
+  },
+  "S3": {
+   "res": 1146.6321428571423,
+   "ratio": 0.5874999999999998,
+   "cls": "Below tolerance",
+   "p": 0.85,
+   "q": 0.9
+  },
+  "S4": {
+   "res": 966.2097656249998,
+   "ratio": 0.73125,
+   "cls": "Below tolerance",
+   "p": 0.9,
+   "q": 0.75
+  },
+  "S5": {
+   "res": 1433.9160000000002,
+   "ratio": 1.0200000000000002,
+   "cls": "Approximately at tolerance",
+   "p": 0.7,
+   "q": 0.7
+  },
+  "S6": {
+   "res": 2358.7500000000005,
+   "ratio": 0.9250000000000002,
+   "cls": "Approximately at tolerance",
+   "p": 0.9,
+   "q": 0.7
+  },
+  "S7": {
+   "res": 1600.6757142857145,
+   "ratio": 1.0600000000000003,
+   "cls": "Approximately at tolerance",
+   "p": 0.8,
+   "q": 0.72
+  },
+  "S8": {
+   "res": 3794.3999999999996,
+   "ratio": 0.9999999999999998,
+   "cls": "Approximately at tolerance",
+   "p": 0.75,
+   "q": 0.8
+  },
+  "S9": {
+   "res": 2231.477678571429,
+   "ratio": 1.375,
+   "cls": "Above tolerance",
+   "p": 0.6,
+   "q": 0.75
+  },
+  "S10": {
+   "res": 709.6499999999999,
+   "ratio": 1.0,
+   "cls": "Approximately at tolerance",
+   "p": 0.75,
+   "q": 0.8
+  },
+  "S11": {
+   "res": 757.9132031250003,
+   "ratio": 0.801666666666667,
+   "cls": "Below tolerance",
+   "p": 0.9,
+   "q": 0.7
+  },
+  "S12": {
+   "res": 556.4159999999998,
+   "ratio": 0.9199999999999998,
+   "cls": "Approximately at tolerance",
+   "p": 0.8,
+   "q": 0.65
+  },
+  "S13": {
+   "res": 596.5300000000002,
+   "ratio": 0.6233333333333335,
+   "cls": "Below tolerance",
+   "p": 0.8,
+   "q": 0.7
+  },
+  "S14": {
+   "res": 400.3046666666666,
+   "ratio": 0.8233333333333334,
+   "cls": "Below tolerance",
+   "p": 0.8,
+   "q": 0.6
+  },
+  "S15": {
+   "res": 228.48000000000002,
+   "ratio": 0.5333333333333334,
+   "cls": "Below tolerance",
+   "p": 0.75,
+   "q": 0.8
+  },
+  "S16": {
+   "res": 946.9599999999996,
+   "ratio": 0.7466666666666665,
+   "cls": "Below tolerance",
+   "p": 0.85,
+   "q": 0.8
+  },
+  "S17": {
+   "res": 506.7562499999999,
+   "ratio": 0.7333333333333332,
+   "cls": "Below tolerance",
+   "p": 0.8,
+   "q": 0.75
+  },
+  "S18": {
+   "res": 636.8783203125,
+   "ratio": 0.91125,
+   "cls": "Approximately at tolerance",
+   "p": 0.85,
+   "q": 0.7
+  },
+  "S19": {
+   "res": 1452.7790178571424,
+   "ratio": 1.6791666666666665,
+   "cls": "Above tolerance",
+   "p": 0.5,
+   "q": 0.7
+  },
+  "S20": {
+   "res": 1154.9295312500008,
+   "ratio": 0.8760416666666672,
+   "cls": "Below tolerance",
+   "p": 0.85,
+   "q": 0.75
+  },
+  "S21": {
+   "res": 512.72,
+   "ratio": 0.6283333333333334,
+   "cls": "Below tolerance",
+   "p": 0.7,
+   "q": 0.6
+  },
+  "S22": {
+   "res": 313.06916666666655,
+   "ratio": 0.7791666666666667,
+   "cls": "Below tolerance",
+   "p": 0.75,
+   "q": 0.6
+  },
+  "S23": {
+   "res": 1372.49765625,
+   "ratio": 0.9250000000000002,
+   "cls": "Approximately at tolerance",
+   "p": 0.9,
+   "q": 0.7
+  },
+  "S24": {
+   "res": 538.9999999999999,
+   "ratio": 0.9166666666666666,
+   "cls": "Approximately at tolerance",
+   "p": 0.8,
+   "q": 0.7
+  },
+  "S25": {
+   "res": 213.8033333333333,
+   "ratio": 0.8166666666666668,
+   "cls": "Below tolerance",
+   "p": 0.85,
+   "q": 0.6
+  },
+  "S26": {
+   "res": 1183.875,
+   "ratio": 0.8541666666666666,
+   "cls": "Below tolerance",
+   "p": 0.75,
+   "q": 0.65
+  },
+  "S27": {
+   "res": 1595.7601171875003,
+   "ratio": 0.9787500000000002,
+   "cls": "Approximately at tolerance",
+   "p": 0.85,
+   "q": 0.7
+  },
+  "S28": {
+   "res": 918.8466428571426,
+   "ratio": 1.4079166666666665,
+   "cls": "Above tolerance",
+   "p": 0.65,
+   "q": 0.7
+  },
+  "S29": {
+   "res": 475.15,
+   "ratio": 0.8666666666666666,
+   "cls": "Below tolerance",
+   "p": 0.8,
+   "q": 0.75
+  },
+  "S30": {
+   "res": 621.2295833333333,
+   "ratio": 0.9491666666666669,
+   "cls": "Approximately at tolerance",
+   "p": 0.55,
+   "q": 0.6
+  }
+ },
+ "COUNTS": {
+  "none": [
+   29,
+   1,
+   0
+  ],
+  "base": [
+   12,
+   11,
+   7
+  ],
+  "enh": [
+   3,
+   12,
+   15
+  ]
+ },
+ "APP_TABLE": [
+  [
+   0.2,
+   0.12,
+   12000000.0
+  ],
+  [
+   0.3,
+   0.12,
+   12000000.0
+  ],
+  [
+   0.4,
+   0.09899999999999999,
+   9900000.0
+  ],
+  [
+   0.5,
+   0.078,
+   7800000.0
+  ],
+  [
+   0.6,
+   0.059000000000000004,
+   5900000.0
+  ],
+  [
+   0.7,
+   0.04000000000000001,
+   4000000.000000001
+  ],
+  [
+   0.8,
+   0.04,
+   4000000.0
+  ]
+ ],
+ "IT_SENS": [
+  [
+   100000000.0,
+   [
+    0.05052025,
+    0.05549133333333334,
+    0.048653
+   ],
+   [
+    12000000.0,
+    12000000.0,
+    12000000.0
+   ]
+  ],
+  [
+   50000000.0,
+   [
+    0.1010405,
+    0.11098266666666667,
+    0.097306
+   ],
+   [
+    6000000.0,
+    6000000.0,
+    6000000.0
+   ]
+  ],
+  [
+   25000000.0,
+   [
+    0.202081,
+    0.22196533333333335,
+    0.194612
+   ],
+   [
+    3000000.0,
+    3000000.0,
+    3000000.0
+   ]
+  ],
+  [
+   10000000.0,
+   [
+    0.5052025,
+    0.5549133333333334,
+    0.48653
+   ],
+   [
+    1200000.0,
+    1200000.0,
+    1200000.0
+   ]
+  ]
+ ],
+ "RAMP": [
+  0.07,
+  0.095,
+  0.12
+ ],
+ "T2_ROLES": [
+  [
+   "H6",
+   "Detection engineer (SOC)",
+   12
+  ],
+  [
+   "H7",
+   "Detection engineer (SOC)",
+   18
+  ],
+  [
+   "H8",
+   "Threat intelligence and vulnerability analyst",
+   12
+  ],
+  [
+   "H9",
+   "Security project manager",
+   6
+  ],
+  [
+   "H10",
+   "Security awareness and culture lead",
+   12
+  ],
+  [
+   "H11",
+   "Privacy-security engineer",
+   18
+  ]
+ ],
+ "T2_FIXED": [
+  [
+   "T2-2",
+   "Security-by-design for clinical innovation and modernization",
+   "All new technology; S7, S18, S26, S29",
+   [
+    150000,
+    400000,
+    400000
+   ],
+   "Architecture review, threat and privacy impact assessments, security requirements for 2024-2030 EHR, imaging and AI projects (moderate appetite for governed innovation, E5)."
+  ],
+  [
+   "T2-3",
+   "Medical-device and clinical-system modernization - security share",
+   "S7, S24, S29",
+   [
+    0,
+    750000,
+    1500000
+   ],
+   "Accelerates E05 beyond the initial fund: replace or wrap devices that cannot meet the security baseline."
+  ],
+  [
+   "T2-4",
+   "Resilience deepening",
+   "S2, S3, S16, S28",
+   [
+    200000,
+    600000,
+    900000
+   ],
+   "Immutable backup extended to all clinic storage, full-scale crisis exercises with clinics, EHR high-availability security share."
+  ]
+ ],
+ "T2_ROLES_Y": [
+  78000.0,
+  780000.0,
+  936000.0
+ ],
+ "T2_FIXED_Y": [
+  350000,
+  1750000,
+  2800000
+ ],
+ "T2_RESERVE_Y": [
+  1519975.000000001,
+  1420866.666666666,
+  3398700.0
+ ],
+ "TARGET_Y": [
+  7000000.000000001,
+  9500000.0,
+  12000000.0
+ ],
+ "REC_Y": [
+  7000000.000000001,
+  9500000.0,
+  12000000.0
+ ],
+ "IMPLIED_D": [
+  0.6446302631578947,
+  0.6184666666666667,
+  0.6544578947368421
+ ],
+ "PESS_ABOVE": {
+  "B": 27,
+  "D": 27
+ },
+ "BUDGET_KRIS": [
+  [
+   "KRI-21",
+   "Cybersecurity budget as % of total IT budget (incl. salaries)",
+   "All",
+   "Approved cyber budget / IT budget",
+   "Finance, budget",
+   "CFO / CIO",
+   "Annual",
+   "12% (appetite 0.30)",
+   "< 7.8%",
+   "< 4% (guideline floor)"
+  ],
+  [
+   "KRI-22",
+   "% of cyber budget spent on scenario-linked treatments",
+   "All",
+   "Spend mapped to S1-S30 / cyber spend",
+   "Budget tracking",
+   "Cybersecurity lead",
+   "Quarterly",
+   "> 80%",
+   "< 70%",
+   "< 50%"
+  ],
+  [
+   "KRI-23",
+   "Risk-reduction reserve released against approved business cases",
+   "All",
+   "Released / available reserve, with scenario IDs",
+   "Steering Committee minutes",
+   "Executive sponsor",
+   "Quarterly",
+   "Every release tied to a scenario",
+   "Release without scenario link",
+   "Reserve used for non-risk items"
+  ]
+ ],
+ "TOT_EST": 84491.44441964284,
+ "TOT_RES_BASE": 41104.38617522322,
+ "TOT_RES_ENH": 34136.79236160714
+}

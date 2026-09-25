@@ -1,0 +1,17 @@
+{
+  "description": "CyberRiskGuardian: load methodology guardrails at session start.",
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cat \"${CLAUDE_PLUGIN_ROOT}/hooks/session-context.md\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "name": "cyberriskguardian-marketplace",
+  "owner": {
+    "name": "Marc-André Léger"
+  },
+  "metadata": {
+    "description": "CyberRiskGuardian plugins for scenario-driven cybersecurity risk assessment, scenario selection and cybersecurity budget calibration.",
+    "version": "1.1.0"
+  },
+  "plugins": [
+    {
+      "name": "cyberriskguardian",
+      "source": "./plugins/cyberriskguardian",
+      "description": "CyberRiskGuardian - AI-assisted, scenario-driven cybersecurity risk assessment: scenario selection (Sections A-E), CRG KRI quantification with CVSS v4.0, treatment portfolio, appetite-aligned cybersecurity budget and management reporting, with the author's cybersecurity governance textbook as reference.",
+      "version": "1.1.0",
+      "category": "security",
+      "keywords": [
+        "cybersecurity",
+        "risk-assessment",
+        "cvss",
+        "iso-27005",
+        "nist",
+        "fair",
+        "budget"
+      ],
+      "license": "CC-BY-NC-4.0"
+    }
+  ]
+}

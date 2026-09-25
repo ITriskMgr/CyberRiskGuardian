@@ -1,0 +1,58 @@
+{
+ "_comment": "CyberRiskGuardian data model. One file drives crg_calc.py, build_workbook.py and the report. Values below are a fictional example - replace them. Params: PbA=Pb(A), Pbx=Pb(psi,A), De=expected damage, Dm=maximum damage, Th=resilience, Mu=criticality; each {v, qual, rat, ev, conf}. red_p/red_i = probability/impact reduction of the treatment package (0-1).",
+ "APPETITE": 0.30,
+ "FACTOR": 1000,
+ "CASE_APPETITE": 0.40,
+ "PERIOD": "next 12 months",
+ "CURRENCY": "CAD",
+ "SOURCE": "Organization documents supplied by the user",
+ "SENS_IDS": ["S1"],
+ "EVIDENCE": [
+  ["E1", "Organization profile document", "Documented", "Sites, services, systems"],
+  ["E2", "Incident exercise or incident records", "Exercise evidence (validate)", "Observed weaknesses"]
+ ],
+ "SCEN": [
+  {
+   "id": "S1",
+   "ref": "Library ref or candidate ID",
+   "name": "Credential compromise of administrator accounts through phishing and MFA fatigue",
+   "statement": "A financially motivated external actor phishes administrators, obtains approval of an MFA push prompt and gains remote access to core systems, enabling unauthorized access to sensitive records and follow-on intrusion.",
+   "stakeholders": "Administrators; CIO; Cybersecurity lead; Privacy officer; business owners.",
+   "background": "Remote access relies on push MFA (E2).",
+   "threat_source": "Cybercriminal (initial-access broker).",
+   "threat_event": "Credential phishing and MFA push fatigue.",
+   "vulns": ["Push MFA without phishing resistance (E2 - validate)", "No conditional access evidenced"],
+   "assets": "Identity and remote access; core records system.",
+   "processes": "Core business processes.",
+   "controls": ["MFA push on remote access (E2)"],
+   "narrative": "Short narrative of how the scenario unfolds.",
+   "sequence": ["Initial access - phishing", "Exploitation - valid session", "Collection", "Exfiltration", "Detection", "Business impact"],
+   "consequences": {"Confidentiality/privacy": "Unauthorized access to records.", "Integrity": "Low.", "Availability": "Low unless escalated.", "Operations": "Investigation.", "Financial": "Notification costs.", "Regulatory": "Reportable incident likely.", "Reputation": "Moderate.", "Safety": "Indirect."},
+   "params": {
+    "PbA": {"v": 0.85, "qual": "Very likely", "rat": "Phishing is constant.", "ev": "E2", "conf": "Medium"},
+    "Pbx": {"v": 0.55, "qual": "Moderate-high", "rat": "Push MFA bypassable.", "ev": "E2", "conf": "Low"},
+    "De": {"v": 0.55, "qual": "Material", "rat": "Subset of records.", "ev": "E1", "conf": "Medium"},
+    "Dm": {"v": 0.85, "qual": "Severe", "rat": "Full access or ransomware pivot.", "ev": "E1", "conf": "Medium"},
+    "Th": {"v": 0.40, "qual": "Limited", "rat": "Small team; untested IR.", "ev": "E1", "conf": "Medium"},
+    "Mu": {"v": 0.85, "qual": "Very high", "rat": "Identity gates all critical assets.", "ev": "E1", "conf": "High"}
+   },
+   "cvss": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:A/VC:H/VI:H/VA:N/SC:H/SI:L/SA:L",
+   "cvss_note": "Representative weakness: single-channel push MFA. Explain every metric.",
+   "red_p": 0.80,
+   "red_i": 0.75,
+   "inits": ["I01"],
+   "treatment": "Phishing-resistant MFA and conditional access.",
+   "owner": "CIO",
+   "horizon": "0-6 months"
+  }
+ ],
+ "INITIATIVES": [
+  ["I01", "Phishing-resistant MFA and conditional access", "FIDO2 for privileged and remote accounts; number matching; conditional access.", ["S1"], "CIO / Cybersecurity lead", "Immediate", 180000, 60000, "Month 0", "Month 6", "100% privileged accounts on phishing-resistant MFA", "Account inventory", "Prevention"]
+ ],
+ "CANDIDATES": [
+  ["C01", "Phishing-led compromise of administrator credentials", "Cybercriminal", "Push MFA", "Identity", "Unauthorized access", "Library ref", "Selected (S1)", "Most frequent entry path"]
+ ],
+ "KRIS": [
+  ["KRI-01", "% privileged and remote-access accounts on phishing-resistant MFA", "S1", "Accounts with FIDO2 / in-scope accounts", "IdP report", "Cybersecurity lead", "Monthly", "100%", "< 95%", "< 85%"]
+ ]
+}
