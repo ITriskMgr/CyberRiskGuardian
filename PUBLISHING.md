@@ -9,13 +9,12 @@ Deux voies complémentaires :
 1. Sur GitHub, créez un dépôt **public** vide nommé `cyberriskguardian-agent`. N'y ajoutez ni README ni licence : ils sont déjà dans le paquet.
 2. Dans le dossier décompressé (il contient déjà un dépôt git avec un premier commit) :
    ```bash
-   git remote add origin https://github.com/OWNER/cyberriskguardian-agent.git
+   git remote add origin https://github.com/ITriskMgr/CyberRiskGuardian.git
    git branch -M main
    git push -u origin main
    ```
-3. Remplacez `OWNER` par votre compte dans `README.md` (section *Public install*), puis faites un commit et un push.
-4. Facultatif : dans les paramètres du dépôt, ajoutez une description et les sujets `claude-code`, `claude-plugin`, `cybersecurity`, `risk-assessment`, et activez les *private vulnerability reports* (voir `SECURITY.md`).
-5. Pour publier une version, créez une étiquette et poussez-la :
+3. Facultatif : dans les paramètres du dépôt, ajoutez une description et les sujets `claude-code`, `claude-plugin`, `cybersecurity`, `risk-assessment`, et activez les *private vulnerability reports* (voir `SECURITY.md`).
+4. Pour publier une version, créez une étiquette et poussez-la :
    ```bash
    git tag v1.1.0
    git push --tags
@@ -23,7 +22,7 @@ Deux voies complémentaires :
 
 Installation par n'importe qui :
 ```bash
-claude plugin marketplace add OWNER/cyberriskguardian-agent
+claude plugin marketplace add ITriskMgr/CyberRiskGuardian
 claude plugin install cyberriskguardian@cyberriskguardian-marketplace
 ```
 

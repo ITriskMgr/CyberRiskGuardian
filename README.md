@@ -55,13 +55,11 @@ cyberriskguardian-agent/
 - `CLAUDE.md`, `.claude/` and `.mcp.json`;
 - approve the `crg-calculator` MCP server when prompted.
 
-**Public install from GitHub (Claude Code):** once this repository is published as `OWNER/cyberriskguardian-agent`:
+**Public install from GitHub (Claude Code):** from https://github.com/ITriskMgr/CyberRiskGuardian:
 ```
-claude plugin marketplace add OWNER/cyberriskguardian-agent
+claude plugin marketplace add ITriskMgr/CyberRiskGuardian
 claude plugin install cyberriskguardian@cyberriskguardian-marketplace
 ```
-Replace `OWNER` with the GitHub account or organization that hosts the repository.
-
 **B. Install as a plugin from the marketplace (Claude Code):**
 ```
 /plugin marketplace add <git-url-or-local-path-of-this-repository>
