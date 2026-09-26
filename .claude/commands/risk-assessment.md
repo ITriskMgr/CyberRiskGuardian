@@ -1,6 +1,6 @@
 ---
 description: Run a full CyberRiskGuardian risk assessment
-argument-hint: [organization documents or scope] [--scenarios N]
+argument-hint: "[organization documents or scope] [--scenarios N]"
 ---
 
 Use the `cyber-risk-assessment` skill to perform a complete scenario-driven cybersecurity risk assessment for: $ARGUMENTS

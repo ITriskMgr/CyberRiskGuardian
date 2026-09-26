@@ -1,6 +1,6 @@
 ---
 description: Screen candidates and select a scenario portfolio (A-E)
-argument-hint: [organization or assessment] [final count, default 10]
+argument-hint: "[organization or assessment] [final count, default 10]"
 ---
 
 Use the `scenario-selection` skill to produce Sections A-E for: $ARGUMENTS

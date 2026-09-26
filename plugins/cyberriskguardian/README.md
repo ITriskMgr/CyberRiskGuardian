@@ -20,6 +20,13 @@ Scenario-driven cybersecurity risk assessment with the CyberRiskGuardian methodo
 - For Word output, Node with `docx`; for recalculation and rendering, LibreOffice.
 - Optional environment variables (defaults in brackets): `CRG_DEFAULT_APPETITE` [0.30], `CRG_FACTOR` [1000].
 - No credentials or external services are required.
+- Where it runs: the skills, commands and agents work in Claude Code, Cowork and claude.ai. The `crg-calculator` MCP server is local (stdio) and runs only in Claude Code and Cowork; on claude.ai the skills fall back to the bundled scripts or to transparent manual calculation.
+
+## What the plugin runs and sends
+- A SessionStart hook prints `hooks/session-context.md` (methodology guardrails) into the session; it runs `cat` on that file only.
+- The MCP server `mcp/crg_server.py` runs locally with Python and performs deterministic calculations (CRG formulas, CVSS v4.0 scoring, budget calibration). It makes no network calls and stores no data.
+- The scripts in `skills/cyber-risk-assessment/scripts/` read the JSON data model you supply and write the workbook you request, locally.
+- The plugin sends no data to any external service and collects no telemetry.
 
 ## Licence
 © 2026 Marc-André Léger. Licensed under CC BY-NC 4.0; see `LICENSE`.

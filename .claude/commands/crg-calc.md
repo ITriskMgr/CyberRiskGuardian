@@ -1,7 +1,6 @@
 ---
 description: Compute CyberRiskGuardian KRIs for one scenario
-argument-hint: PbA Pbx de dm theta mu red_p red_i CVSS-vector [appetite] [factor]
-allowed-tools: Bash(python3:*), Read
+argument-hint: "PbA Pbx de dm theta mu red_p red_i CVSS-vector [appetite] [factor]"
 ---
 
 Compute the CyberRiskGuardian indicators for the scenario parameters in: $ARGUMENTS

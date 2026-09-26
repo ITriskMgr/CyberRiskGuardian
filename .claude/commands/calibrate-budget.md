@@ -1,6 +1,6 @@
 ---
 description: Align the cybersecurity budget with risk appetite (4-12%)
-argument-hint: [IT budget] [appetite] [assessment or portfolio]
+argument-hint: "[IT budget] [appetite] [assessment or portfolio]"
 ---
 
 Use the `cyber-budget-calibration` skill for: $ARGUMENTS
