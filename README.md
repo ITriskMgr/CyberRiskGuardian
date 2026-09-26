@@ -108,7 +108,7 @@ The data model is described in `assets/scenario-template.json`.
 - Session transcripts (`~/.claude/projects/`).
 - Personal memory, `.env` files and credentials.
 - Organization data other than the fictional MediBec teaching case.
-- Third-party course materials held in the author's project knowledge base (ITIL extracts, other external guides). The author's own methodology specifications and governance textbook are bundled.
+- Third-party course materials held in the author's project knowledge base. The author's own methodology specifications and governance textbook are bundled.
 
 ## Licence
 © 2026 Marc-André Léger. This work is licensed under the [Creative Commons Attribution-NonCommercial 4.0 International License](https://creativecommons.org/licenses/by-nc/4.0/) (CC BY-NC 4.0, SPDX `CC-BY-NC-4.0`). It covers:
