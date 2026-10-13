@@ -11,6 +11,8 @@ AI-assisted, scenario-driven cybersecurity risk assessment for Claude Code and C
 
 People stay accountable for validation and risk decisions.
 
+The latest version is CyberRiskGuardian with Threat Live-feed, available here: https://github.com/ITriskMgr/CyberRiskGuardian_ThreatIntel
+
 Methodology and textbook © Marc-André Léger, licensed under **CC BY-NC 4.0**. Packaged with Claude, version 1.1.0 (September 2026).
 
 ## What's inside
