@@ -1,0 +1,20 @@
+{
+  "name": "crg-governance-textbook",
+  "version": "2.0.0",
+  "description": "The textbook Introduction to Cybersecurity Governance for Business Technology Management (Léger, 3rd ed., v2.1g) as a reference skill: governance, risk, compliance and resilience concepts with chapter citations.",
+  "author": {
+    "name": "Marc-André Léger",
+    "url": "https://www.leger.ca"
+  },
+  "homepage": "https://www.leger.ca",
+  "repository": "https://github.com/ITriskMgr/CyberRiskGuardian",
+  "license": "CC-BY-NC-4.0 OR LicenseRef-CyberRiskGuardian-Commercial",
+  "keywords": [
+    "cybersecurity",
+    "governance",
+    "textbook",
+    "risk-management",
+    "compliance",
+    "education"
+  ]
+}

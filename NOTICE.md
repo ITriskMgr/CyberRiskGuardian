@@ -27,16 +27,15 @@ Definitions used by the licences:
 - *Non-profit organisation*: a registered charity or not-for-profit corporation, excluding colleges, universities and government bodies.
 - *Commercial use*: any use intended for, or directed toward, commercial advantage or monetary compensation, including delivering paid services to third parties.
 
-Versions already released under CC BY-NC 4.0 remain available under that licence.
+Versions already released under CC BY-NC 4.0 remain available under that licence. Version 1.1.1, which bundled the budget guideline, workbook builder and sensitivity tools, stays available on the `release/1.x` branch.
 
 ## What the Community Edition covers
 - The CyberRiskGuardian methodology, including:
   - the master task specification;
   - the scenario-selection instructions;
-  - the budget guideline;
-  - the formula and workbook conventions.
-- The skills, commands, subagents, output styles, rules, hooks and configuration in this repository.
-- The scripts and the MCP calculator server.
+  - the formula conventions.
+- The plugins in this repository (CyberRiskGuardian Core and CRG Governance Textbook): skills, commands, subagents, output styles, hooks, evaluation suites and configuration.
+- The Core calculator script and the Core MCP calculator server.
 - The textbook *Introduction to Cybersecurity Governance for Business Technology Management*, 3rd edition, version 2.1g (August 2026), in `plugins/cyberriskguardian/skills/cybersecurity-governance/references/`.
 - The fictional MediBec teaching case and the example deliverables in `examples/medibec/`.
 

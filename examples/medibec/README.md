@@ -49,7 +49,7 @@ Before running:
 
 **Regression check:**
 ```
-python3 ../../../plugins/cyberriskguardian/skills/cyber-risk-assessment/scripts/crg_calc.py medibec30.json
+python3 ../../../plugins/cyberriskguardian/skills/crg-quantify/scripts/crg_calc.py medibec30.json
 ```
 It must print total estimated 84,491 and residual 41,104.
 

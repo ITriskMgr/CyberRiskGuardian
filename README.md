@@ -1,109 +1,95 @@
 # CyberRiskGuardian Agent
 
-AI-assisted, scenario-driven cybersecurity risk assessment for Claude Code and Claude Cowork. The agent acts as a Senior Cybersecurity Risk Analyst and covers the whole assessment:
+AI-assisted, scenario-driven cybersecurity risk assessment for Claude Code, Claude Cowork and claude.ai. The free **CyberRiskGuardian Core** plugin acts as a Senior Cybersecurity Risk Analyst:
 
-- selecting scenarios;
+- building the evidence register, context and crown-jewel map;
+- setting the risk appetite;
+- generating, screening and selecting causal-chain scenarios;
 - quantifying risk with the CyberRiskGuardian formulas and CVSS v4.0;
-- comparing residual risk with appetite;
-- designing the treatment portfolio;
-- calibrating the budget to appetite;
-- producing management reports.
+- comparing estimated with tolerated risk;
+- writing the management summary.
+
+Treatment portfolios, sensitivity analysis, budget calibration, KRI design, the live-formula workbook and the full board report are in **CRG Pro**, available under a commercial or educational licence.
 
 People stay accountable for validation and risk decisions.
 
 The latest version is CyberRiskGuardian with Threat Live-feed, available here: https://github.com/ITriskMgr/CyberRiskGuardian_ThreatIntel
 
-Methodology and textbook © Marc-André Léger. This repository is the free **Community Edition**, licensed under **CC BY-NC 4.0**. Paid editions are available under a commercial or educational licence (see [Licence](#licence)). Packaged with Claude, version 1.1.2 (October 2026).
+Methodology and textbook © Marc-André Léger. This repository is the free **Community Edition**, licensed under **CC BY-NC 4.0**. Paid editions are available under a commercial or educational licence (see [Licence](#licence)). Packaged with Claude, version 2.0.0 (October 2026).
 
 ## What's inside
 
+Version 2.0 turns this repository into a marketplace of separate free plugins.
+
 ```
-cyberriskguardian-agent/
-├── CLAUDE.md                     # Claude Code memory: imports AGENTS.md + Claude-specific components
-├── AGENTS.md                     # Agent-agnostic instructions (role, principles, formulas, stack, conventions)
-├── LICENSE                       # CC BY-NC 4.0 legal code
-├── NOTICE.md                     # Licensing at a glance (free vs paid), attribution, third-party material
-├── .mcp.json                     # Project MCP config: local crg-calculator server
-├── .claude/
-│   ├── settings.json             # Model, output style, env defaults, permissions, SessionStart hook
-│   ├── skills/                   # (synced) cyber-risk-assessment, scenario-selection, cyber-budget-calibration, cybersecurity-governance
-│   ├── commands/                 # (synced) /risk-assessment /select-scenarios /calibrate-budget /crg-calc /qc-review
-│   ├── agents/                   # (synced) risk-scenario-analyst, risk-quantifier, risk-qc-reviewer
-│   ├── output-styles/            # (synced) CyberRiskGuardian Analyst, Executive Brief
-│   ├── rules/                    # evidence-discipline, data-protection (always); workbook, report, maintenance (path-gated)
-│   └── hooks/session-context.md  # guardrails injected at session start
-├── .claude-plugin/marketplace.json   # Marketplace listing this repository's plugin
-├── plugins/cyberriskguardian/    # THE PLUGIN - single source of truth
-│   ├── .claude-plugin/plugin.json
-│   ├── skills/…/SKILL.md, references/, scripts/, assets/
-│   │   └── cybersecurity-governance/references/   # the governance textbook, one file per chapter
-│   ├── commands/  agents/  output-styles/
-│   ├── hooks/hooks.json          # SessionStart guardrails
-│   ├── mcp/crg_server.py         # MCP server: crg_risk, cvss4_score, budget_target, budget_check, sensitivity
-│   └── .mcp.json
-├── examples/medibec/             # Worked example (fictional teaching case): input, source builders, deliverables
-├── scripts/sync-project-config.sh
-├── requirements.txt  package.json  .gitignore
+CyberRiskGuardian/
+├── .claude-plugin/marketplace.json     # cyberriskguardian-marketplace: lists the plugins below
+├── plugins/
+│   ├── cyberriskguardian/              # CyberRiskGuardian Core (free)
+│   │   ├── skills/  cyber-risk-assessment, crg-context-intake, crg-risk-appetite,
+│   │   │            crg-scenario-builder, crg-quantify, crg-summary-report
+│   │   ├── commands/  crg-assess, crg-quick-scan, select-scenarios, crg-calc, qc-review
+│   │   ├── agents/    risk-scenario-analyst, risk-qc-reviewer
+│   │   ├── hooks/     SessionStart guardrails + check_labels.py (PostToolUse, Stop)
+│   │   ├── mcp/       crg_server.py: crg_risk, cvss4_score
+│   │   └── evals/     one suite per skill (claude plugin eval)
+│   └── crg-governance-textbook/        # the governance textbook as a skill (free)
+├── docs/                               # quick-start guides (EN, FR) and demo script
+├── examples/medibec/                   # worked example (fictional teaching case)
+├── scripts/  sync-project-config.sh, build_evals.py, package-plugins.sh
+├── CLAUDE.md  AGENTS.md  .claude/      # project mode for Claude Code
+└── LICENSE  NOTICE.md
 ```
+
+Paid plugins (CRG Pro Quantitative, and the Compliance Packs to come) are distributed from a separate private marketplace to licensed customers.
 
 ## Install
 
-**Prerequisites:**
-- Python 3.10+ — `pip install -r requirements.txt` installs cvss, openpyxl and mcp.
-- Node 18+ — `npm install` for Word reports.
-- LibreOffice, for recalculating workbooks and rendering PDFs.
+**Quick start:** see `docs/quickstart-en.md` or, en français, `docs/demarrage-rapide-fr.md`.
 
-**A. Use as a project (Claude Code):** clone or unzip the repository and open it with `claude`. Claude Code then loads everything automatically:
-- `CLAUDE.md`, `.claude/` and `.mcp.json`;
-- approve the `crg-calculator` MCP server when prompted.
-
-**Public install from GitHub (Claude Code):** from https://github.com/ITriskMgr/CyberRiskGuardian:
+**Claude Code:**
 ```
-claude plugin marketplace add ITriskMgr/CyberRiskGuardian
-claude plugin install cyberriskguardian@cyberriskguardian-marketplace
+/plugin install cyberriskguardian --marketplace ITriskMgr/CyberRiskGuardian
+/plugin install crg-governance-textbook --marketplace ITriskMgr/CyberRiskGuardian
 ```
-**B. Install as a plugin from the marketplace (Claude Code):**
+On older versions:
 ```
-/plugin marketplace add <git-url-or-local-path-of-this-repository>
+/plugin marketplace add ITriskMgr/CyberRiskGuardian
 /plugin install cyberriskguardian@cyberriskguardian-marketplace
+/plugin install crg-governance-textbook@cyberriskguardian-marketplace
 ```
-The plugin brings the following into any project:
-- skills;
-- commands (namespaced, e.g. `/cyberriskguardian:risk-assessment`);
-- subagents and output styles;
-- the SessionStart hook;
-- the MCP calculator.
 
-Rules and project settings stay project-level. Copy `.claude/rules/` and `.claude/settings.json` if you want them elsewhere.
+**Claude Cowork:** upload `cyberriskguardian.plugin` and `crg-governance-textbook.plugin` (built with `bash scripts/package-plugins.sh`) through the plugin install flow.
 
-**C. Claude Cowork:** upload `cyberriskguardian.plugin` (a zip of `plugins/cyberriskguardian/`) through the plugin install flow.
+**Project mode (Claude Code):** clone the repository and open it with `claude`; `CLAUDE.md`, `.claude/` and `.mcp.json` load automatically. Approve the `crg-calculator` MCP server when prompted.
+
+**Prerequisites:** Python 3.10+ (`pip install -r requirements.txt`); Node 18+ with `npm install` for Word output; LibreOffice for rendering.
+
+**Version 1.1.1** (single plugin with workbook, sensitivity and budget tools) remains available on the `release/1.x` branch.
 
 ## Use
 
 | Ask or run | What happens |
 |---|---|
-| "Create 10 risk scenarios for <org> and complete a risk assessment" / `/risk-assessment` | Full workflow: context, selection, quantification, treatment, budget, report and workbook |
-| "Select the most material scenarios" / `/select-scenarios` | Sections A–E scenario-selection workbook |
-| "Explain the three lines model" / any governance concept | Answers from the author's textbook (`cybersecurity-governance` skill), with chapter citation |
-| "Determine the appropriate cybersecurity budget" / `/calibrate-budget` | Appetite-consistent budget vs the 4% / 7.8% / 12% guideline, risk-driven budget, project budgets |
+| "Run a cyber risk assessment for <org>" / `/crg-assess` | Core workflow: context, appetite, scenarios, quantification, management summary |
+| "Quick cyber risk scan" / `/crg-quick-scan` | 20 candidates, 10 scenarios, pre-treatment verdicts in one table |
+| "Select the most material scenarios" / `/select-scenarios` | Sections A–E scenario selection |
 | `/crg-calc 0.75 0.5 0.7 0.95 0.35 0.95 0.75 0.75 CVSS:4.0/…` | KRIs for one scenario |
+| "Explain the three lines model" | Answer from the textbook with chapter citation |
 | `/qc-review <files>` | Independent read-only quality review |
 
-**Scripts** (under `plugins/cyberriskguardian/skills/cyber-risk-assessment/scripts/`):
-```
-python3 crg_calc.py data.json [--appetite 0.30] [--factor 1000] [--json]
-python3 build_workbook.py data.json out.xlsx --title "Org - CyberRiskGuardian Workbook"
-python3 budget_calibrator.py --it-budget 100000000 --appetite 0.30 --spend 5.05e6 5.55e6 4.87e6
-```
-The data model is described in `assets/scenario-template.json`.
+Calculator: `python3 plugins/cyberriskguardian/skills/crg-quantify/scripts/crg_calc.py data.json [--appetite 0.30] [--factor 1000] [--json]`. The data model is `plugins/cyberriskguardian/skills/crg-quantify/assets/scenario-template.json`.
+
+Label check: `python3 plugins/cyberriskguardian/hooks/check_labels.py report.md` lists missing methodology markers.
 
 ## Maintain and release
-1. Edit only under `plugins/cyberriskguardian/`, then run `bash scripts/sync-project-config.sh`.
-2. Validate:
-   - `claude plugin validate plugins/cyberriskguardian/.claude-plugin/plugin.json`
-   - `claude plugin validate .claude-plugin/marketplace.json`
-3. Regression-check the MediBec example. `crg_calc.py examples/medibec/source/medibec30.json` must report total estimated 84,491 and residual 41,104.
-4. Bump the version (semver) in `plugin.json` and `marketplace.json`; current version 1.1.2.
+1. Edit only under `plugins/`, then run `bash scripts/sync-project-config.sh`.
+2. Validate each plugin and the marketplace with `claude plugin validate`.
+3. Run `python3 scripts/build_evals.py`, then the eval suites:
+   - `claude plugin eval plugins/cyberriskguardian --allow-tools Bash Write`
+   - `claude plugin eval plugins/crg-governance-textbook`
+4. Regression: `crg_calc.py examples/medibec/source/medibec30.json` must report total estimated 84,491 and residual 41,104.
+5. Bump the versions (semver) in each changed `plugin.json` and in `marketplace.json`; current version 2.0.0.
 
 ## Deliberately excluded
 - `CLAUDE.local.md` and `.claude/settings.local.json`, which hold private preferences.
@@ -122,9 +108,7 @@ The data model is described in `assets/scenario-template.json`.
 | **Paid editions** for other organizations, and commercial use of the Community Edition | CyberRiskGuardian Commercial Licence | Companies, consultants, MSSPs, government bodies | Professional, Team, Enterprise or MSSP tiers |
 
 The Community Edition in this repository covers:
-- methodology;
-- skills, agents and commands;
-- scripts;
+- the CyberRiskGuardian Core and CRG Governance Textbook plugins (methodology, skills, agents, commands, hooks, calculator, evals);
 - the governance textbook;
 - the MediBec example.
 

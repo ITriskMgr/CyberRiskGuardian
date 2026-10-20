@@ -1,0 +1,21 @@
+schema_version: "1.1"
+name: three-lines-model
+tags: ["smoke", "textbook"]
+runs: 2
+execution:
+  prompt: "Explain the three lines model as the CyberRiskGuardian governance textbook teaches it, and cite the chapter."
+  max_turns: 10
+  timeout_seconds: 600
+  allowed_tools: ["Read", "Grep", "Glob", "Skill"]
+graders:
+  - name: citation
+    type: "regex"
+    pattern: "Chap(?:ter|itre)\\s+\\d+"
+    flags: "i"
+  - name: read-book
+    type: "tool_used"
+    tool: "Read"
+    input_match: "references/ch\\d+"
+  - name: faithful
+    type: "llm"
+    criteria: "The explanation describes the governing body, management (first and second line roles) and independent assurance (third line), cites a chapter of Léger's Introduction to Cybersecurity Governance, and does not present invented quotations."

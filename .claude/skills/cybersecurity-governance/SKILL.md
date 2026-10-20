@@ -7,7 +7,7 @@ description: >
   "compliance management system", "cybersecurity maturity", "investment governance", "third-party governance" - or when a risk
   assessment needs the book's definitions, frameworks or chapter guidance as the reference text.
 metadata:
-  version: "1.0.0"
+  version: "2.0.0"
   author: "Marc-André Léger"
   source: "Introduction to Cybersecurity Governance for Business Technology Management, 3rd edition, v2.1g (August 2026)"
   license: "CC BY-NC 4.0"
@@ -27,7 +27,7 @@ Use the author's textbook as the reference for governance, risk, compliance and 
 2. Quote or paraphrase the book faithfully and cite it as: *Léger, M.-A. (2026). Introduction to Cybersecurity Governance (3rd ed., v2.1g), Chapter N.*
 3. Keep the book's own terminology, e.g. "security is the absence of unacceptable risk", the IPM cycle, risk appetite as the managerial core.
 4. Where the book and a newer official standard differ, say so and defer to the official publication for operational decisions. This follows the book's editorial note.
-5. For assessments, pair the book with the `cyber-risk-assessment` skill:
+5. For assessments, pair the book with the `cyber-risk-assessment` skill of the CyberRiskGuardian Core plugin:
    - Chapter 5 underpins scenario construction.
    - Chapter 6 describes the CyberRiskGuardian Excel model, its formulas and the step-by-step procedure.
    - Chapter 4 covers treatment strategies, appetite and tolerance, KRIs, threats and vulnerabilities.

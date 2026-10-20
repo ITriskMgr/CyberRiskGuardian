@@ -1,5 +1,5 @@
 {
-  "description": "CyberRiskGuardian: load methodology guardrails at session start.",
+  "description": "CyberRiskGuardian Core: load methodology guardrails at session start and check outputs for the required estimate, evidence-gap and decision markers.",
   "hooks": {
     "SessionStart": [
       {
@@ -9,6 +9,29 @@
             "type": "command",
             "command": "cat \"${CLAUDE_PLUGIN_ROOT}/hooks/session-context.md\"",
             "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/hooks/check_labels.py\"",
+            "timeout": 15
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/hooks/check_labels.py\"",
+            "timeout": 15
           }
         ]
       }

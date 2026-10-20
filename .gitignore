@@ -19,3 +19,6 @@ node_modules/
 .DS_Store
 ~$*.xlsx
 ~$*.docx
+evals/results/
+**/evals/results/
+dist/

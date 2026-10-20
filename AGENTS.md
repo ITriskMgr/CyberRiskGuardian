@@ -25,17 +25,20 @@ Act as a **Senior Cybersecurity Risk Analyst** (governance, risk management, ris
 8. Do not submit sensitive, confidential, personal or regulated information to external AI services without authorization.
 
 ## Methodology (single source of truth)
-All methodology lives under `plugins/cyberriskguardian/`:
+The Community Edition methodology lives in two public plugins:
 
 | Topic | File |
 |---|---|
-| Full 22-section task specification | `skills/cyber-risk-assessment/references/master-task-spec.md` |
-| Assessment workflow (19 steps) | `skills/cyber-risk-assessment/SKILL.md` |
-| Formulas, workbook conventions, interpretation notes | `skills/cyber-risk-assessment/references/crg-formulas-and-workbook.md` |
-| Deliverable conventions | `skills/cyber-risk-assessment/references/deliverables.md` |
-| Scenario selection (20 steps, Sections A–E, 14 critical rules) | `skills/scenario-selection/` |
-| Budget guideline (4% / 7.8% / 12% of IT budget) | `skills/cyber-budget-calibration/` |
-| Reference textbook: *Introduction to Cybersecurity Governance*, 3rd ed. v2.1g (concepts, frameworks, CRG model in Ch. 6) | `skills/cybersecurity-governance/` |
+| Core workflow and hand-offs | `plugins/cyberriskguardian/skills/cyber-risk-assessment/SKILL.md` |
+| Full 22-section task specification | `plugins/cyberriskguardian/skills/cyber-risk-assessment/references/master-task-spec.md` |
+| Evidence register, context, crown jewels, scope | `plugins/cyberriskguardian/skills/crg-context-intake/` |
+| Risk appetite and materiality | `plugins/cyberriskguardian/skills/crg-risk-appetite/` |
+| Scenario candidates, screening, selection (Sections A–E, 14 critical rules) | `plugins/cyberriskguardian/skills/crg-scenario-builder/` |
+| Parameters, CVSS v4.0, formulas, calculator | `plugins/cyberriskguardian/skills/crg-quantify/` |
+| Management summary and deliverable conventions | `plugins/cyberriskguardian/skills/crg-summary-report/` |
+| Reference textbook: *Introduction to Cybersecurity Governance*, 3rd ed. v2.1g | `plugins/crg-governance-textbook/skills/cybersecurity-governance/` |
+
+Treatment portfolios, sensitivity, budget calibration (4% / 7.8% / 12% of IT budget), KRI design, the workbook builder and the full report are in the private CRG Pro marketplace.
 
 ### Key formulas (CyberRiskGuardian Excel Guide v1.0c — never modify silently)
 ```
@@ -54,8 +57,8 @@ Ratio = Residual ÷ Tolerated  (<0.90 below · 0.90–1.10 approximately at · >
 | Calculations | Python 3.10+ with `cvss`, `openpyxl`, `mcp`. See `requirements.txt`. |
 | Word reports | Node 18+ with `docx` (`package.json`). |
 | Recalculation and PDF rendering | LibreOffice (headless). |
-| Scripts | `plugins/cyberriskguardian/skills/cyber-risk-assessment/scripts/`: `crg_calc.py`, `build_workbook.py`, `budget_calibrator.py`. |
-| Local calculator server | `plugins/cyberriskguardian/mcp/crg_server.py`, an MCP server over stdio. |
+| Scripts | `plugins/cyberriskguardian/skills/crg-quantify/scripts/crg_calc.py`; `plugins/cyberriskguardian/hooks/check_labels.py`; `scripts/build_evals.py`. |
+| Local calculator server | `plugins/cyberriskguardian/mcp/crg_server.py`, an MCP server over stdio (Core tools). |
 
 ## Execution guidelines
 - Read every supplied document before writing.
@@ -76,7 +79,7 @@ Ratio = Residual ÷ Tolerated  (<0.90 below · 0.90–1.10 approximately at · >
   - any judgement calls that depart from the scores.
 
 ## Repository conventions
-- Edit methodology only under `plugins/cyberriskguardian/`, then run `scripts/sync-project-config.sh` to refresh `.claude/`.
-- Bump the version in `plugin.json` and `.claude-plugin/marketplace.json` when behaviour changes.
+- Edit methodology only under `plugins/cyberriskguardian/` or `plugins/crg-governance-textbook/`, then run `scripts/sync-project-config.sh` to refresh `.claude/`.
+- Bump the version in the changed plugin's `plugin.json` and in `.claude-plugin/marketplace.json` when behaviour changes, regenerate the evals with `scripts/build_evals.py` and run them.
 - Licence: this repository is the Community Edition under CC BY-NC 4.0; commercial use requires the CyberRiskGuardian Commercial Licence (see `LICENSE`, `NOTICE.md`). Never commit paid-edition content (Pro plugins, Compliance or Sector Packs, Educator Edition, CRGO ontology data, desktop builds) to this public repository. Keep attribution to Marc-André Léger in derived files, and do not add third-party material that cannot be shared under these terms.
 - Never commit `CLAUDE.local.md`, `.claude/settings.local.json`, session transcripts, organization data or generated client deliverables. `.gitignore` covers these.

@@ -1,0 +1,26 @@
+schema_version: "1.1"
+name: risk-appetite-healthcare
+tags: ["smoke", "appetite"]
+runs: 2
+execution:
+  prompt: "The fixture file medibec_profile.md is in a directory added to this session; locate it with Glob before reading it. No risk appetite has been approved for MediBec. Estimate one for the CyberRiskGuardian assessment and give the materiality criteria."
+  max_turns: 12
+  timeout_seconds: 600
+  allowed_tools: ["Read", "Glob", "Skill"]
+context:
+  add_dirs: [fixtures]
+graders:
+  - name: appetite-line
+    type: "regex"
+    pattern: "Estimated Risk Appetite:\\s*\\**\\s*0[.,](?:[12]\\d?|3\\d?)\\b"
+  - name: estimate-marker
+    type: "regex"
+    pattern: "Analyst estimate|Analytical estimate|Estimation de l.analyste|Estimation analytique"
+    flags: "i"
+  - name: decision-marker
+    type: "regex"
+    pattern: "Management decision required|D[ée]cision de la direction requise"
+    flags: "i"
+  - name: rationale
+    type: "llm"
+    criteria: "The appetite is justified with factors from the profile (patient data sensitivity, clinical continuity, privacy and health-sector obligations) and the reply explains what a lower or higher value would change. It translates the appetite into materiality criteria for scenario selection."

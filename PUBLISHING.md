@@ -1,5 +1,7 @@
 # Publier CyberRiskGuardian
 
+> **Version 2.0** : le dépôt est maintenant un marketplace de plusieurs plugiciels (Core et manuel). Pour publier une nouvelle version, suivez la section « Maintain and release » du README. La version 1.1.1 reste disponible sur la branche `release/1.x`.
+
 Deux voies complémentaires :
 - **Dépôt GitHub public** : n'importe qui peut installer l'agent dès que le dépôt est en ligne.
 - **Répertoire communautaire d'Anthropic** : l'agent apparaît dans les catalogues de Claude Code et Cowork, après révision.

@@ -1,0 +1,25 @@
+schema_version: "1.1"
+name: summary-report-markers
+tags: ["smoke", "report"]
+runs: 2
+execution:
+  prompt: "Write the CyberRiskGuardian management summary for Clinique Nord from these calculator results (appetite 0.30, estimated by the analyst, not approved; supplier list not provided). S1 Admin credential compromise: estimated 5,428, tolerated 2,412, ratio 2.25, above tolerance. S2 Ransomware on scheduling servers: estimated 4,100, tolerated 2,050, ratio 2.00, above tolerance. S3 Supplier portal data leak: estimated 1,200, tolerated 1,150, ratio 1.04, approximately at tolerance. Reply in the conversation."
+  max_turns: 8
+  timeout_seconds: 600
+  allowed_tools: ["Skill"]
+graders:
+  - name: decision-marker
+    type: "regex"
+    pattern: "Management decision required|D[ée]cision de la direction requise"
+    flags: "i"
+  - name: estimate-marker
+    type: "regex"
+    pattern: "Analyst estimate|Analytical estimate|Estimation de l.analyste|Estimation analytique"
+    flags: "i"
+  - name: gap-marker
+    type: "regex"
+    pattern: "Evidence gap|Information gap|Lacune de preuve|Lacune d.information"
+    flags: "i"
+  - name: conclusion-first
+    type: "llm"
+    criteria: "The summary opens with the conclusion (two scenarios above tolerance, one approximately at tolerance, and what management must decide), includes a portfolio table with the given numbers unchanged, marks treatment directions as indicative and uncosted, and lists next steps that need CRG Pro (costed treatment, sensitivity, budget) without inventing costs."
