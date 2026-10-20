@@ -13,20 +13,15 @@
       "Read",
       "Glob",
       "Grep",
-      "Bash(python3 .claude/skills/cyber-risk-assessment/scripts/crg_calc.py:*)",
-      "Bash(python3 .claude/skills/cyber-risk-assessment/scripts/build_workbook.py:*)",
-      "Bash(python3 .claude/skills/cyber-risk-assessment/scripts/budget_calibrator.py:*)",
-      "Bash(python3 plugins/cyberriskguardian/skills/cyber-risk-assessment/scripts/crg_calc.py:*)",
-      "Bash(python3 plugins/cyberriskguardian/skills/cyber-risk-assessment/scripts/build_workbook.py:*)",
-      "Bash(python3 plugins/cyberriskguardian/skills/cyber-risk-assessment/scripts/budget_calibrator.py:*)",
+      "Bash(python3 .claude/skills/crg-quantify/scripts/crg_calc.py:*)",
+      "Bash(python3 plugins/cyberriskguardian/skills/crg-quantify/scripts/crg_calc.py:*)",
+      "Bash(python3 plugins/cyberriskguardian/hooks/check_labels.py:*)",
+      "Bash(python3 scripts/build_evals.py)",
       "Bash(soffice --headless:*)",
       "Bash(pdftoppm:*)",
       "Bash(bash scripts/sync-project-config.sh)",
       "mcp__crg-calculator__crg_risk",
-      "mcp__crg-calculator__cvss4_score",
-      "mcp__crg-calculator__budget_target",
-      "mcp__crg-calculator__budget_check",
-      "mcp__crg-calculator__sensitivity"
+      "mcp__crg-calculator__cvss4_score"
     ],
     "ask": [
       "WebSearch",
@@ -44,7 +39,9 @@
       "Read(./.claude/settings.local.json)"
     ]
   },
-  "enabledMcpjsonServers": ["crg-calculator"],
+  "enabledMcpjsonServers": [
+    "crg-calculator"
+  ],
   "hooks": {
     "SessionStart": [
       {

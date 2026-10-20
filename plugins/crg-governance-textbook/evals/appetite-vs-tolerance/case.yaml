@@ -1,0 +1,17 @@
+schema_version: "1.1"
+name: appetite-vs-tolerance
+tags: ["textbook"]
+runs: 2
+execution:
+  prompt: "Selon le manuel de gouvernance de CyberRiskGuardian, quelle est la différence entre l'appétit pour le risque et la tolérance au risque ? Cite le chapitre."
+  max_turns: 10
+  timeout_seconds: 600
+  allowed_tools: ["Read", "Grep", "Glob", "Skill"]
+graders:
+  - name: citation
+    type: "regex"
+    pattern: "Chap(?:ter|itre)\\s+\\d+"
+    flags: "i"
+  - name: answer
+    type: "llm"
+    criteria: "The reply is in French, distinguishes risk appetite (the amount and type of risk the organization is willing to pursue or retain) from risk tolerance (acceptable variation or limits around objectives), and cites a chapter of the textbook."

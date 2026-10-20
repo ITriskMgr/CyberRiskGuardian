@@ -1,0 +1,29 @@
+schema_version: "1.1"
+name: quantify-worked-example
+tags: ["smoke", "regression", "quantify"]
+runs: 3
+execution:
+  prompt: "Compute the CyberRiskGuardian KRIs for one scenario with the calculator, not by hand: Pb(A) 0.70, Pb(ψ,A) 0.60, CVSS-B 9.4, δe 0.60, δm 0.80, θ 0.50, μ(E) 0.65, appetite 0.35, factor 1,000, probability reduction 0.65, impact reduction 0.70. Give estimated, tolerated, mitigated and residual risk, the ratio and the classification."
+  max_turns: 10
+  timeout_seconds: 600
+  allowed_tools: ["Bash", "Read", "Skill", "Write"]
+graders:
+  - name: estimated
+    type: "regex"
+    pattern: "3[,\\s ]?592"
+  - name: tolerated
+    type: "regex"
+    pattern: "1[,\\s ]?796"
+  - name: residual
+    type: "regex"
+    pattern: "1[,\\s ]?958"
+  - name: ratio
+    type: "regex"
+    pattern: "1[.,]09"
+  - name: calculator-used
+    type: "tool_used"
+    tool: "Bash"
+    input_match: "crg_calc"
+  - name: classification
+    type: "llm"
+    criteria: "The scenario is classified as approximately at tolerance (ratio between 0.90 and 1.10)."

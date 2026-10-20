@@ -1,0 +1,13 @@
+schema_version: "1.1"
+name: context-intake-interview
+tags: ["smoke", "intake"]
+runs: 2
+execution:
+  prompt: "I want a cybersecurity risk assessment for my small accounting firm. I don't have any documents."
+  max_turns: 6
+  timeout_seconds: 600
+  allowed_tools: ["Skill"]
+graders:
+  - name: interview
+    type: "llm"
+    criteria: "The assistant starts an interview: it asks a first round of at most five numbered questions about the firm (a numbered question may have short parts or examples), covering topics such as mission, clients, critical services, data, systems or obligations. It does not invent facts about the firm and does not produce scenarios or risk scores yet."

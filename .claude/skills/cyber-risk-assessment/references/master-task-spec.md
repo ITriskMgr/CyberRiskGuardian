@@ -100,8 +100,8 @@ Scenarios organization-specific; causal chains; threats and vulnerabilities not 
 
 ## 22. Output style
 For specialists and senior management at once: clear headings, concise business language, structured tables, transparent calculations, consistent terminology, traceable assumptions. Avoid unsupported certainty, jargon, generic recommendations, arbitrary precision, invented facts. Use literally:
-- **Analyst estimate — validation required**
-- **Evidence gap — organizational input required**
+- **Analytical estimate — validation required**
+- **Information gap — organizational validation required**
 - **Management decision required**
 
 The final product lets management understand what can happen, why, what is affected, how serious and likely it is, what controls exist, what treatment is available and what it costs, how much it reduces risk, what remains, whether that is within tolerance, and what to decide or fund next.

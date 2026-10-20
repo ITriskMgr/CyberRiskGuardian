@@ -1,10 +1,14 @@
 {
   "name": "cyberriskguardian",
-  "version": "1.1.1",
-  "description": "CyberRiskGuardian - AI-assisted, scenario-driven cybersecurity risk assessment: scenario selection (Sections A-E), CRG KRI quantification with CVSS v4.0, treatment portfolio, appetite-aligned cybersecurity budget and management reporting, with the author's cybersecurity governance textbook as reference.",
+  "version": "2.0.0",
+  "description": "CyberRiskGuardian Core (free) - scenario-driven cybersecurity risk assessment: context and evidence intake, risk appetite, 20-candidate scenario building and selection, CRG quantification with CVSS v4.0, and a management summary, with methodology label checks.",
   "author": {
-    "name": "Marc-André Léger"
+    "name": "Marc-André Léger",
+    "url": "https://www.leger.ca"
   },
+  "homepage": "https://www.leger.ca",
+  "repository": "https://github.com/ITriskMgr/CyberRiskGuardian",
+  "license": "CC-BY-NC-4.0 OR LicenseRef-CyberRiskGuardian-Commercial",
   "keywords": [
     "cybersecurity",
     "risk-assessment",
@@ -12,12 +16,9 @@
     "cvss",
     "iso-27005",
     "nist",
-    "fair",
     "governance",
-    "budget",
-    "compliance",
-    "textbook"
+    "risk-appetite",
+    "scenarios"
   ],
-  "outputStyles": "./output-styles/",
-  "license": "CC-BY-NC-4.0"
+  "outputStyles": "./output-styles/"
 }

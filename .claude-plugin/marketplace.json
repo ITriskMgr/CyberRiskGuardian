@@ -1,18 +1,19 @@
 {
   "name": "cyberriskguardian-marketplace",
   "owner": {
-    "name": "Marc-André Léger"
+    "name": "Marc-André Léger",
+    "url": "https://www.leger.ca"
   },
   "metadata": {
-    "description": "CyberRiskGuardian plugins for scenario-driven cybersecurity risk assessment, scenario selection and cybersecurity budget calibration.",
-    "version": "1.1.1"
+    "description": "CyberRiskGuardian Community Edition: free plugins for scenario-driven cybersecurity risk assessment and the cybersecurity governance textbook.",
+    "version": "2.0.0"
   },
   "plugins": [
     {
       "name": "cyberriskguardian",
       "source": "./plugins/cyberriskguardian",
-      "description": "CyberRiskGuardian - AI-assisted, scenario-driven cybersecurity risk assessment: scenario selection (Sections A-E), CRG KRI quantification with CVSS v4.0, treatment portfolio, appetite-aligned cybersecurity budget and management reporting, with the author's cybersecurity governance textbook as reference.",
-      "version": "1.1.1",
+      "description": "CyberRiskGuardian Core (free) - scenario-driven cybersecurity risk assessment: context and evidence intake, risk appetite, 20-candidate scenario building and selection, CRG quantification with CVSS v4.0, and a management summary, with methodology label checks.",
+      "version": "2.0.0",
       "category": "security",
       "keywords": [
         "cybersecurity",
@@ -20,10 +21,23 @@
         "cvss",
         "iso-27005",
         "nist",
-        "fair",
-        "budget"
+        "risk-appetite"
       ],
-      "license": "CC-BY-NC-4.0"
+      "license": "CC-BY-NC-4.0 OR LicenseRef-CyberRiskGuardian-Commercial"
+    },
+    {
+      "name": "crg-governance-textbook",
+      "source": "./plugins/crg-governance-textbook",
+      "description": "The textbook Introduction to Cybersecurity Governance for Business Technology Management (Léger, 3rd ed., v2.1g) as a reference skill: governance, risk, compliance and resilience concepts with chapter citations.",
+      "version": "2.0.0",
+      "category": "education",
+      "keywords": [
+        "cybersecurity",
+        "governance",
+        "textbook",
+        "education"
+      ],
+      "license": "CC-BY-NC-4.0 OR LicenseRef-CyberRiskGuardian-Commercial"
     }
   ]
 }

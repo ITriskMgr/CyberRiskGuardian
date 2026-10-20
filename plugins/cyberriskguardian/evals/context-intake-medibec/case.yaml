@@ -1,0 +1,26 @@
+schema_version: "1.1"
+name: context-intake-medibec
+tags: ["smoke", "intake"]
+runs: 2
+execution:
+  prompt: "The fixture file medibec_profile.md is not in the working directory: it is in a fixtures/ directory added to this session (listed among the additional working directories). Search there, for example with Glob **/fixtures/medibec_profile.md from the added directory, then read it. Using only that profile, build the evidence register, the crown-jewel table and the scope statement for a CyberRiskGuardian risk assessment of MediBec. Do not ask me questions; state assumptions instead."
+  max_turns: 15
+  timeout_seconds: 600
+  allowed_tools: ["Read", "Glob", "Grep", "Skill"]
+context:
+  add_dirs: [fixtures]
+graders:
+  - name: evidence-ids
+    type: "regex"
+    pattern: "\\bE1\\b"
+  - name: gap-marker
+    type: "regex"
+    pattern: "Evidence gap|Information gap|Lacune de preuve|Lacune d.information"
+    flags: "i"
+  - name: intake-skill
+    type: "tool_used"
+    tool: "Skill"
+    input_match: "crg-context-intake|cyber-risk-assessment"
+  - name: grounded
+    type: "llm"
+    criteria: "The reply contains an evidence register with IDs, a crown-jewel table that includes the electronic health record and clinical systems, and a scope with a 12-month horizon. Facts are traceable to the MediBec profile; the reply does not invent facts absent from it (such as named vendors, headcounts or budgets) and labels missing information as an evidence gap."

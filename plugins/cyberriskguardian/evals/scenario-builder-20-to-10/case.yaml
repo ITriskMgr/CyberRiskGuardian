@@ -1,0 +1,22 @@
+schema_version: "1.1"
+name: scenario-builder-20-to-10
+tags: ["scenarios"]
+runs: 1
+execution:
+  prompt: "The fixture file medibec_profile.md is not in the working directory: it is in a fixtures/ directory added to this session (listed among the additional working directories). Search there, for example with Glob **/fixtures/medibec_profile.md from the added directory, then read it. Generate 20 candidate cyber risk scenarios for MediBec and select the 10 most material. Keep each candidate to one line and give a one-line rationale for each selected scenario. No workbook, reply in the conversation."
+  max_turns: 25
+  timeout_seconds: 900
+  allowed_tools: ["Read", "Glob", "Grep", "Skill"]
+context:
+  add_dirs: [fixtures]
+graders:
+  - name: builder-skill
+    type: "tool_used"
+    tool: "Skill"
+    input_match: "crg-scenario-builder|cyber-risk-assessment"
+  - name: causal-chains
+    type: "llm"
+    criteria: "There are 20 candidates and 10 selected scenarios. Each selected scenario is a causal chain (threat source, weakness, affected asset or process, event, organizational consequence), not a threat name such as 'ransomware' or 'phishing'. The selection is not dominated by one technique, includes at least one non-technical or third-party scenario, and each selection has a rationale tied to MediBec."
+  - name: no-cvss-ranking
+    type: "llm"
+    criteria: "The reply does not rank or select scenarios on CVSS scores."

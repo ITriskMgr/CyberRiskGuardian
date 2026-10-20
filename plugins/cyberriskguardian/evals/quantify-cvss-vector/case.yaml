@@ -1,0 +1,21 @@
+schema_version: "1.1"
+name: quantify-cvss-vector
+tags: ["smoke", "quantify"]
+runs: 3
+execution:
+  prompt: "Score this CVSS v4.0 vector with the CyberRiskGuardian calculator and tell me the severity: CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:P/VC:H/VI:H/VA:N/SC:N/SI:N/SA:N"
+  max_turns: 8
+  timeout_seconds: 600
+  allowed_tools: ["Bash", "Read", "Skill"]
+graders:
+  - name: score
+    type: "regex"
+    pattern: "\\b8[.,]6\\b"
+  - name: severity
+    type: "regex"
+    pattern: "High|[ÉE]lev[ée]"
+    flags: "i"
+  - name: tool
+    type: "tool_used"
+    tool: "Bash"
+    input_match: "crg_calc|cvss"
