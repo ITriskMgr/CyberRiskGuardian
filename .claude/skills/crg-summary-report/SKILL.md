@@ -28,7 +28,7 @@ Write a management summary that a director can read in five minutes and act on. 
 ## Rules
 
 - Use the numbers from the calculator output exactly; round risk units to whole numbers and ratios to two decimals.
-- Keep AI estimates labelled **Analyst estimate — validation required** and missing facts labelled **Evidence gap — organizational input required**.
+- Keep AI estimates labelled **Analytical estimate — validation required** and missing facts labelled **Information gap — organizational validation required**.
 - Connect each technical event to its business consequence.
 - Write in the language the user writes in (French or English).
 
@@ -38,4 +38,4 @@ Default to a document in the environment's document format. Use Word only when t
 
 ## Language
 
-Reply in the user's language. In French, write the markers as **Estimation de l'analyste — validation requise**, **Lacune de preuve — information organisationnelle requise** and **Décision de la direction requise**.
+Reply in the user's language. In French, write the markers as **Estimation analytique — validation requise**, **Lacune d'information — validation organisationnelle requise** and **Décision de la direction requise**.

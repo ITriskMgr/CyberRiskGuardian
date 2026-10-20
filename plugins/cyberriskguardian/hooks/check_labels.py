@@ -4,9 +4,9 @@
 """CyberRiskGuardian methodology label check.
 
 Checks that risk-assessment outputs carry the standard markers:
-  - "Analyst estimate — validation required"         when quantitative estimates appear
+  - "Analytical estimate — validation required"         when quantitative estimates appear
   - "Management decision required"                    when the output is a report or summary
-  - "Evidence gap — organizational input required"    when the text admits missing information
+  - "Information gap — organizational validation required"    when the text admits missing information
 
 French equivalents and the earlier "Analytical estimate" / "Information gap" wording are accepted.
 
@@ -28,8 +28,8 @@ MARKERS = {
     "decision": [r"management decision required", r"d[ée]cision de la direction requise"],
 }
 LABEL_TEXT = {
-    "estimate": "Analyst estimate — validation required (FR: Estimation de l'analyste — validation requise)",
-    "gap": "Evidence gap — organizational input required (FR: Lacune de preuve — information organisationnelle requise)",
+    "estimate": "Analytical estimate — validation required (FR: Estimation analytique — validation requise)",
+    "gap": "Information gap — organizational validation required (FR: Lacune d'information — validation organisationnelle requise)",
     "decision": "Management decision required (FR: Décision de la direction requise)",
 }
 QUANT = re.compile(r"Pb\s*\(\s*A\s*\)|Pb\s*\(\s*[ψψ]|δ\s*[em]\b|θ\s*\(|μ\s*\(\s*E|\bPbA\b|\bPbx\b|estimated risk|risque estim|tolerated risk|risque tol[ée]r", re.I)

@@ -40,4 +40,4 @@ Lower / central / higher cases: shift Pb(A), Pb(ψ,A), δe, δm by ∓/± 0.10, 
 | δe / δm | limited records or one site | material, several sites | network-wide, safety, catastrophic data loss |
 | θ | resilience weak: no tested recovery, small team | partial | tested recovery, 24×7 detection |
 | μ(E) | supporting process | important process | mission-critical (care delivery, identity) |
-Each value needs rationale, evidence reference and confidence; mark **Analyst estimate — validation required**.
+Each value needs rationale, evidence reference and confidence; mark **Analytical estimate — validation required**.

@@ -32,7 +32,7 @@ Avoid the extremes without strong evidence. A health, public-safety or critical-
 
 ## Output
 
-1. One line: `Estimated Risk Appetite: X.XX` (or `Approved Risk Appetite: X.XX`), followed by the rationale, the factors that pushed the value up or down, and the confidence level. Mark an estimate **Analyst estimate — validation required** and **Management decision required**.
+1. One line: `Estimated Risk Appetite: X.XX` (or `Approved Risk Appetite: X.XX`), followed by the rationale, the factors that pushed the value up or down, and the confidence level. Mark an estimate **Analytical estimate — validation required** and **Management decision required**.
 2. A short appetite sensitivity note: with the CRG formulas, the pre-treatment ratio equals average damage divided by appetite. At 0.30, any scenario whose average damage exceeds 0.33 starts above tolerance. Say what changes at the next anchor up and down.
 3. Materiality criteria for scenario selection derived from the appetite: which impact levels, regulatory consequences, safety effects or service outages count as material for this organization.
 
@@ -40,4 +40,4 @@ Hand off to `crg-scenario-builder` next.
 
 ## Language
 
-Reply in the user's language. In French, write the markers as **Estimation de l'analyste — validation requise**, **Lacune de preuve — information organisationnelle requise** and **Décision de la direction requise**.
+Reply in the user's language. In French, write the markers as **Estimation analytique — validation requise**, **Lacune d'information — validation organisationnelle requise** and **Décision de la direction requise**.

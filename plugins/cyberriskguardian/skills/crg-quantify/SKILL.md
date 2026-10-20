@@ -25,7 +25,7 @@ Turn each developed scenario into the CyberRiskGuardian parameters, score its CV
 | θ(ψ,A) | `Th` | organizational resilience: prevent, detect, contain, respond, recover (higher is stronger) |
 | μ(E) | `Mu` | importance of the affected service or asset to the mission |
 
-For every value give: the estimate, a qualitative reading, the rationale, the evidence reference (E-number), the confidence (High, Medium, Low) and the evidence that would raise confidence. Use the anchor table in `references/crg-formulas.md`. Round to two decimals and avoid false precision. Mark each value **Analyst estimate — validation required** unless the organization supplied it.
+For every value give: the estimate, a qualitative reading, the rationale, the evidence reference (E-number), the confidence (High, Medium, Low) and the evidence that would raise confidence. Use the anchor table in `references/crg-formulas.md`. Round to two decimals and avoid false precision. Mark each value **Analytical estimate — validation required** unless the organization supplied it.
 
 ## 2. CVSS v4.0
 
@@ -53,4 +53,4 @@ A parameter table per scenario, the CVSS vector and metric rationale, and a resu
 
 ## Language
 
-Reply in the user's language. In French, write the markers as **Estimation de l'analyste — validation requise**, **Lacune de preuve — information organisationnelle requise** and **Décision de la direction requise**.
+Reply in the user's language. In French, write the markers as **Estimation analytique — validation requise**, **Lacune d'information — validation organisationnelle requise** and **Décision de la direction requise**.

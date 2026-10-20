@@ -30,7 +30,7 @@ In Claude Cowork, upload `cyberriskguardian.plugin` (a zip of this folder) throu
 | Commands | `crg-assess`, `crg-quick-scan`, `select-scenarios`, `crg-calc`, `qc-review` | Entry points |
 | Agents | `risk-scenario-analyst`, `risk-qc-reviewer` | Delegated scenario screening and independent read-only review |
 | Output styles | `CyberRiskGuardian Analyst`, `CyberRiskGuardian Executive Brief` | Analyst voice with evidence markers; one-page board brief |
-| Hooks | SessionStart, PostToolUse, Stop | Methodology guardrails; checks that outputs carry the estimate, evidence-gap and decision markers |
+| Hooks | SessionStart, PostToolUse, Stop | Methodology guardrails; checks that outputs carry the estimate, information-gap and decision markers |
 | MCP | `crg-calculator` (local Python) | `crg_risk`, `cvss4_score` |
 | Evals | `evals/` | One suite per skill, run with `claude plugin eval` |
 

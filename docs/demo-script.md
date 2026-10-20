@@ -22,11 +22,11 @@ Total running time: about 10 minutes.
 
 ## 1:45–3:00 · Context and appetite
 
-**On screen:** `/crg-assess MediBec` with the profile attached. Scroll through the evidence register and the crown-jewel table. Pause on an **Evidence gap** marker.
+**On screen:** `/crg-assess MediBec` with the profile attached. Scroll through the evidence register and the crown-jewel table. Pause on an **Information gap** marker.
 
-**EN:** Claude reads the profile first and builds an evidence register. Every fact points to a source. Where the profile is silent, it says so instead of guessing: that's the evidence-gap marker. Then it proposes a risk appetite of 0.30 for a healthcare organization and explains why. It's marked as an estimate: management confirms it.
+**EN:** Claude reads the profile first and builds an evidence register. Every fact points to a source. Where the profile is silent, it says so instead of guessing: that's the information-gap marker. Then it proposes a risk appetite of 0.30 for a healthcare organization and explains why. It's marked as an estimate: management confirms it.
 
-**FR :** Claude lit d'abord le profil et constitue un registre des preuves. Chaque fait renvoie à une source. Là où le profil est muet, il le dit au lieu de deviner : c'est le marqueur de lacune de preuve. Il propose ensuite un appétit pour le risque de 0,30 pour un organisme de santé et explique pourquoi. C'est une estimation : la direction la confirme.
+**FR :** Claude lit d'abord le profil et constitue un registre des preuves. Chaque fait renvoie à une source. Là où le profil est muet, il le dit au lieu de deviner : c'est le marqueur de lacune d'information. Il propose ensuite un appétit pour le risque de 0,30 pour un organisme de santé et explique pourquoi. C'est une estimation : la direction la confirme.
 
 ## 3:00–5:00 · Scenarios
 

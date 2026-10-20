@@ -35,8 +35,8 @@ Every output carries three markers. They show you what still needs work:
 
 | Marker | Meaning | What to do |
 |---|---|---|
-| **Analyst estimate — validation required** | A value Claude estimated | Confirm it with the people who know the system or process |
-| **Evidence gap — organizational input required** | A fact nobody supplied | Find the document or ask the owner |
+| **Analytical estimate — validation required** | A value Claude estimated | Confirm it with the people who know the system or process |
+| **Information gap — organizational validation required** | A fact nobody supplied | Find the document or ask the owner |
 | **Management decision required** | A choice only management can make | Put it on the agenda |
 
 A built-in check warns you when a deliverable is missing a marker it needs.

@@ -61,11 +61,11 @@ If the CRG Pro skills (`crg-mitigation-planner`, `crg-sensitivity`, `crg-budget-
 
 Use these markers literally wherever they apply. The methodology hooks check for them:
 
-- **Analyst estimate — validation required**
-- **Evidence gap — organizational input required**
+- **Analytical estimate — validation required**
+- **Information gap — organizational validation required**
 - **Management decision required**
 
-When writing in French, use: **Estimation de l'analyste — validation requise**, **Lacune de preuve — information organisationnelle requise**, **Décision de la direction requise**.
+When writing in French, use: **Estimation analytique — validation requise**, **Lacune d'information — validation organisationnelle requise**, **Décision de la direction requise**.
 
 ## Reply
 

@@ -35,8 +35,8 @@ Chaque livrable porte trois marqueurs. Ils indiquent ce qu'il reste à faire :
 
 | Marqueur | Signification | Que faire |
 |---|---|---|
-| **Estimation de l'analyste — validation requise** | Une valeur estimée par Claude | La confirmer avec les personnes qui connaissent le système ou le processus |
-| **Lacune de preuve — information organisationnelle requise** | Un fait que personne n'a fourni | Trouver le document ou demander au responsable |
+| **Estimation analytique — validation requise** | Une valeur estimée par Claude | La confirmer avec les personnes qui connaissent le système ou le processus |
+| **Lacune d'information — validation organisationnelle requise** | Un fait que personne n'a fourni | Trouver le document ou demander au responsable |
 | **Décision de la direction requise** | Un choix qui revient à la direction | L'inscrire à l'ordre du jour |
 
 Une vérification intégrée vous avertit lorsqu'un livrable n'a pas un marqueur requis.

@@ -25,7 +25,7 @@ Read every document supplied before writing. List each source as a row: ID (E1, 
 
 Cover, where evidence exists: mission and objectives; sector; products and services; customers or beneficiaries; critical business processes; information assets and their sensitivity; critical systems and applications; infrastructure and cloud; identity and remote access; OT, IoT or medical devices; third parties and suppliers; geography and jurisdictions; legal, regulatory and contractual obligations; availability and continuity requirements; existing controls (evidence-backed only); incident history and audit findings; transformation initiatives; cybersecurity maturity.
 
-Where a topic has no evidence, write **Evidence gap — organizational input required** rather than filling it in.
+Where a topic has no evidence, write **Information gap — organizational validation required** rather than filling it in.
 
 ## 3. Crown jewels and dependencies
 
@@ -47,4 +47,4 @@ An evidence register table, a context summary, the crown-jewel table and depende
 
 ## Language
 
-Reply in the user's language. In French, write the markers as **Estimation de l'analyste — validation requise**, **Lacune de preuve — information organisationnelle requise** and **Décision de la direction requise**.
+Reply in the user's language. In French, write the markers as **Estimation analytique — validation requise**, **Lacune d'information — validation organisationnelle requise** and **Décision de la direction requise**.

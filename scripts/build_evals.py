@@ -91,7 +91,7 @@ CORE = {
   tags=["language"], runs=1, fixtures=["medibec_profile.md"], max_turns=30, timeout=1200, tools=["Read", "Glob", "Grep", "Skill", "Bash", "Write"],
   prompt="Le fichier medibec_profile.md ne se trouve pas dans le répertoire de travail : il est dans un répertoire fixtures/ ajouté à cette session (parmi les répertoires de travail additionnels). Cherchez-le là, par exemple avec Glob **/fixtures/medibec_profile.md, puis lisez-le. Fais un balayage rapide CyberRiskGuardian pour MediBec : 20 candidats, 10 scénarios, verdicts avant traitement. Réponds dans la conversation.",
   graders=[
-   dict(name="french-markers", type="regex", pattern=r"Estimation de l.analyste|D[ée]cision de la direction requise", flags="i"),
+   dict(name="french-markers", type="regex", pattern=r"Estimation analytique|Lacune d.information|D[ée]cision de la direction requise", flags="i"),
    dict(name="french-reply", type="llm", criteria="The final reply is written in French and contains a table of about 10 scenarios with estimated risk, tolerated risk, ratio and a classification, followed by priorities and decisions for management."),
   ]),
 }
