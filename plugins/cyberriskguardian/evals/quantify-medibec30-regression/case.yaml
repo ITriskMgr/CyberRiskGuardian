@@ -3,7 +3,7 @@ name: quantify-medibec30-regression
 tags: ["regression", "quantify"]
 runs: 1
 execution:
-  prompt: "The fixture file medibec30.json is in a directory added to this session; locate it with Glob before reading it. It is a CyberRiskGuardian data model for the 30-scenario MediBec assessment. Run the CyberRiskGuardian calculator on it and report the total estimated risk, the total residual risk and the counts above, approximately at and below tolerance."
+  prompt: "The fixture file medibec30.json is not in the working directory: it is in a fixtures/ directory added to this session (listed among the additional working directories). Search there, for example with Glob **/fixtures/medibec30.json from the added directory, then read it. It is a CyberRiskGuardian data model for the 30-scenario MediBec assessment. Run the CyberRiskGuardian calculator on it and report the total estimated risk, the total residual risk and the counts above, approximately at and below tolerance."
   max_turns: 10
   timeout_seconds: 600
   allowed_tools: ["Bash", "Read", "Glob", "Skill"]

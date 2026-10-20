@@ -42,3 +42,7 @@ In the reply, report: candidates screened, dispositions, the final 10, which sel
 ## Critical rules
 
 A threat is not a scenario · never auto-select severe vulnerabilities or rank on CVSS · never confuse probability with impact · generic threats are not organizational evidence · never auto-exclude low-probability/high-consequence scenarios · never double-count overlapping scenarios · no artificial precision · never present AI assumptions as facts · no portfolio dominated by one technique · always link technical events to business consequences · always document why each scenario was selected · always identify assumptions and gaps · the human analyst remains accountable for the final selection.
+
+## Language
+
+Reply in the user's language. In French, write the markers as **Estimation de l'analyste — validation requise**, **Lacune de preuve — information organisationnelle requise** and **Décision de la direction requise**.

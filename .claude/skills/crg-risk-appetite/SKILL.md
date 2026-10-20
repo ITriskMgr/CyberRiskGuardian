@@ -37,3 +37,7 @@ Avoid the extremes without strong evidence. A health, public-safety or critical-
 3. Materiality criteria for scenario selection derived from the appetite: which impact levels, regulatory consequences, safety effects or service outages count as material for this organization.
 
 Hand off to `crg-scenario-builder` next.
+
+## Language
+
+Reply in the user's language. In French, write the markers as **Estimation de l'analyste — validation requise**, **Lacune de preuve — information organisationnelle requise** and **Décision de la direction requise**.

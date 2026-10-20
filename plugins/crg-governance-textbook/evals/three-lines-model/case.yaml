@@ -18,4 +18,4 @@ graders:
     input_match: "references/ch\\d+"
   - name: faithful
     type: "llm"
-    criteria: "The explanation describes the governing body, management (first and second line roles) and independent assurance (third line), cites a chapter of Léger's Introduction to Cybersecurity Governance, and does not present invented quotations."
+    criteria: "The explanation follows the textbook: first line (operations and management, risk owners), second line (risk management and compliance oversight), third line (independent internal audit giving assurance to the board), and it may add the book's extension to executive management and the board. It cites a chapter of Léger's Introduction to Cybersecurity Governance and does not mix in content the book does not contain without saying so."

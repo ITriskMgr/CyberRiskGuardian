@@ -50,3 +50,7 @@ Remind the reader that the ratio depends only on damage, treatment and appetite.
 ## Output
 
 A parameter table per scenario, the CVSS vector and metric rationale, and a results table: ID, scenario, CVSS, estimated risk, tolerated risk, ratio, classification. Costed treatment, sensitivity and budget are CRG Pro steps; hand them to the Pro skills when installed, otherwise go to `crg-summary-report`.
+
+## Language
+
+Reply in the user's language. In French, write the markers as **Estimation de l'analyste — validation requise**, **Lacune de preuve — information organisationnelle requise** and **Décision de la direction requise**.

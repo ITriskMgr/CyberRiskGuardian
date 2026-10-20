@@ -44,3 +44,7 @@ When the user has no documents, interview them in short rounds of **at most five
 ## Output
 
 An evidence register table, a context summary, the crown-jewel table and dependency map, the scope statement, and a list of gaps to validate. Hand off to `crg-risk-appetite` next.
+
+## Language
+
+Reply in the user's language. In French, write the markers as **Estimation de l'analyste — validation requise**, **Lacune de preuve — information organisationnelle requise** and **Décision de la direction requise**.

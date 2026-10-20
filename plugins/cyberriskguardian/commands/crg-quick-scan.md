@@ -9,4 +9,4 @@ Run a quick CyberRiskGuardian scan for: $ARGUMENTS
 2. Estimate the appetite with `crg-risk-appetite` unless one is given.
 3. With `crg-scenario-builder`, generate 20 causal-chain candidates and select the 10 most material, with a one-line rationale each.
 4. With `crg-quantify`, estimate parameters and compute estimated and tolerated risk with the calculator (no treatment).
-5. Return one table (ID, scenario, estimated, tolerated, ratio, classification, main evidence gap), the top three priorities and the decisions required. Label every estimate.
+5. Return one table (ID, scenario, estimated, tolerated, ratio, classification, main evidence gap), the top three priorities and the decisions required. Label every estimate, with the markers in the language of the reply.

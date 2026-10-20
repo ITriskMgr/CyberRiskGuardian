@@ -3,7 +3,7 @@ name: risk-appetite-healthcare
 tags: ["smoke", "appetite"]
 runs: 2
 execution:
-  prompt: "The fixture file medibec_profile.md is in a directory added to this session; locate it with Glob before reading it. No risk appetite has been approved for MediBec. Estimate one for the CyberRiskGuardian assessment and give the materiality criteria."
+  prompt: "The fixture file medibec_profile.md is not in the working directory: it is in a fixtures/ directory added to this session (listed among the additional working directories). Search there, for example with Glob **/fixtures/medibec_profile.md from the added directory, then read it. No risk appetite has been approved for MediBec. Estimate one for the CyberRiskGuardian assessment and give the materiality criteria."
   max_turns: 12
   timeout_seconds: 600
   allowed_tools: ["Read", "Glob", "Skill"]

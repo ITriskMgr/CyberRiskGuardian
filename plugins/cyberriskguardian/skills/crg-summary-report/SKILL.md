@@ -35,3 +35,7 @@ Write a management summary that a director can read in five minutes and act on. 
 ## Format
 
 Default to a document in the environment's document format. Use Word only when the user asks for Word. Name files `<Org>_CyberRiskGuardian_Summary[_variant]`.
+
+## Language
+
+Reply in the user's language. In French, write the markers as **Estimation de l'analyste — validation requise**, **Lacune de preuve — information organisationnelle requise** and **Décision de la direction requise**.

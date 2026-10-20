@@ -15,7 +15,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 EST = r"Analyst estimate|Analytical estimate|Estimation de l.analyste|Estimation analytique"
 GAP = r"Evidence gap|Information gap|Lacune de preuve|Lacune d.information"
 DEC = r"Management decision required|D[ée]cision de la direction requise"
-FIND = "The fixture file {f} is in a directory added to this session; locate it with Glob before reading it."
+FIND = "The fixture file {f} is not in the working directory: it is in a fixtures/ directory added to this session (listed among the additional working directories). Search there, for example with Glob **/fixtures/{f} from the added directory, then read it."
 
 CORE = {
  "context-intake-medibec": dict(
@@ -89,7 +89,7 @@ CORE = {
   ]),
  "assess-french": dict(
   tags=["language"], runs=1, fixtures=["medibec_profile.md"], max_turns=30, timeout=1200, tools=["Read", "Glob", "Grep", "Skill", "Bash", "Write"],
-  prompt="Le fichier medibec_profile.md se trouve dans un répertoire ajouté à cette session; trouvez-le avec Glob. Fais un balayage rapide CyberRiskGuardian pour MediBec : 20 candidats, 10 scénarios, verdicts avant traitement. Réponds dans la conversation.",
+  prompt="Le fichier medibec_profile.md ne se trouve pas dans le répertoire de travail : il est dans un répertoire fixtures/ ajouté à cette session (parmi les répertoires de travail additionnels). Cherchez-le là, par exemple avec Glob **/fixtures/medibec_profile.md, puis lisez-le. Fais un balayage rapide CyberRiskGuardian pour MediBec : 20 candidats, 10 scénarios, verdicts avant traitement. Réponds dans la conversation.",
   graders=[
    dict(name="french-markers", type="regex", pattern=r"Estimation de l.analyste|D[ée]cision de la direction requise", flags="i"),
    dict(name="french-reply", type="llm", criteria="The final reply is written in French and contains a table of about 10 scenarios with estimated risk, tolerated risk, ratio and a classification, followed by priorities and decisions for management."),
@@ -103,7 +103,7 @@ TEXTBOOK = {
   graders=[
    dict(name="citation", type="regex", pattern=r"Chap(?:ter|itre)\s+\d+", flags="i"),
    dict(name="read-book", type="tool_used", tool="Read", input_match=r"references/ch\d+"),
-   dict(name="faithful", type="llm", criteria="The explanation describes the governing body, management (first and second line roles) and independent assurance (third line), cites a chapter of Léger's Introduction to Cybersecurity Governance, and does not present invented quotations."),
+   dict(name="faithful", type="llm", criteria="The explanation follows the textbook: first line (operations and management, risk owners), second line (risk management and compliance oversight), third line (independent internal audit giving assurance to the board), and it may add the book's extension to executive management and the board. It cites a chapter of Léger's Introduction to Cybersecurity Governance and does not mix in content the book does not contain without saying so."),
   ]),
  "appetite-vs-tolerance": dict(
   tags=["textbook"], runs=2, max_turns=10, tools=["Read", "Grep", "Glob", "Skill"],
