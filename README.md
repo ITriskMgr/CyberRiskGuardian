@@ -13,7 +13,7 @@ People stay accountable for validation and risk decisions.
 
 The latest version is CyberRiskGuardian with Threat Live-feed, available here: https://github.com/ITriskMgr/CyberRiskGuardian_ThreatIntel
 
-Methodology and textbook © Marc-André Léger, licensed under **CC BY-NC 4.0**. Packaged with Claude, version 1.1.0 (September 2026).
+Methodology and textbook © Marc-André Léger. This repository is the free **Community Edition**, licensed under **CC BY-NC 4.0**. Paid editions are available under a commercial or educational licence (see [Licence](#licence)). Packaged with Claude, version 1.1.2 (October 2026).
 
 ## What's inside
 
@@ -22,7 +22,7 @@ cyberriskguardian-agent/
 ├── CLAUDE.md                     # Claude Code memory: imports AGENTS.md + Claude-specific components
 ├── AGENTS.md                     # Agent-agnostic instructions (role, principles, formulas, stack, conventions)
 ├── LICENSE                       # CC BY-NC 4.0 legal code
-├── NOTICE.md                     # Attribution, third-party material, licence notes
+├── NOTICE.md                     # Licensing at a glance (free vs paid), attribution, third-party material
 ├── .mcp.json                     # Project MCP config: local crg-calculator server
 ├── .claude/
 │   ├── settings.json             # Model, output style, env defaults, permissions, SessionStart hook
@@ -103,7 +103,7 @@ The data model is described in `assets/scenario-template.json`.
    - `claude plugin validate plugins/cyberriskguardian/.claude-plugin/plugin.json`
    - `claude plugin validate .claude-plugin/marketplace.json`
 3. Regression-check the MediBec example. `crg_calc.py examples/medibec/source/medibec30.json` must report total estimated 84,491 and residual 41,104.
-4. Bump the version (semver) in `plugin.json` and `marketplace.json`; current version 1.1.0.
+4. Bump the version (semver) in `plugin.json` and `marketplace.json`; current version 1.1.2.
 
 ## Deliberately excluded
 - `CLAUDE.local.md` and `.claude/settings.local.json`, which hold private preferences.
@@ -113,11 +113,23 @@ The data model is described in `assets/scenario-template.json`.
 - Third-party course materials held in the author's project knowledge base. The author's own methodology specifications and governance textbook are bundled.
 
 ## Licence
-© 2026 Marc-André Léger. This work is licensed under the [Creative Commons Attribution-NonCommercial 4.0 International License](https://creativecommons.org/licenses/by-nc/4.0/) (CC BY-NC 4.0, SPDX `CC-BY-NC-4.0`). It covers:
+© 2026 Marc-André Léger. CyberRiskGuardian uses an open-core model.
+
+| Edition | Licence | Who | Price |
+|---|---|---|---|
+| **Community Edition** (this repository) | [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/) (SPDX `CC-BY-NC-4.0`) | Students, non-profit organisations and anyone using it for non-commercial purposes | Free |
+| **Paid editions** for colleges and universities | CyberRiskGuardian Educational Licence | Colleges, CEGEPs and universities, as institutions | Reduced educational price, installation and customization included |
+| **Paid editions** for other organizations, and commercial use of the Community Edition | CyberRiskGuardian Commercial Licence | Companies, consultants, MSSPs, government bodies | Professional, Team, Enterprise or MSSP tiers |
+
+The Community Edition in this repository covers:
 - methodology;
 - skills, agents and commands;
 - scripts;
 - the governance textbook;
 - the MediBec example.
 
-You may share and adapt it for non-commercial purposes with attribution. See `LICENSE` for the legal code and `NOTICE.md` for attribution wording and third-party material.
+You may share and adapt it for non-commercial purposes with attribution. Using it to deliver paid work, or using it inside a company or government body, is commercial use and requires the Commercial Licence.
+
+The paid editions are not in this repository. They include the Pro Quantitative, Policy Suite, SecOps Bridge, Third-Party Risk and Audit & Assurance plugins, Compliance and Sector Packs, the Educator Edition, the hosted CRGO ontology service and CyberRiskGuardian Desktop versions released after 1.7.0 Beta.
+
+See `LICENSE` for the CC BY-NC 4.0 legal code, `NOTICE.md` for when a paid licence is needed and for attribution wording, and www.leger.ca for tiers and the educational-licence contact.

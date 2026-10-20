@@ -78,5 +78,5 @@ Ratio = Residual ÷ Tolerated  (<0.90 below · 0.90–1.10 approximately at · >
 ## Repository conventions
 - Edit methodology only under `plugins/cyberriskguardian/`, then run `scripts/sync-project-config.sh` to refresh `.claude/`.
 - Bump the version in `plugin.json` and `.claude-plugin/marketplace.json` when behaviour changes.
-- Licence: CC BY-NC 4.0 (see `LICENSE`, `NOTICE.md`). Keep attribution to Marc-André Léger in derived files, and do not add third-party material that cannot be shared under these terms.
+- Licence: this repository is the Community Edition under CC BY-NC 4.0; commercial use requires the CyberRiskGuardian Commercial Licence (see `LICENSE`, `NOTICE.md`). Never commit paid-edition content (Pro plugins, Compliance or Sector Packs, Educator Edition, CRGO ontology data, desktop builds) to this public repository. Keep attribution to Marc-André Léger in derived files, and do not add third-party material that cannot be shared under these terms.
 - Never commit `CLAUDE.local.md`, `.claude/settings.local.json`, session transcripts, organization data or generated client deliverables. `.gitignore` covers these.

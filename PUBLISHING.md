@@ -48,5 +48,5 @@ bash scripts/sync-project-config.sh
 Incrémentez la version (semver) dans `plugins/cyberriskguardian/.claude-plugin/plugin.json` et dans `.claude-plugin/marketplace.json`.
 
 ## Rappels
-- **Licence** : CC BY-NC 4.0. L'usage commercial n'est pas permis sans votre accord. Les notes de licence se trouvent dans `LICENSE` et `NOTICE.md`.
+- **Licence** : ce dépôt est l'Édition communautaire, sous CC BY-NC 4.0. L'usage commercial exige la Licence commerciale CyberRiskGuardian; les collèges et universités qui veulent les éditions payantes ont besoin de la Licence éducative. Ne publiez jamais de contenu des éditions payantes dans ce dépôt public. Les notes de licence se trouvent dans `LICENSE` et `NOTICE.md`.
 - **Contenu public** : le paquet contient votre manuel, le cas MediBec et ses livrables. Tout ce qui est poussé sur un dépôt public est visible et copiable par tous. Retirez ce que vous ne voulez pas diffuser avant le premier push, car l'historique git le conserverait.
