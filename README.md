@@ -35,6 +35,7 @@ CyberRiskGuardian/
 │   │   └── evals/     one suite per skill (claude plugin eval)
 │   └── crg-governance-textbook/        # the governance textbook as a skill (free)
 ├── docs/                               # quick-start guides (EN, FR) and demo script
+├── education/                          # teaching package for instructors and students (EN, FR)
 ├── examples/medibec/                   # worked example (fictional teaching case)
 ├── scripts/  sync-project-config.sh, build_evals.py, package-plugins.sh
 ├── CLAUDE.md  AGENTS.md  .claude/      # project mode for Claude Code
@@ -66,6 +67,18 @@ On older versions:
 **Prerequisites:** Python 3.10+ (`pip install -r requirements.txt`); Node 18+ with `npm install` for Word output; LibreOffice for rendering.
 
 **Version 1.1.1** (single plugin with workbook, sensitivity and budget tools) remains available on the `release/1.x` branch.
+
+## Teaching with CyberRiskGuardian
+
+`education/` is a free teaching package, in English and French, for courses on cybersecurity risk management, governance, IT audit and business technology management:
+
+- **Instructor Guide** — the method in one page, learning outcomes, tool tracks, four integration models from a 3-hour workshop to a full term, lab facilitation notes, generative AI policy.
+- **Student Lab Workbook** — twelve labs on the MediBec teaching case, with self-check answers.
+- **Assessment Kit** — briefs, 0–10 rubrics and self-checks for the risk assessment, IAM policy and audit plan.
+- **Case Library** — five fictional business cases (student versions, v2.0c).
+- **Introductory slide deck** and the **blank CyberRiskGuardian Excel model** (`education/templates/`).
+
+Start with `education/README.md` (or `education/LISEZMOI.md`). Answer keys, the graded quiz bank, the instructor annexes of the cases and the final-exam case form the Educator Edition, supplied with the Educational Licence.
 
 ## Use
 
