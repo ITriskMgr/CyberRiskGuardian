@@ -120,14 +120,14 @@ Les annexes sont permises et ne comptent pas dans les limites de pages.
 - [ ] L'appétence pour le risque est énoncée et justifiée par rapport à la tolérance du cas ; le risque résiduel est comparé au risque toléré.
 - [ ] Chaque mesure est reliée à un scénario et à une étape de sa chaîne, chiffrée sur un seul horizon et justifiée ; les mesures partagées ne sont comptées qu'une fois.
 - [ ] Le mémorandum tient sur une page et commence par la décision ; la recommandation fait deux pages.
-- [ ] Les trois mentions apparaissent aux endroits appropriés ; la page titre, les citations et la déclaration sur l'IA sont complètes.
+- [ ] Les trois mentions (**Estimation analytique — validation requise**, **Lacune d'information — validation organisationnelle requise**, **Décision de la direction requise**) apparaissent aux endroits appropriés ; la page titre, les citations et la déclaration sur l'IA sont complètes.
 
 ## Conseils
 
 - Distinguez la probabilité que la menace soit présente de la probabilité que l'exploitation réussisse.
 - Donnez une brève justification et des preuves pour chaque chiffre, et indiquez les deux ou trois valeurs les plus incertaines.
 - Le CVSS note une vulnérabilité technique définie, et non un scénario de risque entier.
-- Le classeur ne valide pas les entrées, et sa mise en évidence des cellules en rouge sur la feuille Analyse compare chaque scénario à une seule cellule. Comparez numériquement le risque estimé et le risque toléré.
+- Le classeur (v2-6) valide les saisies et signale les problèmes dans sa colonne de contrôles (AC); lisez tout de même numériquement le risque estimé et le risque toléré plutôt que la couleur des cellules, remplacez la valeur provisoire d'appétence 0,5 et gardez chaque vecteur CVSS à côté de son score.
 - Dans le mémorandum, indiquez combien de scénarios sont au-dessus de la tolérance avant et après traitement, ce que coûte le portefeuille et quel risque subsiste. Ne reprenez pas les tableaux.
 
 # A2 — Politique de sécurité de l'information : gestion des identités et des accès (en équipe)

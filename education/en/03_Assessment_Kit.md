@@ -119,14 +119,14 @@ Appendices are allowed and do not count in the page limits.
 - [ ] The appetite is stated and justified against the case tolerance; residual risk is compared with tolerated risk.
 - [ ] Each measure is tied to a scenario and a step of its chain, costed on one horizon and justified; shared measures are counted once.
 - [ ] The memo is one page and leads with the decision; the recommendation is two pages.
-- [ ] The three markers appear where they belong; the title page, citations and AI statement are complete.
+- [ ] The three markers (**Analytical estimate — validation required**, **Information gap — organizational validation required**, **Management decision required**) appear where they belong; the title page, citations and AI statement are complete.
 
 ## Tips
 
 - Keep the probability that the threat is present separate from the probability that exploitation succeeds.
 - Give a short rationale and evidence for every number, and say which two or three values are the most uncertain.
 - CVSS scores one defined technical vulnerability, not a whole scenario.
-- The workbook does not validate inputs and its red cell highlighting on the Analyse sheet compares every scenario with a single cell. Compare estimated and tolerated risk numerically.
+- The workbook (v2-6) validates inputs and lists problems in its Checks column (AC); still read estimated and tolerated risk numerically rather than by cell colour, replace the 0.5 appetite placeholder, and keep each CVSS vector next to its score.
 - In the memo, say how many scenarios are above tolerance before and after treatment, what the portfolio costs and what risk remains. Do not restate tables.
 
 # A2 — Information security policy: Identity and Access Management (team)

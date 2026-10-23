@@ -65,7 +65,7 @@ Les versions étudiantes dans `cases/` contiennent le récit, les annexes de pre
 
 **Bibliothèque de scénarios (15).** MED-CYR-01 à MED-CYR-15 : compromission d'identifiants, rançongiciel sur le DSE, mauvaise configuration infonuagique, exposition de clés d'API, compromission du réseau sans fil d'une clinique, application tardive des correctifs, serveurs de sauvegarde exposés, détection d'intrusion inadéquate, point d'ancrage par un dispositif médical ou un objet connecté, DDoS sur les services aux patients, exfiltration par un initié, hameçonnage du personnel, attaque contre l'intégrité des données des dossiers des patients ou de facturation, compromission d'un fournisseur, réponse aux incidents non testée.
 
-**Angles pédagogiques.** Des décisions de confinement aux conséquences cliniques ; la question de savoir si la tolérance devrait différer entre les systèmes administratifs et les systèmes de soins ; la priorisation avec une équipe de deux personnes. L'évaluation CRG publiée (30 scénarios ; risque estimé de 84 491 et risque résiduel de 41 104) et la trousse de simulation MediBec de l'application de bureau (trois semaines d'activité du SOC) en font le cas tout désigné pour les laboratoires.
+**Angles pédagogiques.** Des décisions de confinement aux conséquences cliniques ; la question de savoir si la tolérance devrait différer entre les systèmes administratifs et les systèmes de soins ; la priorisation avec une équipe de deux personnes. L'évaluation CRG publiée (30 scénarios ; risque estimé de 84 305 et risque résiduel de 41 023) et la trousse de simulation MediBec de l'application de bureau (trois semaines d'activité du SOC) en font le cas tout désigné pour les laboratoires.
 
 ## CanaRetail — commerce de détail national (intermédiaire)
 
@@ -77,7 +77,7 @@ Les versions étudiantes dans `cases/` contiennent le récit, les annexes de pre
 
 **Pistes de scénarios (50).** Cinquante courts thèmes, de l'hameçonnage visant les dirigeants, du rançongiciel et des logiciels malveillants sur les points de vente jusqu'aux réseaux de zombies d'objets connectés, aux faiblesses des API, à l'informatique fantôme et à l'écoute clandestine des téléconférences. Le **module D** demande aux équipes de combiner un scénario de risque original avec **neuf scénarios fournis** dans le modèle Excel de CRG ; l'enseignant distribue ces neuf scénarios sous forme de document (fourni dans l'Édition Éducateur).
 
-**Angles pédagogiques.** Conçu pour le travail A1 avec le classeur CRG ; sécurité des paiements ; budgétisation par rapport à la ligne directrice de 4 % à 12 % ; une formulation délicate concernant le ciblage fondé sur l'identité, que les enseignants voudront peut-être présenter en classe.
+**Angles pédagogiques.** Conçu pour le travail A1 avec le classeur CRG ; sécurité des paiements ; budgétisation par rapport à la cible cohérente avec l'appétence (7,8 % du budget TI à l'appétence de 0,5 du cas) ; une formulation délicate concernant le ciblage fondé sur l'identité, que les enseignants voudront peut-être présenter en classe.
 
 ## ACRB — Atlantic Canada Regional Bank (avancé)
 

@@ -35,12 +35,12 @@ Where a step differs by track, it is marked **[A]**, **[B]** or **[C]**.
 1. Install or open your track.
    - **[A]** In Claude Code: `/plugin install cyberriskguardian --marketplace ITriskMgr/CyberRiskGuardian`, then `/plugin install crg-governance-textbook --marketplace ITriskMgr/CyberRiskGuardian`. Run `pip install cvss "mcp>=1.2"` once, restart and approve the `crg-calculator` server.
    - **[B]** Unzip the desktop application, then double-click `start.command` (macOS, Linux) or `start.bat` (Windows). Leave the terminal window open. The application opens at `http://localhost:8099`. Always use this same address: your work is stored by your browser for that exact address.
-   - **[C]** Open the blank model `templates/CyberRiskGuardian_Excel_Model_Blank_v2-4e.xlsx` (or the copy your instructor gave you); save a copy under your team's name. It opens in manual calculation mode: press **F9** (Formulas → Calculate Now) before reading any number.
+   - **[C]** Open the blank model `templates/CyberRiskGuardian_Excel_Model_Blank_v2-6.xlsx` (or the copy your instructor gave you); save a copy under your team's name. It opens in manual calculation mode: press **F9** (Formulas → Calculate Now) before reading any number.
 2. Verify the engine.
-   - **[A]** Run `python3 crg_calc.py medibec30.json` from the plugin's `crg-quantify/scripts` folder against the MediBec example. It must print **total estimated 84,491** and **residual 41,104**.
-   - **[B]** The bottom of the left sidebar must read **engine verified · 84,491 / 41,104**.
-   - **[C]** Your instructor will give you one scenario's inputs and expected result; enter them and compare.
-3. **[B]** Open the MediBec workspace, then **Process** (first menu item). Read the thirteen steps of a complete assessment.
+   - **[A]** Run `python3 crg_calc.py medibec30.json` from the plugin's `crg-quantify/scripts` folder against the MediBec example. It must print **total estimated 84,305** and **residual 41,023**.
+   - **[B]** The bottom of the left sidebar must read **engine verified · 84,305 / 41,023**.
+   - **[C]** Enter the textbook's chapter 6 worked example in sheet S1 and row 3 of the Analyse sheet: Pb(A) 0.70, Pb(ψ,A) 0.60, δe 0.60, δm 0.80, θ 0.50, μ(E) 0.65, CVSS 9.3 in G3 with the vector `CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:P/VC:H/VI:H/VA:H/SC:H/SI:H/SA:H` in H3, appetite 0.35 in E14; on M1, an "Other" row with cost 62,000, impact reduction 0.70 and Pb reduction 0.65 included. After Calculate Now you must read estimated risk 3,554.46, tolerated 1,777.23, residual 1,937.18 and a ratio of 1.09. Then clear the inputs (or start again from the blank model).
+3. **[B]** Open the MediBec workspace, then **Process** (first menu item). Read the nineteen steps of a complete assessment.
 4. Read the three markers in the "Five rules" above. Find one example of each in the MediBec example deliverables or workspace.
 
 **Deliverable:** a screenshot of the verified engine (or your calculator output), with your name and the date.
@@ -123,7 +123,7 @@ Values of 0.1 and 0.9 are extremes that should not normally be used.
 
 1. Find what the case states. MediBec's appetite statement gives a **normalized tolerance of 0.40**, low appetite for patient safety, health-data confidentiality, compliance and public trust, and escalation thresholds (residual above 0.25 for executive review, above 0.40 for Board acceptance).
 2. Consider the factors: sector, mission, sensitivity of information, regulatory requirements, potential impact on individuals (patients), dependence on technology, financial capacity, tolerance for disruption, reputation.
-3. Decide on a value. You may keep the case's 0.40 or propose another value; either way, justify it in five to eight sentences. The published MediBec assessment used **0.30** (an analyst estimate below the stated 0.40, because of patient-safety and health-data sensitivity). Explain whether you agree.
+3. Decide on a value. You may keep the case's 0.40 or propose another value; either way, justify it in five to eight sentences. The published MediBec assessment used **0.30** (an analytical estimate below the stated 0.40, because of patient-safety and health-data sensitivity). Explain whether you agree.
 4. Record the value with its marker: if it differs from the case, it is an **Analytical estimate — validation required**, and the final choice is a **Management decision required**.
    - **[A]** Ask: *"Estimate MediBec's cybersecurity risk appetite on a 0–1 scale, with the rationale."* Compare the answer with the case statement; do not accept a value you cannot justify yourself.
    - **[B]** Organization → Profile & appetite: enter the appetite and its rationale. The *appetite estimator* at the bottom proposes a value from ticked factors.
@@ -142,7 +142,7 @@ Values of 0.1 and 0.9 are extremes that should not normally be used.
 
 # Lab 3 — Writing risk scenarios
 
-**Objectives:** write scenarios as complete causal chains; generate 20 candidates and select the 10 most material; avoid duplicates and threat labels.
+**Objectives:** write scenarios as complete causal chains; generate 20 candidates (the lab quick version; a full assessment uses about 25–40, never fewer than 20) and select the 10 most material; avoid duplicates and threat labels.
 **Time:** 90 minutes. **Input:** Lab 1 context and crown jewels; case section 9 (scenario library) for inspiration only.
 
 ## Background
@@ -280,7 +280,7 @@ Representative weakness: push-based MFA without number matching on remote access
 3. Compute the score with a calculator — never estimate it by eye.
    - **[A]** `/crg-calc` or the `cvss4_score` tool of the `crg-calculator` server.
    - **[B]** Tools → *CVSS v4.0*: paste or build the vector, then save it to the scenario.
-   - **[C]** Use the FIRST CVSS v4.0 calculator and enter the score in the Analyse sheet; keep the vector string next to it.
+   - **[C]** Use the NVD CVSS v4.0 calculator (nvd.nist.gov/vuln-metrics/cvss/v4-calculator) or FIRST's, then enter the score in column G of the Analyse sheet and the full vector string next to it in column H; the Checks column flags a missing or malformed vector.
 4. Write one sentence on the limits of the score for your scenario.
 
 **Deliverable:** the vector, the score and the metric justifications.
@@ -354,7 +354,7 @@ Ratio          = Residual ÷ Tolerated
 
 Read the ratio as: **below 0.90** below tolerance · **0.90–1.10** approximately at tolerance · **above 1.10** above tolerance.
 
-Mitigation is **multiplicative**: 80% probability reduction and 80% impact reduction remove 64% of the risk. A package that reduces only probability, or only impact, mitigates nothing under this convention. To bring a scenario below tolerance you need P × Q ≥ 1 − appetite ÷ average damage.
+Mitigation is **multiplicative**: 80% probability reduction and 80% impact reduction remove 64% of the risk. A package that reduces only probability, or only impact, mitigates nothing under this convention. To bring the residual to no more than the tolerated risk (ratio ≤ 1.0) you need P × Q ≥ 1 − appetite ÷ average damage; to bring it **below tolerance** (ratio < 0.90) you need P × Q > 1 − 0.90 × appetite ÷ average damage.
 
 ## Worked example — MediBec S1
 
@@ -366,7 +366,7 @@ Residual  = 6,467 − 3,880       = 2,587
 Ratio     = 2,587 ÷ 2,772        = 0.93  →  approximately at tolerance
 ```
 
-Check: 1 − 0.30 ÷ 0.70 = 0.571; P × Q = 0.60 ≥ 0.571, so the residual is just inside the "approximately at" band.
+Check: 1 − 0.30 ÷ 0.70 = 0.571 and 1 − 0.90 × 0.30 ÷ 0.70 = 0.614; P × Q = 0.60 lies between the two, so the residual is no greater than tolerated but not below the 0.90 band: approximately at tolerance.
 
 ## Steps
 
@@ -376,7 +376,7 @@ Check: 1 − 0.30 ÷ 0.70 = 0.571; P × Q = 0.60 ≥ 0.571, so the residual is j
 4. **Shared controls.** Identify which of your measures also serve other scenarios. Split their cost across those scenarios (an equal split is acceptable) and note that the portfolio total counts each initiative once.
 5. If the scenario is still above tolerance: state the options — mitigate harder, **transfer** (insurance, contract), **avoid** (stop the activity), or **accept** formally — and who must decide.
    - **[B]** Risk mitigation → *Proposals* or *Control catalogue*; set costs and rp / ri; **Apply**. Recommendations → *Treatment need* shows the verdict for every scenario.
-   - **[C]** Select controls in the M sheet. **Warning:** the template sums control coefficients (default 0.06 each), so about twenty controls exceed 1 and residual risk *rises*. Keep each reduction within 0–1.
+   - **[C]** Select controls in the M sheet (1 in column A). The sheet combines the selected coefficients with the product rule, package reduction = 1 − ∏(1 − rᵢ), separately for impact and probability, so a package never exceeds 1; a warning appears if a coefficient is outside 0–1. The default coefficients are generic placeholders: prefer a few justified controls, or one package-level estimate in an "Other" row.
 
 **Deliverable:** the treatment table, the residual calculation and the decision required.
 
@@ -475,7 +475,7 @@ A KRI is useful only if someone can measure it, from a named source, on a schedu
 
 ## MediBec reference points
 
-The published 30-scenario assessment found: after treatment, 12 scenarios above tolerance, 11 approximately at and 7 below; total estimated risk 84,491 against residual 41,104 (a 51% reduction); current cybersecurity spend about 0.9% of the IT budget, below the 4% floor of the budget guideline. *Do not copy these figures into your own case.*
+The published 30-scenario assessment found: after treatment, 12 scenarios above tolerance, 11 approximately at and 7 below; total estimated risk 84,305 against residual 41,023 (a 51% reduction); current cybersecurity spend about 0.9% of the IT budget, below the 4% floor of the budget guideline. *Do not copy these figures into your own case.*
 
 ## Steps
 
@@ -492,7 +492,7 @@ The published 30-scenario assessment found: after treatment, 12 scenarios above 
 
 10.1. Why should the first paragraph of the memo state the decision rather than the method?
 
-10.2. Your memo says "residual risk 41,104" and your workbook says 41,140. What should you do?
+10.2. Your memo says "residual risk 41,023" and your workbook says 41,032. What should you do?
 
 10.3. Who formally accepts a residual risk that stays above tolerance?
 
@@ -560,7 +560,9 @@ Cost-effectiveness = (Re − Residual) ÷ Cost × 1,000   (risk units removed pe
 Simplifications worth remembering
 Pre-treatment ratio = ((δe + δm) / 2) ÷ Appetite
 Post-treatment ratio = ((δe + δm) / 2) × (1 − P × Q) ÷ Appetite
-Below tolerance requires  P × Q ≥ 1 − Appetite ÷ ((δe + δm) / 2)
+Ratio ≤ 1.0 requires       P × Q ≥ 1 − Appetite ÷ ((δe + δm) / 2)
+Below tolerance (< 0.90)   P × Q > 1 − 0.90 × Appetite ÷ ((δe + δm) / 2)
+Several measures, one lever  r = 1 − ∏(1 − rᵢ)
 ```
 
 Classification: ratio < 0.90 below · 0.90–1.10 approximately at · > 1.10 above.
