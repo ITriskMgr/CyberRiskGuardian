@@ -6,14 +6,14 @@
   },
   "metadata": {
     "description": "CyberRiskGuardian Community Edition: free plugins for scenario-driven cybersecurity risk assessment and the cybersecurity governance textbook.",
-    "version": "2.1.0"
+    "version": "2.1.1"
   },
   "plugins": [
     {
       "name": "cyberriskguardian",
       "source": "./plugins/cyberriskguardian",
       "description": "CyberRiskGuardian Core (Community Edition, free) - scenario-driven cybersecurity risk assessment, steps 1-11 of the 19-step CRG method: context and evidence intake, risk appetite, scenario generation (25-40 candidates, never fewer than 20), screening and selection, validated CRG quantification with CVSS v4.0, and a management summary, with methodology label checks.",
-      "version": "2.1.0",
+      "version": "2.1.1",
       "category": "security",
       "keywords": [
         "cybersecurity",

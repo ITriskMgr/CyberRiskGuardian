@@ -18,6 +18,7 @@ Every input is validated (book ch06 "The variables and their valid ranges"):
 Usage:
     python3 crg_calc.py scenarios.json [--appetite 0.30] [--factor 1000] [--json]
                         [--it-budget 50000000 [--cyber-spend 3000000]]
+    python3 crg_calc.py - < scenarios.json      # or pipe the data model on standard input
     python3 crg_calc.py --budget-target 0.35
 
 The input JSON follows assets/scenario-template.json (keys: APPETITE, FACTOR, SCEN[...]; optional
@@ -255,8 +256,8 @@ def main(argv=None):
             print(f"Appetite {a.budget_target:.2f}: budget target {budget_target(a.budget_target):.2%} of total IT budget incl. salaries")
             return 0
         if not a.scenarios:
-            ap.error("give a scenarios JSON file or --budget-target")
-        data = json.load(open(a.scenarios, encoding="utf-8"))
+            ap.error("give a scenarios JSON file ('-' reads it from standard input) or --budget-target")
+        data = json.load(sys.stdin) if a.scenarios == "-" else json.load(open(a.scenarios, encoding="utf-8"))
         r = run(data, a.appetite, a.factor)
         if a.it_budget:
             cost = sum(x.get("cost", 0.0) for x in r["results"])

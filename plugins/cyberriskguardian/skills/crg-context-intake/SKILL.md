@@ -5,7 +5,7 @@ description: >
   jewels", "create an evidence register", "interview me about my organization for a cyber risk assessment", "map critical assets and
   dependencies", or "define the assessment scope", or when the cyber-risk-assessment workflow reaches steps 1 to 3.
 metadata:
-  version: "2.1.0"
+  version: "2.1.1"
   author: "Marc-André Léger (methodology) - packaged with Claude"
   edition: "Community Edition (Core plugin, free, CC BY-NC 4.0)"
 ---
@@ -40,6 +40,8 @@ State the assessment scope, the period (12 months by default), the risk perspect
 ## Interview mode
 
 When the user has no documents, interview them in short rounds of **at most five questions** (never more, even to save time), in the user's language (French or English). Start with mission, critical services and data; then systems, identity and cloud; then suppliers and obligations; then incidents and existing controls. Record each answer as SME input (E-number). Never guess the answer to a question the user skipped.
+
+The first reply of an interview is only the first round: one sentence saying that you will build the context through a few short rounds of questions, then **at most five numbered questions** (a question may list short examples), then stop and wait. In that first reply, give no scenarios, no risk scores, no appetite, no template to fill in and no assumptions about the organization — not even typical ones for its sector.
 
 ## Output
 

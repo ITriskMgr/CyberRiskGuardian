@@ -376,7 +376,7 @@ Check: 1 − 0.30 ÷ 0.70 = 0.571 and 1 − 0.90 × 0.30 ÷ 0.70 = 0.614; P × Q
 4. **Shared controls.** Identify which of your measures also serve other scenarios. Split their cost across those scenarios (an equal split is acceptable) and note that the portfolio total counts each initiative once.
 5. If the scenario is still above tolerance: state the options — mitigate harder, **transfer** (insurance, contract), **avoid** (stop the activity), or **accept** formally — and who must decide.
    - **[B]** Risk mitigation → *Proposals* or *Control catalogue*; set costs and rp / ri; **Apply**. Recommendations → *Treatment need* shows the verdict for every scenario.
-   - **[C]** Select controls in the M sheet (1 in column A). The sheet combines the selected coefficients with the product rule, package reduction = 1 − ∏(1 − rᵢ), separately for impact and probability, so a package never exceeds 1; a warning appears if a coefficient is outside 0–1. The default coefficients are generic placeholders: prefer a few justified controls, or one package-level estimate in an "Other" row.
+   - **[C]** Select controls in the M sheet (1 in column A). The sheet combines the selected coefficients with the product rule, package reduction = 1 − ∏(1 − rᵢ), separately for impact and probability, so a package never exceeds 1; a warning appears if a coefficient is outside 0–1. The default costs are indicative first-year costs for a mid-sized organization, by effort profile (the cost basis table is under the catalogue), and the default coefficients are generic: replace both with case figures, prefer a few justified controls, or enter one package-level estimate in an "Other" row.
 
 **Deliverable:** the treatment table, the residual calculation and the decision required.
 

@@ -5,7 +5,7 @@ description: >
   criticality", "calculate estimated and tolerated risk", "compute CyberRiskGuardian risk indices", "score this CVSS v4.0 vector", "is this
   scenario above tolerance", or when the cyber-risk-assessment workflow reaches steps 9 to 11.
 metadata:
-  version: "2.1.0"
+  version: "2.1.1"
   author: "Marc-André Léger (methodology) - packaged with Claude"
   edition: "Community Edition (Core plugin, free, CC BY-NC 4.0)"
 ---
@@ -41,6 +41,10 @@ Use the `crg_risk` MCP tool for one scenario, or write the data model (`assets/s
 python3 scripts/crg_calc.py scenarios.json [--appetite A] [--factor 1000] [--json]
 ```
 
+Run the calculator once, in a single command: write the data model and run it together (for one scenario, a heredoc piped to `crg_calc.py -` is enough). Write the data model in the current working directory, not in a temporary folder. If no folder is writable, pipe it: `python3 scripts/crg_calc.py - <<'EOF' … EOF`. Never fall back to calculating by hand.
+
+**When the calculator rejects the input** (exit code 2, "invalid input"), do not compute anything from that input and do not correct the values yourself. Report each error in plain words — for example, that the maximum damage δm cannot be lower than the expected damage δe — repeat any CVSS warning (a stored score that disagrees with its vector), and ask for corrected values. Give no risk indices until the input is valid.
+
 Show the substitution for at least one scenario so the reader can follow it. Keep the factor at 1,000 for every scenario. Before treatment, set `red_p` and `red_i` to 0. Record the approved or estimated appetite as `APPETITE` in the data model: if it is missing, the calculator uses the default (0.30) and reports it as an **Analytical estimate — validation required**. When a scenario carries a `cost`, the calculator adds cost-effectiveness (risk units removed per $1,000).
 
 ## 4. Interpret
@@ -51,7 +55,11 @@ Remind the reader that the ratio depends only on damage, treatment and appetite.
 
 ## Output
 
-A parameter table per scenario, the CVSS vector and metric rationale, and a results table: ID, scenario, CVSS, estimated risk, tolerated risk, risk-to-tolerance ratio, classification. Costed treatment, sensitivity and budget calibration are CRG Pro Quantitative steps (Educational and Professional editions); hand them to the Pro skills when installed, otherwise go to `crg-summary-report`. The `crg_budget_target` MCP tool (or `crg_calc.py --budget-target A`) gives the appetite-consistent budget target for reference.
+A parameter table per scenario, the CVSS vector and metric rationale, and a results table: ID, scenario, CVSS, estimated risk, tolerated risk, risk-to-tolerance ratio, classification.
+
+Always state these figures in the reply itself, copied from the calculator's output (never only "see the table above" or a file):
+- **one scenario:** the CVSS score, estimated, tolerated, mitigated and residual risk, the risk-to-tolerance ratio and its classification, and the cost-effectiveness whenever a cost was given;
+- **a data model with several scenarios:** the calculator's two totals, **total estimated risk** and **total residual risk**, as printed on its `Total` line, and how many scenarios are above, approximately at and below tolerance. Costed treatment, sensitivity and budget calibration are CRG Pro Quantitative steps (Educational and Professional editions); hand them to the Pro skills when installed, otherwise go to `crg-summary-report`. The `crg_budget_target` MCP tool (or `crg_calc.py --budget-target A`) gives the appetite-consistent budget target for reference.
 
 ## Language
 
