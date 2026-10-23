@@ -14,11 +14,11 @@ graders:
     flags: "i"
   - name: estimate-marker
     type: "regex"
-    pattern: "Analyst estimate|Analytical estimate|Estimation de l.analyste|Estimation analytique"
+    pattern: "Analytical estimate|Estimation analytique"
     flags: "i"
   - name: gap-marker
     type: "regex"
-    pattern: "Evidence gap|Information gap|Lacune de preuve|Lacune d.information"
+    pattern: "Information gap|Lacune d.information"
     flags: "i"
   - name: conclusion-first
     type: "llm"

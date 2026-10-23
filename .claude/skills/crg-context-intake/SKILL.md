@@ -5,9 +5,9 @@ description: >
   jewels", "create an evidence register", "interview me about my organization for a cyber risk assessment", "map critical assets and
   dependencies", or "define the assessment scope", or when the cyber-risk-assessment workflow reaches steps 1 to 3.
 metadata:
-  version: "2.0.0"
+  version: "2.1.0"
   author: "Marc-André Léger (methodology) - packaged with Claude"
-  edition: "Core (free, CC BY-NC 4.0)"
+  edition: "Community Edition (Core plugin, free, CC BY-NC 4.0)"
 ---
 
 # Context intake (CyberRiskGuardian steps 1–3)

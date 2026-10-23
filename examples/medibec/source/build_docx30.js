@@ -100,7 +100,7 @@ add(
   p("**Companion file:** MediBec_CyberRiskGuardian_Workbook_30.xlsx (live calculations)"),
   p("**Relationship to earlier work:** extends the 10-scenario assessment of the same date; S1-S10 are carried over unchanged."),
   spacer(),
-  callout("**Source and status.** Based solely on the MediBec Business Case v2.0b, a fictional teaching case. All probabilities, damages, CVSS vectors, costs and effectiveness values are **analyst estimates - validation required**. Scores are relative decision-support indicators, not predictions of incidents or dollar losses. Risk acceptance decisions remain with MediBec management."),
+  callout("**Source and status.** Based solely on the MediBec Business Case v2.0b, a fictional teaching case. All probabilities, damages, CVSS vectors, costs and effectiveness values are analytical estimates (**Analytical estimate — validation required**). Scores are relative decision-support indicators, not predictions of incidents or dollar losses. Risk acceptance decisions remain with MediBec management."),
   new Paragraph({ children: [new PageBreak()] }),
   new Paragraph({ children: [new TextRun({ text: "Contents", font: FONT, size: 32, bold: true, color: NAVY })], spacing: { after: 200 } }),
   new TableOfContents("Contents", { hyperlink: true, headingStyleRange: "1-2" }),
@@ -160,7 +160,7 @@ add(p("Factor = 1,000 for all 30 scenarios. The original CyberRiskGuardian workb
 add(h2("2.3 Evidence register"));
 add(table(["ID", "Source", "Basis", "Content used"], D.EVIDENCE, [6, 30, 17, 47], { size: 15 }));
 add(spacer());
-add(p("Basis tags: **(E#)** documented case evidence; **Exercise evidence** simulated injects - validate; **Analyst assumption** / **Analyst estimate - validation required**; **Evidence gap - organizational input required**. Many new scenarios (S11-S30) rest on fewer case facts than S1-S10; their confidence ratings are correspondingly lower."));
+add(p("Basis tags: **(E#)** documented case evidence; **Exercise evidence** simulated injects - validate; **Analyst assumption** / **Analytical estimate — validation required**; **Information gap — organizational validation required**. Many new scenarios (S11-S30) rest on fewer case facts than S1-S10; their confidence ratings are correspondingly lower."));
 add(h2("2.4 Changes from the 10-scenario assessment"));
 add(bl("S1-S10: statements, parameters, CVSS vectors and reductions unchanged; estimated, tolerated and residual risk are identical."));
 add(bl("Shared initiatives now serve more scenarios, so each scenario's allocated cost is lower and its cost-effectiveness higher; portfolio totals, not scenario allocations, should drive budget decisions."));
@@ -175,7 +175,7 @@ add(table(["Area", "Documented facts (E1-E4)", "Implication for risk"], [
   ["Cloud and remote access", "Cloud-based remote data access for staff and clinicians", "Identity is the new perimeter; cloud configuration and logging unknown"],
   ["Endpoints and devices", "Workstations, tablets, handhelds, interconnected medical equipment", "Device inventory and patch status unknown; certification limits patching"],
   ["Applications", "Integrated EHR, radiology, lab, pharmacy, billing, communications", "Highly interdependent; one compromise spreads across clinical workflows"],
-  ["People and budget", "15 IT staff, 2 cybersecurity; IT budget stated as CAD 100M incl. salaries", "Capacity is the binding constraint. **Evidence gap** - the stated budget appears high relative to 15 staff; cybersecurity budget share not stated"],
+  ["People and budget", "15 IT staff, 2 cybersecurity; IT budget stated as CAD 100M incl. salaries", "Capacity is the binding constraint. **Information gap — organizational validation required** - the stated budget appears high relative to 15 staff; cybersecurity budget share not stated"],
   ["Governance", "Steering Committee (teaching assumption); Board accepts material residual risk", "Structure exists on paper; operation and reporting unproven"],
   ["Regulatory", "Quebec and Canadian privacy expectations, health information confidentiality, professional obligations", "Confidentiality incidents involving health data are likely to trigger register, assessment and notification duties - **legal counsel to confirm applicable regime**"],
 ], [16, 42, 42]));
@@ -183,12 +183,12 @@ add(h2("3.1 Crown-jewel assets and services"));
 add(table(["ID", "Asset / service", "Business purpose", "Owner", "C", "I", "A", "Technical dependencies", "Third parties"],
   D.CROWN, [5, 15, 15, 14, 7, 7, 7, 17, 13], { size: 14 }));
 add(spacer());
-add(p("Owners are proposed roles, not documented appointments - **Evidence gap - organizational input required**."));
+add(p("Owners are proposed roles, not documented appointments - **Information gap — organizational validation required**."));
 
 
 // ================================================================ 4. APPETITE
 add(h1("4. Risk appetite"));
-add(callout(`**Estimated Risk Appetite: ${f2(D.APPETITE)}** (risk averse). Analyst estimate - validation required. Unchanged from the 10-scenario assessment.`, "DEEAF6"));
+add(callout(`**Estimated Risk Appetite: ${f2(D.APPETITE)}** (risk averse). Analytical estimate — validation required. Unchanged from the 10-scenario assessment.`, "DEEAF6"));
 add(spacer());
 add(p("**Rationale.**"));
 add(bl("**Sector and mission** - healthcare delivery where cyber events can affect clinical decisions; MediBec states a **low** appetite for risks to patient safety, health-data confidentiality, compliance and public trust (E5)."));
@@ -244,7 +244,7 @@ S.forEach((s, idx) => {
   add(table(["Parameter", "Value", "Reading", "Rationale", "Evidence", "Confidence"],
     Object.entries(s.params).map(([key, v]) => [PN[key], f2(v.v), v.qual, v.rat, v.ev, v.conf]), [18, 7, 12, 43, 9, 11], { size: 15 }));
   add(spacer());
-  add(p(`All values: **Analyst estimate - validation required.**`, { run: { size: 18 } }));
+  add(p(`All values: **Analytical estimate — validation required.**`, { run: { size: 18 } }));
   add(h3("CVSS v4.0"));
   add(p(`**Vector:** ${s.cvss}   **CVSS-B:** ${s.cvss_score.toFixed(1)} (${s.cvss_sev})`));
   add(p(s.cvss_note));
@@ -285,7 +285,7 @@ add(table(["Root cause", "Scenarios", "Observation"], [
 add(h2("8.2 Concentration and systemic dependencies"));
 add(bl("**Montreal hub** - EHR, identity, backups and WAN converge on one site (S16); any enterprise-wide event affects all 10 clinics."));
 add(bl("**Identity platform** - one directory, one MFA method and one cloud tenant gate every crown jewel (S1, S20, S27)."));
-add(bl("**EHR and software suppliers** - concentration risk via both remote access (S9) and software updates (S19); supplier identity and contracts are an **Evidence gap**."));
+add(bl("**EHR and software suppliers** - concentration risk via both remote access (S9) and software updates (S19); supplier identity and contracts are an **Information gap — organizational validation required**."));
 add(bl("**Scenario chaining** - entry (S1, S6, S12, S20, S23, S24, S27) + undetected (S8) + no recovery (S3) = S2 at maximum damage. Treating I01, I03 and I04 breaks most chains."));
 add(h2("8.3 Shared controls"));
 add(table(["Initiative", "Scenarios", "Why it is shared"],
@@ -336,7 +336,7 @@ TIERS.forEach(([t, ids]) => ids.forEach((id, j) => { const s = byId[id]; tierRow
 if (tierRows.length !== 30) throw new Error("tiers " + tierRows.length);
 add(table(["Tier", "ID", "Scenario", "Estimated", "Res / Tol", "Basis"], tierRows, [13, 5, 32, 9, 8, 33], { size: 13 }));
 add(h2("10.2 Recommended investment portfolio"));
-add(p("Costs are **indicative analyst estimates in CAD**, not quotations or approved budgets. **Initial** = one-time implementation; **recurring** = annual operating cost; **Year 1** = initial + first-year recurring. Cyber-insurance premiums are excluded (**Evidence gap**)."));
+add(p("Costs are **indicative analytical estimates in CAD**, not quotations or approved budgets. **Initial** = one-time implementation; **recurring** = annual operating cost; **Year 1** = initial + first-year recurring. Cyber-insurance premiums are excluded (**Information gap — organizational validation required**)."));
 add(table(["ID", "Initiative", "Scenarios", "Owner", "Priority", "Initial", "Recurring / yr", "Start - end", "Success indicator"],
   INIT.map((i) => [i[0], `**${i[1]}**\n${i[2]}`, i[3].join(", "), i[4], i[5], k(i[6]), k(i[7]), `${i[8]} - ${i[9]}`, i[10]]),
   [4, 30, 10, 11, 8, 7, 8, 9, 13], { size: 13 }));
@@ -420,7 +420,7 @@ add(table(["#", "Decision", "Options", "Recommended", "Authority"], [
   ["D4", "Patient-safety residual (S7, S10, S16, S29)", "Accept with compensating controls / restrict connectivity / fund redundancy", "CMO sign-off on compensating controls, downtime procedures and the I18 business case", "Clinical leadership + Executive"],
   ["D5", "Capacity and staffing", "Status quo / +1 FTE / +2 FTE / managed services", "+1 vulnerability FTE (costed), MDR, and assess an IAM/application-security role (not costed)", "CIO, Executive"],
   ["D6", "Cyber-insurance review", "Maintain / increase / obtain", "Broker review aligned with S2, S9, S19 and S28 residuals", "CFO"],
-  ["D7", "Validate estimates and close evidence gaps", "-", "SME workshop within 60 days, prioritizing S11-S30 assumptions; re-run workbook", "Cybersecurity lead"],
+  ["D7", "Validate estimates and close information gaps", "-", "SME workshop within 60 days, prioritizing S11-S30 assumptions; re-run workbook", "Cybersecurity lead"],
   ["D8", "Assign risk owners", "-", "Confirm the owners proposed in Section 7 for all 30 scenarios", "Executive leadership"],
 ], [4, 20, 20, 36, 20], { size: 14 }));
 add(spacer());

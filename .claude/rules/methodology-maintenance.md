@@ -5,5 +5,5 @@
 - Bump `version` in each changed plugin's `.claude-plugin/plugin.json` and in `.claude-plugin/marketplace.json` for any behaviour change (semver).
 - Validate before release: `claude plugin validate plugins/cyberriskguardian/.claude-plugin/plugin.json`, `claude plugin validate plugins/crg-governance-textbook/.claude-plugin/plugin.json` and `claude plugin validate .`.
 - Regenerate and run the evals: `python3 scripts/build_evals.py`, then `claude plugin eval plugins/cyberriskguardian --allow-tools Bash Write` and `claude plugin eval plugins/crg-governance-textbook`.
-- Regression check: `python3 plugins/cyberriskguardian/skills/crg-quantify/scripts/crg_calc.py examples/medibec/source/medibec30.json` must reproduce total estimated 84,491 and residual 41,104.
+- Regression check: `python3 plugins/cyberriskguardian/skills/crg-quantify/scripts/crg_calc.py examples/medibec/source/medibec30.json` must reproduce total estimated 84,305 and residual 41,023.
 - Never change a CRG formula silently; record methodology decisions in `master-task-spec.md` ("Resolved methodology choices").

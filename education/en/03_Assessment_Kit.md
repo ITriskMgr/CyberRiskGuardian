@@ -7,7 +7,7 @@ date: "October 2026"
 
 # How to use this kit
 
-This kit gives instructors ready-to-adapt assignment briefs and rubrics for courses that use CyberRiskGuardian, and gives students the criteria their work will be judged on. It is based on the assessment design of *BTM 440 Information Systems Risks, Security and Audit* (Concordia University, Fall 2026), generalized so that any institution can use it.
+This kit gives instructors ready-to-adapt assignment briefs and rubrics for courses that use CyberRiskGuardian, and gives students the criteria their work will be judged on. It is based on the assessment design of an undergraduate cybersecurity course, generalized so that any institution can use it.
 
 **For instructors.** Replace the bracketed items — [due week], [weight], [page limit], [submission platform] — with your own. Keep the criteria and the descriptors: they are what makes grading consistent between sections and teaching assistants. Your course outline and assignment instructions remain the authoritative source; say so to students.
 
@@ -119,14 +119,14 @@ Appendices are allowed and do not count in the page limits.
 - [ ] The appetite is stated and justified against the case tolerance; residual risk is compared with tolerated risk.
 - [ ] Each measure is tied to a scenario and a step of its chain, costed on one horizon and justified; shared measures are counted once.
 - [ ] The memo is one page and leads with the decision; the recommendation is two pages.
-- [ ] The three markers appear where they belong; the title page, citations and AI statement are complete.
+- [ ] The three markers (**Analytical estimate — validation required**, **Information gap — organizational validation required**, **Management decision required**) appear where they belong; the title page, citations and AI statement are complete.
 
 ## Tips
 
 - Keep the probability that the threat is present separate from the probability that exploitation succeeds.
 - Give a short rationale and evidence for every number, and say which two or three values are the most uncertain.
 - CVSS scores one defined technical vulnerability, not a whole scenario.
-- The workbook does not validate inputs and its red cell highlighting on the Analyse sheet compares every scenario with a single cell. Compare estimated and tolerated risk numerically.
+- The workbook (v2-6) validates inputs and lists problems in its Checks column (AC); still read estimated and tolerated risk numerically rather than by cell colour, replace the 0.5 appetite placeholder, and keep each CVSS vector next to its score.
 - In the memo, say how many scenarios are above tolerance before and after treatment, what the portfolio costs and what risk remains. Do not restate tables.
 
 # A2 — Information security policy: Identity and Access Management (team)
@@ -248,4 +248,4 @@ Include near the title page or in an appendix:
 
 **Rules.** Generative AI is allowed on assignments with this acknowledgement and is not allowed during the exam. You are responsible for everything you submit. A fabricated or untraceable source is both an evidence problem and an academic-integrity concern. Do not paste confidential material into an external AI service unless you are authorized to.
 
-*© 2026 Marc-André Léger. Licensed under CC BY-NC 4.0. Adapted from the BTM 440 Student Assignment Guide (Concordia University, Fall 2026).*
+*© 2026 Marc-André Léger. Licensed under CC BY-NC 4.0. Adapted from the author's student assignment guide for an undergraduate cybersecurity course.*

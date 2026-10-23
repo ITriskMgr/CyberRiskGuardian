@@ -215,7 +215,7 @@ for i, p in enumerate(FINAL):
 
 # ---------------------------------------------------------------- D_QuantPrep
 wq = wb.create_sheet("D_QuantPrep"); title(wq, "Section D / Instruction s.19 - Preparation for quantitative analysis",
-                                          "Preliminary values are taken from the constituent scenarios of the 30-scenario assessment: anchor = lead constituent (core causal chain); range = min-max across constituents. Analyst estimates - validation required.")
+                                          "Preliminary values are taken from the constituent scenarios of the 30-scenario assessment: anchor = lead constituent (core causal chain); range = min-max across constituents. Analytical estimate — validation required.")
 S = {s["id"]: s for s in M.SCEN}
 PK = [("PbA", "Pb(A)"), ("Pbx", "Pb(psi,A)"), ("De", "de"), ("Dm", "dm"), ("Th", "theta"), ("Mu", "mu(E)")]
 cols = ["ID", "Constituents", "Anchor"] + [f"{lab} anchor" for _, lab in PK] + [f"{lab} range" for _, lab in PK] + ["Lowest param. confidence", "CVSS applicability", "Current control effectiveness (FAIR resistance)",
@@ -306,7 +306,7 @@ for i, s in enumerate(M.SCEN):
 r = 5 + len(M.SCEN)
 chg = ["Previous 10 (S1-S10) vs new 10: S3 (backup) and S8 (detection) are now stages inside P02 rather than stand-alone scenarios; S1 widened into P01 (identity, incl. S20, S27); S6 widened into P03 (incl. S23); S4 widened into P07 (incl. S11, S17); S9 widened into P08 (incl. S19); S10 widened into P05 (incl. S29).",
        "New in the 10-scenario portfolio: P09 hub single point of failure (S16) and P10 staff disclosure via AI and misdirected communications (S26, S21).",
-       "Implication: the CRG KRIs, treatment portfolio and budget were computed on S1-S30 and remain usable; re-quantify P01-P10 as whole scenarios before presenting a 10-scenario register to management."]
+       "Implication: the CRG risk indices, treatment portfolio and budget were computed on S1-S30 and remain usable; re-quantify P01-P10 as whole scenarios before presenting a 10-scenario register to management."]
 for i, t in enumerate(chg):
     wch.cell(row=r + i, column=1, value=t).font = BLK
 

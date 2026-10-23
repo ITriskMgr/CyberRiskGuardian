@@ -10,7 +10,7 @@ toc-title: "Table des matières"
 
 Ce guide aide les enseignants, les auxiliaires d'enseignement et les coordonnateurs de programme à intégrer CyberRiskGuardian (CRG) dans un cours de gestion des risques en cybersécurité, de gouvernance, d'audit des TI ou de gestion des technologies d'affaires. Il explique ce que la méthode enseigne, quelle version de l'outil utiliser, comment l'intégrer dans un seul atelier ou dans une session complète, comment animer les laboratoires et comment évaluer équitablement le travail lorsque les étudiants sont autorisés à utiliser l'IA générative.
 
-L'ensemble a été conçu à partir du matériel fourni avec CyberRiskGuardian (les spécifications de la méthode, le manuel de gouvernance, l'exemple complet MediBec et les fonctionnalités pédagogiques de l'application de bureau) et à partir du cours de l'auteur, *BTM 440 Business Information Systems Risks, Security and Audit* (Université Concordia, automne 2026), où CRG a été utilisé pour le travail d'équipe d'évaluation des risques.
+L'ensemble a été conçu à partir du matériel fourni avec CyberRiskGuardian (les spécifications de la méthode, le manuel de gouvernance, l'exemple complet MediBec et les fonctionnalités pédagogiques de l'application de bureau) et à partir du cours de premier cycle de l'auteur sur les risques, la sécurité et l'audit des systèmes d'information, où CRG a été utilisé pour le travail d'équipe d'évaluation des risques.
 
 ## Contenu de l'ensemble
 
@@ -21,7 +21,9 @@ L'ensemble a été conçu à partir du matériel fourni avec CyberRiskGuardian (
 | **Trousse d'évaluation** — énoncés de travaux, grilles d'évaluation sur 0–10, autovérifications, formulaire d'évaluation par les pairs, déclaration d'utilisation de l'IA | Étudiants et enseignants | Communautaire (gratuite) |
 | **Bibliothèque de cas** — cinq études de cas fictives avec un guide pour en choisir une | Étudiants et enseignants | Communautaire (gratuite) |
 | **Présentation d'introduction** — la méthode CRG en un cours | Enseignants | Communautaire (gratuite) |
-| **Édition Éducateur** — corrigés des laboratoires, banque de questions de quiz notées, calibrage des grilles d'évaluation et banque de commentaires, notes pédagogiques des cas, cas de l'examen final et son plan | Enseignants seulement | Licence éducative |
+| **Modèle Excel v2-6** — le modèle Excel CyberRiskGuardian vierge (`templates/`) | Étudiants et enseignants | Communautaire (gratuite) |
+| **Présentations des chapitres** — 21 présentations du manuel, une par chapitre (fichiers joints aux versions GitHub, en anglais) | Enseignants | Communautaire (gratuite) |
+| **Édition Éducateur** — corrigés des laboratoires, banque de questions de quiz notées, calibrage des grilles d'évaluation et banque de commentaires, notes pédagogiques des cas, cas de l'examen final et son plan, et le guide de ressources de l'enseignant du manuel | Enseignants seulement | Édition éducative (Licence éducative) |
 
 Tout le contenu, à l'exception de l'Édition Éducateur, est publié avec l'édition communautaire sous licence CC BY-NC 4.0, en anglais et en français. L'Édition Éducateur est tenue à l'écart du dépôt public afin que les corrigés et le cas d'examen demeurent utiles d'une session à l'autre.
 
@@ -38,7 +40,7 @@ Demandes de licence : **sales@cyberriskguardian.ca** · site du produit : **cybe
 
 CyberRiskGuardian est une méthode d'évaluation des risques en cybersécurité fondée sur des scénarios de risque, appuyée par un assistant d'IA (le plugiciel et le projet Claude), une application de bureau et un modèle Excel. C'est un **outil d'aide à la décision** : il structure l'analyse et l'accélère, tandis que l'analyste demeure responsable de chaque estimation et la direction, de chaque décision relative au risque.
 
-**Le déroulement.** Contexte organisationnel → joyaux de la couronne (actifs critiques) → appétence pour le risque → 20 scénarios de risque candidats → les 10 plus importants → six paramètres et le CVSS pour chacun → risque estimé et risque toléré → portefeuille de traitement → risque résiduel par rapport à la tolérance → recommandations, budget et ICR.
+**Le déroulement.** Contexte organisationnel → joyaux de la couronne (actifs critiques) → appétence pour le risque → 25 à 40 scénarios de risque candidats (20 dans les laboratoires) → les 10 plus importants → six paramètres et le CVSS pour chacun → risque estimé et risque toléré → portefeuille de traitement → risque résiduel par rapport à la tolérance → recommandations, budget et ICR. Le manuel (chapitre 6) numérote ces étapes comme les 19 étapes CRG, suivies du rapport de gestion et d'une revue de qualité indépendante.
 
 **Un scénario de risque est une chaîne causale, jamais le nom d'une menace.** *Source de menace ou événement → vulnérabilité ou faiblesse → actif ou processus touché → événement de cybersécurité → conséquence organisationnelle.* « Rançongiciel » est une menace; « un affilié d'un groupe de rançongiciel utilise des identifiants VPN volés et l'absence d'authentification multifacteur (MFA) sur l'accès à distance pour chiffrer les serveurs de planification clinique, ce qui interrompt les rendez-vous dans tous les sites pendant plusieurs jours » est un scénario de risque.
 
@@ -51,7 +53,7 @@ CyberRiskGuardian est une méthode d'évaluation des risques en cybersécurité 
 | δe(ψ,A) | Dommage estimé | Quelle ampleur de préjudice peut-on raisonnablement prévoir? |
 | δm(ψ,A) | Dommage maximal | Quelle ampleur de préjudice, au pire plausible? |
 | θ(ψ,A) | Résilience organisationnelle | Dans quelle mesure pouvons-nous prévenir, détecter, contenir, intervenir, rétablir et poursuivre nos activités? |
-| μ(E) | Utilité attendue / criticité | Quelle est l'importance du service touché pour la mission? |
+| μ(E) | Criticité organisationnelle (utilité espérée) | Quelle est l'importance du service touché pour la mission? |
 
 **Les formules** (Guide Excel v1.0c, section 11 — elles font autorité et ne sont jamais modifiées à l'insu de quiconque) :
 
@@ -100,8 +102,8 @@ La méthode est la même dans chaque parcours; seule l'interface change. Choisis
 | Parcours | Ce qu'utilisent les étudiants | Forces | Points de vigilance |
 |---|---|---|---|
 | **A. Claude (plugiciel ou projet)** | Le plugiciel gratuit CyberRiskGuardian Core dans Claude Code ou Claude Cowork, ou un projet Claude contenant les instructions CRG | Rédaction rapide de scénarios de risque, collecte du contexte sous forme d'entrevue, vérification intégrée des mentions, commandes `/crg-quick-scan` et `/crg-assess`, calculateur vérifié | Les étudiants doivent vérifier les résultats de l'IA; la politique institutionnelle sur l'IA et les règles de protection des données s'appliquent |
-| **B. Application de bureau** | CyberRiskGuardian Desktop (bêta 1.6.x/1.7.x), servie localement dans un navigateur | Tout sur un seul écran; espaces de travail de classe; autovérification du moteur; *Recommencer* pour les cas pédagogiques; données de simulation pour des exercices SIEM/SOAR; interface EN/FR; aucune donnée ne quitte l'ordinateur à moins que l'étudiant ne l'envoie | Nécessite Python 3 pour servir le dossier; conserver le même port pour que les espaces de travail soient retrouvés |
-| **C. Modèle Excel** | Le modèle Excel CyberRiskGuardian gratuit (feuille Analyse, S1–S10, M1–M10), dans `templates/` | Formules transparentes, familières aux étudiants en gestion, fonctionne hors ligne | Mode de calcul manuel (appuyer sur F9); aucune validation des saisies; la mise en évidence en rouge dans la feuille Analyse peut induire en erreur |
+| **B. Application de bureau** | CyberRiskGuardian Desktop (version courante; 1.8.0 au moment de la rédaction), servie localement dans un navigateur | Tout sur un seul écran; espaces de travail de classe; autovérification du moteur; *Recommencer* pour les cas pédagogiques; données de simulation pour des exercices SIEM/SOAR; interface EN/FR; aucune donnée ne quitte l'ordinateur à moins que l'étudiant ne l'envoie | Nécessite Python 3 pour servir le dossier; conserver le même port pour que les espaces de travail soient retrouvés |
+| **C. Modèle Excel** | Le modèle Excel CyberRiskGuardian gratuit (feuille Analyse, S1–S10, M1–M10), dans `templates/` | Formules transparentes, familières aux étudiants en gestion, fonctionne hors ligne | Mode de calcul manuel (appuyer sur F9); saisies validées et colonne de contrôles; CVSS vide et obligatoire; la valeur provisoire d'appétence 0,5 doit être remplacée |
 
 Une approche **hybride** fonctionne bien en pratique : les étudiants rédigent le contexte et les scénarios de risque avec Claude (parcours A), puis quantifient et traitent les risques dans l'application de bureau ou le classeur (parcours B ou C), où chaque nombre est recalculé par le moteur vérifié.
 
@@ -119,16 +121,41 @@ Redémarrez Claude et approuvez le serveur `crg-calculator` lorsque vous y êtes
 
 **Parcours B — Application de bureau.** Décompressez la version, puis double-cliquez sur `start.command` (macOS, Linux) ou `start.bat` (Windows). L'application doit être servie à l'adresse `http://localhost:8099`; double-cliquer sur `index.html` ne fonctionne pas. Installez-la comme application à partir de Chrome ou d'Edge pour l'utiliser hors ligne.
 
-**Parcours C — Excel.** Le modèle vierge est fourni gratuitement avec cet ensemble : `templates/CyberRiskGuardian_Excel_Model_Blank_v2-4e.xlsx`. Publiez-le sur votre plateforme d'apprentissage. Rappelez aux étudiants qu'il s'ouvre en mode de calcul manuel et que ses valeurs par défaut (appétence 0,5 en E14, facteur 10 000 en E15, CVSS 0 en G3:G12) doivent être remplacées par celles du cas.
+**Parcours C — Excel.** Le modèle vierge est fourni gratuitement avec cet ensemble : `templates/CyberRiskGuardian_Excel_Model_Blank_v2-6.xlsx`. Publiez-le sur votre plateforme d'apprentissage. Il suit la procédure en 8 étapes du chapitre 6 du manuel, imprimée dans la feuille Analyse. Rappelez aux étudiants que :
+
+- il s'ouvre en mode de calcul manuel (Formules → Calculer maintenant, F9);
+- l'appétence en E14 est une valeur provisoire (0,5) à remplacer par la valeur approuvée ou estimée du cas, strictement entre 0 et 1;
+- le facteur en E15 vaut 1 000 et ne change pas;
+- les scores CVSS (G3:G12) sont vides au départ et obligatoires, avec le vecteur à côté de chaque score (H3:H12); la colonne de contrôles (AC) signale un vecteur manquant ou mal formé, une saisie invalide et une erreur de réduction;
+- dans les feuilles M, les réductions des mesures retenues se combinent selon la règle du produit 1 − ∏(1 − rᵢ), de sorte qu'un bouquet ne dépasse jamais 1;
+- le bloc budgétaire (Y14:AC25) compare les dépenses actuelles et le portefeuille recommandé à la cible cohérente avec l'appétence et affiche l'écart et l'appétence implicite;
+- les colonnes AD et AE consignent la part de la perte couverte par un transfert et son approbateur, à titre d'information seulement.
 
 ## La vérification que chaque étudiant fait en premier
 
 Quel que soit le parcours, la première chose que fait un étudiant est de confirmer que le moteur de calcul concorde avec l'implémentation de référence :
 
-- Application de bureau : le pied de la barre latérale doit afficher **moteur vérifié · 84 491 / 41 104**.
-- Claude ou ligne de commande : `python3 crg_calc.py medibec30.json` doit indiquer **total estimated 84,491** et **residual 41,104** (risque estimé total de 84 491 et risque résiduel de 41 104).
+- Application de bureau : le pied de la barre latérale doit afficher **moteur vérifié · 84 305 / 41 023**.
+- Claude ou ligne de commande : `python3 crg_calc.py medibec30.json` doit indiquer **total estimated 84,305** et **residual 41,023** (risque estimé total de 84 305 et risque résiduel de 41 023).
+- Excel : saisissez l'exemple du chapitre 6 du manuel en S1 (CVSS 9,3, vecteur `CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:P/VC:H/VI:H/VA:H/SC:H/SI:H/SA:H`) et confirmez un risque estimé de 3 554,46 et un risque résiduel de 1 937,18 après « Calculer maintenant ».
 
 Si ce n'est pas le cas, rien de ce qui est produit sur cette installation ne doit être considéré comme fiable. Intégrez cette vérification au laboratoire 0 et demandez une capture d'écran.
+
+# Utiliser le manuel
+
+L'ensemble accompagne le manuel *Introduction to Cybersecurity Governance for Business Technology Management* (Léger, 3e éd., v2.51, octobre 2026), offert gratuitement sous la forme du plugiciel `crg-governance-textbook`, dont l'annexe « Using CyberRiskGuardian with this book » relie les 21 chapitres aux activités CRG. Les laboratoires s'appuient sur ces chapitres :
+
+| Laboratoires et activités | Chapitres du manuel |
+|---|---|
+| Laboratoire 0 (vérification du moteur) et laboratoire 1 (contexte, joyaux de la couronne) | Chapitre 6 (déroulement, étapes 1 à 3); chapitre 5 (le contexte d'abord) |
+| Laboratoire 2 (appétence pour le risque) | Chapitre 4 (appétence et tolérance, bandes de tolérance, référence budgétaire) |
+| Laboratoire 3 (candidats, tri, sélection) | Chapitre 5 (25 à 40 candidats, cinq stratégies de génération, douze critères de tri, couverture) |
+| Laboratoires 4 à 8 (paramètres, CVSS v4.0, indices de risque, traitement, sensibilité) | Chapitre 6 (indice de risque, CVSS par équivalence, procédure du classeur, exemple MediBec) |
+| Laboratoire 9 (ICR) | Chapitre 6 (ICR de suivi); chapitre 14 (mesures et configurations de référence) |
+| Laboratoire 10 (note de gestion, budget) | Chapitre 6 (rapport de gestion, calibrage du budget); chapitre 4; chapitre 17 (gouvernance des investissements, assurance comme transfert) |
+| Laboratoire 12 (du risque à la politique et à l'audit) | Chapitre 9 (référentiels de contrôles), chapitre 10 (IAM), chapitre 3 (conformité et assurance) |
+
+Chaque chapitre se termine par vingt questions à choix multiples; les lettres des réponses figurent en annexe du manuel. Le **guide de ressources de l'enseignant** (justification de chaque réponse et indications de correction des questions à développement) et les 21 présentations des chapitres accompagnent le manuel : les présentations sont des fichiers gratuits joints aux versions du dépôt (voir `education/LISEZMOI.md`), et le guide de ressources de l'enseignant fait partie de l'Édition Éducateur.
 
 # Modèles d'intégration
 
@@ -155,7 +182,7 @@ Pour un cours qui consacre une unité à l'évaluation des risques.
 
 | Semaine | Cours | Laboratoires | Livrable |
 |---|---|---|---|
-| 1 | Contexte, appétence et scénarios de risque | 0, 1, 2, 3 | Ensemble de scénarios de risque de l'équipe (20 candidats → 10) |
+| 1 | Contexte, appétence et scénarios de risque | 0, 1, 2, 3 | Ensemble de scénarios de risque de l'équipe (20 candidats dans la version de laboratoire, 25 à 40 dans une évaluation complète → 10) |
 | 2 | Quantification, CVSS et interprétation | 4, 5, 6, 8 | Portefeuille quantifié avec justification |
 | 3 | Traitement, ICR et note de service à la direction | 7, 9, 10 | Note de service d'une page et recommandation de deux pages |
 
@@ -163,7 +190,7 @@ Pondération suggérée : 20–30 % de la note du cours, au moyen de la grille 
 
 ## Modèle 3 — Session complète (12 semaines)
 
-C'est le modèle utilisé dans le cours BTM 440. L'évaluation des risques (A1) alimente la politique de sécurité (A2) et le plan d'audit (A3), de sorte que les étudiants suivent une même organisation, du risque à la gouvernance jusqu'à l'assurance.
+C'est le modèle utilisé dans le cours de premier cycle de l'auteur. L'évaluation des risques (A1) alimente la politique de sécurité (A2) et le plan d'audit (A3), de sorte que les étudiants suivent une même organisation, du risque à la gouvernance jusqu'à l'assurance.
 
 | Semaine | Thème du cours | Activité CRG | Échéance |
 |---|---|---|---|
@@ -180,7 +207,7 @@ C'est le modèle utilisé dans le cours BTM 440. L'évaluation des risques (A1) 
 | 11 | Criminalistique numérique; normes et certification | Laboratoire 12, partie 2 : du risque à la politique de gestion des identités et des accès (IAM) | **A3 plan d'audit** (individuel) |
 | 12 | Sécurité des applications; révision | Préparation à l'examen; banque de questions de quiz (Édition Éducateur) | **A2 politique IAM** |
 
-Pondérations suggérées, comme dans le cours BTM 440 : A1 20 % (équipe), A2 10 % (équipe), A3 10 % (individuel), examen final 40 % (incluant une dissertation sur une étude de cas), quiz et laboratoires 20 %.
+Pondérations suggérées, comme dans le cours de premier cycle de l'auteur : A1 20 % (équipe), A2 10 % (équipe), A3 10 % (individuel), examen final 40 % (incluant une dissertation sur une étude de cas), quiz et laboratoires 20 %.
 
 ## Modèle 4 — Projet intégrateur ou séminaire aux cycles supérieurs
 
@@ -225,13 +252,13 @@ L'expérience avec la méthode montre qu'une poignée d'idées causent l'essenti
 
 **La présence de la menace et l'exploitation sont deux probabilités différentes.** Pb(A) demande si la source de menace agira; Pb(ψ,A) demande si elle réussira à exploiter cette faiblesse compte tenu des contrôles existants. Les fusionner revient à compter deux fois.
 
-**Le CVSS cote une vulnérabilité, pas un scénario de risque.** Le score de base CVSS v4.0 mesure la gravité technique d'une faiblesse définie. Pour les scénarios d'hameçonnage, de menace interne ou de gouvernance, les étudiants cotent une faiblesse *représentative* et la qualifient d'*applicabilité limitée*, ou expliquent pourquoi le CVSS ne s'applique pas. Un score CVSS élevé ne signifie jamais le risque d'affaires le plus élevé.
+**Le CVSS cote une vulnérabilité, pas un scénario de risque.** Le score de base CVSS v4.0 mesure la gravité technique d'une faiblesse définie. Pour les scénarios d'hameçonnage, de menace interne, de processus, physiques, de tiers ou de gouvernance, les étudiants cotent une faiblesse *représentative* **par équivalence** (chapitre 6 du manuel) et la qualifient d'*applicabilité limitée*. Le CVSS demeure un multiplicateur obligatoire : un score est toujours requis; un document malveillant reçu par courriel est coté AV:L. Un score CVSS élevé ne signifie jamais le risque d'affaires le plus élevé.
 
 **Le verdict par rapport à la tolérance ne dépend que du dommage, du traitement et de l'appétence.** Le rapport Résiduel ÷ Toléré se simplifie en ((δe + δm)/2) × (1 − P × Q) ÷ Appétence. Les probabilités, le CVSS, la résilience et la criticité s'annulent : ils déterminent l'*ampleur* du risque (le classement), mais pas le *verdict*. C'est un résultat frappant pour les étudiants. Servez-vous-en pour montrer pourquoi le ratio doit toujours être lu conjointement avec le risque estimé.
 
 **Avant le traitement, presque tout est au-dessus de la tolérance.** Le ratio avant traitement correspond au dommage moyen ÷ l'appétence. Avec une appétence de 0,30, tout scénario de risque dont le dommage moyen dépasse 0,33 commence au-dessus de la tolérance. Les étudiants qui s'attendent à un portrait mitigé avant le traitement sont généralement surpris.
 
-**L'atténuation est multiplicative.** Une réduction de 80 % de la probabilité et une réduction de 80 % de l'impact éliminent 64 % du risque, et non 80 %. Pour être « sous la tolérance », il faut que P × Q ≥ 1 − appétence ÷ dommage moyen. Un ensemble de mesures qui ne réduit que la probabilité, ou que l'impact, n'atténue rien selon la convention du classeur.
+**L'atténuation est multiplicative.** Une réduction de 80 % de la probabilité et une réduction de 80 % de l'impact éliminent 64 % du risque, et non 80 %. Pour que le résiduel ne dépasse pas le toléré (ratio ≤ 1,0), il faut que P × Q ≥ 1 − appétence ÷ dommage moyen; pour être **sous la tolérance** (ratio < 0,90), il faut que P × Q > 1 − 0,90 × appétence ÷ dommage moyen. Un ensemble de mesures qui ne réduit que la probabilité, ou que l'impact, n'atténue rien selon la convention du classeur.
 
 **Les contrôles partagés sont comptés une seule fois.** Lorsqu'une initiative sert plusieurs scénarios de risque, son coût est réparti entre eux (une répartition égale est une valeur par défaut acceptable) et le total du portefeuille provient des initiatives, et non de la somme des affectations par scénario.
 
@@ -239,7 +266,7 @@ L'expérience avec la méthode montre qu'une poignée d'idées causent l'essenti
 
 # L'IA générative dans le cours
 
-CyberRiskGuardian est lui-même un outil assisté par l'IA; le cours doit donc adopter une position claire sur l'IA. La position ci-dessous est celle utilisée dans le cours BTM 440; adaptez-la à la politique de votre établissement.
+CyberRiskGuardian est lui-même un outil assisté par l'IA; le cours doit donc adopter une position claire sur l'IA. La position ci-dessous est celle utilisée dans le cours de premier cycle de l'auteur; adaptez-la à la politique de votre établissement.
 
 **Permise pour les travaux,** avec une déclaration explicite (modèle dans la Trousse d'évaluation). Les étudiants sont responsables de tout ce qu'ils remettent, y compris de tout ce qu'une IA a produit.
 
@@ -263,7 +290,7 @@ La Trousse d'évaluation contient :
 - des **énoncés et des grilles d'évaluation** pour l'évaluation des risques (A1), la politique de sécurité IAM (A2) et le plan d'audit fondé sur les risques (A3), ainsi que quatre formats plus courts (portfolio de laboratoires, travail individuel sur un scénario de risque, défi d'analyse rapide en classe, dissertation d'examen);
 - des **listes d'autovérification**, un **formulaire d'évaluation par les pairs** pour les travaux d'équipe et la **déclaration d'utilisation de l'IA**.
 
-L'Édition Éducateur ajoute les corrigés des laboratoires, une banque de questions de quiz notées avec réponses, des exemples de calibrage des grilles d'évaluation, une banque de commentaires de rétroaction, des notes pédagogiques pour chaque cas ainsi que le cas de l'examen final et son plan.
+L'Édition Éducateur ajoute les corrigés des laboratoires, une banque de questions de quiz notées avec réponses, des exemples de calibrage des grilles d'évaluation, une banque de commentaires de rétroaction, des notes pédagogiques pour chaque cas, le cas de l'examen final et son plan, ainsi que le guide de ressources de l'enseignant du manuel.
 
 **Protéger l'intégrité de l'évaluation.**
 
@@ -286,9 +313,10 @@ Pour l'accessibilité, les laboratoires peuvent être réalisés entièrement au
 | Pied de page bloqué sur *chargement du moteur…* | L'application a été ouverte comme un fichier | La démarrer avec `start.command` ou `start.bat`; ouvrir `http://localhost:8099` |
 | Les espaces de travail d'un étudiant ont disparu | Adresse, port ou navigateur différent | Utiliser la même adresse et le même port; importer la dernière exportation de l'espace de travail |
 | Excel affiche les formules, mais d'anciens nombres | Mode de calcul manuel | Formules → Calculer maintenant (F9) |
-| Une erreur `#DIV/0!` dans le classeur | θ laissé vide ou à zéro | θ doit toujours être supérieur à zéro |
+| « θ required » ou « CVSS required » dans la feuille Analyse (colonnes M et N) | θ laissé vide ou à zéro dans la feuille S, ou score CVSS non saisi | Saisir θ supérieur à zéro (jusqu'à 1) et le score CVSS v4.0 avec son vecteur |
+| « Appetite required » dans la colonne N | L'appétence en E14 n'est pas strictement entre 0 et 1 | Saisir l'appétence approuvée ou estimée |
 | Le ratio d'un scénario de risque n'a pas changé après l'ajout de mesures | Mesures non appliquées, ou une seule dimension réduite | Appliquer l'ensemble de mesures; ajouter une mesure pour l'autre dimension |
-| Le risque résiduel *augmente* dans le modèle Excel | Les coefficients des contrôles d'une feuille M dépassent 1 au total | Maintenir chaque réduction entre 0 et 1; privilégier moins de contrôles, mieux justifiés |
+| Verdict « Review M… » ou avertissement sous la ligne TOTAL d'une feuille M | Un coefficient (colonne K ou L) est hors de 0 à 1 | Corriger le coefficient; les réductions combinées suivent la règle du produit et ne dépassent jamais 1 |
 | L'IA propose une loi que le cas ne mentionne pas | Invention de l'IA | La retirer; ne citer que les obligations que le cas mentionne ou qu'une source primaire confirme |
 | La trousse de simulation ne s'importe pas | L'espace de travail n'est pas une copie de MediBec | Importer dans l'exemple MediBec ou dans une copie de celui-ci |
 | Bandeau `moteur DIVERGENT` | Le moteur ne concorde pas avec la référence | Arrêter et restaurer une copie intacte de l'application |

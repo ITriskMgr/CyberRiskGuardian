@@ -40,7 +40,7 @@ ws["A1"] = "MediBec - CyberRiskGuardian Risk Assessment Workbook"; ws["A1"].font
 lines = [
     "Assessment period: next 12 months (October 2026 - September 2027). Currency: CAD. Cost basis: Year-1 = initial implementation + first-year recurring.",
     "Source: MediBec Business Case v2.0b (fictional teaching case, M.-A. Leger) and CyberRiskGuardian Excel Guide v1.0c formulas.",
-    "All parameter values, CVSS vectors, costs and reductions are ANALYST ESTIMATES - VALIDATION REQUIRED. Scores are relative decision-support indicators, not loss predictions.",
+    "All parameter values, CVSS vectors, costs and reductions are analytical estimates (Analytical estimate — validation required). Scores are relative decision-support indicators, not loss predictions.",
     "",
     "Colour legend:  blue text = input you may edit  |  black = formula  |  green = link to another sheet  |  yellow fill = key assumption.",
     "",
@@ -69,7 +69,7 @@ ws.column_dimensions["A"].width = 150
 # ------------------------------------------------------------------ Parameters
 wp = wb.create_sheet("Parameters")
 wp["A1"] = "Global parameters"; wp["A1"].font = TTL
-rows = [("Risk appetite (analyst estimate)", APPETITE, "Analyst estimate - validation required. Case states 0.40 normalized tolerance; see report s.4."),
+rows = [("Risk appetite (analytical estimate)", APPETITE, "Analytical estimate — validation required. Case states 0.40 normalized tolerance; see report s.4."),
         ("Multiplication factor", FACTOR, "Constant across all scenarios (Excel Guide worked example)."),
         ("Tolerance band - lower bound of 'approximately at'", BAND_LOW, "Ratio < this = below tolerance"),
         ("Tolerance band - upper bound of 'approximately at'", BAND_HIGH, "Ratio > this = above tolerance"),
@@ -85,7 +85,7 @@ APP, FAC, BLO, BHI, CAPP, DELTA, TEXEC, TBOARD = ["Parameters!$B$%d" % r for r i
 
 # ------------------------------------------------------------------ Inputs
 wi = wb.create_sheet("Inputs")
-wi["A1"] = "Scenario inputs (0-1 scale unless stated) - Analyst estimates, validation required"; wi["A1"].font = TTL
+wi["A1"] = "Scenario inputs (0-1 scale unless stated) - Analytical estimate — validation required"; wi["A1"].font = TTL
 cols = ["ID", "Scenario", "Pb(A)", "Pb(psi,A)", "de", "dm", "theta", "mu(E)", "CVSS v4.0 vector", "CVSS-B", "Prob. reduction", "Impact reduction",
         "Conf Pb(A)", "Conf Pb(psi,A)", "Conf de", "Conf dm", "Conf theta", "Conf mu"]
 header(wi, 3, cols, [6, 60, 8, 9, 7, 7, 7, 7, 62, 8, 10, 10, 8, 9, 8, 8, 8, 8])
@@ -129,11 +129,11 @@ for j in range(10):
 put(wpo, tr + 1, 2, "Check: sum of scenario allocations - portfolio Year-1 total (should be 0)")
 put(wpo, tr + 1, 8, f"=SUM(K{tr}:T{tr})-H{tr}", fmt="$#,##0;($#,##0);-")
 wpo.cell(row=tr + 3, column=2, value="Allocation assumption: each initiative's Year-1 cost is split equally across the scenarios it addresses, so shared controls are never charged in full to several scenarios.").font = BLK
-wpo.cell(row=tr + 4, column=2, value="Cyber-insurance premium is excluded (Evidence gap - broker quotation required).").font = BLK
+wpo.cell(row=tr + 4, column=2, value="Cyber-insurance premium is excluded (Information gap — organizational validation required: broker quotation required).").font = BLK
 
 # ------------------------------------------------------------------ Analyse
 wa = wb.create_sheet("Analyse", 1)
-wa["A1"] = "Analyse - CyberRiskGuardian KRIs (Excel Guide v1.0c formulas)"; wa["A1"].font = TTL
+wa["A1"] = "Analyse - CyberRiskGuardian risk indices (Excel Guide v1.0c formulas)"; wa["A1"].font = TTL
 wa["A2"] = "Green = linked from Inputs / Portfolio / Parameters; black = formula."; wa["A2"].font = BLK
 ac = ["ID", "Scenario", "Pb(A)", "Pb(psi,A)", "CVSS-B", "de", "dm", "mu(E)", "theta", "Appetite", "Factor",
       "Estimated risk", "Tolerated risk", "Pre-treatment ratio", "Allocated Y1 cost", "Prob. reduction", "Impact reduction",

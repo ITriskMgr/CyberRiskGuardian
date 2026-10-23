@@ -1,0 +1,21 @@
+schema_version: "1.1"
+name: renumbered-chapter
+tags: ["smoke", "textbook"]
+runs: 2
+execution:
+  prompt: "Which chapter of the CyberRiskGuardian governance textbook covers third-party and supply-chain cybersecurity governance? Summarize its lifecycle model in three sentences and cite the chapter."
+  max_turns: 10
+  timeout_seconds: 600
+  allowed_tools: ["Read", "Grep", "Glob", "Skill"]
+graders:
+  - name: chapter-19
+    type: "regex"
+    pattern: "Chap(?:ter|itre)\\s+19\\b"
+    flags: "i"
+  - name: read-ch19
+    type: "tool_used"
+    tool: "Read"
+    input_match: "references/ch19-"
+  - name: faithful
+    type: "llm"
+    criteria: "The reply identifies Chapter 19 (Third-Party and Supply-Chain Cybersecurity Governance) of the v2.51 edition, not Chapter 20, summarizes the book's lifecycle model for third-party governance (for example tiering, due diligence, contracting, monitoring, incident coordination and exit) and cites the chapter."

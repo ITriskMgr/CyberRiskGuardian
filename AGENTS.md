@@ -30,26 +30,30 @@ The Community Edition methodology lives in two public plugins:
 | Topic | File |
 |---|---|
 | Core workflow and hand-offs | `plugins/cyberriskguardian/skills/cyber-risk-assessment/SKILL.md` |
-| Full 22-section task specification | `plugins/cyberriskguardian/skills/cyber-risk-assessment/references/master-task-spec.md` |
+| Full task specification (the 19 CRG steps, report and QC) | `plugins/cyberriskguardian/skills/cyber-risk-assessment/references/master-task-spec.md` |
 | Evidence register, context, crown jewels, scope | `plugins/cyberriskguardian/skills/crg-context-intake/` |
 | Risk appetite and materiality | `plugins/cyberriskguardian/skills/crg-risk-appetite/` |
-| Scenario candidates, screening, selection (Sections A–E, 14 critical rules) | `plugins/cyberriskguardian/skills/crg-scenario-builder/` |
+| Scenario candidates (25–40, never fewer than 20; five generation strategies), 12-criterion screening, selection (Sections A–E, 14 critical rules) | `plugins/cyberriskguardian/skills/crg-scenario-builder/` |
 | Parameters, CVSS v4.0, formulas, calculator | `plugins/cyberriskguardian/skills/crg-quantify/` |
 | Management summary and deliverable conventions | `plugins/cyberriskguardian/skills/crg-summary-report/` |
-| Reference textbook: *Introduction to Cybersecurity Governance*, 3rd ed. v2.1g | `plugins/crg-governance-textbook/skills/cybersecurity-governance/` |
+| Reference textbook: *Introduction to Cybersecurity Governance*, 3rd ed., v2.51 (October 2026) | `plugins/crg-governance-textbook/skills/cybersecurity-governance/` |
 
-Treatment portfolios, sensitivity, budget calibration (4% / 7.8% / 12% of IT budget), KRI design, the workbook builder and the full report are in the private CRG Pro marketplace.
+Treatment portfolios, sensitivity, budget calibration (point targets 12% / 7.8% / 4% of total IT budget incl. salaries at appetite 0.30 / 0.50 / 0.70, linear in between), KRI design, the workbook builder and the full report are in the private CRG Pro marketplace (Educational and Professional editions).
 
-### Key formulas (CyberRiskGuardian Excel Guide v1.0c — never modify silently)
+### Key formulas (book v2.51 ch06; CyberRiskGuardian Excel Guide v1.0c — never modify silently)
 ```
 Estimated = Pb(A) × Pb(ψ,A) × CVSS × ((δe + δm)/2) × μ(E) ÷ θ × Factor
 Tolerated = Pb(A) × Pb(ψ,A) × CVSS × Appetite × μ(E) ÷ θ × Factor
 Mitigated = Estimated × probability reduction × impact reduction;  Residual = Estimated − Mitigated
-Ratio = Residual ÷ Tolerated  (<0.90 below · 0.90–1.10 approximately at · >1.10 above tolerance)
+Risk-to-tolerance ratio = Residual ÷ Tolerated  (<0.90 below · 0.90–1.10 approximately at · >1.10 above tolerance)
+Cost-effectiveness = (Estimated − Residual) ÷ cost × 1,000
 ```
 - Factor: 1,000, held constant.
 - CVSS: v4.0 base score unless a workbook specifies otherwise.
-- Reductions: must stay within 0–1.
+- Reductions: must stay within 0–1; several measures on the same lever combine with 1 − ∏(1 − r_i).
+- Valid ranges: Pb(A), Pb(ψ,A), δe, δm, μ(E) in 0–1 with δm ≥ δe; θ in (0, 1]; appetite strictly in (0, 1); CVSS required (0–10), recomputed from its vector.
+- These computed values are risk indices; KRIs are measured indicators (step 19).
+- Regression: `crg_calc.py examples/medibec/source/medibec30.json` must report total estimated 84,305 and residual 41,023.
 
 ## Tech stack
 | Area | Tools |
@@ -64,7 +68,7 @@ Ratio = Residual ÷ Tolerated  (<0.90 below · 0.90–1.10 approximately at · >
 - Read every supplied document before writing.
 - Ask once for scope, appetite, scenario count and output format; then proceed with stated assumptions.
 - Keep one JSON data model per assessment and generate both the workbook and the report from it.
-- Compute all KRIs, CVSS scores, sensitivity cases and budget targets with the scripts or the MCP tools, never by hand.
+- Compute all risk indices, CVSS scores, sensitivity cases and budget targets with the scripts or the MCP tools, never by hand.
 - Workbooks:
   - use live formulas;
   - recalculate after building;

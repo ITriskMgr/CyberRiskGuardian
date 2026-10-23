@@ -21,7 +21,7 @@ S.forEach((s, idx) => {
   add(table(["Parameter", "Value", "Reading", "Rationale", "Evidence", "Confidence"],
     Object.entries(s.params).map(([key, v]) => [PN[key], f2(v.v), v.qual, v.rat, v.ev, v.conf]), [18, 7, 12, 43, 9, 11], { size: 15 }));
   add(spacer());
-  add(p(`All values: **Analyst estimate - validation required.**`, { run: { size: 18 } }));
+  add(p(`All values: **Analytical estimate — validation required.**`, { run: { size: 18 } }));
   add(h3("CVSS v4.0"));
   add(p(`**Vector:** ${s.cvss}   **CVSS-B:** ${s.cvss_score.toFixed(1)} (${s.cvss_sev})`));
   add(p(s.cvss_note));

@@ -1,6 +1,6 @@
 # CRG Governance Textbook
 
-*Introduction to Cybersecurity Governance for Business Technology Management*, 3rd edition, version 2.1g (August 2026), by Marc-André Léger, as a Claude skill. Use it to explain governance, risk, compliance and resilience concepts with chapter citations, and as the reference text behind the CyberRiskGuardian method.
+*Introduction to Cybersecurity Governance for Business Technology Management*, 3rd edition, version 2.51 (October 2026), by Marc-André Léger, as a Claude skill. Use it to explain governance, risk, compliance and resilience concepts with chapter citations, and as the reference text behind the CyberRiskGuardian method. Version 2.51 has 21 chapters (former Chapters 19–22 are now 18–21), the appendix on using CyberRiskGuardian with the book, the multiple-choice answer key, the references and a bibliography.
 
 ## Install
 
@@ -19,7 +19,7 @@ On older Claude Code versions:
 
 | Type | Name | Purpose |
 |---|---|---|
-| Skill | `cybersecurity-governance` | Chapter index and one reference file per chapter; answers cite the chapter |
+| Skill | `cybersecurity-governance` | Chapter index and one reference file per chapter, appendix, answer key, references and bibliography; answers cite the chapter |
 | Evals | `evals/` | Concept questions checked for chapter citations |
 
 ## What the plugin runs and sends

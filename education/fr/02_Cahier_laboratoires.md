@@ -36,12 +36,12 @@ Lorsqu'une étape diffère selon le parcours, elle est marquée **[A]**, **[B]**
 1. Installez ou ouvrez votre parcours.
    - **[A]** Dans Claude Code : `/plugin install cyberriskguardian --marketplace ITriskMgr/CyberRiskGuardian`, puis `/plugin install crg-governance-textbook --marketplace ITriskMgr/CyberRiskGuardian`. Exécutez une fois `pip install cvss "mcp>=1.2"`, redémarrez et approuvez le serveur `crg-calculator`.
    - **[B]** Décompressez l'application de bureau, puis double-cliquez sur `start.command` (macOS, Linux) ou `start.bat` (Windows). Laissez la fenêtre du terminal ouverte. L'application s'ouvre à `http://localhost:8099`. Utilisez toujours cette même adresse : votre travail est conservé par votre navigateur pour cette adresse exacte.
-   - **[C]** Ouvrez le modèle vierge `templates/CyberRiskGuardian_Excel_Model_Blank_v2-4e.xlsx` (ou la copie que votre enseignant vous a remise) et enregistrez-en une copie au nom de votre équipe. Il s'ouvre en mode de calcul manuel : appuyez sur **F9** (Formules → Calculer maintenant) avant de lire quelque nombre que ce soit.
+   - **[C]** Ouvrez le modèle vierge `templates/CyberRiskGuardian_Excel_Model_Blank_v2-6.xlsx` (ou la copie que votre enseignant vous a remise) et enregistrez-en une copie au nom de votre équipe. Il s'ouvre en mode de calcul manuel : appuyez sur **F9** (Formules → Calculer maintenant) avant de lire quelque nombre que ce soit.
 2. Vérifiez le moteur.
-   - **[A]** Exécutez `python3 crg_calc.py medibec30.json` à partir du dossier `crg-quantify/scripts` du plugiciel sur l'exemple MediBec. Il doit afficher **risque estimé total 84 491** et **résiduel 41 104**.
-   - **[B]** Le bas de la barre latérale gauche doit afficher **moteur vérifié · 84 491 / 41 104**.
-   - **[C]** Votre enseignant vous donnera les données d'entrée d'un scénario de risque et le résultat attendu; saisissez-les et comparez.
-3. **[B]** Ouvrez l'espace de travail MediBec, puis **Processus** (premier élément du menu). Lisez les treize étapes d'une évaluation complète.
+   - **[A]** Exécutez `python3 crg_calc.py medibec30.json` à partir du dossier `crg-quantify/scripts` du plugiciel sur l'exemple MediBec. Il doit afficher **risque estimé total 84 305** et **résiduel 41 023**.
+   - **[B]** Le bas de la barre latérale gauche doit afficher **moteur vérifié · 84 305 / 41 023**.
+   - **[C]** Saisissez l'exemple du chapitre 6 du manuel dans la feuille S1 et à la ligne 3 de la feuille Analyse : Pb(A) 0,70, Pb(ψ,A) 0,60, δe 0,60, δm 0,80, θ 0,50, μ(E) 0,65, CVSS 9,3 en G3 avec le vecteur `CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:P/VC:H/VI:H/VA:H/SC:H/SI:H/SA:H` en H3, appétence 0,35 en E14; dans M1, une ligne « Other / autre » retenue avec un coût de 62 000, une réduction d'impact de 0,70 et une réduction de probabilité de 0,65. Après « Calculer maintenant », vous devez lire un risque estimé de 3 554,46, un risque toléré de 1 777,23, un risque résiduel de 1 937,18 et un ratio de 1,09. Effacez ensuite ces données (ou repartez du modèle vierge).
+3. **[B]** Ouvrez l'espace de travail MediBec, puis **Processus** (premier élément du menu). Lisez les dix-neuf étapes d'une évaluation complète.
 4. Relisez les trois mentions dans les « Cinq règles » ci-dessus. Trouvez un exemple de chacune dans les livrables d'exemple ou l'espace de travail MediBec.
 
 **Livrable :** une capture d'écran du moteur vérifié (ou du résultat de votre calculateur), avec votre nom et la date.
@@ -124,7 +124,7 @@ Les valeurs de 0,1 et de 0,9 sont des extrêmes qui ne devraient normalement pas
 
 1. Repérez ce que le cas énonce. L'énoncé d'appétence de MediBec indique une **tolérance normalisée de 0,40**, une faible appétence pour ce qui touche la sécurité des patients, la confidentialité des données de santé, la conformité et la confiance du public, ainsi que des seuils de remontée (risque résiduel supérieur à 0,25 pour un examen par la haute direction, supérieur à 0,40 pour une acceptation par le conseil d'administration).
 2. Tenez compte des facteurs : secteur, mission, sensibilité des informations, exigences réglementaires, impact potentiel sur les personnes (patients), dépendance à la technologie, capacité financière, tolérance aux perturbations, réputation.
-3. Choisissez une valeur. Vous pouvez conserver la valeur de 0,40 du cas ou en proposer une autre; dans les deux cas, justifiez-la en cinq à huit phrases. L'évaluation publiée de MediBec a utilisé **0,30** (une estimation de l'analyste inférieure à la valeur énoncée de 0,40, en raison de la sécurité des patients et de la sensibilité des données de santé). Expliquez si vous êtes d'accord.
+3. Choisissez une valeur. Vous pouvez conserver la valeur de 0,40 du cas ou en proposer une autre; dans les deux cas, justifiez-la en cinq à huit phrases. L'évaluation publiée de MediBec a utilisé **0,30** (une estimation analytique inférieure à la valeur énoncée de 0,40, en raison de la sécurité des patients et de la sensibilité des données de santé). Expliquez si vous êtes d'accord.
 4. Consignez la valeur avec sa mention : si elle diffère de celle du cas, il s'agit d'une **Estimation analytique — validation requise**, et le choix final relève d'une **Décision de la direction requise**.
    - **[A]** Demandez : *« Estime l'appétence pour le risque de cybersécurité de MediBec sur une échelle de 0 à 1, avec la justification. »* Comparez la réponse avec l'énoncé du cas; n'acceptez pas une valeur que vous ne pouvez pas justifier vous-même.
    - **[B]** Organisation → Profil et appétit : saisissez l'appétence et sa justification. L'*estimateur de l'appétit* au bas de la page propose une valeur à partir des facteurs cochés.
@@ -143,7 +143,7 @@ Les valeurs de 0,1 et de 0,9 sont des extrêmes qui ne devraient normalement pas
 
 # Laboratoire 3 — Rédaction de scénarios de risque
 
-**Objectifs :** rédiger des scénarios de risque sous forme de chaînes causales complètes; générer 20 candidats et sélectionner les 10 plus significatifs; éviter les doublons et les simples noms de menaces.
+**Objectifs :** rédiger des scénarios de risque sous forme de chaînes causales complètes; générer 20 candidats (version rapide des laboratoires; une évaluation complète en utilise environ 25 à 40, jamais moins de 20) et sélectionner les 10 plus significatifs; éviter les doublons et les simples noms de menaces.
 **Durée :** 90 minutes. **Intrant :** contexte et joyaux de la couronne du laboratoire 1; section 9 du cas (bibliothèque de scénarios), à titre d'inspiration seulement.
 
 ## Mise en contexte
@@ -281,7 +281,7 @@ Faiblesse représentative : MFA par notification sans correspondance de nombres 
 3. Calculez le score avec un calculateur — ne l'estimez jamais à l'œil.
    - **[A]** `/crg-calc` ou l'outil `cvss4_score` du serveur `crg-calculator`.
    - **[B]** Outils → *CVSS v4.0* : collez ou construisez le vecteur, puis enregistrez-le dans le scénario.
-   - **[C]** Utilisez le calculateur CVSS v4.0 de FIRST et saisissez le score dans la feuille Analyse; conservez la chaîne du vecteur à côté.
+   - **[C]** Utilisez le calculateur CVSS v4.0 du NVD (nvd.nist.gov/vuln-metrics/cvss/v4-calculator) ou celui de FIRST, puis saisissez le score dans la colonne G de la feuille Analyse et la chaîne complète du vecteur à côté, dans la colonne H; la colonne de contrôles signale un vecteur manquant ou mal formé.
 4. Rédigez une phrase sur les limites du score pour votre scénario.
 
 **Livrable :** le vecteur, le score et la justification des métriques.
@@ -355,7 +355,7 @@ Ratio           = Résiduel ÷ Toléré
 
 Interprétez le ratio ainsi : **inférieur à 0,90** sous la tolérance · **0,90–1,10** approximativement à la tolérance · **supérieur à 1,10** au-dessus de la tolérance.
 
-L'atténuation est **multiplicative** : une réduction de 80 % de la probabilité et une réduction de 80 % de l'impact éliminent 64 % du risque. Un ensemble de mesures qui ne réduit que la probabilité, ou que l'impact, n'atténue rien selon cette convention. Pour ramener un scénario de risque sous la tolérance, il faut P × Q ≥ 1 − appétence ÷ dommage moyen.
+L'atténuation est **multiplicative** : une réduction de 80 % de la probabilité et une réduction de 80 % de l'impact éliminent 64 % du risque. Un ensemble de mesures qui ne réduit que la probabilité, ou que l'impact, n'atténue rien selon cette convention. Pour que le risque résiduel ne dépasse pas le risque toléré (ratio ≤ 1,0), il faut P × Q ≥ 1 − appétence ÷ dommage moyen; pour le ramener **sous la tolérance** (ratio < 0,90), il faut P × Q > 1 − 0,90 × appétence ÷ dommage moyen.
 
 ## Exemple résolu — MediBec S1
 
@@ -367,7 +367,7 @@ Résiduel = 6 467 − 3 880       = 2 587
 Ratio    = 2 587 ÷ 2 772        = 0,93  →  approximativement à la tolérance
 ```
 
-Vérification : 1 − 0,30 ÷ 0,70 = 0,571; P × Q = 0,60 ≥ 0,571, de sorte que le risque résiduel se situe tout juste à l'intérieur de la plage « approximativement à la tolérance ».
+Vérification : 1 − 0,30 ÷ 0,70 = 0,571 et 1 − 0,90 × 0,30 ÷ 0,70 = 0,614; P × Q = 0,60 se situe entre les deux, de sorte que le risque résiduel ne dépasse pas le toléré sans passer sous la bande de 0,90 : approximativement à la tolérance.
 
 ## Étapes
 
@@ -377,7 +377,7 @@ Vérification : 1 − 0,30 ÷ 0,70 = 0,571; P × Q = 0,60 ≥ 0,571, de sorte qu
 4. **Contrôles partagés.** Déterminez lesquelles de vos mesures servent aussi d'autres scénarios. Répartissez leur coût entre ces scénarios (une répartition égale est acceptable) et notez que le total du portefeuille compte chaque initiative une seule fois.
 5. Si le scénario demeure au-dessus de la tolérance : énoncez les options — atténuer davantage, **transférer** (assurance, contrat), **éviter** (cesser l'activité) ou **accepter** formellement — et qui doit décider.
    - **[B]** Atténuation des risques → *Propositions* ou *Catalogue de contrôles*; fixez les coûts et rp / ri; **Appliquer**. Recommandations → *Besoin de traitement* affiche le verdict pour chaque scénario.
-   - **[C]** Sélectionnez les contrôles dans la feuille M. **Avertissement :** le modèle additionne les coefficients des contrôles (0,06 chacun par défaut), de sorte qu'une vingtaine de contrôles dépassent 1 et que le risque résiduel *augmente*. Maintenez chaque réduction entre 0 et 1.
+   - **[C]** Sélectionnez les contrôles dans la feuille M (1 dans la colonne A). La feuille combine les coefficients retenus selon la règle du produit, réduction du bouquet = 1 − ∏(1 − rᵢ), séparément pour l'impact et la probabilité, de sorte qu'un bouquet ne dépasse jamais 1; un avertissement s'affiche si un coefficient est hors de 0 à 1. Les coefficients par défaut sont génériques : privilégiez quelques contrôles justifiés, ou une estimation globale dans une ligne « Other / autre ».
 
 **Livrable :** le tableau de traitement, le calcul du risque résiduel et la décision requise.
 
@@ -476,7 +476,7 @@ Un ICR n'est utile que si quelqu'un peut le mesurer, à partir d'une source nomm
 
 ## Points de référence de MediBec
 
-L'évaluation publiée de 30 scénarios a établi ce qui suit : après traitement, 12 scénarios au-dessus de la tolérance, 11 approximativement à la tolérance et 7 sous la tolérance; risque estimé total de 84 491 contre un risque résiduel de 41 104 (une réduction de 51 %); dépenses actuelles en cybersécurité d'environ 0,9 % du budget des TI, sous le plancher de 4 % de la ligne directrice budgétaire. *Ne copiez pas ces chiffres dans votre propre cas.*
+L'évaluation publiée de 30 scénarios a établi ce qui suit : après traitement, 12 scénarios au-dessus de la tolérance, 11 approximativement à la tolérance et 7 sous la tolérance; risque estimé total de 84 305 contre un risque résiduel de 41 023 (une réduction de 51 %); dépenses actuelles en cybersécurité d'environ 0,9 % du budget des TI, sous le plancher de 4 % de la ligne directrice budgétaire. *Ne copiez pas ces chiffres dans votre propre cas.*
 
 ## Étapes
 
@@ -493,7 +493,7 @@ L'évaluation publiée de 30 scénarios a établi ce qui suit : après traitemen
 
 10.1. Pourquoi le premier paragraphe de la note de service devrait-il énoncer la décision plutôt que la méthode?
 
-10.2. Votre note indique « risque résiduel 41 104 » et votre classeur indique 41 140. Que devriez-vous faire?
+10.2. Votre note indique « risque résiduel 41 023 » et votre classeur indique 41 032. Que devriez-vous faire?
 
 10.3. Qui accepte formellement un risque résiduel qui demeure au-dessus de la tolérance?
 
@@ -561,7 +561,9 @@ Coût-efficacité    = (Re − Résiduel) ÷ Coût × 1 000   (unités de risqu
 Simplifications à retenir
 Ratio avant traitement = ((δe + δm) / 2) ÷ Appétence
 Ratio après traitement = ((δe + δm) / 2) × (1 − P × Q) ÷ Appétence
-Sous la tolérance exige  P × Q ≥ 1 − Appétence ÷ ((δe + δm) / 2)
+Ratio ≤ 1,0 exige          P × Q ≥ 1 − Appétence ÷ ((δe + δm) / 2)
+Sous la tolérance (< 0,90)  P × Q > 1 − 0,90 × Appétence ÷ ((δe + δm) / 2)
+Plusieurs mesures, un levier  r = 1 − ∏(1 − rᵢ)
 ```
 
 Classification : ratio < 0,90 sous la tolérance · 0,90–1,10 approximativement à la tolérance · > 1,10 au-dessus de la tolérance.

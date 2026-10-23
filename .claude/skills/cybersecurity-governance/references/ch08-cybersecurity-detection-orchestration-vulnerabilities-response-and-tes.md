@@ -1,12 +1,34 @@
-<!-- Introduction to Cybersecurity Governance, 3rd ed., v2.1g (Aug 2026) - (c) Marc-André Léger. Licensed under CC BY-NC 4.0 (https://creativecommons.org/licenses/by-nc/4.0/). Third-party standards, frameworks and quotations remain under their owners' terms. -->
+<!-- Léger, M.-A. (2026). Introduction to Cybersecurity Governance for Business Technology Management (3rd ed., v2.51). Chapter 8: Cybersecurity Detection, Orchestration, Vulnerabilities, Response, and Testing. CC BY-NC 4.0 -->
 
 # Chapter 8: Cybersecurity Detection, Orchestration, Vulnerabilities, Response, and Testing
 
+## Learning outcomes
+
+After completing this chapter, you should be able to:
+
+1.  Explain how a SIEM makes the environment observable and why its value depends on data coverage, time synchronization, correlation logic, tuning, and response procedures.
+
+2.  Distinguish SIEM from SOAR and justify which response actions a playbook may automate and which require analyst, management, or legal approval.
+
+3.  Recommend a disciplined process for selecting, testing, deploying, and tuning monitoring and response platforms, including a proof of concept used as a risk control.
+
+4.  Apply CVE, CWE, CVSS v4.0, EPSS, the KEV catalog, SSVC, and advisories to prioritize a vulnerability according to severity, likelihood of exploitation, and business context.
+
+5.  Evaluate the relevance and limits of threat intelligence and use it to enrich detection, hunting, and vulnerability prioritization.
+
+6.  Distinguish incident response, business continuity, and disaster recovery, and use acceptable interruption windows to decide when to escalate between them.
+
+7.  Compare penetration testing approaches and scope modes and design the authorization, rules of engagement, and report content of a governed test.
+
+8.  Assess physical security as part of operational security and propose proportionate, risk-based controls and indicators.
+
 This chapter builds on the earlier operational cybersecurity theme, emphasizing the tools, processes, and organizational capabilities essential for detecting suspicious activity, investigating incidents, responding effectively, and continuously reducing unacceptable risks. Operational security bridges strategy and practice: controls created and approved at the governance level must operate reliably under pressure, often with incomplete information, limited time, and competing business priorities.
 
-While the previous chapter focused on fundamental operational controls and the structure of a cybersecurity operations function, this chapter broadens the operational toolkit and covers practices that support enterprise resilience. It discusses cybersecurity monitoring platforms (SIEM), orchestration and response platforms (SOAR), vulnerability management, threat intelligence, incident response organization and lifecycle, and penetration testing as a structured approach to simulating adversary actions and verifying defences.
+While the previous chapter focused on fundamental operational controls and the structure of a cybersecurity operations function, this chapter broadens the operational toolkit and covers practices that support enterprise resilience. It discusses cybersecurity monitoring platforms (SIEM), orchestration and response platforms (SOAR), vulnerability management, threat intelligence, incident response organization and lifecycle, penetration testing as a structured approach to simulating adversary actions and verifying defences, and physical security as part of the operational control environment.
 
-## Security Information and Event Management (SIEM)
+The perspective throughout is operational: how these capabilities work, what makes them effective, and what managers should demand and measure. In NIST CSF 2.0 terms, the chapter concentrates on the Detect and Respond functions and on the Identify activities that keep vulnerabilities visible, all governed under the Govern function. Chapter 7 described the security operations function and its operating models, Chapter 9 maps these activities to control frameworks, and Chapter 12 takes the executive view of major incidents: crisis management, notification obligations, business continuity, and resilience.
+
+## Security information and event management (SIEM)
 
 A Security Information and Event Management (SIEM) platform supports threat detection, incident investigation, and operational visibility by centralizing security-relevant data from across the organization. It collects logs and events from sources such as servers, endpoints, firewalls, identity systems, cloud platforms, applications, and network devices. The SIEM then normalizes, stores, searches, correlates, and analyzes this data so that cybersecurity teams can identify abnormal activity, reconstruct events, and determine whether a security incident may be occurring.
 
@@ -20,11 +42,9 @@ A well-managed SIEM should answer practical governance questions: Are critical s
 
 Organizations generate cybersecurity-relevant data everywhere: on network devices (routers, switches, firewalls), servers, endpoints, identity systems, VPN gateways, cloud platforms, applications, and cybersecurity controls. Each of these sources tends to produce its own log formats, timestamps, event semantics, and volume patterns. Operationally, this creates two immediate challenges.
 
-Initially, analysts struggle to investigate multi-step attacks effectively when they must sift through numerous incompatible logs dispersed across various systems. Additionally, even when logs are available, they are often not comparable unless the system clocks are synchronized. Therefore, SIEM solutions rely on clock synchronization methods, such as network time protocols. Without a common timeline, event correlation becomes unreliable: events cannot be accurately ordered, and their causal relationships are uncertain.
+First, analysts struggle to investigate multi-step attacks effectively when they must sift through numerous incompatible logs dispersed across various systems. Second, even when logs are available, they are often not comparable unless the system clocks are synchronized. SIEM deployments therefore depend on reliable time synchronization, typically through the Network Time Protocol (NTP), and on consistent handling of time zones. Without a common timeline, event correlation becomes unreliable: events cannot be accurately ordered, and their causal relationships are uncertain.
 
-<img src="media/image36.png" style="width:6.23846in;height:4in" />
-
-<span id="_Toc235166918" class="anchor"></span>Figure 36: Security Information and Event Management (SIEM)
+<span id="_Toc243635535" class="anchor"></span>Figure 36: Security Information and Event Management (SIEM)
 
 ###  Core SIEM capability areas
 
@@ -48,7 +68,9 @@ Taken together, these capability areas show that SIEM value depends on operation
 
 In practice, many organizations are increasingly adopting integrated platforms that bundle SIEM capabilities with orchestration and response features. Operationally, a high volume of alerts without robust triage and response automation is difficult to sustain at scale. As a result, organizations often retain SIEM as a core data and analytics layer, while orchestration and response tooling becomes the primary operational interface for incident handling.
 
-## Security Orchestration, Automation, and Response (SOAR)
+The vocabulary of the market has shifted accordingly. **Extended detection and response (XDR)** platforms combine endpoint, identity, email, cloud, and network telemetry with a single vendor’s analytics and response actions; cloud-native SIEM services and security data lakes separate data storage from analytics to control the cost of ingesting ever-larger log volumes; and many platforms now include generative-AI assistants that summarize alerts, draft queries, or propose response steps. Since 2024, several high-profile acquisitions and mergers have consolidated the SIEM market, and standalone SOAR is increasingly delivered as a feature of broader security operations platforms rather than as a separate product. Many organizations also buy the capability as a service through managed detection and response (MDR) providers. For managers, the labels matter less than the underlying questions: which telemetry is actually covered, who owns and maintains the detection content, how costs scale with data volume, which automated actions may run without human approval, how AI-generated recommendations are reviewed, and whether the organization can retrieve its data and detection logic if it changes provider.
+
+## Security orchestration, automation, and response (SOAR)
 
 Security Orchestration, Automation, and Response (SOAR) addresses a different operational problem than SIEM. A SIEM helps the organization collect, centralize, correlate, and analyze security-relevant events so it can detect and investigate suspicious activity. SOAR focuses on what happens next: how the organization coordinates, documents, automates, and executes response actions when an alert, incident, or investigation requires action.
 
@@ -60,9 +82,7 @@ SOAR should not be seen as a replacement for human judgment. Automated actions c
 
 In this sense, SOAR serves as both an operational tool and a governance mechanism. It helps the organization make responses repeatable, auditable, and aligned with approved authority. Its effectiveness depends not only on technology but also on the maturity of incident-response procedures, the quality of playbooks, the clarity of escalation paths, the integration of tools, and the organization’s willingness to rehearse and improve response processes over time.
 
-<img src="media/image37.png" style="width:6in;height:4.5in" />
-
-<span id="_Toc235166919" class="anchor"></span>Figure 37: Security Orchestration, Automation, and Response (SOAR)
+<span id="_Toc243635536" class="anchor"></span>Figure 37: Security Orchestration, Automation, and Response (SOAR)
 
 ### What SOAR adds beyond SIEM
 
@@ -112,7 +132,7 @@ A proof of concept is not optional in a mature environment; it is a risk control
 
 Production deployment should then proceed in phases. Prioritize critical assets, identity systems, cloud platforms, endpoints, network devices, and high-risk business services. Deployment should include defined ownership, escalation procedures, alert-severity criteria, retention requirements, documentation standards, and operational playbooks. The goal is not simply to turn on a platform, but to embed it into daily cybersecurity operations so that alerts lead to investigation, investigation leads to decisions, and decisions lead to authorized response actions.
 
-After deployment, continuous tuning is essential. Monitoring and response platforms degrade over time if you don't maintain them. New systems are added, cloud environments change, users adopt new behaviours, attackers modify techniques, and business priorities evolve. Detection rules, alert thresholds, playbooks, dashboards, data sources, and escalation procedures must therefore be reviewed regularly. Tuning should reduce false positives, close visibility gaps, improve detection coverage, and keep alerts connected to meaningful business risk.
+After deployment, continuous tuning is essential. Monitoring and response platforms degrade over time if they are not maintained. New systems are added, cloud environments change, users adopt new behaviours, attackers modify techniques, and business priorities evolve. Detection rules, alert thresholds, playbooks, dashboards, data sources, and escalation procedures must therefore be reviewed regularly. Tuning should reduce false positives, close visibility gaps, improve detection coverage, and keep alerts connected to meaningful business risk.
 
 Managers should measure whether the platform is producing operational value. Useful indicators include the percentage of critical systems sending usable logs, alert volume and false-positive rate, mean time to triage, mean time to contain, number of unresolved high-severity alerts, percentage of incidents handled according to playbook, coverage of priority threat scenarios, and the quality of evidence available after an incident. These measures help determine whether the platform improves security operations or merely adds another tool to the environment.
 
@@ -132,9 +152,7 @@ Vulnerability management is not merely about producing scan reports. It aims to 
 
 In this sense, vulnerability management is an ongoing operational discipline rather than a periodic technical exercise. New vulnerabilities appear continuously as software changes, systems are reconfigured, vendors release advisories, attackers develop new techniques, and the organization’s technology environment evolves. Mature cybersecurity operations therefore treat vulnerability management as a continuous cycle of discovery, prioritization, remediation, verification, reporting, and improvement.
 
-<img src="media/image38.png" style="width:6in;height:4.5in" />
-
-<span id="_Toc235166920" class="anchor"></span>Figure 38: Vulnerability Management
+<span id="_Toc243635537" class="anchor"></span>Figure 38: Vulnerability Management
 
 ### Defining vulnerability in operational terms
 
@@ -152,15 +170,15 @@ For managers, the key question is not simply whether a vulnerability exists, but
 
 Operational vulnerability management is time-constrained. Once a vulnerability becomes known, the organization is effectively in a race between remediation and exploitation. Public disclosure, proof-of-concept code, vendor advisories, threat-intelligence reporting, and attacker automation can all increase the likelihood that a vulnerability will be exploited. The longer a weakness remains present and reachable, the larger the organization’s exposure window becomes.
 
-An exposure window is the period during which a vulnerability remains exploitable in the organization’s environment. Reducing this window is a central goal of vulnerability management. However, faster remediation doesn't happen simply by demanding faster patching. It requires operational maturity: accurate asset inventory, clear ownership, reliable vulnerability scanning, risk-based prioritization, tested patching procedures, change-management discipline, rollback plans, and exception-handling processes for systems that cannot be patched immediately.
+An exposure window is the period during which a vulnerability remains exploitable in the organization’s environment. Reducing this window is a central goal of vulnerability management. However, faster remediation does not happen simply because management demands faster patching. It requires operational maturity: accurate asset inventory, clear ownership, reliable vulnerability scanning, risk-based prioritization, tested patching procedures, change-management discipline, rollback plans, and exception-handling processes for systems that cannot be patched immediately.
 
 Vulnerability churn makes this challenge more difficult. The set of vulnerabilities that matter most changes continuously as new weaknesses are disclosed, systems are added or removed, business priorities shift, exploit availability changes, and attackers focus on different technologies. A vulnerability that appears moderate in isolation may become urgent if it affects an Internet-facing system, a critical business process, a privileged identity service, or a technology being actively exploited in the wild.
 
-For this reason, vulnerability management cannot be episodic. Quarterly scans or occasional remediation campaigns may identify weaknesses, but they are not sufficient for a changing operational environment. Mature programs operate continuously, with regular scanning, threat-informed prioritization, defined remediation timelines, fix verification, documented exceptions, and management reporting. The objective is not only to reduce the number of vulnerabilities, but to reduce the time during which important assets remain exposed to vulnerabilities that could produce unacceptable consequences.
+For this reason, vulnerability management cannot be episodic. Quarterly scans or occasional remediation campaigns may identify weaknesses, but they are not sufficient for a changing operational environment. Mature programs operate continuously, with regular scanning, threat-informed prioritization, defined remediation timelines, fix verification, documented exceptions, and management reporting. The objective is not only to reduce the number of vulnerabilities, but to reduce the time during which important assets remain exposed to vulnerabilities that could produce unacceptable consequences. Some organizations now describe this broader, continuous discipline as **exposure management**: it extends scanning to external attack-surface discovery, cloud and identity misconfigurations, and validation of whether an exposure is actually reachable by an attacker.
 
 Managers should therefore monitor both volume and time-based indicators. Useful measures include the number of critical vulnerabilities on high-value assets, average remediation time by severity, the percentage of vulnerabilities remediated within target, the number of overdue vulnerabilities, the number of accepted exceptions, the number of externally exposed high-risk findings, and the age of unresolved vulnerabilities. These indicators show whether the organization is reducing exposure faster than it is creating new exposure.
 
-### Network Vulnerability Assessment Scanner
+### Network vulnerability assessment scanner
 
 A network vulnerability scanner is a software tool that examines an organization’s technology environment to identify known, unresolved weaknesses. It may scan IP addresses, hosts, operating systems, applications, services, open ports, configurations, certificates, and exposed interfaces. The scanner compares what it observes against vulnerability databases, configuration checks, software-version information, and known security advisories. Its purpose is to help the organization discover weaknesses before they are exploited or become unacceptable operational exposure.
 
@@ -186,45 +204,45 @@ The managerial lesson is that security testing must be governed. Vulnerability s
 
 ### Example tool: Greenbone Community Edition
 
-Open-source vulnerability-scanning tools can help students build practical cybersecurity skills. One example is Greenbone Community Edition, which can be installed in a controlled laboratory environment and used to understand how vulnerability scanning works in practice. For instructional purposes, students can deploy the tool in a virtualized environment, such as a Linux virtual machine, and scan only systems intentionally created for learning.
+Open-source vulnerability-scanning tools can help students build practical cybersecurity skills. One example is Greenbone Community Edition, which includes the open-source OpenVAS scanner and can be installed in a controlled laboratory environment and used to understand how vulnerability scanning works in practice. For instructional purposes, students can deploy the tool in a virtualized environment, such as a Linux virtual machine, and scan only systems intentionally created for learning.
 
 The purpose of using such a tool is not simply to generate a vulnerability report. It is to understand the operational process behind vulnerability management: defining the scan scope, identifying assets, configuring scan settings, interpreting results, distinguishing severity from business priority, documenting findings, and connecting those findings to remediation decisions.
 
-A laboratory setup also helps reduce operational and legal risk. Students should use intentionally vulnerable systems, test machines, or their own isolated home networks with explicit authorization. They should not scan university networks, employer systems, public websites, cloud environments, or third-party assets without written permission and defined rules of engagement.
+A laboratory setup also reduces operational and legal risk, provided the authorization rules described in the previous subsection are respected: intentionally vulnerable systems, test machines, or an isolated network under the learner’s control, and nothing else without written permission and defined rules of engagement.
 
 From a managerial perspective, this example shows both the value and the limits of scanning. A scanner can identify known technical weaknesses, but it does not automatically determine business risk, assign ownership, implement remediation, or prove that the organization is secure. Vulnerability scanning is valuable only when integrated into a governed process of prioritization, remediation, verification, and continuous improvement.
 
-## Vulnerability intelligence data sources: CVE, CWE, CVSS and advisories
+## Vulnerability intelligence data sources: CVE, CWE, CVSS, and advisories
 
 Operational vulnerability management does not rely solely on scanning tools. It also depends on vulnerability intelligence: structured and unstructured information that helps the organization understand what a vulnerability is, where it may exist, how severe it may be, whether it is being exploited, and what remediation or mitigation actions are available.
 
 Several concepts appear repeatedly in modern vulnerability-management programs:
 
-- **Common Vulnerabilities and Exposures (CVE)** provide standardized identifiers for publicly known vulnerabilities. A CVE record gives organizations a common reference point so that security teams, vendors, auditors, vulnerability scanners, patch-management systems, and threat-intelligence sources can refer to the same vulnerability consistently. CVE identifiers help track, report, and coordinate remediation, but the identifier itself does not determine business priority. Priority depends on the vulnerability’s relevance to the organization’s systems, exposure, exploitability, and asset criticality.
+- **Common Vulnerabilities and Exposures (CVE) provide standardized identifiers for publicly known vulnerabilities. The CVE Program is operated by the MITRE Corporation with sponsorship from the U.S. Cybersecurity and Infrastructure Security Agency (CISA), and identifiers are assigned by a worldwide network of CVE Numbering Authorities (CNAs), many of them major software vendors.** A CVE record gives organizations a common reference point so that security teams, vendors, auditors, vulnerability scanners, patch-management systems, and threat-intelligence sources can refer to the same vulnerability consistently. CVE identifiers help track, report, and coordinate remediation, but the identifier itself does not determine business priority. Priority depends on the vulnerability’s relevance to the organization’s systems, exposure, exploitability, and asset criticality.
 
-- **Common Vulnerability Scoring System (CVSS)** provides a standardized method for scoring the technical severity of vulnerabilities. CVSS helps operational teams compare vulnerabilities using a common language and supports initial prioritization. However, treat CVSS as a starting point, not the final remediation decision. A high CVSS score may be less urgent if the affected asset is isolated or protected by compensating controls, while a lower-scored vulnerability may be urgent if it affects an Internet-facing system, a privileged identity service, or a critical business process.
+- **Common Vulnerability Scoring System (CVSS), maintained by FIRST (the Forum of Incident Response and Security Teams), provides a standardized method for scoring the technical severity of vulnerabilities. The current version, CVSS v4.0, released in November 2023, makes explicit that the Base score describes intrinsic severity only; Threat metrics (such as exploit maturity) and Environmental metrics (the organization’s own context) should be added, and scores are labelled accordingly as CVSS-B, CVSS-BT, CVSS-BE, or CVSS-BTE. Many advisories still publish only a Base score, often in CVSS v3.1, so managers should know which version and which metric groups a reported number reflects.** CVSS helps operational teams compare vulnerabilities using a common language and supports initial prioritization. However, treat CVSS as a starting point, not the final remediation decision. A high CVSS score may be less urgent if the affected asset is isolated or protected by compensating controls, while a lower-scored vulnerability may be urgent if it affects an Internet-facing system, a privileged identity service, or a critical business process.
 
 - **Common Weakness Enumeration (CWE)** organizes software and system weaknesses into categories, such as injection flaws, improper access control, insecure authentication, and memory management weaknesses. CWE helps teams look beyond individual vulnerabilities and identify recurring patterns of weakness. For example, if many findings relate to the same class of weakness, the organization may need better secure-development practices, stronger configuration standards, developer training, or architectural controls rather than only patch-by-patch remediation.
 
-<img src="media/image39.png" style="width:6in;height:4.5in" />
+<span id="_Toc243635538" class="anchor"></span>Figure 39: Vulnerability Intelligence Data Sources
 
-<span id="_Toc235166921" class="anchor"></span>Figure 39: Vulnerability Intelligence Data Sources
+Supplement structured vulnerability data with advisories, alerts, and vendor guidance. Cybersecurity authorities such as the Canadian Centre for Cyber Security (CCCS) and CISA, product vendors, industry groups, and threat-intelligence providers often publish warnings about active exploitation, affected products, available patches, compensating controls, and recommended response actions. These sources are especially important when a vulnerability is being exploited in the wild or when a specific sector, technology stack, or business function is being targeted.
 
-Supplement structured vulnerability data with advisories, alerts, and vendor guidance. Cybersecurity authorities, product vendors, industry groups, and threat-intelligence providers often publish warnings about active exploitation, affected products, available patches, compensating controls, and recommended response actions. These sources are especially important when a vulnerability is being exploited in the wild or when a specific sector, technology stack, or business function is being targeted.
+Severity alone does not indicate whether a vulnerability is likely to be exploited, and three complementary sources now help close that gap. The **Exploit Prediction Scoring System (EPSS)**, also maintained by FIRST (version 4 was released in March 2025), estimates the probability that a published CVE will be exploited in the wild within the next 30 days and is updated daily. CISA’s **Known Exploited Vulnerabilities (KEV) catalog** lists vulnerabilities with reliable evidence of active exploitation and a clear remediation action; U.S. federal civilian agencies must remediate them within set deadlines under Binding Operational Directive 22-01, and CISA strongly recommends that all other organizations treat the catalog as a priority input. **Stakeholder-Specific Vulnerability Categorization (SSVC)**, developed by Carnegie Mellon University’s Software Engineering Institute with CISA, replaces a single score with a decision tree (exploitation status, technical impact, automatability, mission prevalence, and public well-being impact) that leads to one of four outcomes: Track, Track\*, Attend, or Act. Combined with CVSS and the organization’s asset context, these sources help answer the question managers actually care about: which exposures are both likely to be exploited and capable of harming something important.
 
 Machine-readable vulnerability data also supports operational integration. Vulnerability records, advisories, scanner findings, exploitability indicators, asset inventories, and remediation tickets can be integrated into dashboards, analytics pipelines, and risk-reporting processes. This allows the organization to track trends, identify recurring exposure, monitor remediation performance, and prioritize vulnerabilities based on both technical severity and business context.
 
-The managerial lesson is that vulnerability intelligence must be interpreted, not merely collected. CVEs identify the vulnerability, CWEs help you understand the class of weakness, CVSS estimates technical severity, and advisories provide operational context. Together, these sources support better decisions, but they become valuable only when connected to asset criticality, exposure, ownership, remediation capacity, and the organization’s risk appetite.
+This shared infrastructure is more fragile than it appears. In April 2025, the contract under which MITRE operates the CVE Program came close to lapsing, and CISA extended it only at the last moment, by eleven months. During the same period, some CVE Board members launched a CVE Foundation to explore an independent governance model, ENISA launched the European Vulnerability Database (EUVD) in May 2025 to support NIS2 implementation, and NIST’s National Vulnerability Database (NVD), which enriches CVE records with scores and product data, struggled with a backlog that led it to mark many older records as deferred. Funding was placed on a more stable footing in early 2026, but the lesson for managers stands: vulnerability-management programs depend on public services they do not control. Organizations should know which feeds their scanners and platforms rely on and be able to keep prioritizing from vendor advisories, CCCS and CISA alerts, and their own asset data if a public source is delayed or interrupted.
+
+The managerial lesson is that vulnerability intelligence must be interpreted, not merely collected. CVE identifies the vulnerability; CWE describes the class of weakness; CVSS estimates technical severity; EPSS, the KEV catalog, and SSVC signal how likely or urgent exploitation is; and advisories provide operational context. Together, these sources support better decisions, but they become valuable only when connected to asset criticality, exposure, ownership, remediation capacity, and the organization’s risk appetite.
 
 ## Threat intelligence: operational value and analytical enrichment
 
-Threat intelligence is information that helps an organization anticipate, detect, prioritize, and respond to adversarial activity more effectively. In operational cybersecurity, threat intelligence may include indicators of compromise, attacker tactics, techniques and procedures, exploit trends, malware behaviors, vulnerability exploitation patterns, sector-specific warnings, geopolitical developments, and contextual information about active threat actors. It can be collected from open sources, vendors, cybersecurity authorities, industry-sharing communities, managed service providers, internal investigations, and incident-response partners.
+Threat intelligence is information that helps an organization anticipate, detect, prioritize, and respond to adversarial activity more effectively. In operational cybersecurity, threat intelligence may include indicators of compromise, attacker tactics, techniques, and procedures (TTPs), often described using the MITRE ATT&CK knowledge base, exploit trends, malware behaviours, vulnerability exploitation patterns, sector-specific warnings, geopolitical developments, and contextual information about active threat actors. It can be collected from open sources, vendors, cybersecurity authorities, industry-sharing communities, managed service providers, internal investigations, and incident-response partners.
 
 A practical threat-intelligence capability is not simply a process of reading cybersecurity news or subscribing to external feeds. Its value depends on relevance, reliability, timeliness, and actionability. Intelligence should be filtered according to the organization’s technologies, sector, geography, threat profile, suppliers, exposed systems, regulatory obligations, and critical business processes. A warning about active exploitation is useful only if the organization can determine whether it uses the affected technology, whether the asset is exposed, whether compensating controls exist, and what action should be taken.
 
-<img src="media/image40.png" style="width:6in;height:4in" />
-
-<span id="_Toc235166922" class="anchor"></span>Figure 40: Threat Intelligence
+<span id="_Toc243635539" class="anchor"></span>Figure 40: Threat Intelligence
 
 Threat intelligence enriches security operations by adding context to technical signals. For example, an IP address, domain name, file hash, or suspicious login event may not be meaningful in isolation. When combined with intelligence about active campaigns, known malicious infrastructure, exploited vulnerabilities, or attacker techniques, the same signal may justify escalation. Threat intelligence can therefore improve alert prioritization, guide threat hunting, update detection rules, inform SOAR playbooks, and help incident responders understand what an adversary may do next.
 
@@ -266,9 +284,11 @@ The managerial challenge is to plan these interfaces before a crisis occurs. Inc
 
 Operational maturity therefore requires integrated exercises. Tabletop simulations, technical recovery tests, backup restoration tests, crisis-communication rehearsals, and post-incident reviews help determine whether the organization can move from detection to containment, from containment to recovery, and from recovery to business normalization. The goal is not simply to resolve the technical incident but to preserve organizational resilience under stress.
 
+This chapter treats incident response from the perspective of the teams that run it. Chapter 12 takes the executive view: crisis management, legal and regulatory notification clocks, ransomware decisions, and the business continuity and disaster recovery disciplines, including ISO 22301 and recovery objectives, that surround incident response.
+
 ### What constitutes an incident
 
-Not every cybersecurity event is an incident. Systems generate large volumes of events: logins, failed authentications, configuration changes, software updates, network connections, alerts, and automated detections. Many of these events are normal or benign. An incident occurs when an event, a pattern of events, or a credible condition indicates that cybersecurity policy, acceptable-use rules, legal or contractual obligations, or standard security practices have been violated or are at imminent risk of being violated.
+Not every cybersecurity event is an incident. Systems generate large volumes of events: logins, failed authentications, configuration changes, software updates, network connections, alerts, and automated detections. Many of these events are normal or benign. An incident occurs when an event, a pattern of events, or a credible condition actually or imminently jeopardizes the confidentiality, integrity, or availability of information or systems, or violates, or threatens to violate, law, contractual obligations, security policies, or acceptable-use rules. This formulation follows the definition of a cybersecurity incident used in NIST SP 800-61 Rev. 3, which draws on U.S. federal law.
 
 Operationally, an incident is any cybersecurity event that credibly threatens the organization’s baseline security posture and requires a structured response. This may include unauthorized access, malware infection, ransomware activity, data exfiltration, misuse of privileged accounts, compromised credentials, disruption of critical services, unauthorized changes to systems, loss of sensitive information, or activity indicating that an attacker is preparing to cause harm or is attempting to do so.
 
@@ -282,7 +302,7 @@ A practical definition of an incident should therefore support action. It should
 
 Incident response planning must recognize that some cybersecurity events will disrupt systems, services, or business processes. The organization should therefore define, before a crisis occurs, the acceptable level of disruption for different business activities. These expectations are typically expressed through recovery and continuity concepts such as acceptable interruption windows, maximum tolerable downtime, recovery time objectives, and recovery point objectives.
 
-The acceptable interruption window is the period during which a process or system can be degraded or unavailable without unacceptable consequences. The maximum tolerable downtime is the point at which a disruption becomes unacceptable because it threatens critical operations, legal obligations, safety, customer commitments, financial stability, or reputation. These thresholds should be based on business priorities, not solely on technical preferences. A customer-facing payment system, a hospital scheduling system, a payroll platform, and an internal test environment do not require the same level of urgency.
+The acceptable interruption window, a term common in ISACA’s audit and security-management literature, is the period during which a process or system can be degraded or unavailable without unacceptable consequences. The maximum tolerable downtime, called the maximum tolerable period of disruption (MTPD) in ISO 22301 and in Chapter 12, is the point at which a disruption becomes unacceptable because it threatens critical operations, legal obligations, safety, customer commitments, financial stability, or reputation. These thresholds should be based on business priorities, not solely on technical preferences. A customer-facing payment system, a hospital scheduling system, a payroll platform, and an internal test environment do not require the same level of urgency.
 
 These timelines help determine whether an incident should remain within routine incident response or escalate to business continuity or disaster recovery. If the incident can be contained and normal operations restored within the acceptable interruption window, the response may remain primarily technical and operational. If the disruption exceeds that window, or is likely to, the organization may need to activate continuity procedures to maintain essential services. If major system restoration, data recovery, infrastructure rebuilding, or alternative processing is required, the organization may also activate disaster recovery procedures.
 
@@ -308,7 +328,7 @@ The managerial lesson is that incident response requires both expertise and coor
 
 ### Typical incident response lifecycle
 
-A standard incident response lifecycle provides a structured path from uncertainty to control. Although terminology varies across frameworks, most mature approaches include preparation, identification, analysis, containment, eradication, recovery, and post-incident improvement. The lifecycle ensures that incidents are handled consistently, decisions are documented, and the organization learns from each event rather than simply returning to business as usual.
+A standard incident response lifecycle provides a structured path from uncertainty to control. Although terminology varies across frameworks, most mature approaches include preparation, identification, analysis, containment, eradication, recovery, and post-incident improvement. The sequence below blends the phases long used in NIST SP 800-61 Rev. 2 and in SANS-style training. NIST SP 800-61 Rev. 3 (April 2025) no longer presents a stand-alone lifecycle; it maps the same activities onto the six NIST CSF 2.0 functions, with preparation largely under Govern, Identify, and Protect, response under Detect, Respond, and Recover, and lessons learned feeding improvement across all functions (see Chapter 12). The operational activities are unchanged; what changes is that incident response is explicitly treated as part of cybersecurity risk management. The lifecycle ensures that incidents are handled consistently, decisions are documented, and the organization learns from each event rather than simply returning to business as usual.
 
 - **Preparation** occurs before an incident. It includes defining roles and responsibilities, maintaining contact lists, developing playbooks, training personnel, configuring monitoring tools, preserving forensic readiness, testing backups, and ensuring that escalation procedures are understood. Strong preparation reduces confusion during an incident and enables the organization to act quickly under pressure.
 
@@ -328,7 +348,7 @@ Throughout the lifecycle, preserving evidence and documenting incidents are esse
 
 ### Cost and duration: interpreting industry metrics carefully
 
-Industry reports often emphasize that major breaches can take a long time to identify, contain, and recover from, and that the resulting costs can be substantial. These figures are useful because they remind managers that cybersecurity incidents are not only technical problems. They can become prolonged organizational disruptions that involve investigation, containment, recovery, legal review, regulatory response, customer communication, insurance processes, supplier coordination, and executive decision-making.
+Industry reports, such as IBM’s annual Cost of a Data Breach study and the Verizon Data Breach Investigations Report, often emphasize that major breaches can take a long time to identify, contain, and recover from, and that the resulting costs can be substantial. These figures are useful because they remind managers that cybersecurity incidents are not only technical problems. They can become prolonged organizational disruptions that involve investigation, containment, recovery, legal review, regulatory response, customer communication, insurance processes, supplier coordination, and executive decision-making.
 
 However, industry averages should be interpreted carefully. Breach costs and timelines vary significantly by sector, organization size, incident type, data sensitivity, regulatory environment, maturity of detection and response capabilities, backup quality, degree of business interruption, and crisis management effectiveness. A highly regulated organization affected by a large data breach will face a different cost profile than a small organization that quickly contains a limited malware infection. For this reason, external benchmarks should support judgment, not replace organization-specific risk assessment.
 
@@ -346,13 +366,13 @@ Penetration testing helps organizations move from theoretical exposure to verifi
 
 The value of penetration testing extends beyond identifying technical flaws. It can also assess the organization’s monitoring, detection, escalation, and response capabilities. A well-designed test can reveal whether security tools generate useful alerts, whether analysts recognize suspicious activity, whether incident-response procedures are followed, and whether communication between technical and management teams holds under pressure. Penetration testing therefore supports both vulnerability management and operational assurance.
 
-<img src="media/image41.png" style="width:5.94309in;height:4.45731in" />
-
-<span id="_Toc235166923" class="anchor"></span>Figure 41: Penetration testing
+<span id="_Toc243635540" class="anchor"></span>Figure 41: Penetration testing
 
 Because penetration testing intentionally imitates attacker behaviour, it must be carefully governed. The organization should define the scope, objectives, authorized targets, rules of engagement, timing, testing methods, communication channels, escalation contacts, and the conditions under which testing must stop. Without clear authorization and boundaries, testing can cause operational disruption, legal risk, privacy concerns, or confusion with real malicious activity.
 
 For managers, the key point is that penetration testing is not a substitute for continuous security operations. It is a periodic validation activity that complements vulnerability scanning, secure configuration management, monitoring, incident response, and risk assessment. Its purpose is to provide credible evidence of what could happen in practice and to help the organization prioritize remediation based on realistic attack paths and business consequences.
+
+Penetration testing is one point on a spectrum of adversarial assurance. A **vulnerability assessment** identifies and rates known weaknesses; a **penetration test** validates whether they can be exploited within an agreed scope; a **red-team exercise** pursues defined objectives over a longer period, emulating a specific threat actor and testing detection and response as much as prevention; and a **purple-team exercise** brings attackers and defenders together to improve detection content as the test unfolds. Organizations can also benefit from outside researchers: a **vulnerability disclosure policy** tells them how to report weaknesses safely (ISO/IEC 29147 and ISO/IEC 30111 describe disclosure and internal handling processes), and a bug bounty program rewards validated findings. Each option answers a different assurance question and carries different costs, risks, and governance requirements.
 
 ### Testing approaches: black box, grey box, and white box
 
@@ -360,17 +380,17 @@ Penetration tests can be designed with varying levels of information provided to
 
 - A black-box test gives testers little or no internal knowledge of the target environment. Testers rely primarily on publicly available or externally discoverable information, such as domain names, exposed services, public websites, employee information, or Internet-facing infrastructure. This approach approximates the perspective of an external attacker, but it can require significant time for discovery and may miss weaknesses that would be easier to identify with limited internal context.
 
-- A grey box test provides testers with partial knowledge. This may include selected user accounts, architecture diagrams, application documentation, network ranges, or information about specific systems in scope. Grey box testing balances realism and efficiency. It allows testers to validate meaningful attack paths without requiring them to start from complete ignorance, while preserving some uncertainty about the environment.
+- A grey-box test provides testers with partial knowledge. This may include selected user accounts, architecture diagrams, application documentation, network ranges, or information about specific systems in scope. Grey-box testing balances realism and efficiency. It allows testers to validate meaningful attack paths without requiring them to start from complete ignorance, while preserving some uncertainty about the environment.
 
 - A white-box test gives testers detailed knowledge of the system, application, architecture, source code, configurations, credentials, or design documentation. This approach is usually the most efficient for uncovering deep or complex weaknesses because testers can inspect how the environment is built and how controls are intended to work. It is often useful for application security testing, cloud architecture reviews, secure code validation, and collaborative testing with development or engineering teams.
 
-Each approach serves a legitimate operational purpose. Black box testing is useful for understanding what an external attacker might discover and attempt from outside the organization. White box testing is useful when the goal is thorough assurance and efficient discovery of deeper flaws. Grey box testing is often the most practical compromise when the organization wants a realistic test while using limited testing time effectively.
+Each approach serves a legitimate operational purpose. Black-box testing is useful for understanding what an external attacker might discover and attempt from outside the organization. White-box testing is useful when the goal is thorough assurance and efficient discovery of deeper flaws. Grey-box testing is often the most practical compromise when the organization wants a realistic test while using limited testing time effectively.
 
 Managers should select the testing approach based on the assessment's objective. If the goal is to simulate an unknown external attacker, black-box testing may be appropriate. If the goal is to validate an important application, cloud environment, or high-value system before deployment, grey-box or white-box testing may provide better assurance. The key is to intentionally define the level of knowledge rather than treating one approach as inherently superior.
 
 ### Scope modes: external, internal, and blind testing
 
-Penetration tests can also be defined by their scope and operating mode. Scope determines where the test begins, which systems are included, and the level of realism the organization seeks to introduce.
+Penetration tests can also be defined by their scope and operating mode. Scope determines where the test begins, which systems are included, and the level of realism the organization seeks to introduce. The Open Source Security Testing Methodology Manual (OSSTMM 3), published by ISECOM, formalizes several of these modes by distinguishing how much the testers know about the target and how much the target’s defenders know about the test.
 
 - An **external penetration test** focuses on what an attacker can observe and attempt from outside the organization’s network or trusted environment. It typically examines Internet-facing assets such as websites, remote-access services, email gateways, cloud services, exposed APIs, VPN portals, and public IP addresses. External testing helps assess what the organization exposes to the outside world and whether those exposures can be exploited.
 
@@ -412,15 +432,19 @@ Formal guidance helps define how testing should be planned, scoped, executed, re
 
 Different sources of guidance serve distinct purposes. Technical testing guides can help testers structure reconnaissance, vulnerability validation, exploitation, application testing, wireless testing, cloud testing, and post-exploitation analysis. Control frameworks can help management link testing results to required safeguards, such as access control, logging, configuration management, incident response, backup, or supplier management. Threat frameworks can help testers design scenarios that reflect realistic attacker techniques rather than isolated technical checks.
 
+Several sources are widely used. NIST SP 800-115, *Technical Guide to Information Security Testing and Assessment* (2008), remains NIST’s reference for planning, conducting, and reporting technical tests, although it predates cloud and modern identity environments. The Penetration Testing Execution Standard (PTES), a community-developed guide, describes an engagement in seven phases, from pre-engagement interactions to reporting. OSSTMM 3 offers a measurement-oriented methodology, and the OWASP Web Security Testing Guide (stable version 4.2, with version 5 in development) is the common reference for web applications. MITRE ATT&CK is the usual threat framework for designing scenarios and mapping detection coverage, and CIS Controls v8.1 (Control 18, Penetration Testing) links testing to a recognized control set.
+
 For managers, the purpose of using standards and guidance is not to make testing bureaucratic. It is to make testing defensible. A well-governed testing program should be able to explain why a test was performed, who authorized it, what was in scope, which methods were permitted, what evidence was collected, what risks were identified, what remediation was required, and whether corrective actions were completed.
 
 Testing guidance also supports consistency over time. If each penetration test, vulnerability assessment, or control review uses a different method, results become difficult to compare. A structured approach enables the organization to identify recurring weaknesses, track improvement, compare business units or systems, and determine whether risk is decreasing. It also helps ensure that high-risk findings are not treated as one-time technical defects but as evidence of control weaknesses that may require broader governance attention.
+
+In the financial sector, regulators have gone further with **threat-led** (or intelligence-led) testing, in which a threat-intelligence provider builds realistic scenarios and a separate red team executes them against live production systems under strict supervision. Examples include the Bank of England’s CBEST; the European TIBER-EU framework, updated in February 2025 to align with the threat-led penetration testing requirements of the EU Digital Operational Resilience Act (DORA) and its regulatory technical standards, Commission Delegated Regulation (EU) 2025/1190; and, in Canada, OSFI’s Intelligence-led Cyber Resilience Testing (I-CRT) framework, which applies to institutions that OSFI selects, primarily systemically important banks and internationally active insurance groups. These programs show where expectations are heading for critical services: testing that is intelligence-driven, independently controlled, and followed by a formal remediation plan.
 
 The managerial lesson is that cybersecurity testing should be treated as part of an assurance process. Standards and guidance help translate technical testing into credible evidence, actionable remediation, and continuous improvement. Without structure, testing can devolve into isolated technical exercises. With structure, it becomes a disciplined mechanism for validating controls, strengthening resilience, and supporting risk-based governance.
 
 ### What a penetration testing report must contain
 
-The penetration testing report is the primary deliverable of the engagement. Its purpose is not merely to record technical findings, but to translate adversarial testing into risk decisions, remediation priorities, and management action. A good report should be understandable to executives, useful to technical teams, and sufficiently documented to support audit, governance, and follow-up.
+As noted above, the report is the primary deliverable of the engagement. Its purpose is not merely to record technical findings, but to translate adversarial testing into risk decisions, remediation priorities, and management action. A good report should be understandable to executives, useful to technical teams, and sufficiently documented to support audit, governance, and follow-up.
 
 The report should begin with an executive summary. Executive readership is limited, so the summary must be concise and decision-oriented. It should explain what was tested, why it was tested, what major weaknesses were found, what business risk they create, whether critical assets or sensitive data were exposed, and what actions management should prioritize. The executive summary should avoid excessive technical detail, but it should not minimize the seriousness of findings. Its purpose is to help leadership understand the significance of the test and the urgency of remediation.
 
@@ -456,6 +480,46 @@ The managerial lesson is that physical security should be risk-based and integra
 
 Useful indicators include the percentage of restricted areas with current access lists, frequency of physical-access reviews, number of unauthorized access attempts, number of lost or unreturned badges, time to revoke physical access after termination, availability of video or access-log evidence during investigations, and completion of tests for alarms, cameras, and environmental controls. These measures help managers determine whether physical security is operating as a real control rather than as a background administrative function.
 
+### Illustrative scenario: a credit union triages an exploited edge-device vulnerability
+
+Fundy Shore Credit Union (a fictional organization) is a Nova Scotia credit union with branches across the province, a digital banking platform run with a core banking provider, and a security team of four supported by a managed detection and response provider that operates its SIEM and SOAR platform. Remote staff and several suppliers reach internal systems through a pair of VPN gateways at the network edge. The credit union's risk appetite statement, approved by the board, says that known exploited vulnerabilities on Internet-facing systems must be remediated or mitigated within 72 hours, and that any longer exposure requires documented acceptance by the accountable executive.
+
+On a Tuesday morning, the gateway vendor publishes an advisory for an authentication-bypass flaw that allows remote code execution without credentials. The same afternoon, CISA adds the CVE to its Known Exploited Vulnerabilities catalog, and the Canadian Centre for Cyber Security issues an alert urging organizations to patch. The vendor's fix is available only for the current firmware branch. Fundy Shore's gateways run an older branch, so the fix is not a patch but an upgrade that requires a maintenance window and testing with the supplier connections.
+
+The vulnerability manager does not stop at the vendor's critical CVSS v4.0 Base score. She records it as CVSS-B and then adds what the credit union knows: Threat metrics reflect confirmed exploitation, and Environmental metrics reflect that the gateways are Internet-facing and sit in front of systems holding member data. The resulting CVSS-BTE assessment is owned by the team, not the vendor. The EPSS probability for the CVE has risen sharply since publication, which corroborates what the KEV listing already establishes. Finally, she walks the SSVC decision tree: exploitation is active, the attack is automatable, technical impact is total, and the gateways support a mission-essential service. The outcome is Act. Each source answers a different question—how severe, how likely, how urgent for us—and together they leave little room for debate about priority.
+
+What remains to be decided is how to act. The SOAR platform holds a vulnerability-response playbook, designed and approved the previous year, that defines which steps may run automatically and which require human approval. The pre-authorized steps run at once: the playbook blocks Internet access to the gateways' management interfaces, pushes the vendor's published indicators of compromise to the SIEM, opens a priority ticket assigned to the network owner, and starts a clock against the 72-hour target. The next step—isolating the primary gateway from the network—is deliberately not automated, because it would disconnect most remote staff and two suppliers that process card disputes. The playbook routes that decision to the vice-president of operations, the named risk owner for remote access, with the analyst's summary attached.
+
+The briefing to the risk owner is short and in business terms. The first option is to leave the gateway in service until the weekend upgrade, relying on management-interface blocking; the residual exposure remains significant because the flaw is reachable through the user-facing portal. The second is to isolate the primary gateway now, upgrade the secondary unit overnight and fail over to it, and accept several hours of reduced remote access the next morning. The third is an exception: run unpatched with enhanced monitoring for up to two weeks. The risk owner chooses the second option, rejects the third because no compensating control reduces the likelihood of exploitation enough, and records the decision and its rationale in the risk register. The SOAR platform executes the isolation on her approval, and the communications lead informs branches and the two suppliers.
+
+Because the vulnerability was exploited in the wild before Fundy Shore acted, closing the exposure is not the end of the matter. The managed provider runs a compromise assessment on the primary gateway using the vendor's integrity-check tool and the SIEM's historical logs, and it finds an unexplained configuration file created four days earlier. The analyst escalates, an incident is declared, and the response follows the lifecycle described earlier in this chapter and in Chapter 12: the gateway is preserved for forensic analysis rather than simply reimaged, credentials that passed through it are reset, and the privacy officer begins assessing whether member information was accessed. The investigation concludes that internal segmentation stopped the intruder at the edge, a conclusion the credit union can defend only because the logs existed.
+
+The post-incident review produces governance changes rather than blame. Edge devices become a distinct asset class in the inventory, with named owners and firmware-currency targets, since an outdated firmware branch had turned a patch into an upgrade. The playbook gains a pre-approved failover path, so the next decision can be made in minutes rather than hours. The next penetration test is scoped to include the remote access path and to measure whether the managed provider detects the testers. The remote access risk scenario, previously assessed with CyberRiskGuardian, is reassessed with the new threat information and presented to the board's risk committee with its revised residual risk. **What good looked like was not the absence of a vulnerability; it was a prioritization the team could explain, automation that stopped where business judgment began, and a risk owner who decided on the record.**
+
+### Questions managers and boards should ask
+
+- **Visibility:** Which critical systems, including edge devices and cloud services, do not send usable logs to our monitoring platform, and who has accepted that gap?
+
+- **Detection quality:** How do we know our detection rules would catch the techniques most relevant to our sector, and when were they last tested against a real or simulated attack?
+
+- **Automation authority:** Which response actions may our SOAR playbooks run without human approval, who authorized them, and which actions are reserved for a named risk owner?
+
+- **Prioritization:** Does our vulnerability prioritization combine CVSS with exploitation evidence such as the KEV catalog, EPSS, and SSVC outcomes, and with our own asset criticality and exposure?
+
+- **Exploited exposure:** How many known exploited vulnerabilities remain open on Internet-facing or high-value assets, for how long, and against what remediation target derived from our risk appetite?
+
+- **Exceptions:** How many vulnerability exceptions are open, how many have passed their expiry date, and who accepted the residual risk of the highest-risk ones?
+
+- **Data dependencies:** Which public vulnerability feeds do our scanners and platforms rely on, and how would we keep prioritizing if one were delayed or interrupted?
+
+- **Response readiness:** When were our incident response playbooks last exercised with legal, privacy, communications, and business participants, and what changed as a result?
+
+- **Testing follow-through:** Did the findings of our last penetration test lead to verified fixes, and did the test show whether our security operations team detected the activity?
+
+- **Managed services:** If a provider operates our SIEM or SOAR, does the contract define its response authority, escalation timelines, and the evidence we can obtain from it?
+
+- **Physical and cyber signals:** Are physical-security events at sites hosting critical systems, network equipment, or backups correlated with cyber monitoring and escalated when they may indicate cyber risk?
+
 ## Chapter synthesis: what operational maturity looks like
 
 Operational maturity is not defined by owning advanced cybersecurity tools. It is defined by the organization’s ability to integrate people, processes, technologies, and governance into a disciplined capability that delivers measurable risk reduction. A mature organization does not merely collect logs, buy platforms, scan for vulnerabilities, or run occasional tests. It uses these activities as part of a coherent operating model that makes cybersecurity observable, actionable, and continuously improvable.
@@ -466,8 +530,288 @@ Operational maturity also requires validation. Defences must be tested through v
 
 When incidents occur, mature organizations respond using defined roles, documented processes, preserved evidence, coordinated communication, and disciplined decision-making. They understand the interfaces among incident response, business continuity, disaster recovery, legal obligations, privacy requirements, and executive crisis management. They also learn from incidents by updating detection rules, playbooks, access controls, configurations, training, architecture, and governance practices.
 
+Managers can test this maturity with the questions listed earlier in this chapter. The answers, backed by evidence rather than assurances, show whether operations are reducing risk or merely producing activity.
+
 The operationally mature organization is therefore not one that believes incidents will never happen. It is one that can quickly detect problems, understand them accurately, contain them proportionately, recover reliably, and improve after each event. This is the operational engine room of cybersecurity: the place where governance intent becomes daily practice and risk management is translated into observable, repeatable, and defensible action.
 
-<img src="media/image42.png" style="width:6in;height:4in" />
+<span id="_Toc243635541" class="anchor"></span>Figure 42: Operational maturity
 
-<span id="_Toc235166924" class="anchor"></span>Figure 42: Operational maturity
+## Chapter summary
+
+This chapter extends the operational toolkit introduced in Chapter 7. It examines the capabilities that let an organization detect suspicious activity, act on it consistently, reduce exposure, respond to incidents, and verify its defences: SIEM and SOAR platforms, vulnerability management and vulnerability intelligence, threat intelligence, incident response teams and lifecycle, penetration testing, and physical security. In NIST CSF 2.0 terms it concentrates on Detect and Respond, and on the Identify activities that keep vulnerabilities visible, under the Govern function. The recurring argument is that none of these capabilities is self-operating. Each creates value only when data, people, processes, authority, and measurement are aligned and when technical signals are translated into business-risk decisions.
+
+### Key points to retain
+
+- A SIEM centralizes, normalizes, and correlates security data, but its value depends on log coverage, synchronized time, tuned detection logic, skilled analysts, and response procedures.
+
+- SOAR converts detection into structured response through orchestration, automation, and threat-intelligence integration, with playbooks that define which actions need human approval.
+
+- SIEM is an event and log intelligence layer and SOAR an incident coordination and execution layer; the two should be governed as complementary capabilities.
+
+- Monitoring platforms should be selected through defined requirements, vendor evaluation, a proof of concept treated as a risk control, phased deployment, and continuous tuning.
+
+- A vulnerability is any weakness in a system, process, configuration, behaviour, or governance arrangement that a threat can exploit, not only a software flaw.
+
+- Vulnerability management aims to shrink exposure windows on important assets through continuous discovery, risk-based prioritization, ownership, remediation, verification, and documented exceptions.
+
+- Scanner severity is not business priority; scanning must be authorized, scoped, and connected to remediation workflows.
+
+- CVE identifies, CWE classifies, CVSS v4.0 rates technical severity, and EPSS, the KEV catalog, and SSVC signal how likely or urgent exploitation is.
+
+- Threat intelligence is valuable only when relevant, reliable, timely, and actionable; unfiltered feeds increase workload.
+
+- Incident response, business continuity, and disaster recovery are distinct but intersect; interruption windows and maximum tolerable downtime decide when to escalate.
+
+- Incident response follows a lifecycle from preparation to post-incident improvement and needs permanent responders, cross-functional members, and a pre-defined war room structure.
+
+- Penetration testing is authorized adversarial simulation whose approach and scope must be chosen deliberately and whose report must drive owned, verified remediation, alongside proportionate physical security.
+
+### Key terms
+
+- **Security information and event management (SIEM)** — A platform that collects, normalizes, stores, correlates, and analyzes security-relevant data from across the organization to support detection, investigation, and evidence.
+
+- **Security orchestration, automation, and response (SOAR)** — A capability that coordinates, documents, automates, and executes response actions through workflows and playbooks.
+
+- **Playbook** — A predefined sequence of steps, decision points, communications, evidence requirements, and actions for responding to a specific type of event or incident.
+
+- **Proof of concept** — A test of a platform in the organization's real environment, treated as a risk control before production deployment.
+
+- **Exposure window** — The period during which a vulnerability remains exploitable in the organization's environment.
+
+- **Exposure management** — A broader continuous discipline that extends scanning to attack-surface discovery, cloud and identity misconfigurations, and validation of whether an exposure is reachable.
+
+- **Common Vulnerabilities and Exposures (CVE)** — Standardized identifiers for publicly known vulnerabilities, assigned by CVE Numbering Authorities under the CVE Program.
+
+- **Common Weakness Enumeration (CWE)** — A classification of software and system weakness types that helps identify recurring patterns behind individual vulnerabilities.
+
+- **CVSS v4.0** — FIRST's scoring system for technical severity, where the Base score is intrinsic severity and Threat and Environmental metrics yield CVSS-BT, CVSS-BE, or CVSS-BTE scores.
+
+- **EPSS** — The Exploit Prediction Scoring System, which estimates the probability that a published CVE will be exploited in the wild within the next 30 days.
+
+- **Known Exploited Vulnerabilities (KEV) catalog** — CISA's list of vulnerabilities with reliable evidence of active exploitation and a clear remediation action.
+
+- **SSVC** — Stakeholder-Specific Vulnerability Categorization, a decision tree leading to Track, Track\*, Attend, or Act instead of a single score.
+
+- **Incident** — An event or condition that actually or imminently jeopardizes confidentiality, integrity, or availability, or violates or threatens to violate law, policy, or contractual obligations.
+
+- **Acceptable interruption window** — The period during which a process or system can be degraded or unavailable without unacceptable consequences.
+
+- **Double-blind test** — A penetration test in which both testers and the organization's defenders have limited information, to assess detection and response under realistic conditions.
+
+## Review questions
+
+### Essay questions
+
+1.  A chief financial officer asks why the organization should fund both a SIEM and a SOAR capability when vendors now sell integrated platforms. Using the chapter, explain the distinct roles of each, how they work together, and what governance questions management should ask before buying any platform.
+
+2.  Using the Fundy Shore Credit Union scenario, analyze how CVSS v4.0, EPSS, the KEV catalog, and SSVC each contributed to the prioritization decision, and evaluate how the playbook and the risk owner divided automated and human decisions.
+
+3.  Choose an organization you know and design a vulnerability management program for it. Explain how you would define vulnerabilities broadly, set remediation targets from risk appetite, assign ownership, handle exceptions, and measure whether exposure is falling.
+
+4.  Evaluate the claim that incident response is a technical matter for the security team. Use the chapter's treatment of incident definitions, interruption windows, the war room model, and the interfaces with business continuity and disaster recovery.
+
+5.  An organization plans its first penetration test and its board wants assurance that the test will be useful and safe. Recommend an approach, a scope mode, authorization and rules of engagement, and the contents of the report, and justify how the test should lead to measurable improvement.
+
+### Multiple-choice questions
+
+Choose the best answer. Answers are listed in the appendix "Answers to multiple-choice questions".
+
+**1.** Why do SIEM deployments depend on reliable time synchronization, typically through the Network Time Protocol?
+
+> A. Because licensing costs are calculated by the hour of ingestion
+>
+> B. Because synchronized clocks encrypt log data in transit
+>
+> C. Because without a common timeline events cannot be ordered and correlated reliably
+>
+> D. Because regulators require all logs to carry the same time zone
+
+**2.** According to the chapter, why are false positives in a SIEM more than a minor inconvenience?
+
+> A. They raise alert fatigue, weaken response quality, and hide subtle but important signals
+>
+> B. They breach most data-protection laws in force in Canada and Europe
+>
+> C. They prevent the SIEM from storing or searching logs over time
+>
+> D. They automatically trigger containment actions on critical production systems without approval
+
+**3.** With SIEM, XDR, security data lakes, and MDR converging, what does the chapter say managers should focus on?
+
+> A. Choosing the product category with the newest and most popular market label
+>
+> B. Buying separate SIEM and SOAR products from different vendors to avoid lock-in
+>
+> C. Avoiding any platform that includes generative-AI assistants or automated responses
+>
+> D. Telemetry coverage, ownership of detection content, cost scaling, approval rules, and data portability
+
+**4.** Which statement best describes the governance role of a SOAR playbook?
+
+> A. It replaces the need for a dedicated, permanent incident response team
+>
+> B. It specifies which actions run automatically and which need human or legal approval
+>
+> C. It guarantees that every incident is contained within one hour of detection
+>
+> D. It records only technical steps and leaves out communications and evidence
+
+**5.** Why does the chapter compare playbooks to checklists used in high-reliability environments?
+
+> A. Because structured procedures reduce error under pressure, even for experienced personnel
+>
+> B. Because cybersecurity professionals generally lack expertise
+>
+> C. Because checklists remove the need to rehearse or update procedures
+>
+> D. Because regulators prohibit improvisation in all circumstances
+
+**6.** A SIEM alerts on an account signing in from an unusual country and accessing sensitive systems. What would typically be the SOAR layer's contribution?
+
+> A. Collecting and normalizing the authentication, VPN, and cloud logs from all sources
+>
+> B. Writing the original correlation rule that detected the anomalous sign-in pattern
+>
+> C. Synchronizing clocks across the identity, VPN, and cloud systems involved
+>
+> D. Enriching the alert, opening a case, preserving logs, and running an approved containment step
+
+**7.** Why does the chapter call a proof of concept a risk control rather than an optional step?
+
+> A. It lets the vendor define the organization's requirements, scope, and success criteria
+>
+> B. It removes the need for phased deployment and later tuning of the platform
+>
+> C. It tests ingestion, detection, false positives, and integration in the real environment
+>
+> D. It guarantees the lowest licensing cost among shortlisted vendors
+
+**8.** Which of the following would the chapter classify as a systemic vulnerability?
+
+> A. A missing operating system patch on a file server
+>
+> B. Unclear ownership that allows known risks to remain unresolved
+>
+> C. Staff susceptibility to convincing phishing emails sent to their inboxes
+>
+> D. Default administrator credentials left unchanged on a network device
+
+**9.** What is the central goal of reducing the exposure window?
+
+> A. To make sure every system is scanned at least once per quarter
+>
+> B. To reduce the time important assets remain exposed to vulnerabilities that could cause unacceptable consequences
+>
+> C. To lower the total number of vulnerabilities reported by scanners each month
+>
+> D. To ensure that every patch is applied within 24 hours of its release
+
+**10.** A critical-severity finding sits on an isolated test server; a high-severity finding sits on an Internet-facing system supporting an essential service. What does the chapter suggest?
+
+> A. Fix the critical finding first, because technical severity always determines priority
+>
+> B. Treat both findings identically, so that prioritization stays free of bias
+>
+> C. The high-severity finding on the exposed essential system may be more urgent
+>
+> D. Defer both findings until the next quarterly scan confirms them
+
+**11.** A student wants to practise with Greenbone Community Edition. Which use is consistent with the chapter's guidance?
+
+> A. Scanning intentionally vulnerable machines in an isolated lab under the student's control
+>
+> B. Scanning the university network to find real weaknesses for the IT team
+>
+> C. Scanning a part-time employer's servers over a weekend
+>
+> D. Scanning public websites without causing any damage
+
+**12.** In CVSS v4.0, what does a score labelled CVSS-BTE indicate?
+
+> A. A Base score only, as published by the vendor
+>
+> B. A score calculated with an older CVSS v3.1 formula
+>
+> C. A probability of exploitation in the next 30 days
+>
+> D. A score combining Base, Threat, and Environmental metrics
+
+**13.** Which pairing of source and question answered is correct?
+
+> A. CWE: Is this CVE being actively exploited against organizations this week?
+>
+> B. KEV: What class of software weakness caused this particular flaw?
+>
+> C. EPSS: How likely is exploitation of this CVE in the next 30 days?
+>
+> D. CVE: How urgent is this flaw for our own mission and services?
+
+**14.** What lesson does the chapter draw from the 2025 difficulties with the CVE Program contract and the NVD backlog?
+
+> A. Know which public feeds you rely on and keep a fallback if one fails
+>
+> B. Stop using CVE identifiers entirely and rely on an internal naming scheme
+>
+> C. Treat all public vulnerability data as too unreliable to use for any purpose
+>
+> D. Switch exclusively to the European Vulnerability Database for all prioritization decisions
+
+**15.** Which statement best reflects the chapter's view of threat intelligence?
+
+> A. Subscribing to more intelligence feeds always produces better detection outcomes for the SOC
+>
+> B. It is valuable only when relevant, reliable, timely, and actionable for the organization
+>
+> C. Threat intelligence should replace routine vulnerability scanning and patch reporting
+>
+> D. It becomes useful only after an incident has been formally declared
+
+**16.** Following NIST SP 800-61 Rev. 3, which situation is an incident rather than only an alert?
+
+> A. A single failed login attempt on a user account
+>
+> B. A routine, scheduled software update applied to a server
+>
+> C. Several failed logins, then a successful one from an unusual location, not yet investigated
+>
+> D. Investigation confirms the account was compromised and sensitive systems were accessed
+
+**17.** A ransomware incident is likely to keep a payment system unavailable beyond its acceptable interruption window. What should the organization most likely do?
+
+> A. Keep the response purely technical until eradication is complete
+>
+> B. Wait until the maximum tolerable downtime is exceeded before escalating
+>
+> C. Close the incident and open a disaster recovery ticket only
+>
+> D. Activate business continuity procedures to maintain essential services
+
+**18.** Why should the war room model be defined before a crisis?
+
+> A. Because only technical staff are allowed to attend during a live incident
+>
+> B. Because pre-defined roles, cadence, channels, and approval rules prevent teams working from different facts
+>
+> C. Because war rooms must always be physical rooms located at company headquarters
+>
+> D. Because it allows executives to stay out of decisions during serious incidents
+
+**19.** In the incident response lifecycle, which activity belongs to eradication rather than containment?
+
+> A. Isolating an infected system from the network
+>
+> B. Temporarily disabling a suspicious account
+>
+> C. Closing the exploited vulnerability and rebuilding compromised systems
+>
+> D. Blocking a malicious indicator at the firewall
+
+**20.** An organization wants to know whether its SOC would detect a realistic intrusion without warning. Which test design fits best, and what safeguard is essential?
+
+> A. A double-blind test, with a few trusted senior stakeholders keeping oversight
+>
+> B. A white-box test, with the SOC briefed in advance
+>
+> C. A black-box external scan, with no written authorization needed
+>
+> D. A vulnerability assessment, with results shared only with the vendor

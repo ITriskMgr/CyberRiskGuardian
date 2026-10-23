@@ -8,7 +8,7 @@ toc-title: "Table des matières"
 
 # Comment utiliser cette trousse
 
-Cette trousse fournit aux enseignants des énoncés de travaux et des grilles d'évaluation prêts à adapter pour les cours qui utilisent CyberRiskGuardian, et présente aux étudiants les critères selon lesquels leurs travaux seront évalués. Elle s'appuie sur la conception de l'évaluation du cours *BTM 440 Information Systems Risks, Security and Audit* (Université Concordia, automne 2026), généralisée afin que tout établissement puisse l'utiliser.
+Cette trousse fournit aux enseignants des énoncés de travaux et des grilles d'évaluation prêts à adapter pour les cours qui utilisent CyberRiskGuardian, et présente aux étudiants les critères selon lesquels leurs travaux seront évalués. Elle s'appuie sur la conception de l'évaluation d'un cours de premier cycle en cybersécurité, généralisée afin que tout établissement puisse l'utiliser.
 
 **Pour les enseignants.** Remplacez les éléments entre crochets — [semaine de remise], [pondération], [nombre de pages maximal], [plateforme de remise] — par les vôtres. Conservez les critères et les descripteurs : ce sont eux qui assurent la cohérence de la correction entre les groupes-cours et les auxiliaires d'enseignement. Votre plan de cours et vos consignes de travaux demeurent la source qui fait autorité ; dites-le aux étudiants.
 
@@ -120,14 +120,14 @@ Les annexes sont permises et ne comptent pas dans les limites de pages.
 - [ ] L'appétence pour le risque est énoncée et justifiée par rapport à la tolérance du cas ; le risque résiduel est comparé au risque toléré.
 - [ ] Chaque mesure est reliée à un scénario et à une étape de sa chaîne, chiffrée sur un seul horizon et justifiée ; les mesures partagées ne sont comptées qu'une fois.
 - [ ] Le mémorandum tient sur une page et commence par la décision ; la recommandation fait deux pages.
-- [ ] Les trois mentions apparaissent aux endroits appropriés ; la page titre, les citations et la déclaration sur l'IA sont complètes.
+- [ ] Les trois mentions (**Estimation analytique — validation requise**, **Lacune d'information — validation organisationnelle requise**, **Décision de la direction requise**) apparaissent aux endroits appropriés ; la page titre, les citations et la déclaration sur l'IA sont complètes.
 
 ## Conseils
 
 - Distinguez la probabilité que la menace soit présente de la probabilité que l'exploitation réussisse.
 - Donnez une brève justification et des preuves pour chaque chiffre, et indiquez les deux ou trois valeurs les plus incertaines.
 - Le CVSS note une vulnérabilité technique définie, et non un scénario de risque entier.
-- Le classeur ne valide pas les entrées, et sa mise en évidence des cellules en rouge sur la feuille Analyse compare chaque scénario à une seule cellule. Comparez numériquement le risque estimé et le risque toléré.
+- Le classeur (v2-6) valide les saisies et signale les problèmes dans sa colonne de contrôles (AC); lisez tout de même numériquement le risque estimé et le risque toléré plutôt que la couleur des cellules, remplacez la valeur provisoire d'appétence 0,5 et gardez chaque vecteur CVSS à côté de son score.
 - Dans le mémorandum, indiquez combien de scénarios sont au-dessus de la tolérance avant et après traitement, ce que coûte le portefeuille et quel risque subsiste. Ne reprenez pas les tableaux.
 
 # A2 — Politique de sécurité de l'information : gestion des identités et des accès (en équipe)
@@ -249,4 +249,4 @@ Chaque membre de l'équipe remplit ce formulaire de façon confidentielle. L'ens
 
 **Règles.** L'IA générative est permise dans les travaux, avec cette déclaration, et n'est pas permise pendant l'examen. Vous êtes responsable de tout ce que vous remettez. Une source fabriquée ou introuvable constitue à la fois un problème de preuve et une question d'intégrité académique. Ne collez pas de documents confidentiels dans un service d'IA externe, sauf si vous y êtes autorisé.
 
-*© 2026 Marc-André Léger. Sous licence CC BY-NC 4.0. Adapté du BTM 440 Student Assignment Guide (Université Concordia, automne 2026).*
+*© 2026 Marc-André Léger. Sous licence CC BY-NC 4.0. Adapté du guide des travaux de l'auteur pour un cours de premier cycle en cybersécurité.*

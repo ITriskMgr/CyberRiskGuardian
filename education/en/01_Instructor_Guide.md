@@ -9,7 +9,7 @@ date: "October 2026"
 
 This guide helps instructors, teaching assistants and program coordinators bring CyberRiskGuardian (CRG) into a course on cybersecurity risk management, governance, IT audit or business technology management. It explains what the method teaches, which version of the tool to use, how to fit it into a single workshop or a full term, how to run the labs, and how to assess the work fairly when students are allowed to use generative AI.
 
-The package was built from the material that ships with CyberRiskGuardian (the method specifications, the governance textbook, the MediBec worked example and the desktop application's teaching features) and from the author's own course, *BTM 440 Business Information Systems Risks, Security and Audit* (Concordia University, Fall 2026), where CRG has been used for the team risk-assessment assignment.
+The package was built from the material that ships with CyberRiskGuardian (the method specifications, the governance textbook, the MediBec worked example and the desktop application's teaching features) and from the author's own undergraduate course on information systems risks, security and audit, where CRG has been used for the team risk-assessment assignment.
 
 ## What is in the package
 
@@ -20,7 +20,9 @@ The package was built from the material that ships with CyberRiskGuardian (the m
 | **Assessment Kit** — assignment briefs, 0–10 rubrics, self-checks, peer-review form, AI acknowledgement | Students and instructors | Community (free) |
 | **Case Library** — five fictional business cases with a guide to choosing one | Students and instructors | Community (free) |
 | **Introductory slide deck** — the CRG method in one class | Instructors | Community (free) |
-| **Educator Edition** — lab answer keys, graded quiz bank, rubric calibration and feedback bank, case teaching notes, the final-exam case and its blueprint | Instructors only | Educational Licence |
+| **Excel model v2-6** — the blank CyberRiskGuardian Excel model (`templates/`) | Students and instructors | Community (free) |
+| **Chapter slide decks** — 21 decks for the textbook, one per chapter (GitHub release assets) | Instructors | Community (free) |
+| **Educator Edition** — lab answer keys, graded quiz bank, rubric calibration and feedback bank, case teaching notes, the final-exam case and its blueprint, and the textbook's Instructor Resource Guide | Instructors only | Educational edition (Educational Licence) |
 
 Everything except the Educator Edition is published with the Community Edition under CC BY-NC 4.0, in English and French. The Educator Edition is kept out of the public repository so that answer keys and the exam case stay useful from one term to the next.
 
@@ -37,7 +39,7 @@ Licence enquiries: **sales@cyberriskguardian.ca** · product site: **cyberriskgu
 
 CyberRiskGuardian is a scenario-driven method for assessing cybersecurity risk, supported by an AI assistant (the Claude plugin and project), a desktop application and an Excel model. It is a **decision-support tool**: it structures the analysis and speeds it up, while the analyst stays accountable for every estimate and management stays accountable for every risk decision.
 
-**The workflow.** Organizational context → crown jewels → risk appetite → 20 candidate scenarios → the 10 most material → six parameters and CVSS for each → estimated and tolerated risk → treatment portfolio → residual risk against tolerance → recommendations, budget and KRIs.
+**The workflow.** Organizational context → crown jewels → risk appetite → 25–40 candidate scenarios (20 in the labs) → the 10 most material → six parameters and CVSS for each → estimated and tolerated risk → treatment portfolio → residual risk against tolerance → recommendations, budget and KRIs. The textbook (ch06) numbers these as the 19 CRG steps, followed by the management report and an independent quality review.
 
 **A scenario is a causal chain, never a threat name.** *Threat source or event → vulnerability or weakness → affected asset or process → cybersecurity event → organizational consequence.* "Ransomware" is a threat; "a ransomware affiliate uses stolen VPN credentials and the absence of MFA on remote access to encrypt the clinical scheduling servers, stopping appointments at all sites for several days" is a scenario.
 
@@ -50,7 +52,7 @@ CyberRiskGuardian is a scenario-driven method for assessing cybersecurity risk, 
 | δe(ψ,A) | Expected damage | How much harm, reasonably expected? |
 | δm(ψ,A) | Maximum damage | How much harm, plausibly at worst? |
 | θ(ψ,A) | Organizational resilience | How well can we prevent, detect, contain, respond, recover and keep operating? |
-| μ(E) | Expected utility / criticality | How important is the affected service to the mission? |
+| μ(E) | Organizational criticality (expected utility) | How important is the affected service to the mission? |
 
 **The formulas** (Excel Guide v1.0c, section 11 — authoritative, never changed silently):
 
@@ -99,8 +101,8 @@ The method is the same in every track; only the interface changes. Pick one trac
 | Track | What students use | Strengths | Watch for |
 |---|---|---|---|
 | **A. Claude (plugin or project)** | The free CyberRiskGuardian Core plugin in Claude Code or Claude Cowork, or a Claude project carrying the CRG instructions | Fast scenario drafting, interview-style context intake, built-in label checks, `/crg-quick-scan` and `/crg-assess` commands, verified calculator | Students must verify AI output; institutional AI policy and data-protection rules apply |
-| **B. Desktop application** | CyberRiskGuardian Desktop (Beta 1.6.x/1.7.x), served locally in a browser | Everything on one screen; classroom workspaces; engine self-check; *Start over* for teaching cases; simulation data for SIEM/SOAR exercises; EN/FR interface; no data leaves the computer unless the student sends it | Requires Python 3 to serve the folder; keep the same port so workspaces are found |
-| **C. Excel model** | The free CyberRiskGuardian Excel model (Analyse sheet, S1–S10, M1–M10), in `templates/` | Transparent formulas, familiar to business students, works offline | Manual calculation mode (press F9); no input validation; red highlighting on the Analyse sheet can mislead |
+| **B. Desktop application** | CyberRiskGuardian Desktop (current release; 1.8.0 at the time of writing), served locally in a browser | Everything on one screen; classroom workspaces; engine self-check; *Start over* for teaching cases; simulation data for SIEM/SOAR exercises; EN/FR interface; no data leaves the computer unless the student sends it | Requires Python 3 to serve the folder; keep the same port so workspaces are found |
+| **C. Excel model** | The free CyberRiskGuardian Excel model (Analyse sheet, S1–S10, M1–M10), in `templates/` | Transparent formulas, familiar to business students, works offline | Manual calculation mode (press F9); validated inputs and a Checks column; CVSS blank and required; the appetite placeholder 0.5 must be replaced |
 
 A **hybrid** works well in practice: students draft context and scenarios with Claude (Track A), then quantify and treat in the desktop application or the workbook (Track B or C), where every number is recomputed by the verified engine.
 
@@ -118,16 +120,41 @@ Restart Claude and approve the `crg-calculator` server when prompted. In claude.
 
 **Track B — Desktop application.** Unzip the release, then double-click `start.command` (macOS, Linux) or `start.bat` (Windows). The application must be served over `http://localhost:8099`; double-clicking `index.html` does not work. Install it as an app from Chrome or Edge for offline use.
 
-**Track C — Excel.** The blank model ships free with this package: `templates/CyberRiskGuardian_Excel_Model_Blank_v2-4e.xlsx`. Post it on your learning platform. Remind students that it opens in manual calculation mode, and that its defaults (appetite 0.5 in E14, factor 10,000 in E15, CVSS 0 in G3:G12) must be replaced with the case's values.
+**Track C — Excel.** The blank model ships free with this package: `templates/CyberRiskGuardian_Excel_Model_Blank_v2-6.xlsx`. Post it on your learning platform. It follows the 8-step procedure of the textbook's chapter 6, printed on the Analyse sheet. Remind students that:
+
+- it opens in manual calculation mode (Formulas → Calculate Now, F9);
+- the appetite in E14 is a placeholder (0.5) that must be replaced with the case's approved or estimated value, strictly between 0 and 1;
+- the factor in E15 is 1,000 and stays unchanged;
+- the CVSS scores (G3:G12) start blank and are required, with the vector string next to each score (H3:H12); the Checks column (AC) flags a missing or malformed vector, an invalid input and a reduction error;
+- on the M sheets, the reductions of the selected measures combine with the product rule 1 − ∏(1 − rᵢ), so a package can never exceed 1;
+- the budget block (Y14:AC25) compares current spending plus the recommended portfolio with the appetite-consistent target and shows the gap and the implied appetite;
+- columns AD and AE record the share of loss covered by a transfer and its approver, for information only.
 
 ## The check every student does first
 
 Whatever the track, the first thing a student does is confirm that the calculation engine agrees with the reference implementation:
 
-- Desktop: the sidebar footer must read **engine verified · 84,491 / 41,104**.
-- Claude or command line: `python3 crg_calc.py medibec30.json` must report **total estimated 84,491** and **residual 41,104**.
+- Desktop: the sidebar footer must read **engine verified · 84,305 / 41,023**.
+- Claude or command line: `python3 crg_calc.py medibec30.json` must report **total estimated 84,305** and **residual 41,023**.
+- Excel: enter the textbook's chapter 6 worked example in S1 (CVSS 9.3, vector `CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:P/VC:H/VI:H/VA:H/SC:H/SI:H/SA:H`) and confirm estimated risk 3,554.46 and residual 1,937.18 after Calculate Now.
 
 If it does not, nothing produced on that installation should be trusted. Make this check part of Lab 0 and ask for a screenshot.
+
+# Using the textbook
+
+The package pairs with the textbook *Introduction to Cybersecurity Governance for Business Technology Management* (Léger, 3rd ed., v2.51, October 2026), which is free as the `crg-governance-textbook` plugin and whose appendix "Using CyberRiskGuardian with this book" maps all 21 chapters to CRG activities. The labs draw on these chapters:
+
+| Labs and activities | Textbook chapters |
+|---|---|
+| Lab 0 (engine check) and Lab 1 (context, crown jewels) | Chapter 6 (workflow, steps 1–3); Chapter 5 (context first) |
+| Lab 2 (risk appetite) | Chapter 4 (appetite and tolerance, the tolerance bands, the budget benchmark) |
+| Lab 3 (candidates, screening, selection) | Chapter 5 (25–40 candidates, five generation strategies, twelve screening criteria, coverage) |
+| Labs 4–8 (parameters, CVSS v4.0, risk indices, treatment, sensitivity) | Chapter 6 (the risk index, CVSS by equivalency, the workbook procedure, the MediBec worked example) |
+| Lab 9 (KRIs) | Chapter 6 (KRIs for monitoring); Chapter 14 (metrics and baselines) |
+| Lab 10 (management memo, budget) | Chapter 6 (management report, budget calibration); Chapter 4; Chapter 17 (investment governance, insurance as transfer) |
+| Lab 12 (from risk to policy and audit) | Chapter 9 (control frameworks), Chapter 10 (IAM), Chapter 3 (compliance and assurance) |
+
+Each chapter ends with twenty multiple-choice questions; the answer letters are in the book's appendix. The **Instructor Resource Guide** (rationales for every answer and marking guidance for the essay questions) and the 21 chapter slide decks accompany the book: the slide decks are free release assets of the repository (see `education/README.md`), and the Instructor Resource Guide is part of the Educator Edition.
 
 # Integration models
 
@@ -154,7 +181,7 @@ For a course that dedicates a unit to risk assessment.
 
 | Week | Class | Labs | Deliverable |
 |---|---|---|---|
-| 1 | Context, appetite and scenarios | 0, 1, 2, 3 | Team scenario set (20 candidates → 10) |
+| 1 | Context, appetite and scenarios | 0, 1, 2, 3 | Team scenario set (20 candidates in the lab version, 25–40 in a full assessment → 10) |
 | 2 | Quantification, CVSS and interpretation | 4, 5, 6, 8 | Quantified portfolio with rationale |
 | 3 | Treatment, KRIs and the management memo | 7, 9, 10 | One-page memo and two-page recommendation |
 
@@ -162,7 +189,7 @@ Suggested weight: 20–30% of the course grade, using the A1 rubric of the Asses
 
 ## Model 3 — Full term (12 weeks)
 
-This is the model used in BTM 440. The risk assessment (A1) feeds the security policy (A2) and the audit plan (A3), so students follow one organization from risk to governance to assurance.
+This is the model used in the author's undergraduate course. The risk assessment (A1) feeds the security policy (A2) and the audit plan (A3), so students follow one organization from risk to governance to assurance.
 
 | Week | Course topic | CRG activity | Due |
 |---|---|---|---|
@@ -179,7 +206,7 @@ This is the model used in BTM 440. The risk assessment (A1) feeds the security p
 | 11 | Digital forensics; standards and certification | Lab 12, part 2: from risk to IAM policy | **A3 audit plan** (individual) |
 | 12 | Application security; review | Exam preparation; quiz bank (Educator Edition) | **A2 IAM policy** |
 
-Suggested weights, as in BTM 440: A1 20% (team), A2 10% (team), A3 10% (individual), final exam 40% (including an essay on a business case), quizzes and labs 20%.
+Suggested weights, as in the author's undergraduate course: A1 20% (team), A2 10% (team), A3 10% (individual), final exam 40% (including an essay on a business case), quizzes and labs 20%.
 
 ## Model 4 — Capstone or graduate seminar
 
@@ -224,13 +251,13 @@ Experience with the method shows that a handful of ideas cause most of the confu
 
 **Threat presence and exploitation are two different probabilities.** Pb(A) asks whether the threat source will act; Pb(ψ,A) asks whether it will succeed against this weakness given existing controls. Merging them double-counts.
 
-**CVSS scores a vulnerability, not a scenario.** CVSS v4.0 Base measures the technical severity of one defined weakness. For phishing, insider or governance scenarios, students score a *representative* weakness and label it *limited applicability*, or explain why CVSS does not apply. A high CVSS never means the highest business risk.
+**CVSS scores a vulnerability, not a scenario.** CVSS v4.0 Base measures the technical severity of one defined weakness. For phishing, insider, process, physical, third-party or governance scenarios, students score a *representative* weakness **by equivalency** (textbook ch06) and label it *limited applicability*. CVSS stays a mandatory multiplier, so a score is always needed; a malicious document delivered by e-mail is scored AV:L. A high CVSS never means the highest business risk.
 
 **The tolerance verdict depends only on damage, treatment and appetite.** Residual ÷ Tolerated simplifies to ((δe + δm)/2) × (1 − P × Q) ÷ Appetite. Probabilities, CVSS, resilience and criticality cancel out: they drive the *size* of the risk (the ranking) but not the *verdict*. This is a striking result for students. Use it to show why the ratio must always be read together with estimated risk.
 
 **Before treatment, almost everything is above tolerance.** The pre-treatment ratio is average damage ÷ appetite. With an appetite of 0.30, any scenario whose average damage exceeds 0.33 starts above tolerance. Students who expect a mixed picture before treatment are usually surprised.
 
-**Mitigation is multiplicative.** An 80% probability reduction and an 80% impact reduction remove 64% of the risk, not 80%. "Below tolerance" requires P × Q ≥ 1 − appetite ÷ average damage. A package that reduces only probability, or only impact, mitigates nothing under the workbook convention.
+**Mitigation is multiplicative.** An 80% probability reduction and an 80% impact reduction remove 64% of the risk, not 80%. Residual no greater than tolerated (ratio ≤ 1.0) requires P × Q ≥ 1 − appetite ÷ average damage; **below tolerance** (ratio < 0.90) requires P × Q > 1 − 0.90 × appetite ÷ average damage. A package that reduces only probability, or only impact, mitigates nothing under the workbook convention.
 
 **Shared controls are counted once.** When one initiative serves several scenarios, its cost is split across them (an equal split is an acceptable default) and the portfolio total comes from the initiatives, not from the sum of scenario allocations.
 
@@ -238,7 +265,7 @@ Experience with the method shows that a handful of ideas cause most of the confu
 
 # Generative AI in the course
 
-CyberRiskGuardian is itself an AI-assisted tool, so the course must take a clear position on AI. The position below is the one used in BTM 440; adapt it to your institution's policy.
+CyberRiskGuardian is itself an AI-assisted tool, so the course must take a clear position on AI. The position below is the one used in the author's undergraduate course; adapt it to your institution's policy.
 
 **Allowed on assignments,** with an explicit acknowledgement (template in the Assessment Kit). Students are responsible for everything they submit, including anything an AI produced.
 
@@ -262,7 +289,7 @@ The Assessment Kit contains:
 - **briefs and rubrics** for the risk assessment (A1), the IAM security policy (A2) and the risk-based audit plan (A3), plus four shorter formats (lab portfolio, individual scenario paper, in-class quick-scan challenge, exam essay);
 - **self-check lists**, a **peer-review form** for team assignments and the **AI acknowledgement**.
 
-The Educator Edition adds the lab answer keys, a graded quiz bank with answers, rubric calibration examples, a feedback-comment bank, teaching notes for each case and the final-exam case with its blueprint.
+The Educator Edition adds the lab answer keys, a graded quiz bank with answers, rubric calibration examples, a feedback-comment bank, teaching notes for each case, the final-exam case with its blueprint, and the textbook's Instructor Resource Guide.
 
 **Protecting the integrity of the assessment.**
 
@@ -285,9 +312,10 @@ For accessibility, the labs can be done entirely with the keyboard in the deskto
 | Footer stuck on *engine loading…* | The application was opened as a file | Start it with `start.command` or `start.bat`; open `http://localhost:8099` |
 | A student's workspaces have disappeared | Different address, port or browser | Use the same address and port; import the last workspace export |
 | Excel shows formulas but old numbers | Manual calculation mode | Formulas → Calculate Now (F9) |
-| A `#DIV/0!` error in the workbook | θ left blank or at zero | θ must always be above zero |
+| "θ required" or "CVSS required" in the Analyse sheet (columns M and N) | θ left blank or at zero on the S sheet, or the CVSS score not entered | Enter θ above zero (up to 1) and the CVSS v4.0 score with its vector |
+| "Appetite required" in column N | The appetite in E14 is not strictly between 0 and 1 | Enter the approved or estimated appetite |
 | A scenario's ratio did not change after adding measures | Measures not applied, or only one dimension reduced | Apply the package; add a measure for the other dimension |
-| Residual risk *rises* in the Excel model | Control coefficients sum above 1 on an M sheet | Keep each reduction within 0–1; fewer, better-justified controls |
+| "Review M…" verdict, or a warning under the TOTAL row of an M sheet | A coefficient (column K or L) is outside 0–1 | Correct the coefficient; combined reductions use the product rule and never exceed 1 |
 | AI proposes a law the case does not name | AI invention | Remove it; cite only obligations the case names or that a primary source confirms |
 | The simulation pack will not import | The workspace is not a MediBec copy | Import into the MediBec example or a copy of it |
 | `engine DIVERGES` banner | The engine disagrees with the reference | Stop and restore a clean copy of the application |

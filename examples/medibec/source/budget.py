@@ -4,7 +4,7 @@ import copy, json
 import data30 as M
 from data import classify, calc
 
-IT_BUDGET = 100_000_000          # E3 - case: total IT budget incl. salaries (evidence gap - validate)
+IT_BUDGET = 100_000_000          # E3 - case: total IT budget incl. salaries (information gap - validate)
 BAND = {"min": 0.04, "median": 0.078, "max": 0.12}   # user-supplied guideline
 FTE = 1950 * 80                  # workbook FTE convention (CAD 156,000/yr)
 
@@ -37,9 +37,9 @@ SHARE_WHY = {
     "I22": "TLS on interfaces and platform hardening split with integration and telehealth delivery.",
 }
 
-BASELINE = [  # existing run cost, before this plan - Analyst estimate, validation required
+BASELINE = [  # existing run cost, before this plan - Analytical estimate — validation required
     ("B1", "Existing cybersecurity staff (2 FTE)", 2 * FTE, "E3: two dedicated staff; FTE valued at workbook convention 1,950 h x $80."),
-    ("B2", "Existing security tooling and support (firewalls, IDS/IPS, antimalware/EDR, e-mail filtering)", 600_000, "E2 lists these controls; cost is an analyst estimate."),
+    ("B2", "Existing security tooling and support (firewalls, IDS/IPS, antimalware/EDR, e-mail filtering)", 600_000, "E2 lists these controls; cost is an analytical estimate."),
 ]
 
 STAFF = [  # new security roles (cyber 100%); month of hire
@@ -60,11 +60,11 @@ SECOND = [
     ("E06", "Independent assurance programme", ["S8", "S18", "S19", "S28"], 0, 250_000, 3, 3, 1.0, "Annual red-team / penetration test, cyber audit by internal audit, compromise assessment."),
     ("E07", "Software supply-chain security", ["S11", "S18", "S19"], 80_000, 50_000, 6, 12, 1.0, "SBOM collection, software composition analysis, staged update environment for critical software."),
     ("E08", "SaaS and cloud backup", ["S2", "S20"], 40_000, 60_000, 3, 6, 0.5, "Independent backup of cloud mail, files and tenant configuration."),
-    ("E09", "Cyber insurance (risk transfer)", ["S2", "S9", "S19", "S28"], 0, 350_000, 0, 0, 1.0, "Placeholder premium - broker quotation required (Evidence gap)."),
+    ("E09", "Cyber insurance (risk transfer)", ["S2", "S9", "S19", "S28"], 0, 350_000, 0, 0, 1.0, "Placeholder premium - broker quotation required (Information gap)."),
 ]
 RESERVE_PCT = 0.10  # contingency and incident reserve, % of cyber spend before reserve
 
-# improved reductions when second wave is funded (Analyst estimate - validation required)
+# improved reductions when second wave is funded (Analytical estimate — validation required)
 ENHANCED = {
     "S1": (0.85, 0.80), "S2": (0.80, 0.80), "S3": (0.85, 0.90), "S4": (0.90, 0.75), "S5": (0.70, 0.70),
     "S6": (0.90, 0.70), "S7": (0.80, 0.72), "S8": (0.75, 0.80), "S9": (0.60, 0.75), "S10": (0.75, 0.80),
@@ -196,7 +196,7 @@ PESS_ABOVE = {"B": pess(False), "D": pess(True)}
 # appetite sensitivity of the target
 APP_TABLE = [(a, target_pct(a), target_pct(a) * IT_BUDGET) for a in (0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8)]
 
-# IT budget sensitivity (evidence gap)
+# IT budget sensitivity (information gap)
 IT_SENS = []
 for itb in (100e6, 50e6, 25e6, 10e6):
     rec = res["D"]["cyber"]

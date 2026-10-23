@@ -7,7 +7,7 @@ add(table(["Area", "Documented facts (E1-E4)", "Implication for risk"], [
   ["Cloud and remote access", "Cloud-based remote data access for staff and clinicians", "Identity is the new perimeter; cloud configuration and logging unknown"],
   ["Endpoints and devices", "Workstations, tablets, handhelds, interconnected medical equipment", "Device inventory and patch status unknown; certification limits patching"],
   ["Applications", "Integrated EHR, radiology, lab, pharmacy, billing, communications", "Highly interdependent; one compromise spreads across clinical workflows"],
-  ["People and budget", "15 IT staff, 2 cybersecurity; IT budget stated as CAD 100M incl. salaries", "Capacity is the binding constraint. **Evidence gap** - the stated budget appears high relative to 15 staff; cybersecurity budget share not stated"],
+  ["People and budget", "15 IT staff, 2 cybersecurity; IT budget stated as CAD 100M incl. salaries", "Capacity is the binding constraint. **Information gap — organizational validation required** - the stated budget appears high relative to 15 staff; cybersecurity budget share not stated"],
   ["Governance", "Steering Committee (teaching assumption); Board accepts material residual risk", "Structure exists on paper; operation and reporting unproven"],
   ["Regulatory", "Quebec and Canadian privacy expectations, health information confidentiality, professional obligations", "Confidentiality incidents involving health data are likely to trigger register, assessment and notification duties - **legal counsel to confirm applicable regime**"],
 ], [16, 42, 42]));
@@ -15,7 +15,7 @@ add(h2("3.1 Crown-jewel assets and services"));
 add(table(["ID", "Asset / service", "Business purpose", "Owner", "C", "I", "A", "Technical dependencies", "Third parties"],
   D.CROWN, [5, 15, 15, 14, 7, 7, 7, 17, 13], { size: 14 }));
 add(spacer());
-add(p("Owners are proposed roles, not documented appointments - **Evidence gap - organizational input required**."));
+add(p("Owners are proposed roles, not documented appointments - **Information gap — organizational validation required**."));
 
 // ================================================================ 7. DETAILED
 add(h1("7. Detailed risk scenarios"));
@@ -40,7 +40,7 @@ S.forEach((s, idx) => {
   add(table(["Parameter", "Value", "Reading", "Rationale", "Evidence", "Confidence"],
     Object.entries(s.params).map(([key, v]) => [PN[key], f2(v.v), v.qual, v.rat, v.ev, v.conf]), [18, 7, 12, 43, 9, 11], { size: 15 }));
   add(spacer());
-  add(p(`All values: **Analyst estimate - validation required.**`, { run: { size: 18 } }));
+  add(p(`All values: **Analytical estimate — validation required.**`, { run: { size: 18 } }));
   add(h3("CVSS v4.0"));
   add(p(`**Vector:** ${s.cvss}   **CVSS-B:** ${s.cvss_score.toFixed(1)} (${s.cvss_sev})`));
   add(p(s.cvss_note));

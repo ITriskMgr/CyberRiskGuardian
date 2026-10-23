@@ -1,5 +1,5 @@
 {
-  "description": "CyberRiskGuardian Core: load methodology guardrails at session start and check outputs for the required estimate, evidence-gap and decision markers.",
+  "description": "CyberRiskGuardian Core: load methodology guardrails at session start and check outputs for the required estimate, information-gap and decision markers (and report retired wording as outdated).",
   "hooks": {
     "SessionStart": [
       {

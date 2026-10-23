@@ -20,7 +20,7 @@ add(
   p("**Companion file:** MediBec_CyberRiskGuardian_Workbook_30.xlsx (live calculations)"),
   p("**Relationship to earlier work:** extends the 10-scenario assessment of the same date; S1-S10 are carried over unchanged."),
   spacer(),
-  callout("**Source and status.** Based solely on the MediBec Business Case v2.0b, a fictional teaching case. All probabilities, damages, CVSS vectors, costs and effectiveness values are **analyst estimates - validation required**. Scores are relative decision-support indicators, not predictions of incidents or dollar losses. Risk acceptance decisions remain with MediBec management."),
+  callout("**Source and status.** Based solely on the MediBec Business Case v2.0b, a fictional teaching case. All probabilities, damages, CVSS vectors, costs and effectiveness values are analytical estimates (**Analytical estimate — validation required**). Scores are relative decision-support indicators, not predictions of incidents or dollar losses. Risk acceptance decisions remain with MediBec management."),
   new Paragraph({ children: [new PageBreak()] }),
   new Paragraph({ children: [new TextRun({ text: "Contents", font: FONT, size: 32, bold: true, color: NAVY })], spacing: { after: 200 } }),
   new TableOfContents("Contents", { hyperlink: true, headingStyleRange: "1-2" }),
@@ -80,7 +80,7 @@ add(p("Factor = 1,000 for all 30 scenarios. The original CyberRiskGuardian workb
 add(h2("2.3 Evidence register"));
 add(table(["ID", "Source", "Basis", "Content used"], D.EVIDENCE, [6, 30, 17, 47], { size: 15 }));
 add(spacer());
-add(p("Basis tags: **(E#)** documented case evidence; **Exercise evidence** simulated injects - validate; **Analyst assumption** / **Analyst estimate - validation required**; **Evidence gap - organizational input required**. Many new scenarios (S11-S30) rest on fewer case facts than S1-S10; their confidence ratings are correspondingly lower."));
+add(p("Basis tags: **(E#)** documented case evidence; **Exercise evidence** simulated injects - validate; **Analyst assumption** / **Analytical estimate — validation required**; **Information gap — organizational validation required**. Many new scenarios (S11-S30) rest on fewer case facts than S1-S10; their confidence ratings are correspondingly lower."));
 add(h2("2.4 Changes from the 10-scenario assessment"));
 add(bl("S1-S10: statements, parameters, CVSS vectors and reductions unchanged; estimated, tolerated and residual risk are identical."));
 add(bl("Shared initiatives now serve more scenarios, so each scenario's allocated cost is lower and its cost-effectiveness higher; portfolio totals, not scenario allocations, should drive budget decisions."));

@@ -12,10 +12,10 @@ context:
 graders:
   - name: total-estimated
     type: "regex"
-    pattern: "84[,\\s ]?491"
+    pattern: "84[,\\s ]?305"
   - name: total-residual
     type: "regex"
-    pattern: "41[,\\s ]?104"
+    pattern: "41[,\\s ]?023"
   - name: counts
     type: "regex"
     pattern: "12\\b[^\\n]{0,60}above|above[^\\n]{0,60}\\b12\\b"

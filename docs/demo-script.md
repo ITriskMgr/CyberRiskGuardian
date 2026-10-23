@@ -30,7 +30,7 @@ Total running time: about 10 minutes.
 
 ## 3:00–5:00 · Scenarios
 
-**On screen:** the 20 candidates; zoom on one causal chain; then the 10 selected with rationale.
+**On screen:** the candidates (20 in the quick version); zoom on one causal chain; then the 10 selected with rationale.
 
 **EN:** A scenario is not "ransomware". It's a chain: who attacks, through which weakness, which asset, what event, and what it does to the organization. Claude screens 20 candidates on 12 criteria and keeps 10. It never ranks on CVSS, and it tells you which selections rest on judgement.
 
@@ -62,11 +62,11 @@ Total running time: about 10 minutes.
 
 ## 9:15–10:00 · CRG Pro and licences
 
-**On screen:** the licence table from www.leger.ca.
+**On screen:** the editions table from cyberriskguardian.ca.
 
-**EN:** Core is free for students and non-profits. CRG Pro adds the costed treatment plan, sensitivity analysis, the cybersecurity budget, KRIs, the Excel workbook and the board report, under a commercial licence or, for colleges and universities, an educational licence. Details at leger.ca.
+**EN:** The Community Edition is free for students and non-profits. CRG Pro adds the costed treatment plan, sensitivity analysis, the cybersecurity budget, KRIs, the Excel workbook and the board report, in the Educational edition for colleges and universities and in the Professional editions for everyone else. Details at cyberriskguardian.ca.
 
-**FR :** Core est gratuit pour les étudiants et les organismes sans but lucratif. CRG Pro ajoute le plan de traitement chiffré, l'analyse de sensibilité, le budget de cybersécurité, les indicateurs de risque clés, le classeur Excel et le rapport au conseil, sous licence commerciale ou, pour les collèges et universités, sous licence éducative. Détails sur leger.ca.
+**FR :** L'Édition communautaire est gratuite pour les étudiants et les organismes sans but lucratif. CRG Pro ajoute le plan de traitement chiffré, l'analyse de sensibilité, le budget de cybersécurité, les indicateurs de risque clés, le classeur Excel et le rapport au conseil, dans l'édition éducative pour les collèges et universités et dans les éditions professionnelles pour les autres organisations. Détails sur cyberriskguardian.ca.
 
 ## Recording notes
 

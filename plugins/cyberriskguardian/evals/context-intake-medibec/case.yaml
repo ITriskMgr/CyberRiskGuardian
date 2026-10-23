@@ -15,7 +15,7 @@ graders:
     pattern: "\\bE1\\b"
   - name: gap-marker
     type: "regex"
-    pattern: "Evidence gap|Information gap|Lacune de preuve|Lacune d.information"
+    pattern: "Information gap|Lacune d.information"
     flags: "i"
   - name: intake-skill
     type: "tool_used"
@@ -23,4 +23,4 @@ graders:
     input_match: "crg-context-intake|cyber-risk-assessment"
   - name: grounded
     type: "llm"
-    criteria: "The reply contains an evidence register with IDs, a crown-jewel table that includes the electronic health record and clinical systems, and a scope with a 12-month horizon. Facts are traceable to the MediBec profile; the reply does not invent facts absent from it (such as named vendors, headcounts or budgets) and labels missing information as an evidence gap."
+    criteria: "The reply contains an evidence register with IDs, a crown-jewel table that includes the electronic health record and clinical systems, and a scope with a 12-month horizon. Facts are traceable to the MediBec profile; the reply does not invent facts absent from it (such as named vendors, headcounts or budgets) and labels missing information as an information gap."

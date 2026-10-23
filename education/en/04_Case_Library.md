@@ -65,7 +65,7 @@ The student versions in `cases/` contain the narrative, the evidence appendices 
 
 **Scenario library (15).** MED-CYR-01 to MED-CYR-15: credential compromise, ransomware on the EHR, cloud misconfiguration, API key exposure, clinic wireless compromise, delayed patching, exposed backup servers, inadequate intrusion detection, medical device or IoT foothold, DDoS on patient services, insider exfiltration, phishing of staff, data-integrity attack on patient or billing records, vendor compromise, untested incident response.
 
-**Teaching angles.** Containment decisions with clinical consequences; whether tolerance should differ between administrative and care systems; prioritizing with a two-person team. The published CRG assessment (30 scenarios; 84,491 estimated and 41,104 residual) and the desktop application's MediBec simulation pack (three weeks of SOC activity) make it the natural lab case.
+**Teaching angles.** Containment decisions with clinical consequences; whether tolerance should differ between administrative and care systems; prioritizing with a two-person team. The published CRG assessment (30 scenarios; 84,305 estimated and 41,023 residual) and the desktop application's MediBec simulation pack (three weeks of SOC activity) make it the natural lab case.
 
 ## CanaRetail — national retail (intermediate)
 
@@ -77,7 +77,7 @@ The student versions in `cases/` contain the narrative, the evidence appendices 
 
 **Scenario prompts (50).** Fifty short themes, from executive phishing, ransomware and POS malware to IoT botnets, API weaknesses, shadow IT and teleconferencing eavesdropping. **Module D** asks teams to combine one original scenario with **nine supplied scenarios** in the CRG Excel model; the instructor distributes those nine as a handout (supplied in the Educator Edition).
 
-**Teaching angles.** Built for the A1 assignment with the CRG workbook; payment security; budgeting against the 4%–12% guideline; a sensitive framing about identity-based targeting that instructors may want to introduce in class.
+**Teaching angles.** Built for the A1 assignment with the CRG workbook; payment security; budgeting against the appetite-consistent target (7.8% of the IT budget at the case's appetite of 0.5); a sensitive framing about identity-based targeting that instructors may want to introduce in class.
 
 ## ACRB — Atlantic Canada Regional Bank (advanced)
 

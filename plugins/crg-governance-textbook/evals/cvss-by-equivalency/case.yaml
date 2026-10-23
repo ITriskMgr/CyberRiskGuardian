@@ -1,0 +1,17 @@
+schema_version: "1.1"
+name: cvss-by-equivalency
+tags: ["textbook"]
+runs: 1
+execution:
+  prompt: "How does the CyberRiskGuardian textbook score a non-technical weakness, such as supplier bank details changed by e-mail without a call-back, with CVSS v4.0? Cite the chapter."
+  max_turns: 10
+  timeout_seconds: 600
+  allowed_tools: ["Read", "Grep", "Glob", "Skill"]
+graders:
+  - name: chapter-6
+    type: "regex"
+    pattern: "Chap(?:ter|itre)\\s+6\\b"
+    flags: "i"
+  - name: faithful
+    type: "llm"
+    criteria: "The reply explains scoring by equivalency: mapping the weakness onto the CVSS metrics by analogy, justifying every metric in one line, labelling the score 'limited applicability' and marking it 'Analytical estimate — validation required', and it notes that a score is still required because CVSS is a mandatory multiplier. It does not claim the score measures business risk or should rank scenarios."

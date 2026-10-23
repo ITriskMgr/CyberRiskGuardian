@@ -6,9 +6,9 @@ MediBec is a fictional private medical centre (Montreal head office, 10 clinics)
 | Setting | Value |
 |---|---|
 | Horizon | 12 months |
-| Risk appetite | 0.30 (analyst estimate; the case states 0.40) |
+| Risk appetite | 0.30 (analytical estimate; the case states 0.40) |
 | Factor | 1,000 |
-| CVSS | v4.0 |
+| CVSS | v4.0 (S2 and S8, a malicious e-mailed document opened locally, are scored AV:L as the FIRST user guide requires) |
 | Classification band | ±10% around a ratio of 1.0 |
 
 ## Deliverables (`deliverables/`)
@@ -23,7 +23,7 @@ MediBec is a fictional private medical centre (Montreal head office, 10 clinics)
 
 **30 scenarios**
 - After treatment: 12 above tolerance, 11 approximately at, 7 below.
-- Total estimated risk 84,491 against residual 41,104, a 51% reduction.
+- Total estimated risk 84,305 against residual 41,023, a 51% reduction.
 
 **Budget**
 - Current spend is about 0.9% of the IT budget, below the 4% floor.
@@ -38,7 +38,7 @@ MediBec is a fictional private medical centre (Montreal head office, 10 clinics)
 ## Rebuild (`source/`)
 Run from `source/`; outputs go to `../output/`.
 ```
-python3 data.py && python3 data30.py && python3 budget.py     # data models + JSON
+python3 data.py && python3 data30.py && python3 budget.py     # data models + JSON (data.json, data30.json, budget.json)
 python3 build_xlsx.py; python3 build_xlsx30.py; python3 build_xlsx_budget.py; python3 build_sel.py
 node build_docx.js; node build_docx30.js; node build_docx30b.js
 ```
@@ -46,11 +46,13 @@ node build_docx.js; node build_docx30.js; node build_docx30b.js
 Before running:
 - `build_xlsx_budget.py` extends `../output/MediBec_CyberRiskGuardian_Workbook_30.xlsx`. Build and recalculate that workbook first.
 - The `build_docx30*.js` files are assembled from `part_*.js`.
+- `medibec30.json` (the regression fixture) is `data30.json` plus the `SENS_IDS`, `PERIOD` and `SOURCE` keys, written on one line.
+- Recalculate every workbook with LibreOffice headless and check for zero formula errors before copying the outputs to `deliverables/`.
 
 **Regression check:**
 ```
 python3 ../../../plugins/cyberriskguardian/skills/crg-quantify/scripts/crg_calc.py medibec30.json
 ```
-It must print total estimated 84,491 and residual 41,104.
+It must print total estimated 84,305 and residual 41,023.
 
-The input case document is in `input/`. All scores are illustrative analyst estimates for teaching, not empirical benchmarks.
+The input case document is in `input/`. All scores are illustrative analytical estimates for teaching, not empirical benchmarks.

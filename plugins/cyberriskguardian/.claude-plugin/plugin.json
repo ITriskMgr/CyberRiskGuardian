@@ -1,12 +1,12 @@
 {
   "name": "cyberriskguardian",
-  "version": "2.0.0",
-  "description": "CyberRiskGuardian Core (free) - scenario-driven cybersecurity risk assessment: context and evidence intake, risk appetite, 20-candidate scenario building and selection, CRG quantification with CVSS v4.0, and a management summary, with methodology label checks.",
+  "version": "2.1.0",
+  "description": "CyberRiskGuardian Core (Community Edition, free) - scenario-driven cybersecurity risk assessment, steps 1-11 of the 19-step CRG method: context and evidence intake, risk appetite, scenario generation (25-40 candidates, never fewer than 20), screening and selection, validated CRG quantification with CVSS v4.0, and a management summary, with methodology label checks.",
   "author": {
     "name": "Marc-André Léger",
     "url": "https://www.leger.ca"
   },
-  "homepage": "https://www.leger.ca",
+  "homepage": "https://cyberriskguardian.ca",
   "repository": "https://github.com/ITriskMgr/CyberRiskGuardian",
   "license": "CC-BY-NC-4.0 OR LicenseRef-CyberRiskGuardian-Commercial",
   "keywords": [

@@ -61,7 +61,7 @@
    "E10",
    "Project KB - Cybersecurity Risk Assessment Excel Guide v1.0c",
    "Methodology",
-   "Authoritative KRI formulas; CVSS v4.0; multiplication factor 1,000 in worked example; reductions must stay within 0-1."
+   "Authoritative risk-index formulas; CVSS v4.0; multiplication factor 1,000 in worked example; reductions must stay within 0-1."
   ],
   [
    "E11",
@@ -657,7 +657,7 @@
     "Push-based MFA without number matching or phishing resistance (E6 - validate)",
     "No evidence of conditional access (geo/device) policies",
     "Internet-sourced macro documents reach users (E6)",
-    "Awareness programme maturity unknown (Evidence gap)"
+    "Awareness programme maturity unknown (Information gap)"
    ],
    "assets": "CJ5 identity and remote access; CJ1 EHR; CJ4 billing.",
    "processes": "Scheduling, clinical documentation, billing.",
@@ -775,7 +775,7 @@
    "vulns": [
     "Macro execution and weak alert triage (E6)",
     "Segmentation between clinics, servers and backups not evidenced (E2, E7)",
-    "Privileged credential hygiene unknown (Evidence gap)",
+    "Privileged credential hygiene unknown (Information gap)",
     "Clinic downtime procedures untested (E7)"
    ],
    "assets": "CJ1 EHR, CJ3 scheduling, CJ4 billing, CJ6 data centre and clinic storage.",
@@ -853,8 +853,8 @@
      "conf": "High"
     }
    },
-   "cvss": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:P/VC:H/VI:H/VA:H/SC:H/SI:H/SA:H",
-   "cvss_note": "Representative weakness: malicious macro document leading to code execution (initial vector in E6). AV:N delivered by e-mail; AC:L; AT:N; PR:N; UI:P user opens the document; VC/VI/VA:H on the workstation; SC/SI/SA:H because EHR and clinic systems are subsequently affected. CVSS describes the entry weakness only, not the enterprise impact.",
+   "cvss": "CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:P/VC:H/VI:H/VA:H/SC:H/SI:H/SA:H",
+   "cvss_note": "Representative weakness: malicious macro document leading to code execution (initial vector in E6). AV:L: the document is delivered by e-mail but opened and executed locally on the workstation (FIRST CVSS v4.0 user guide scores malicious documents as Local whatever the delivery channel); AC:L; AT:N; PR:N; UI:P user opens the document; VC/VI/VA:H on the workstation; SC/SI/SA:H because EHR and clinic systems are subsequently affected. CVSS describes the entry weakness only, not the enterprise impact.",
    "red_p": 0.75,
    "red_i": 0.75,
    "inits": [
@@ -869,22 +869,22 @@
    "treatment": "Layered: MDR/EDR (I03), PAM (I02), segmentation (I06), immutable backup (I04), patching (I05), IR and downtime procedures (I11), awareness (I12). Residual remains material - consider cyber-insurance transfer.",
    "owner": "Executive leadership (COO) with CIO",
    "horizon": "0-24 months",
-   "cvss_score": 9.4,
+   "cvss_score": 9.3,
    "cvss_sev": "Critical",
    "alloc_initial": 367888.8888888889,
    "alloc_recurring": 218000.0,
-   "est": 7893.482142857144,
-   "tol": 2870.3571428571436,
-   "mit": 4440.083705357143,
-   "res": 3453.398437500001,
-   "ratio": 1.203125,
+   "est": 7809.508928571428,
+   "tol": 2839.821428571429,
+   "mit": 4392.848772321428,
+   "res": 3416.66015625,
+   "ratio": 1.2031249999999998,
    "pre_ratio": 2.7499999999999996,
    "cost_y1": 585888.8888888889,
-   "ce": 7.578371581303677,
+   "ce": 7.497750607034488,
    "class": "Above tolerance",
    "norm_cur": 0.20109375,
    "norm_post": 0.08797851562499999,
-   "ratio_case": 0.90234375
+   "ratio_case": 0.9023437499999999
   },
   {
    "id": "S3",
@@ -1241,7 +1241,7 @@
    "vulns": [
     "Patch SLAs and exception governance not evidenced (E7)",
     "Incomplete asset inventory (E4)",
-    "Possible end-of-life systems (Evidence gap)"
+    "Possible end-of-life systems (Information gap)"
    ],
    "assets": "CJ5 remote access; CJ6 perimeter; internet-facing applications.",
    "processes": "Remote access for clinicians; online services.",
@@ -1541,8 +1541,8 @@
      "conf": "High"
     }
    },
-   "cvss": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:P/VC:H/VI:H/VA:L/SC:H/SI:L/SA:L",
-   "cvss_note": "Limited applicability: a detection gap is a control weakness, not a vulnerability. Representative weakness for the workbook: the undetected initial code-execution vector (macro/PowerShell, E6). Do not interpret the score as the severity of the detection gap.",
+   "cvss": "CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:P/VC:H/VI:H/VA:L/SC:H/SI:L/SA:L",
+   "cvss_note": "Limited applicability: a detection gap is a control weakness, not a vulnerability. Representative weakness for the workbook: the undetected initial code-execution vector (macro/PowerShell, E6), scored AV:L because the e-mailed document is opened and executed locally (FIRST CVSS v4.0 user guide). Do not interpret the score as the severity of the detection gap.",
    "red_p": 0.7,
    "red_i": 0.8,
    "inits": [
@@ -1554,22 +1554,22 @@
    "treatment": "24/7 MDR with centralized logging and escalation criteria (I03); IR plan, playbooks, retainer and tabletop exercises across clinics (I11); governance reporting (I12).",
    "owner": "Cybersecurity lead",
    "horizon": "0-6 months",
-   "cvss_score": 9.3,
+   "cvss_score": 9.2,
    "cvss_sev": "Critical",
    "alloc_initial": 108722.22222222222,
    "alloc_recurring": 100166.66666666666,
-   "est": 9486.000000000002,
-   "tol": 3794.4000000000005,
-   "mit": 5312.160000000001,
-   "res": 4173.840000000001,
-   "ratio": 1.1,
+   "est": 9383.999999999998,
+   "tol": 3753.5999999999995,
+   "mit": 5255.039999999999,
+   "res": 4128.959999999999,
+   "ratio": 1.0999999999999999,
    "pre_ratio": 2.5,
    "cost_y1": 208888.88888888888,
-   "ce": 25.430553191489366,
+   "ce": 25.15710638297872,
    "class": "Approximately at tolerance",
    "norm_cur": 0.252,
    "norm_post": 0.11088000000000002,
-   "ratio_case": 0.8250000000000001
+   "ratio_case": 0.825
   },
   {
    "id": "S9",
@@ -1955,21 +1955,21 @@
    "id": "S2",
    "name": "Ransomware disrupting EHR access and clinic operations across the network",
    "lower": {
-    "est": 3740.6777777777784,
-    "res": 1038.0380833333338,
-    "ratio": 0.6706250000000001,
+    "est": 3700.8833333333337,
+    "res": 1026.9951250000004,
+    "ratio": 0.6706250000000002,
     "cls": "Below tolerance"
    },
    "central": {
-    "est": 7893.482142857144,
-    "res": 3453.398437500001,
-    "ratio": 1.203125,
+    "est": 7809.508928571428,
+    "res": 3416.66015625,
+    "ratio": 1.2031249999999998,
     "cls": "Above tolerance"
    },
    "higher": {
-    "est": 16304.394000000004,
-    "res": 9415.787535000003,
-    "ratio": 1.7228750000000004,
+    "est": 16130.943000000001,
+    "res": 9315.6195825,
+    "ratio": 1.7228749999999997,
     "cls": "Above tolerance"
    }
   },
@@ -2043,20 +2043,20 @@
    "id": "S8",
    "name": "Detection and response gaps allow an intrusion to persist and escalate",
    "lower": {
-    "est": 4495.96875,
-    "res": 1258.8712500000001,
+    "est": 4447.625,
+    "res": 1245.335,
     "ratio": 0.6066666666666667,
     "cls": "Below tolerance"
    },
    "central": {
-    "est": 9486.000000000002,
-    "res": 4173.840000000001,
-    "ratio": 1.1,
+    "est": 9383.999999999998,
+    "res": 4128.959999999999,
+    "ratio": 1.0999999999999999,
     "cls": "Approximately at tolerance"
    },
    "higher": {
-    "est": 21041.133750000005,
-    "res": 12203.857575000002,
+    "est": 20814.885,
+    "res": 12072.633299999998,
     "ratio": 1.6336666666666664,
     "cls": "Above tolerance"
    }
