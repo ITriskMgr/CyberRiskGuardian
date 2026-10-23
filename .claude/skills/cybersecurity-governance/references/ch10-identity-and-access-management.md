@@ -1,102 +1,113 @@
-<!-- Introduction to Cybersecurity Governance, 3rd ed., v2.1g (Aug 2026) - (c) Marc-André Léger. Licensed under CC BY-NC 4.0 (https://creativecommons.org/licenses/by-nc/4.0/). Third-party standards, frameworks and quotations remain under their owners' terms. -->
+<!-- Léger, M.-A. (2026). Introduction to Cybersecurity Governance for Business Technology Management (3rd ed., v2.51). Chapter 10: Identity and Access Management. CC BY-NC 4.0 -->
 
 # Chapter 10: Identity and Access Management
 
-In modern enterprises and cloud environments, identity has become one of the most important cybersecurity control planes. Networks remain essential, but they are no longer the sole—or necessarily the primary—boundary for access control. Users, applications, devices, workloads, data, service accounts, APIs, and third-party integrations now operate across SaaS platforms, cloud services, remote-work environments, partner ecosystems, and hybrid infrastructures. In this environment, the central cybersecurity question is no longer simply how the network is segmented, but rather **who or what may access which resources, under what conditions, with what level of privilege, and how that access is monitored, reviewed, and evidenced over time**.
+## Learning outcomes
 
-For managers, **Identity and Access Management (IAM)** and **Privileged Access Management (PAM)** are not merely technical or administrative functions. They are fundamental governance control domains. They determine who can act within organizational systems, approve transactions, view or modify sensitive information, administer infrastructure, change configurations, and override normal safeguards. In this sense, IAM and PAM directly shape the organization’s exposure to fraud, sabotage, ransomware, espionage, insider misuse, privacy and regulatory breaches, and operational disruption.
+After completing this chapter, you should be able to:
 
-When IAM fails, the organization loses control of routine access. When PAM fails, it loses control of its most powerful capabilities. Many significant cyber incidents are initiated, enabled, or amplified by weaknesses in identity governance: stolen credentials, weak authentication, incomplete deployment of multi-factor authentication, excessive privileges, poor separation between standard and administrative accounts, unmanaged service accounts, exposed API keys and secrets, ineffective joiner–mover–leaver processes, and insufficient monitoring of privileged activity. Attacks that appear highly technical on the surface are often, at their core, failures of authentication, authorization, or privilege governance. An attacker may first obtain a legitimate user's identity, then acquire additional privileges, then gain administrative authority, and ultimately perform actions using permissions the organization itself has granted. At that point, the distinction between an external attacker and an authorized system user becomes operationally blurred.
+1.  Distinguish Identity and Access Management (IAM) from Privileged Access Management (PAM) and explain why privileged access is delegated organizational authority.
 
-Cloud and SaaS environments intensify this reality because identity often serves as the primary control plane. Administrative identities may control management consoles, configurations, databases, storage services, virtual networks, encryption keys, logging systems, security controls, and workloads. A compromised cloud administrator account can therefore enable an attacker to alter configurations, expose or delete data, disable monitoring, weaken security controls, manipulate encryption keys, establish persistence, create new identities, or move across interconnected environments. The potential impact is especially significant because highly privileged identities often span multiple services and can affect large portions of the organization’s technology estate.
+2.  Explain the structural reasons why identity weaknesses initiate, enable, or amplify so many cybersecurity incidents.
 
-The same governance challenge applies to **non-human identities**, including service accounts, workloads, automation scripts, API credentials, tokens, secrets, certificates, and machine-to-machine identities. These identities are increasingly numerous and often have substantial privileges because they enable automated business and technical processes. Yet they may receive less governance attention than human accounts. Credentials may be long-lived, ownership may be unclear, permissions may accumulate over time, and access may persist long after the original business requirement has disappeared. As organizations rely more on cloud services, APIs, automation, and artificial intelligence, governing non-human identities becomes an increasingly important part of cybersecurity governance.
+3.  Design an IAM operating model that assigns decision rights across central identity, business ownership, and risk and assurance functions, including governed exceptions.
 
-IAM and PAM therefore warrant dedicated attention because they bridge **governance intent and technical execution**. Risk appetite, compliance obligations, segregation of duties, privacy requirements, least privilege, operational resilience, and accountability all depend on the organization’s ability to govern identity effectively. Policies may state that access must be restricted, privileges minimized, and sensitive actions monitored, but those governance objectives become meaningful only when identity controls translate them into enforceable system behaviour.
+4.  Apply joiner–mover–leaver lifecycle discipline to human and non-human identities and identify the controls that prevent privilege creep and orphaned access.
 
-Authentication, authorization, access provisioning, access reviews, privileged-session management, credential and secret management, logging, monitoring, and evidence collection should not be viewed as isolated technical tasks. Together, they form the mechanisms through which the organization determines **who or what may act, what actions may be performed, under which conditions, how much authority to grant, and how management can determine whether that access remains appropriate over time**. Effective identity governance is therefore not simply about controlling access to technology. It is about controlling the exercise of organizational authority within digital systems.
+5.  Recommend an authentication strategy that matches assurance to consequence, using phishing-resistant methods, NIST SP 800-63-4 assurance levels, conditional access, and secure recovery.
 
-## IAM and PAM: Definitions and the Managerial Boundary
+6.  Compare RBAC and ABAC authorization models and evaluate whether access reviews and segregation-of-duties controls provide real assurance rather than completed paperwork.
 
-Identity and Access Management (IAM) encompasses the policies, processes, technologies, roles, and accountability mechanisms an organization uses to govern digital identities and their access to information, systems, applications, and other resources. IAM covers both human and non-human identities, including employees, contractors, partners, customers, devices, applications, service accounts, and workloads. It governs how these identities are established, authenticated, authorized, monitored, reviewed, modified, and ultimately removed.
+7.  Evaluate PAM, break-glass, third-party, and non-human identity controls against the principle that authority must be minimized, attributable, monitored, and revocable.
 
-In practical terms, IAM encompasses identity lifecycle management, authentication, authorization, access provisioning and deprovisioning, identity federation, single sign-on, access reviews, and evidence generation to demonstrate that access remains appropriate. Its purpose is not simply to grant access, but to ensure that access aligns with a legitimate business need, reflects the individual or system's current role, and changes as responsibilities, employment status, contractual relationships, or operational requirements change.
+8.  Justify a risk-based IAM and PAM roadmap supported by reliable evidence and governance-grade metrics that measure exposure rather than administrative activity.
 
-Privileged Access Management (PAM) is a specialized domain within identity governance focused on identities, permissions, credentials, and activities that confer elevated or exceptional authority. Privileged access is access that can materially affect systems, security configurations, data protection, business processes, financial outcomes, or other users' access rights. This includes administering infrastructure, modifying system configurations, creating or deleting identities, changing permissions, disabling security controls, accessing sensitive information at scale, executing high-impact transactions, or intervening in systems during emergencies.
+In modern enterprises and cloud environments, identity has become one of the most important cybersecurity control planes. Networks remain essential, but they are no longer the sole—or necessarily the primary—boundary for access control. Users, applications, devices, workloads, data, service accounts, APIs, and third-party integrations now operate across SaaS platforms, cloud services, remote-work environments, partner ecosystems, and hybrid infrastructures. The central cybersecurity question is therefore no longer simply how the network is segmented, but **who or what may access which resources, under what conditions, with what level of privilege, and how that access is monitored, reviewed, and evidenced over time**.
 
-PAM therefore applies tighter controls over these powerful capabilities. Typical PAM mechanisms include privileged identity governance, credential vaulting, administrative account separation, just-in-time and just-enough privilege, approval workflows, privileged-session monitoring and recording, command or activity monitoring, periodic privileged-access reviews, emergency or break-glass procedures, and controls for privileged non-human identities, such as service accounts, automation tools, scripts, API credentials, tokens, and secrets. These controls are important because privileged access can bypass, modify, or disable safeguards that constrain ordinary users.
+For managers, **Identity and Access Management (IAM)** and **Privileged Access Management (PAM)** are not merely technical or administrative functions. They are fundamental governance control domains. They determine who can act within organizational systems, approve transactions, view or modify sensitive information, administer infrastructure, change configurations, and override normal safeguards. In this sense, IAM and PAM directly shape the organization's exposure to fraud, sabotage, ransomware, espionage, insider misuse, privacy and regulatory breaches, and operational disruption.
 
-A useful managerial distinction is therefore:
+When IAM fails, the organization loses control of routine access. When PAM fails, it loses control of its most powerful capabilities. Many significant cyber incidents are initiated, enabled, or amplified by weaknesses in identity governance: stolen credentials, weak authentication, incomplete deployment of multi-factor authentication, excessive privileges, poor separation between standard and administrative accounts, unmanaged service accounts, exposed API keys and secrets, ineffective joiner–mover–leaver processes, and insufficient monitoring of privileged activity. Attacks that appear highly technical on the surface are often, at their core, failures of authentication, authorization, or privilege governance. An attacker may first obtain a legitimate user's identity, then acquire additional privileges, then gain administrative authority, and ultimately act using permissions the organization itself has granted. At that point, the distinction between an external attacker and an authorized user becomes operationally blurred.
 
-> **IAM governs access across the organization, while PAM governs exceptional privileges within it.**
+Cloud and SaaS environments intensify this reality because identity often serves as the primary control plane. Administrative identities may control management consoles, databases, storage, virtual networks, encryption keys, logging systems, security controls, and workloads. A compromised cloud administrator account can therefore allow an attacker to alter configurations, expose or delete data, disable monitoring, manipulate encryption keys, establish persistence, create new identities, or move across interconnected environments—often across a large portion of the technology estate at once.
 
-IAM asks whether a person, device, application, or service has appropriate access to perform legitimate work. PAM asks whether access that could lead to disproportionately significant consequences is minimized, justified, tightly controlled, monitored, and documented. The distinction is not absolute—PAM is closely integrated with IAM—but it is useful because the consequences of privileged access failures are generally much greater.
+The same governance challenge applies to **non-human identities**: service accounts, workloads, automation scripts, API credentials, tokens, secrets, certificates, and machine-to-machine identities. These identities are increasingly numerous and often hold substantial privileges because they enable automated business and technical processes, yet they may receive less governance attention than human accounts. Credentials may be long-lived, ownership may be unclear, permissions may accumulate, and access may persist long after the original requirement has disappeared. As organizations rely more on cloud services, APIs, automation, and artificial intelligence, governing these identities becomes an increasingly important part of cybersecurity governance.
 
-<img src="media/image50.png" style="width:6in;height:4in" />
+IAM and PAM warrant dedicated attention because they bridge governance intent and technical execution. Risk appetite, compliance obligations, segregation of duties, privacy requirements, least privilege, operational resilience, and accountability all depend on the organization's ability to govern identity. Policies may state that access must be restricted, privileges minimized, and sensitive actions monitored, but those objectives become meaningful only when identity controls translate them into enforceable system behaviour. Authentication, authorization, provisioning, access reviews, privileged-session management, secrets management, logging, and evidence collection are therefore not isolated technical tasks. Together, they determine who or what may act, what actions may be performed, under which conditions, with how much authority, and how management knows whether that access remains appropriate.
 
-Figure 50: IAM and PAM
+This chapter builds on the governance foundations of Chapters 2 and 4, the scenario-based risk assessment of Chapters 5 and 6, and the control frameworks of Chapter 9. It defines IAM and PAM and the boundary between them, explains why identity failures dominate the incident landscape, and sets out governance objectives, decision rights, and the identity lifecycle. It then examines authentication, authorization, segregation of duties, third-party access, privileged access, emergency access, and non-human identities, before turning to evidence, metrics, and a practical implementation roadmap. Effective identity governance is not simply about controlling access to technology. It is about controlling the exercise of organizational authority within digital systems.
 
-Both IAM and PAM are essential to cybersecurity governance, but PAM warrants greater scrutiny because privileged identities have the authority to alter the environment in which other controls operate. Mismanaged ordinary access can expose sensitive information, facilitate fraud, violate segregation-of-duties requirements, or create unnecessary operational risk. Mismanaged privileged access can enable an attacker or malicious insider to alter the organization's security posture.
+## IAM and PAM: definitions and the managerial boundary
 
-For example, compromising an administrator account, cloud management account, domain administrator, database administrator, highly privileged service account, or automation credential may allow an adversary to create new identities, elevate privileges, change configurations, disable monitoring, modify or delete logs, access or exfiltrate large volumes of information, deploy malicious software, interfere with recovery capabilities, destroy backups, or establish persistent access. Because privileged users and services can modify the safeguards intended to constrain activity, the compromise of a privileged identity can undermine multiple layers of protection simultaneously.
+Identity and Access Management encompasses the policies, processes, technologies, roles, and accountability mechanisms an organization uses to govern digital identities and their access to information, systems, applications, and other resources. IAM covers both human and non-human identities, including employees, contractors, partners, customers, devices, applications, service accounts, and workloads. It governs how these identities are established, authenticated, authorized, monitored, reviewed, modified, and ultimately removed.
 
-This is why privileged access is more than a stronger form of ordinary access. It is **delegated organizational authority within digital systems**. A privileged identity may be able to make decisions or perform actions that would otherwise require formal organizational authority: approving changes, modifying financial or operational records, altering security policies, granting access to others, or interrupting critical services. PAM therefore governs not only credentials but also the controlled exercise of this delegated authority.
+In practical terms, IAM includes identity lifecycle management, authentication, authorization, provisioning and deprovisioning, identity federation, single sign-on, access reviews, and the evidence needed to demonstrate that access remains appropriate. Its purpose is not simply to grant access, but to ensure that access aligns with a legitimate business need, reflects the individual's or system's current role, and changes as responsibilities, employment status, contractual relationships, or operational requirements change.
 
-For Business Technology Management professionals, the distinction between IAM and PAM raises distinct governance questions. IAM governance asks whether access is based on legitimate business requirements, aligned with roles and responsibilities, periodically reviewed, adjusted as circumstances change, and promptly removed when no longer required. PAM governance asks whether exceptional authority has been minimized, separately assigned, specifically approved, limited in duration and scope where practicable, isolated from routine user activity, closely monitored, and subject to independent review.
+Privileged Access Management is a specialized domain within identity governance focused on identities, permissions, credentials, and activities that confer elevated or exceptional authority. **Privileged access** is access that can materially affect systems, security configurations, data protection, business processes, financial outcomes, or other users' access rights. It includes administering infrastructure, modifying configurations, creating or deleting identities, changing permissions, disabling security controls, accessing sensitive information at scale, executing high-impact transactions, or intervening in systems during emergencies. Typical PAM mechanisms include credential vaulting, administrative account separation, just-in-time and just-enough privilege, approval workflows, privileged-session monitoring and recording, periodic privileged-access reviews, break-glass procedures, and controls for privileged non-human identities. These controls matter because privileged access can bypass, modify, or disable the safeguards that constrain ordinary users.
 
-Together, IAM and PAM operationalize several fundamental cybersecurity governance principles. **Least privilege** requires that identities receive no more authority than necessary. **Segregation of duties** prevents a single identity from exercising incompatible or excessive powers without oversight. **Accountability** requires that significant actions be attributable to identifiable actors or controlled services. **Lifecycle governance** ensures that access evolves as organizational circumstances change. **Monitoring and evidence** allow management to determine whether access controls function as intended, rather than merely assuming they do.
+A useful managerial distinction is therefore the following.
 
-The managerial objective is therefore not merely to ensure that users can log in or that administrators can perform their work. It is to ensure that **digital authority is deliberately granted, proportionate to legitimate need, constrained by appropriate controls, continuously observable, periodically reassessed, and withdrawn when no longer justified**. This is where IAM and PAM function as governance mechanisms rather than merely technical access-control functions.
+| **IAM governs access across the organization, while PAM governs exceptional privileges within it.** |
+|-----------------------------------------------------------------------------------------------------|
 
-## Why Identity Failures Dominate the Incident Landscape
+IAM asks whether a person, device, application, or service has appropriate access to perform legitimate work. PAM asks whether access that could lead to disproportionate consequences is minimized, justified, tightly controlled, monitored, and documented. The distinction is not absolute—PAM is closely integrated with IAM—but it is useful because the consequences of privileged access failures are generally much greater. The figure below summarizes the relationship.
 
-Managers should understand why identity-related weaknesses appear so frequently in cybersecurity incidents. Identity is particularly attractive to attackers because compromising a legitimate identity allows them to enter and operate within the organization through many of the same pathways used by employees, administrators, applications, devices, and suppliers. Once an attacker obtains valid credentials, a usable session, or another trusted identity, malicious activity may no longer resemble a conventional external intrusion. To the systems involved, it may initially appear to be legitimate work performed by an authorized user or service.
+<span id="_Toc243635549" class="anchor"></span>Figure 50: IAM and PAM
 
-- First, **credentials are scalable attack targets**. Attackers can steal, phish, purchase, reuse, guess, or extract passwords, authentication tokens, session cookies, API keys, and other credentials from users and compromised systems. Credential stuffing exploits password reuse across services, while phishing and social engineering exploit trust, urgency, authority, and human error. Credentials exposed in one breach may later be tested against unrelated services, and information from compromised devices or browsers can be used to hijack authenticated sessions. This combination of availability, reuse, and automation makes identity compromise an efficient and attractive initial-access vector.
+Both domains are essential, but PAM warrants greater scrutiny because privileged identities can alter the environment in which other controls operate. Mismanaged ordinary access can expose sensitive information, facilitate fraud, or violate segregation-of-duties requirements. Mismanaged privileged access can enable an attacker or malicious insider to change the organization's security posture itself. Compromising a domain administrator, cloud management account, database administrator, highly privileged service account, or automation credential may allow an adversary to create identities, elevate privileges, disable monitoring, modify or delete logs, exfiltrate large volumes of information, deploy malicious software, destroy backups, or establish persistent access. Because privileged identities can modify the safeguards intended to constrain activity, their compromise can undermine several layers of protection simultaneously.
 
-- Second, **modern organizations increasingly extend identity relationships beyond their traditional boundaries**. Employees are only one category of identity that requires access. Contractors, suppliers, consultants, partners, managed service providers, cloud platforms, software integrations, and APIs all rely on some form of digital trust relationship. Each relationship can create business value, but it can also create an additional pathway into organizational resources. Identity governance must therefore extend beyond the workforce to encompass third-party identities, federated identities, supplier-managed accounts, delegated administration, service accounts, workloads, applications, and other non-human identities. The governance problem is no longer simply determining which employees should have access; it is determining which people and systems across an increasingly interconnected ecosystem should be trusted, to what extent, and under what conditions.
+This is why privileged access is more than a stronger form of ordinary access. It is delegated organizational authority within digital systems. A privileged identity may be able to perform actions that would otherwise require formal organizational authority: approving changes, modifying financial or operational records, altering security policies, granting access to others, or interrupting critical services. PAM therefore governs not only credentials but the controlled exercise of this delegated authority.
 
-- Third, **permissions tend to accumulate over time**. Access is often granted quickly because business activity depends on it, while removal receives less attention because it rarely delivers an immediate operational benefit. Employees change roles, join projects, assume temporary responsibilities, move between departments, or leave the organization. Consultants complete assignments, suppliers change personnel, and temporary exceptions persist beyond their intended duration. Service accounts created for one purpose may later be reused for other purposes. Unless access is systematically reviewed and adjusted, privileges can accumulate beyond legitimate business requirements. This phenomenon, often described as **privilege creep**, increases the organization's attack surface, weakens least-privilege principles, and can create conflicts with segregation-of-duties requirements.
+For Business Technology Management professionals, the two domains raise distinct governance questions. IAM governance asks whether access is based on legitimate business requirements, aligned with roles and responsibilities, periodically reviewed, adjusted as circumstances change, and promptly removed when no longer required. PAM governance asks whether exceptional authority has been minimized, separately assigned, specifically approved, limited in duration and scope where practicable, isolated from routine activity, closely monitored, and subject to independent review.
 
-- Fourth, **privileged pathways may operate outside the controls governing ordinary access**. Shared administrator accounts, long-lived service-account passwords, unmanaged API keys, permanent local-administrator rights, emergency accounts, embedded credentials in scripts, and broadly assigned cloud-administrator roles may receive inadequate monitoring, rotation, review, or ownership. These weaknesses are particularly consequential because privileged identities can alter the environment itself. They may modify configurations, grant additional permissions, disable security controls, establish persistence, access sensitive information at scale, interfere with backup and recovery mechanisms, or alter or delete evidence. A privileged identity compromise can therefore amplify an initially limited intrusion into an enterprise-wide incident.
+Together, IAM and PAM operationalize several fundamental governance principles. **Least privilege** requires that identities receive no more authority than necessary. **Segregation of duties** prevents a single identity from exercising incompatible powers without oversight. **Accountability** requires that significant actions be attributable to identifiable actors or controlled services. **Lifecycle governance** ensures that access evolves as organizational circumstances change. **Monitoring and evidence** allow management to determine whether access controls function as intended, rather than merely assuming they do. The managerial objective is to ensure that digital authority is deliberately granted, proportionate to legitimate need, constrained by appropriate controls, observable, periodically reassessed, and withdrawn when no longer justified.
 
-- Fifth, **identity-based attacks can be difficult to distinguish from legitimate activity**. A firewall may permit the connection. An application may accept the credentials. A cloud platform may validate the authentication token. A database may authorize the requested query. From each control's perspective, the activity may appear permissible because the identity has valid access rights. The cybersecurity problem is that technical authorization does not necessarily mean the person or process exercising it is legitimate. An attacker using stolen credentials, a hijacked session, or a compromised service account can perform malicious actions through apparently valid access channels.
+## Why identity failures dominate the incident landscape
 
-This distinction highlights a key limitation of traditional perimeter-focused security. Knowing that an authenticated identity is permitted to perform an action does not establish that the activity is appropriate in the current circumstances. Organizations increasingly need additional context: the device being used, location, authentication strength, the sensitivity of the requested resource, time of access, historical behaviour, risk indicators, and whether the requested action is consistent with the identity's legitimate role. This is why mechanisms such as phishing-resistant authentication, conditional access, behavioural analytics, privileged-session monitoring, and continuous identity assurance have become increasingly important.
+Managers should understand why identity-related weaknesses appear so frequently in cybersecurity incidents. Compromising a legitimate identity allows attackers to enter and operate within the organization through the same pathways used by employees, administrators, applications, devices, and suppliers. Once an attacker obtains valid credentials, a usable session, or another trusted identity, malicious activity may no longer resemble a conventional intrusion. To the systems involved, it may initially look like legitimate work performed by an authorized user or service. Five structural reasons explain why.
 
-From a governance perspective, IAM and PAM are **high-leverage control domains** because they can influence both the likelihood and the consequences of cyber incidents. They reduce the likelihood of successful compromise by strengthening authentication, controlling identity creation, limiting unnecessary access, and managing credentials and identity lifecycles. They reduce the potential impact of compromise by enforcing least privilege, segregation of duties, administrative-account separation, conditional access, just-in-time privilege, and restrictions on high-risk activities. They also strengthen accountability by showing who or what had access, who approved it, when it was exercised, what actions were performed, and whether the access remained justified over time.
+- **Credentials are scalable attack targets.** Attackers can steal, phish, purchase, reuse, guess, or extract passwords, tokens, session cookies, and API keys from users and compromised systems. Credential stuffing exploits password reuse across services, phishing exploits trust and urgency, and information stolen from compromised devices or browsers can be used to hijack authenticated sessions. This combination of availability, reuse, and automation makes identity compromise an efficient initial-access vector.
 
-The business case for effective identity governance is therefore much broader than protecting login processes. Strong IAM and PAM can reduce exposure to fraud, limit the blast radius of ransomware and other intrusions, constrain insider misuse, reduce privacy and data-protection risks, strengthen control over supplier access, improve auditability, and reduce the likelihood that a compromised identity will cause widespread operational disruption. They also provide management with evidence that access decisions are deliberate, reviewed, proportionate, and defensible.
+- **Identity relationships extend beyond the organization's boundaries.** Contractors, suppliers, consultants, managed service providers, cloud platforms, software integrations, and APIs all rely on some form of digital trust relationship. Each creates business value, but each is also a potential pathway into organizational resources. The governance problem is no longer which employees should have access, but which people and systems across an interconnected ecosystem should be trusted, to what extent, and under what conditions.
 
-In a modern digital organization, identity governance is a clear point where cybersecurity controls intersect with managerial accountability. **Every digital identity represents some degree of delegated organizational authority. IAM determines how broadly that authority is distributed; PAM determines how the organization controls its most consequential digital powers.** When identity governance fails, attackers do not necessarily need to defeat the organization's controls—they may instead inherit the authority to use, modify, or disable them.
+- **Permissions accumulate over time.** Access is granted quickly because business activity depends on it, while removal receives less attention because it rarely delivers an immediate benefit. People change roles, join projects, and leave; consultants complete assignments; temporary exceptions persist; service accounts are reused for new purposes. This **privilege creep** enlarges the attack surface, weakens least privilege, and can create segregation-of-duties conflicts.
 
-## Governance Objectives for IAM and PAM: What Good Looks Like
+- **Privileged pathways may operate outside normal controls.** Shared administrator accounts, long-lived service-account passwords, unmanaged API keys, permanent local-administrator rights, embedded credentials in scripts, and broadly assigned cloud-administrator roles may escape monitoring, rotation, review, or ownership. Because privileged identities can alter the environment itself, their compromise can turn a limited intrusion into an enterprise-wide incident.
 
-A mature IAM and PAM governance program should deliver clear, observable, and defensible outcomes. Its purpose is not merely to administer accounts or automate access requests, but to ensure that digital access is **appropriate, justified, proportionate, controlled, monitored, and continuously aligned with legitimate business needs**. Effective governance should enable management to demonstrate not only that access controls exist, but also that they operate consistently and that deviations are identified and corrected. Five governance objectives are especially important.
+- **Identity-based attacks resemble legitimate activity.** A firewall may permit the connection, an application may accept the credentials, a cloud platform may validate the token, and a database may authorize the query. From each control's perspective the activity is permissible because the identity holds valid rights. Technical authorization does not mean that the person or process exercising it is legitimate.
 
-- The first objective is **verified identity**. Before granting access, the organization must establish, with an appropriate level of confidence, that the person, device, application, workload, or service requesting access is the identity it claims to be. For human users, this includes appropriate identity proofing, strong authentication, multi-factor authentication, and higher-assurance requirements for sensitive or privileged roles. The required level of assurance should be proportionate to the consequences of unauthorized access, rather than applied uniformly to every user and resource.
+This last point highlights a key limitation of perimeter-focused security. Knowing that an authenticated identity is permitted to perform an action does not establish that the activity is appropriate in the current circumstances. Organizations increasingly need additional context: the device being used, location, authentication strength, the sensitivity of the resource, time of access, historical behaviour, and whether the action is consistent with the identity's legitimate role. This is why phishing-resistant authentication, conditional access, behavioural analytics, and privileged-session monitoring have become increasingly important.
 
-For non-human identities, verification requires confidence that the application, workload, service account, API client, automation process, or device presenting credentials is the intended system and has not been replaced, impersonated, or compromised. As organizations increasingly rely on cloud workloads, APIs, automation, and machine-to-machine interactions, this aspect of identity governance becomes more important. Authentication is therefore not simply about passwords or users; it is about establishing sufficient confidence in the identity of any actor permitted to exercise digital authority.
+From a governance perspective, IAM and PAM are high-leverage control domains because they influence both the likelihood and the consequences of incidents; in the terms of the risk triangle, they reduce exploitable vulnerability and constrain impact. They reduce the likelihood of successful compromise by strengthening authentication, controlling identity creation, limiting unnecessary access, and managing credentials and lifecycles. They reduce the impact of compromise by enforcing least privilege, segregation of duties, administrative-account separation, conditional access, and just-in-time privilege. They also strengthen accountability by showing who or what had access, who approved it, when it was exercised, and whether it remained justified. This is why identity weaknesses feature so prominently in the risk scenarios developed in Chapters 5 and 6: a stolen administrator credential or an orphaned supplier account is often the hinge on which a scenario turns from minor to severe.
 
-- The second objective is to apply **least privilege and need-to-know by default**. Grant access only to the extent necessary to perform a legitimate role, task, business process, or system function. It should not be granted merely because it might be useful later, because similar users already have it, or because broad permissions are administratively easier to manage. Access decisions should instead reflect a clear business requirement and the sensitivity of the resources involved.
+The business case is therefore much broader than protecting login processes. Strong IAM and PAM can reduce exposure to fraud, limit the blast radius of ransomware, constrain insider misuse, reduce privacy risk, strengthen control over supplier access, and improve auditability. Every digital identity represents some degree of delegated organizational authority: IAM determines how broadly that authority is distributed, and PAM determines how the organization controls its most consequential digital powers. **When identity governance fails, attackers do not necessarily need to defeat the organization's controls—they may instead inherit the authority to use, modify, or disable them.**
 
-Privileged access requires even greater discipline. Minimize elevated permissions, keep them separate from ordinary user access, limit their scope, restrict their duration where practicable, approve them explicitly when appropriate, and remove them when the underlying requirement ends. Just-in-time and just-enough-access approaches can further reduce standing privilege available for misuse or compromise. Least privilege therefore reduces both the likelihood of inappropriate access and the potential **blast radius** if an identity is compromised.
+## Governance objectives for IAM and PAM: what good looks like
 
-- The third objective is **segregation of duties and controlled decision rights**. High-risk activities should not rely on the unchecked authority of a single individual or identity. Where the consequences justify it, the stages of a sensitive process should be distributed across separate roles so that one actor cannot initiate, approve, execute, and conceal the same high-impact action without oversight.
+A mature IAM and PAM program should deliver clear, observable, and defensible outcomes. Its purpose is not merely to administer accounts or automate access requests, but to ensure that digital access is appropriate, justified, proportionate, monitored, and continuously aligned with legitimate business needs. Effective governance should enable management to demonstrate not only that access controls exist, but that they operate consistently and that deviations are identified and corrected. Five objectives are especially important.
 
-This principle is especially important in financial transactions, procurement, payroll, identity administration, privileged-access approval, security configuration, sensitive data management, change management, and incident recovery. Segregation of duties is broader than a cybersecurity control. It serves as a fraud-prevention mechanism, an internal-control principle, a compliance requirement, and a governance mechanism to prevent excessive concentrations of digital authority. In technical environments, it may be reinforced through approval workflows, separation of administrative roles, dual authorization, and restrictions on conflicting permissions.
+### Verified identity
 
-- The fourth objective is **identity lifecycle discipline**. Access should align with the identity’s legitimate lifecycle and the business relationship it represents. It must be created, modified, suspended, reviewed, and removed as employees join the organization, change responsibilities, take on temporary assignments, move between departments, take extended leave, change employment status, or leave. These joiner–mover–leaver processes should be reliable enough to translate changes in organizational reality into access changes without unnecessary delay.
+Before granting access, the organization must establish, with an appropriate level of confidence, that the person, device, application, workload, or service requesting access is the identity it claims to be. For human users, this includes appropriate identity proofing, strong authentication, and higher-assurance requirements for sensitive or privileged roles. The required assurance should be proportionate to the consequences of unauthorized access rather than applied uniformly. For non-human identities, verification means confidence that the workload, API client, automation process, or device presenting credentials is the intended system and has not been replaced, impersonated, or compromised. Authentication is therefore not simply about passwords or users; it is about establishing sufficient confidence in any actor permitted to exercise digital authority.
 
-The same principle applies beyond employees. Contractors and suppliers complete assignments; partners change responsibilities; applications are retired; workloads are replaced; devices are decommissioned; API integrations are discontinued; service accounts become obsolete; and tokens, keys, certificates, and other credentials expire or no longer serve a legitimate purpose. Without disciplined lifecycle governance, access tends to persist even after its justification has disappeared. Over time, orphaned identities and accumulated permissions increase exposure silently, making lifecycle failures one of the most predictable sources of excessive access and privilege creep.
+### Least privilege and need-to-know by default
 
-- The fifth objective is **auditability and evidence**. The organization must be able to reconstruct and demonstrate how access was governed. Management should be able to determine who or what had access, which permissions were assigned, why access was required, who approved it, when it became effective, when it was used, which significant actions were performed, when it was reviewed, and when it was modified or removed.
+Access should be granted only to the extent necessary to perform a legitimate role, task, process, or system function—not because it might be useful later, because similar users already have it, or because broad permissions are easier to administer. Privileged access requires even greater discipline: elevated permissions should be minimized, kept separate from ordinary access, limited in scope and duration where practicable, explicitly approved, and removed when the requirement ends. Least privilege reduces both the likelihood of inappropriate access and the blast radius if an identity is compromised.
 
-For privileged access, the evidentiary requirement is especially important because privileged actors can alter systems, grant access to others, modify sensitive data, change security configurations, disable controls, and potentially interfere with the evidence used to investigate their own actions. Appropriate logging, privileged-session monitoring, approval and access-review records, credential-management evidence, and tamper-resistant audit trails therefore provide an essential basis for accountability.
+### Segregation of duties and controlled decision rights
 
-Auditability should not, however, be confused with merely generating large volumes of logs. Evidence has governance value only when it is sufficiently complete, reliable, protected, retained, and reviewable to support decision-making and assurance. Without credible evidence, an organization may have controls in principle but cannot demonstrate that they operated as intended. It will also be less able to investigate incidents, attribute actions, support disciplinary or legal proceedings, satisfy auditors and regulators, or demonstrate compliance with internal and external requirements.
+High-risk activities should not rely on the unchecked authority of a single individual or identity. Where the consequences justify it, the stages of a sensitive process should be distributed across separate roles so that no one actor can initiate, approve, execute, and conceal the same high-impact action. The principle applies to payments, procurement, payroll, identity administration, privileged-access approval, security configuration, change management, and incident recovery. It is examined in detail later in this chapter.
 
-Together, these five objectives define the desired state for effective IAM and PAM governance:
+### Identity lifecycle discipline
+
+Access should follow the legitimate lifecycle of the business relationship it represents. It must be created, modified, suspended, reviewed, and removed as people join, change responsibilities, take extended leave, or leave—and as contractors complete assignments, applications are retired, integrations are discontinued, and credentials expire. Without disciplined lifecycle governance, access persists after its justification has disappeared, making lifecycle failures one of the most predictable sources of excessive access.
+
+### Auditability and evidence
+
+The organization must be able to reconstruct and demonstrate how access was governed: who or what had access, which permissions were assigned, why, who approved them, when they were used, which significant actions were performed, and when access was reviewed or removed. The requirement is strongest for privileged access, because privileged actors can potentially interfere with the evidence used to investigate their own actions. Auditability should not, however, be confused with generating large volumes of logs. Evidence has governance value only when it is complete, reliable, protected, retained, and reviewable enough to support decisions, investigations, and assurance.
+
+### The desired state
+
+Together, these objectives define the desired state for IAM and PAM governance:
 
 - Identity is not simply trusted; it is verified.
 
@@ -108,1091 +119,745 @@ Together, these five objectives define the desired state for effective IAM and P
 
 - Activity is not merely logged; it is made observable and supported by credible evidence.
 
-In this sense, IAM and PAM translate governance principles into day-to-day digital behaviour. Policies, risk appetite, least privilege, segregation of duties, accountability, and compliance obligations remain largely aspirational unless they are enforced through identity controls. IAM and PAM are therefore key mechanisms for translating **governance intent into controlled, auditable digital authority**.
+Policies, risk appetite, and compliance obligations remain largely aspirational unless they are enforced through identity controls. IAM and PAM are the mechanisms that translate governance intent into controlled, auditable digital authority.
 
-## IAM Governance in Practice: Decision Rights, Operating Model, and Accountability
+## IAM governance in practice: decision rights, operating model, and accountability
 
-Identity and Access Management is inherently a cross-functional governance system. IT alone cannot govern it, and cybersecurity cannot implement it effectively on its own. Decisions about identity and access affect business operations, fraud exposure, privacy, regulatory compliance, segregation of duties, operational resilience, third-party risk, and incident response. The central governance question is therefore not simply how access is provisioned, but **who has the authority to determine what access is appropriate, under what conditions, and with what accountability**.
+IAM is inherently a cross-functional governance system. IT alone cannot govern it, and cybersecurity cannot implement it effectively on its own. Decisions about identity and access affect business operations, fraud exposure, privacy, regulatory compliance, operational resilience, third-party risk, and incident response. The central governance question is therefore not simply how access is provisioned, but **who has the authority to determine what access is appropriate, under what conditions, and with what accountability**.
 
-Effective IAM governance rests on clearly defined **decision rights**. The organization must establish who owns the access-control model, defines business roles, approves access, determines authentication requirements, reviews permissions, maintains IAM policies and standards, operates identity platforms, authorizes exceptions, and is accountable when access decisions create unacceptable risk. Without clearly assigned decision rights, IAM can easily deteriorate into a ticket-processing function in which access is granted because someone requested it rather than because an accountable authority determined it was necessary and appropriate.
+Effective IAM governance rests on clearly defined decision rights. The organization must establish who owns the access-control model, defines business roles, approves access, sets authentication requirements, reviews permissions, maintains IAM policies and standards, operates identity platforms, authorizes exceptions, and is accountable when access decisions create unacceptable risk. Without these, IAM easily deteriorates into a ticket-processing function in which access is granted because someone requested it rather than because an accountable authority determined it was necessary.
 
-A practical IAM operating model typically comprises three interdependent layers of responsibility.
+### Three layers of responsibility
 
-- The first is a **central identity and access function**, typically located within cybersecurity, IT security, enterprise technology, or a shared governance function. This group provides the technical and procedural foundation for the IAM program. It designs and maintains the IAM architecture, operates or oversees identity platforms, establishes technical standards, implements authentication and federation mechanisms, supports provisioning and deprovisioning workflows, manages conditional-access capabilities, integrates applications with identity services, and ensures that identity-related controls generate sufficient evidence for monitoring and assurance. Its role is to make governance requirements technically enforceable and operationally repeatable.
+A practical IAM operating model typically comprises three interdependent layers, which map naturally onto the three lines model introduced in Chapter 1.
 
-- The second layer is **business ownership**. Business managers and information owners must determine which roles exist, what access is legitimately required to perform those roles, which information and processes are particularly sensitive, and who has authority to approve access within their areas of responsibility. This distinction is fundamental. Technology teams can administer permissions, but they generally cannot determine whether a particular employee, contractor, application, or service genuinely requires access to a specific business resource. That judgment depends on business context, operational responsibilities, regulatory obligations, and risk. Access is therefore a business risk decision implemented through technology, not merely a technical request fulfilled by IT.
+- **A central identity and access function**, usually within cybersecurity, IT security, or enterprise technology, provides the technical and procedural foundation. It designs the IAM architecture, operates identity platforms, sets technical standards, implements authentication and federation, supports provisioning workflows, manages conditional access, integrates applications, and ensures that controls generate sufficient evidence. Its role is to make governance requirements technically enforceable and operationally repeatable.
 
-- The third layer comprises **risk, compliance, privacy, and assurance oversight**. These functions provide independent or semi-independent challenge and verification. They assess whether access-control policies are appropriate, whether approvals are supported by legitimate business requirements, whether segregation-of-duties conflicts are identified and addressed, whether periodic access reviews are completed, whether privileged access is properly controlled, and whether exceptions are documented and justified. They also help determine whether IAM practices remain aligned with regulatory obligations, privacy requirements, contractual commitments, internal-control expectations, and the organization's risk appetite. Internal audit may subsequently provide independent assurance that these governance and management processes operate as intended.
+- **Business ownership** determines which roles exist, what access those roles legitimately require, which information and processes are sensitive, and who may approve access within each area. Technology teams can administer permissions, but they generally cannot judge whether a particular employee, contractor, or service genuinely requires access to a specific business resource. Access is a business risk decision implemented through technology, not a technical request fulfilled by IT.
 
-Managers should insist on explicit accountability for high-risk access. A model in which **“IT grants access when asked”** is insufficient governance. It reflects operational execution without clearly defined decision authority, risk ownership, or independent oversight. A mature IAM model deliberately separates these responsibilities: business owners determine legitimate access requirements; cybersecurity defines and maintains appropriate control patterns; IT and identity teams operate reliable provisioning and authentication processes; risk and compliance functions provide oversight; and internal audit independently evaluates whether the governance model is functioning effectively.
+- **Risk, compliance, privacy, and assurance oversight** provides challenge and verification. These functions assess whether policies are appropriate, approvals are justified, segregation-of-duties conflicts are addressed, reviews are completed, privileged access is controlled, and exceptions are documented, all against regulatory obligations, contractual commitments, and the organization's risk appetite. Internal audit then provides independent assurance that the model operates as intended.
 
-This division of responsibility also helps prevent a common governance failure: allowing the same function to request, approve, implement, and validate access without sufficient challenge. The degree of separation should match the risk. Routine, low-risk access may be largely automated under predefined policies, whereas sensitive, conflicting, or privileged access may require explicit approval, stronger authentication, additional monitoring, time limits, or independent review. Governance should therefore apply greater scrutiny to access that confers greater organizational authority or potential harm.
+A model in which **"IT grants access when asked"** is insufficient governance: it reflects operational execution without decision authority, risk ownership, or independent oversight. A mature model deliberately separates these responsibilities and prevents the same function from requesting, approving, implementing, and validating access without challenge. The degree of separation should match the risk. Routine, low-risk access may be largely automated under predefined policies, whereas sensitive, conflicting, or privileged access may require explicit approval, stronger authentication, time limits, additional monitoring, or independent review.
 
-Exceptions require equally clear governance. Temporary access, emergency permissions, unusual business requirements, and legacy-system limitations may occasionally make standard IAM controls impractical. Do not handle these situations informally. Each exception should have an identified owner, a documented justification, a defined scope, compensating controls where necessary, an expiration or review date, and appropriate approval commensurate with the level of risk. Otherwise, temporary exceptions can quietly become permanent sources of excessive access.
+### Policy anchors and exceptions
 
-The practical objective is to ensure that access decisions **are traceable, explainable, and defensible**. For every significant role, sensitive system, important data set, or privileged capability, the organization should be able to answer a consistent set of questions: Who owns this access? Who is authorized to approve it? Why is it required? What conditions constrain its use? What conflicting permissions must be prevented? How often is this access reviewed? How is it revoked when no longer needed? What evidence demonstrates that these controls are operating effectively?
+The major control frameworks discussed in Chapter 9 give this operating model its reference points. ISO/IEC 27002:2022 addresses access control, identity management, authentication information, and access rights (controls 5.15 to 5.18), as well as privileged access rights (8.2) and secure authentication (8.5). CIS Controls v8.1 devotes Control 5 to account management and Control 6 to access control management, and the NIST CSF 2.0 Protect function includes identity management, authentication, and access control as a distinct category (PR.AA). These references help managers frame policy and test completeness; they do not substitute for decisions about who owns which access.
 
-When these questions can be answered consistently and supported by reliable evidence, IAM moves beyond account administration. It becomes a governance system that enables the organization to assign digital authority, constrain its use, monitor its ongoing appropriateness, and hold accountable those who make and execute access decisions.
+Exceptions require equally clear governance. Temporary access, emergency permissions, unusual business requirements, and legacy-system limitations may occasionally make standard controls impractical. Such situations should not be handled informally. Each exception should have an identified owner, a documented justification, a defined scope, compensating controls where necessary, an expiry or review date, and approval commensurate with the risk. Otherwise, temporary exceptions quietly become permanent sources of excessive access.
 
-## Identity Lifecycle: The Most Underestimated Control
+The practical objective is to make access decisions traceable, explainable, and defensible. For every significant role, sensitive system, important data set, or privileged capability, the organization should be able to say who owns the access, who may approve it, why it is required, what conditions constrain its use, which conflicting permissions must be prevented, how often it is reviewed, how it is revoked, and what evidence shows that these controls operate. When these answers are consistently available, IAM moves beyond account administration and becomes a system for assigning, constraining, monitoring, and holding people accountable for digital authority.
 
-The **joiner–mover–leaver (JML) process** underpins effective access discipline. Many identity-related failures do not stem from a lack of sophisticated security technologies. They stem from something more fundamental: identities and permissions are created, changed, and removed inconsistently as people and systems evolve within the organization. A mature IAM program must therefore treat identity lifecycle management as a core governance control rather than as an administrative human resources or IT process.
+## Identity lifecycle: the most underestimated control
 
-The underlying principle is straightforward: **digital access should consistently reflect organizational reality**. When a person joins the organization, changes responsibilities, assumes a temporary assignment, moves between business units, or leaves, the corresponding digital authority should be updated. The same principle applies when contractors complete engagements, suppliers change personnel, applications are retired, workloads are replaced, or automated processes no longer require specific credentials. The governance challenge is to ensure that changes to legitimate business authority are reliably and promptly reflected in digital access.
+The **joiner–mover–leaver (JML) process** underpins effective access discipline. Many identity-related failures do not stem from a lack of sophisticated technology. They stem from something more fundamental: identities and permissions are created, changed, and removed inconsistently as people and systems evolve. A mature IAM program treats lifecycle management as a core governance control rather than an administrative HR or IT process. The underlying principle is straightforward: **digital access should consistently reflect organizational reality**.
 
-For **joiners**, the objective is to establish identity appropriately and grant access aligned with an approved business role. Onboarding should not rely on informal requests, copied permissions from another employee, or broad default access granted for convenience. While such approaches may be operationally expedient, they make it difficult to determine whether access is justified.
+### Joiners
 
-A mature onboarding process uses defined roles, standardized access profiles where appropriate, documented approvals, and clearly identified business ownership. Identity information should come from authoritative sources, and higher-risk access should receive greater scrutiny. The objective is not to minimize access to the point that people cannot do their work, but to ensure employees, contractors, suppliers, partners, and other authorized users receive **the access they need to perform their legitimate responsibilities—and no more**.
+For joiners, the objective is to establish identity appropriately and grant access aligned with an approved business role. Onboarding should not rely on informal requests, permissions copied from another employee, or broad default access granted for convenience; these shortcuts are expedient but make it impossible to show that access is justified. A mature process uses defined roles, standardized access profiles where appropriate, documented approvals, and clear business ownership. Identity information should come from authoritative sources such as the HR system or the contractor register, and higher-risk access should receive greater scrutiny. The aim is not to minimize access to the point that people cannot work, but to ensure that each person receives the access needed for their legitimate responsibilities—and no more.
 
-For **movers**, the principal risk is privilege creep. Employees routinely change jobs, participate in projects, assume temporary duties, relocate, transfer between departments, or take on new responsibilities. New access is often granted because the new work must begin immediately, while permissions tied to previous responsibilities remain unchanged. Over time, this leads to **privilege creep**: an accumulation of permissions that no longer reflects the user's current role.
+### Movers
 
-Privilege creep creates several governance problems. It weakens least privilege, increases the number of resources exposed if an account is compromised, can create segregation-of-duties conflicts, and may allow individuals to exercise combinations of authority that management never explicitly approved. The risk can remain largely invisible because each individual permission may once have been legitimate.
+For movers, the principal risk is privilege creep. Employees change jobs, join projects, assume temporary duties, and transfer between departments. New access is granted because the new work must begin immediately, while permissions tied to previous responsibilities remain. Over time, the account accumulates combinations of authority that management never explicitly approved, and the risk remains largely invisible because each individual permission was once legitimate. A role change should therefore trigger both provisioning and deprovisioning. The governance question is not only "What new access does this person require?" but also "What existing access is no longer justified?" Temporary permissions should carry expiry dates or review points, and significant role changes should trigger reassessment of sensitive and privileged access.
 
-A role change should therefore trigger both **provisioning and deprovisioning**. The appropriate governance question is not simply, “What new access does this person require?” It must also be, **“What existing access is no longer justified?”** Temporary permissions should have defined expiration dates or review points, where practicable. Significant role changes should trigger reassessment of sensitive and privileged access rather than merely adding new entitlements to an existing account.
+### Leavers
 
-For **leavers**, timeliness and completeness are especially important. Once an employment, contractual, supplier, or other trusted relationship ends, continued access may no longer be justified. Delayed or incomplete deprovisioning can create opportunities for unauthorized access, insider misuse, fraud, data theft, or post-employment activity. The degree of urgency should reflect the circumstances and risk of the departure, but organizations should establish clear procedures and service expectations rather than relying on informal coordination.
+For leavers, timeliness and completeness are critical. Once an employment, contractual, or supplier relationship ends, continued access is no longer justified, and delayed deprovisioning creates opportunities for misuse, fraud, or data theft. Urgency should reflect the circumstances of the departure, but organizations should establish clear procedures and service levels rather than rely on informal coordination. A complete leaver process may include disabling accounts, revoking active sessions and tokens, removing remote and privileged access, recovering devices and authenticators, removing delegated permissions, terminating access through federated or third-party systems, and rotating shared secrets the individual knew. Modern users have access through many pathways—SaaS applications, cloud platforms, remote-access services, administrative accounts, development environments, supplier portals, and API credentials—so deprovisioning must address the individual's actual access, not merely their most visible account.
 
-A complete leaver process may include disabling relevant accounts, revoking active authentication sessions and tokens, removing remote and privileged access, recovering organizational devices and credentials where applicable, removing delegated permissions, terminating access through federated or third-party systems, and addressing any shared secrets or credentials the departing individual accessed. The process may also require coordination among management, human resources, IT, cybersecurity, physical security, legal, records management, and other functions, depending on the role and the nature of the departure.
+### Non-human identities in the lifecycle
 
-The objective is not simply to close the individual's primary user account. Modern users may have access through multiple pathways: SaaS applications, cloud platforms, VPN or remote-access services, administrative accounts, collaboration systems, development environments, supplier portals, API credentials, shared resources, or delegated permissions. Effective deprovisioning must therefore address the individual's actual **access**, not merely their most visible identity.
+Lifecycle discipline must also apply to non-human identities. Unlike employees, service accounts, API credentials, certificates, and workload identities do not resign, transfer, or appear on termination reports; without explicit governance, they persist indefinitely. Every significant non-human identity should have an owner and a legitimate purpose, with requirements for rotation, expiry, periodic review, and decommissioning. When an application is retired, a supplier relationship ends, or an integration is replaced, the associated identities and credentials should be reviewed and removed. This topic is developed further later in the chapter.
 
-Lifecycle discipline must also apply to **non-human identities**. Service accounts, workloads, applications, API credentials, automation scripts, tokens, certificates, devices, secrets, and machine-to-machine identities are often created to support legitimate technical or business requirements and then remain in place long after those requirements change. Unlike employees, these identities do not resign, transfer departments, or trigger an HR termination process. Without explicit governance, they can persist indefinitely.
+### Lifecycle as assurance
 
-Every significant non-human identity should therefore have an identifiable owner and a legitimate purpose. Where appropriate, governance should establish requirements for credential rotation, expiration, periodic review, privilege reassessment, and decommissioning. When an application is retired, a supplier relationship ends, an integration is replaced, or an automated process changes, the associated identities and credentials should be reviewed and removed if no longer required. Otherwise, forgotten non-human identities can become persistent, poorly understood access paths into organizational systems.
+Lifecycle controls are also an important compliance and assurance mechanism, and they are relatively easy to test. Auditors can examine onboarding approvals, role mappings, access-change histories, termination notifications, disablement timestamps, expired temporary permissions, and exception approvals to determine whether documented policies operate in practice. Managers should monitor lifecycle performance rather than assume it is reliable, using indicators such as the percentage of leavers disabled within the required period, orphaned accounts, access persisting after role changes, expired contractor accounts still active, and non-human identities without owners.
 
-Identity lifecycle management is also an important **compliance and assurance mechanism**. Lifecycle controls govern access to personal information, financial systems, regulated records, intellectual property, cloud environments, administrative functions, and critical operational assets. They provide evidence that the organization is translating employment, contractual, and business decisions into appropriate access-control actions.
+The managerial lesson is simple yet consequential: **access should follow legitimate authority throughout its lifecycle**. It should be established when a valid relationship begins, adjusted when responsibilities change, reviewed while active, and withdrawn when the relationship that justified it ends. A well-governed JML process keeps digital authority aligned with organizational reality, reduces excessive privilege, reinforces segregation of duties, and limits the consequences of compromised identities.
 
-Lifecycle controls are also relatively straightforward to test. Auditors and assurance functions can examine onboarding approvals, identity records, role mappings, access-change histories, termination notifications, account-disablement timestamps, privileged-access changes, periodic access reviews, expired temporary permissions, and exception approvals. This evidence helps management determine whether documented IAM policies are operating in practice.
+## Authentication strategy: MFA, phishing resistance, and conditional access
 
-Managers should therefore monitor lifecycle performance rather than assume the process is reliable. Useful indicators may include the percentage of terminated identities disabled within the required period, the number of orphaned accounts, overdue access reviews, dormant privileged identities, access that persists after role changes, expired contractor accounts, non-human identities without documented owners, and temporary privileges that remain active beyond their approved duration. These measures make lifecycle discipline visible and help identify recurring weaknesses before they contribute to an incident.
+Managers should treat **multi-factor authentication (MFA)** as a baseline control for significant organizational access, not an optional enhancement. Password-only authentication provides insufficient assurance in most modern environments, especially for cloud services, remote work, sensitive information, financial processes, and administrative functions. However, the managerial objective is not simply to "turn on MFA." A mature authentication strategy determines how much confidence the organization requires in an identity under different circumstances and selects controls proportionate to that risk.
 
-The managerial lesson is simple yet consequential: **access should follow legitimate authority throughout its lifecycle**. It should be established when a valid relationship begins, adjusted when responsibilities change, reviewed while active, and withdrawn when the relationship that originally justified it ends. Access should not accumulate by accident, persist because no one remembered to remove it, or outlast the termination of the relationship that originally justified it.
+### Not all MFA is equal
 
-A well-governed joiner–mover–leaver process therefore does more than manage accounts. It keeps digital authority aligned with organizational reality. In doing so, it reduces excessive privilege, reinforces segregation of duties, improves auditability, eliminates unnecessary access paths, and limits the consequences of compromised or misused identities.
+Using two factors does not necessarily make authentication resistant to phishing, interception, or session compromise. SMS codes may be exposed through attacks on the subscriber's mobile account or the communications channel. Push-based approvals can be abused when attackers generate repeated requests until a user accepts one, a pattern known as **MFA fatigue**. One-time passwords can be captured and relayed in real time by adversary-in-the-middle phishing sites. **MFA should therefore not be treated as a single homogeneous control.** Management should know which mechanisms are deployed, which threats they mitigate, and where stronger methods are required.
 
-## Authentication Strategy: MFA, Phishing Resistance, and Conditional Access
+For high-risk access, organizations should favour **phishing-resistant authentication**, in which the protocol itself, rather than the user's vigilance, prevents an attacker from capturing and replaying an authenticator output. Phishing-resistant mechanisms rely on cryptography that binds the authenticator to the legitimate service or session. Examples include FIDO2/WebAuthn security keys and platform authenticators, properly implemented passkeys, and PKI-based smart cards. The U.S. Cybersecurity and Infrastructure Security Agency (CISA), in its 2022 fact sheet *Implementing Phishing-Resistant MFA*, identifies FIDO/WebAuthn and PKI-based methods as the forms that resist phishing. In Canada, the Treasury Board of Canada Secretariat's *Guideline on Multi-Factor Authentication* (2025) likewise treats passwords, one-time codes, and push approvals as not phishing-resistant and requires highly privileged federal users to use at least one phishing-resistant authenticator. Such methods matter most for identities with substantial consequences: privileged and identity administrators, cloud-management accounts, security personnel, financial approvers, users with production access, and those who reach highly sensitive information. **Authentication strength should increase as the potential consequences of identity compromise rise.**
 
-Managers should treat **multi-factor authentication (MFA)** as a baseline control for significant organizational access, not an optional enhancement. Password-only authentication provides insufficient assurance in most modern enterprise environments, especially when users access cloud services, remote-work platforms, sensitive information, financial processes, administrative functions, or critical operational systems. However, the managerial objective should not be simply to “turn on MFA.” A mature authentication strategy determines **how much confidence the organization requires in an identity under different circumstances and selects authentication controls proportionate to that risk**.
+### Assurance levels and NIST SP 800-63-4
 
-Not all MFA methods provide the same level of protection. Using two factors does not necessarily make the authentication process resistant to phishing, social engineering, interception, or session compromise. Some mechanisms still depend heavily on the user's ability to recognize malicious requests.
+Managers can use the NIST Digital Identity Guidelines, **SP 800-63-4**, finalized in July 2025 with its companion volumes SP 800-63A-4, 63B-4, and 63C-4, as a reference for structuring these decisions. The NIST model distinguishes three related assurance problems.
 
-SMS-based authentication codes, for example, may be exposed through attacks on the subscriber's mobile account, social engineering, or other weaknesses in the communications channel. Push-based authentication can be abused when attackers repeatedly generate approval requests in the hope that a user will eventually accept one, a pattern commonly described as **MFA fatigue** or **push fatigue**. One-time passwords can also be captured and immediately relayed via adversary-in-the-middle phishing infrastructure when users are deceived into entering them on fraudulent websites.
+- **Identity proofing** concerns the confidence with which an organization establishes that a person is the real-world individual they claim to be at enrolment.
 
-The governance implication is important: **MFA should not be treated as a single homogeneous control**. Management should understand which authentication mechanisms are deployed, the threats they mitigate, and where stronger authentication methods are required.
+- **Authentication** concerns the confidence that the person using a digital identity controls the authenticators bound to it.
 
-For high-risk access, organizations should increasingly favour **phishing-resistant authentication**. Phishing resistance reduces reliance on a user's ability to determine whether a login page or authentication request is legitimate. Instead, the authentication protocol itself helps prevent an attacker from capturing an authenticator output and replaying or relaying it to the legitimate service.
+- **Federation** concerns the mechanisms that allow identity information and authentication results to be trusted across systems, relying parties, and identity providers.
 
-Modern phishing-resistant mechanisms generally rely on cryptographic authentication, in which the authenticator is bound to the legitimate verifier or to the authentication session. Examples include FIDO2/WebAuthn authenticators, appropriately implemented passkeys, smart cards, and other cryptographic authenticators. These approaches provide substantially stronger protection against conventional credential-phishing attacks than passwords paired with manually entered one-time codes.
+These distinctions matter because strong authentication cannot compensate for weak proofing, and strong proofing cannot compensate for weak authentication later. Federating an identity extends trust to other systems and therefore requires governance of the identity provider, assertions, and relationships that convey that trust.
 
-Phishing-resistant authentication is especially important for identities that could have substantial organizational consequences. These include privileged administrators, identity administrators, cloud-management accounts, security personnel, financial approvers, users with production access, remote administrators, and individuals accessing highly sensitive information or critical systems. The principle is not that every identity must always use the strongest available mechanism, but that **authentication strength should increase as the potential consequences of identity compromise rise**.
+Where proofing or authentication relies on biometrics, privacy law adds its own conditions. In Québec, biometric information is sensitive personal information; using it to verify or confirm identity requires the person's express consent under the *Act to establish a legal framework for information technology*, and any database of biometric characteristics must be disclosed to the Commission d'accès à l'information at least 60 days before it enters service. Convenience alone rarely justifies biometrics, so managers should expect a privacy impact assessment and a documented necessity argument before approving such a design (see Chapter 16).
 
-Managers can use the **NIST Digital Identity Guidelines, SP 800-63-4**, as an important reference for structuring these decisions. The NIST model distinguishes three related but distinct assurance problems.
+NIST expresses authentication requirements as **Authentication Assurance Levels (AALs)**. The managerial value lies less in the terminology than in the principle that different situations warrant different levels of assurance. Revision 4 makes the expectations concrete: at AAL2, verifiers must offer at least one phishing-resistant option, and at AAL3 a phishing-resistant, non-exportable authenticator is required. The revision also recognizes syncable authenticators such as synced passkeys as acceptable at AAL2 but not at AAL3, a useful distinction for organizations deciding where consumer-style passkeys are adequate and where hardware-bound keys are needed. Authentication requirements should therefore be selected based on role, resource sensitivity, threat exposure, and potential business consequences, rather than through a single policy applied everywhere.
 
-- **Identity proofing** concerns the confidence with which an organization establishes that a person is the real-world individual they claim to be at the time of enrolment.
+### Conditional and adaptive access
 
-- **Authentication** concerns the confidence that the person attempting to use a digital identity controls the authenticators associated with that identity.
+Authentication strategy should extend beyond the initial login. A user who authenticated at the start of a session is not trustworthy indefinitely: devices can be compromised, tokens stolen, sessions hijacked, and risk conditions can change. Mature organizations therefore complement authentication with **conditional access**, which applies predefined policies to decide whether access should be granted and on what terms. Decisions may consider the identity's role, authentication strength, device posture, network and geographic context, session risk, unusual behaviour, threat indicators, and the sensitivity of the resource.
 
-- **Federation** concerns the mechanisms and assurance that enable trust in identity information and authentication results across systems, relying parties, and identity providers.
+Routine access to a low-sensitivity application from a managed device may require little friction. The same user reaching sensitive information from an unmanaged device may be required to use stronger authentication or be prevented from downloading data. An administrator accessing a cloud-management environment under unusual conditions may be required to reauthenticate with a phishing-resistant method from a compliant device. Depending on circumstances, a policy may restrict the session, shorten its duration, force reauthentication, block access entirely, or raise an event for investigation.
 
-These distinctions matter because strong authentication cannot compensate for weak identity proofing, just as strong initial identity proofing cannot compensate for weak authentication later. Similarly, federating an identity extends trust to other systems and therefore requires governance of the identity provider, assertions, protocols, and relationships that convey that trust.
+This approach reflects zero-trust principles, as described in NIST SP 800-207, *Zero Trust Architecture* (2020), and relevant to the security architecture discussed in Chapter 13. Trust is not inherited from network location or a single successful login; it is conditional and continuously reassessed against identity, device, context, and the requested resource. Conditional access also links risk appetite to operational enforcement. Governance may decide, for example, that privileged administration must never occur from unmanaged devices or that certain information cannot be accessed in specified contexts; conditional-access rules turn those decisions into repeatable technical behaviour.
 
-NIST further defines authentication requirements through **Authentication Assurance Levels (AALs)**. The managerial value of this model lies not in the terminology itself but in the principle behind it: different situations warrant different levels of authentication assurance. Routine, lower-risk access may not require the same controls as access that can change security configurations, authorize significant financial transactions, or control critical infrastructure. Authentication requirements should therefore be selected based on role, resource sensitivity, threat exposure, transaction significance, and potential business consequences, rather than applying a single authentication policy across the organization.
+### Proportionality, tiers, and recovery
 
-Authentication strategy should also extend beyond the initial login. A user who authenticated at the start of a session is not necessarily trustworthy indefinitely. Devices can be compromised, tokens can be stolen, sessions can be hijacked, user behaviour can change, and risk conditions can evolve. Mature organizations therefore complement authentication with **conditional and adaptive access controls**.
+Proportionality remains essential. Stronger authentication provides greater assurance but imposes cost and friction; excessive friction prompts unsafe workarounds and overwhelms support teams, while controls designed for convenience leave high-consequence access exposed. Governance should therefore establish explicit authentication tiers: defined minimums for routine access, stronger assurance for sensitive access, and the highest protection for privileged, administrative, and mission-critical access. These tiers should be documented and applied consistently rather than left to individual system owners.
 
-Conditional access applies predefined policies and risk criteria to determine whether access should be granted and under what conditions. Decisions may consider factors such as the identity's role, authentication strength, device security posture, network characteristics, geographic context, session risk, unusual behaviour, known threat indicators, and the sensitivity of the requested resource.
+The strategy must also address authentication recovery, because recovery processes can become alternative pathways around strong controls. An organization may deploy phishing-resistant authentication and remain vulnerable if an attacker can persuade a help desk to reset an account using weak identity verification. Processes for lost authenticators, account recovery, and credential reset should provide assurance proportionate to the access they restore. **Recovery should never become the weakest path into a strongly protected identity.**
 
-For example, routine access to a low-sensitivity application from a managed organizational device may require relatively little additional friction. The same user attempting to access sensitive information from an unmanaged device may be required to use stronger authentication or be prevented from downloading information. An administrator attempting to access a cloud-management environment under unusual conditions may be required to reauthenticate using a phishing-resistant method, use a compliant device, or satisfy additional controls before access is granted.
+Authentication governance should therefore cover minimum requirements, higher-assurance tiers, approved authenticator types, conditional-access policies, recovery procedures, exceptions, monitoring, user education, and periodic reassessment as threats, technologies, and regulations change. Authentication does not prove that an actor will behave appropriately, nor guarantee that an identity has not been compromised. Its role is to provide a defensible level of confidence that the actor using an identity is entitled to do so—to align confidence with consequence.
 
-Conditional access therefore makes authentication requirements **context-sensitive rather than static**. Depending on the circumstances, a policy may require additional authentication, restrict the session, prohibit specific activities, shorten session duration, require a managed or compliant device, prevent downloads, force reauthentication, block access entirely, or generate an event for investigation.
+## Authorization models: role engineering, RBAC/ABAC, and access reviews
 
-This approach aligns with **zero-trust principles**. Authentication should not confer permanent or unlimited trust simply because a user logs in or because a connection originates from a traditionally trusted network. Instead, access decisions should consider identity, device, context, the requested resource, and current risk conditions. Trust becomes conditional and is continuously reassessed rather than being implicitly inherited from network location or a single successful authentication event.
+Authorization is the decision logic that determines **what an authenticated identity may do**. Authentication answers, "Is this actor who or what they claim to be?" Authorization answers the next question: "Given that identity, which resources, functions, transactions, and data may it access?" Strong authentication does not determine whether an identity should be able to view a data set, approve a payment, administer a server, or change another user's permissions. An organization can have strong MFA and still have weak access control if authenticated users hold excessive permissions.
 
-Conditional access also links **risk appetite to operational enforcement**. Governance may, for example, determine that highly privileged administrative activity must never occur on unmanaged devices, that certain sensitive information cannot be accessed in specified contexts, or that unusual authentication behaviour requires additional assurance. Conditional-access mechanisms translate those decisions into repeatable technical rules.
+Many organizations mistake the presence of roles and permissions for effective authorization governance. An application may include roles, groups, profiles, and entitlements, but their presence alone does not prove that the access model is coherent, current, risk-based, or aligned with real responsibilities. Authorization becomes governable only when the organization can explain why specific permissions exist, who should receive them, who owns the decision, what risks they create, and how their continued appropriateness is verified.
 
-**Proportionality** remains an essential managerial principle. Stronger authentication generally provides greater assurance, but it can also impose financial, operational, and usability costs. Excessive friction may prompt users to adopt unsafe workarounds, overwhelm support functions, or impede legitimate business processes. Conversely, authentication controls designed primarily for convenience can leave high-consequence access inadequately protected.
+### Role engineering: translating business responsibility into access
 
-Governance should therefore establish **explicit authentication tiers**. Routine organizational access should have defined minimum requirements. Sensitive access should require stronger assurance. Privileged, administrative, and mission-critical access should receive the highest level of protection, justified by the organization's risk environment. Document these requirements and apply them consistently, rather than letting individual system owners determine them informally.
+**Role engineering** is the discipline of designing and maintaining roles that reflect legitimate organizational responsibilities and mapping the necessary entitlements to those roles. Without it, least privilege becomes very difficult to sustain at scale: access is granted per user in response to individual requests, exceptions accumulate, inherited permissions become opaque, temporary access becomes permanent, and managers lose the ability to explain why identities hold particular privileges.
 
-The strategy must also address **authentication recovery**, as these processes can become alternative pathways around otherwise strong controls. An organization may deploy phishing-resistant authentication and remain vulnerable if an attacker can persuade a help desk to reset an account using weak identity-verification procedures. Processes for lost authenticators, account recovery, authenticator replacement, emergency access, and credential reset should therefore provide assurance proportionate to the access they can restore. Recovery should not become the weakest path into a strongly protected identity.
+A mature model begins with business responsibilities rather than system permissions. The organization first determines what a person or system must accomplish, then identifies the minimum entitlements required. Business managers understand which responsibilities belong to which jobs and which combinations of authority would be inappropriate; cybersecurity and IT understand technical dependencies, privilege relationships, and threat exposure. Effective role design integrates both perspectives. Roles must also be treated as living governance objects, not static configurations. Processes change, applications are replaced, organizations restructure, and automation alters job functions, so significant roles need owners, periodic entitlement reviews, and procedures for change and retirement. The figure below compares the main authorization models.
 
-Authentication governance should define more than the technologies used at login. It should establish minimum authentication requirements, higher-assurance requirements for sensitive and privileged access, approved authenticator types, conditional-access policies, recovery procedures, exception processes, monitoring expectations, user education, and periodic review. It should also ensure that changes in threats, technologies, business activities, and regulatory requirements trigger reassessment of the authentication strategy.
+<span id="_Toc243635550" class="anchor"></span>Figure 51: Authorization models
 
-The managerial objective is to **align confidence with consequence**. Authentication does not prove that an actor will behave appropriately, nor can it guarantee that an identity has not been compromised. Its role is to provide a defensible level of confidence that the actor using a digital identity is legitimately entitled to do so. By combining appropriate identity proofing, risk-tiered authentication, phishing-resistant methods, conditional access, secure recovery, and continuous reassessment, the organization makes that confidence substantially more reliable and its access decisions more defensible.
+### Role-based access control
 
-## Authorization Models: Role Engineering, RBAC/ABAC, and Access Reviews
+**Role-Based Access Control (RBAC)** assigns permissions to defined roles and then associates identities with those roles. Instead of deciding individually whether each employee should hold dozens of permissions, the organization defines roles such as accounts-payable clerk, HR advisor, database administrator, or security analyst, each with an approved permission set. RBAC can standardize provisioning, simplify onboarding and role changes, reduce arbitrary assignments, support segregation of duties, and make access reviews easier to understand. It works best where groups of people perform stable, clearly defined functions.
 
-Authorization is the decision logic that determines **what an authenticated identity may do**. Authentication answers, “Is this actor who or what they claim to be?” Authorization then answers the next question: “Given that identity, what resources, functions, transactions, and data should the actor be allowed to access?”
+RBAC is only as effective as the roles it depends on. Poorly engineered roles become large bundles that institutionalize excessive access. Conversely, creating ever more specialized roles to accommodate exceptions leads to **role explosion**, in which hundreds or thousands of narrowly differentiated roles become almost as hard to govern as individual permissions. Roles should remain meaningful, understandable, owned, and linked to identifiable business responsibilities.
 
-This distinction is fundamental. Strong authentication can establish confidence in an identity, but it does not determine whether that identity should be able to view a particular data set, approve a payment, administer a server, modify a production application, or change another user’s permissions. An organization can therefore have strong MFA and still have weak access control if authenticated users have excessive or inappropriate permissions.
+### Attribute-based access control
 
-Many organizations struggle at this stage because they mistake the presence of roles and permissions for effective **authorization governance**. An application may include roles, security groups, profiles, privileges, permissions, and entitlements, but their presence alone does not prove the access model is coherent, current, risk-based, or aligned with actual business responsibilities. Authorization becomes governable only when the organization can explain why specific permissions exist, who should receive them, who owns the decision, what risks they create, and how it verifies their continued appropriateness.
+More dynamic environments may require **Attribute-Based Access Control (ABAC)**, which uses attributes of the identity, resource, action, and context to decide whether access is permitted. Relevant attributes may include department, employment status, location, device status, data classification, project membership, transaction value, time, authentication strength, or current risk indicators. An organization might allow a department to view a category of information only from managed devices and only while employment status is active, or require a specific job function, stronger authentication, and additional approval for transactions above a threshold. ABAC enables precise, context-sensitive decisions, particularly in cloud, data-centric, and zero-trust architectures.
 
-### Role Engineering: Translating Business Responsibility into Access
+Greater flexibility, however, increases governance complexity. Overlapping attributes and conditional policies can be hard to predict, test, and audit, and small changes may affect access unexpectedly. The managerial objective is not to choose the most sophisticated model but one that remains appropriate, explainable, enforceable, testable, and auditable. Complexity that the people accountable for the resulting risk cannot understand is a governance problem in itself. In practice, many organizations combine the two: roles establish a baseline, and attributes constrain how, when, and from where those permissions may be exercised.
 
-**Role engineering** is the discipline of designing and maintaining roles that align with legitimate organizational responsibilities and of mapping the necessary permissions or entitlements to those roles. It bridges business responsibilities and technical access.
+Authorization is also the primary mechanism for enforcing segregation of duties. Governance must consider not only whether each permission is legitimate, but whether the combination of permissions held by one identity produces inappropriate authority. This is the subject of the next section.
 
-Without effective role engineering, maintaining least privilege becomes increasingly difficult at scale. Access is often granted on a per-user basis, typically in response to individual requests. Exceptions accumulate, inherited permissions become hard to understand, temporary access becomes permanent, and managers gradually lose the ability to explain why particular identities have specific privileges.
+### Access reviews: testing whether authorization remains appropriate
 
-A mature authorization model therefore begins with business responsibilities rather than with system permissions. The organization should first determine what a person or system must be able to accomplish, then identify the minimum set of entitlements required to support those activities.
+Access reviews allow the organization to reassess periodically whether previously approved authorizations remain justified, since legitimate decisions become inappropriate as roles, systems, and risks change. In practice, reviews are often weak. Managers receive long lists of users and technical entitlement names and are asked to approve them. They may not understand what the access enables, why it was granted, or whether it has been used. Faced with uncertainty and volume, many simply approve. The organization can then show that a review occurred, but the review provides little assurance. This illustrates a dangerous gap between control completion and control effectiveness: a completed certification proves that a process ran, not that access risk was competently assessed.
 
-Role engineering requires meaningful participation from business owners. Business managers understand which responsibilities belong to specific jobs, which transactions employees should be able to perform, which information they require, and which combinations of authority would be inappropriate. Cybersecurity and IT bring a different perspective: they understand technical dependencies, privilege relationships, system limitations, threat exposure, and control requirements. Effective role design integrates these perspectives.
+A governance-grade review provides reviewers with decision-useful information: what the access allows, why it was granted, which role justifies it, when it was last used, whether the user still performs the function, whether it is privileged or sensitive, and whether it conflicts with other permissions. Reviews should also be risk-based. Privileged and administrative access, financial approvals, regulated or sensitive data, production systems, cloud management, external identities, dormant accounts, non-human identities, and conflicting permissions warrant more frequent review, stronger evidence, or independent validation than routine access.
 
-Roles must also be treated as **living governance objects,** not static configurations. Business processes change, applications are replaced, organizations restructure, responsibilities shift between departments, activities are outsourced, automation alters job functions, and regulatory requirements evolve. A role that provided appropriate access at creation may become excessive or insufficient over time.
+The value of a review ultimately depends on what happens next. Removing excessive permissions, resolving conflicts, disabling dormant accounts, correcting ownership, updating role definitions, and documenting justified exceptions are integral to the control. A review that identifies inappropriate access but does not lead to removal, remediation, or formally authorized risk acceptance offers little protection. Governance should therefore track whether findings are resolved on time, not just whether reviews are completed; organizations can achieve high completion rates while retaining substantial excessive access.
 
-Consequently, governance should establish clear ownership of significant roles, conduct periodic reviews of their associated entitlements, and define procedures for changing or retiring roles when business requirements change.
+### Authorization as continuous governance
 
-<img src="media/image51.png" style="width:6in;height:4.5in" />
+Authorization is not a one-time configuration exercise. Roles evolve, users move, systems change, and risk conditions shift, so a decision appropriate at approval does not remain so indefinitely. Roles must be deliberately designed and maintained, entitlements must have clear purposes and owners, conflicting permissions must be controlled, exceptions must be limited, and reviews must give accountable decision-makers meaningful information that leads to action. Authorization is where least privilege, segregation of duties, privacy, and fraud prevention become technically enforceable. Authentication establishes confidence in the actor; authorization determines the extent of organizational authority that identity may exercise.
 
-Figure 51: Authorization models
+## Segregation of duties: IAM as fraud prevention and control assurance
 
-### Role-Based Access Control
+**Segregation of duties (SoD)** is one of the clearest points where cybersecurity governance intersects with financial control, internal audit, compliance, and fraud prevention. In many high-impact processes, the risk is not only that an external attacker may compromise a system, but that a single person—or a single compromised identity—may initiate, approve, execute, conceal, or reverse a consequential action without independent oversight. This matters in payments, procurement, payroll, supplier management, financial reporting, identity administration, security configuration, cloud administration, and production change control. SoD is therefore not merely an accounting principle; it is a cybersecurity control because it limits the concentration of digital authority.
 
-**Role-Based Access Control (RBAC)** assigns permissions to defined roles and then associates identities with those roles. Instead of determining independently whether each employee should have dozens or hundreds of individual permissions, the organization can define a role such as accounts-payable clerk, human-resources advisor, database administrator, or security analyst and associate an approved set of permissions with that role.
+### Toxic combinations
 
-RBAC can significantly improve access governance. It can standardize provisioning, streamline onboarding and role changes, reduce arbitrary access assignments, improve consistency, facilitate segregation of duties, and make access reviews easier to understand. It is particularly useful when groups of people perform stable, clearly defined functions.
+The underlying principle is that no individual identity should hold permissions that allow it to complete a high-risk process from beginning to end without meaningful challenge. Individual permissions may each be legitimate, yet become dangerous together; such pairings are often called **toxic combinations**. A person who creates a new supplier should not ordinarily also approve that supplier, initiate payments to it, and reconcile those payments. A developer should not be able to approve and deploy their own change to production. An identity administrator may create accounts but should not approve their own privileged access. The same logic applies to security administration: an administrator who can create privileged identities, assign elevated permissions, disable monitoring, modify audit logs, and review the resulting evidence holds excessive authority. If that identity is misused or compromised, the access that enables the harmful action may also allow it to be concealed.
 
-However, RBAC is only as effective as the roles it depends on. Poorly engineered roles may simply become large bundles of permissions that institutionalize excessive access. Organizations may also create too many increasingly specialized roles to accommodate exceptions, eventually leading to **role proliferation or role explosion**. When hundreds or thousands of narrowly differentiated roles exist, the model can become almost as difficult to understand and govern as individualized permissions.
+### Preventive and detective enforcement
 
-Governance should therefore resist the assumption that creating more roles necessarily improves access control. Roles should remain meaningful, understandable, owned, and linked to identifiable business responsibilities.
+IAM must make SoD requirements enforceable in practice. This requires identifying incompatible roles and permissions, defining conflict rules, preventing inappropriate combinations where possible, detecting violations, and establishing controlled exception processes. In mature organizations, access requests are evaluated against conflict rules before permissions are granted, and potential conflicts are escalated rather than discovered months later during an audit. These controls should be both preventive and detective. Preventive controls stop conflicting access from being assigned; detective controls find conflicts that arise later because roles changed, permissions accumulated, applications were modified, or emergency access was granted. Access reviews should accordingly examine combinations of permissions, especially for privileged users, financial processes, production systems, and identities that span several applications.
 
-### Attribute-Based Access Control
+### Dual control and compensating controls
 
-More dynamic environments may require **Attribute-Based Access Control (ABAC)**. Rather than relying primarily on predefined roles, ABAC uses attributes of the identity, resource, requested action, and surrounding context to determine whether access is permitted.
+When full separation is impractical—in small organizations, specialized technical teams, emergencies, or privileged administration—dual control, additional approval, enhanced monitoring, or other compensating controls may be necessary. Dual control requires more than one authorized person to participate in a high-impact action: one administrator prepares a critical change while another approves or executes it, or transactions above a threshold require two approvers. Compensating controls do not eliminate the conflict; they reduce or monitor its risk. They should therefore be governed like any other exception, with documentation of why the conflict exists, who owns the resulting risk, which safeguards apply, and when the arrangement will be reassessed.
 
-Relevant attributes may include department, employment status, job classification, geographic location, device status, data classification, project membership, transaction value, time of access, authentication strength, network characteristics, or current risk indicators. Policies can combine multiple attributes to enable more granular decisions.
+### Fraud, blast radius, and assurance
 
-For example, an organization might permit employees in a specific department to view a particular category of information only when accessing it from managed devices and when their employment status is active. A financial transaction above a defined threshold might require a specific job function, stronger authentication, and additional approval. Access to particularly sensitive data might be permitted only to users with defined responsibilities and from devices that meet specific security requirements.
+SoD also connects to the **fraud triangle** introduced in Chapter 1. Of the three conditions associated with fraud, opportunity is the one controls can most directly reduce, and excessive access, weak oversight, and concentrated authority create it. SoD reduces that opportunity by requiring collaboration, independent approval, or separate execution of sensitive activities. The same mechanism constrains external attackers. An account that can initiate but not approve a transaction, or administer a system but not disable its monitoring, offers far less to an adversary than one with end-to-end authority. SoD thus limits the blast radius of an identity compromise.
 
-ABAC can therefore enable more precise, context-sensitive access decisions, particularly in cloud, data-centric, distributed, and zero-trust architectures where static roles alone may be insufficient.
+For managers, SoD also provides assurance. A control environment is more credible when high-risk actions require identifiable decision points, independent participation, and evidence of approval. Organizations should be able to identify significant SoD conflicts, explain which roles create them, demonstrate how they are prevented or detected, and show how approved exceptions are monitored and reassessed. The managerial lesson is that access rights must be evaluated collectively, not one entitlement at a time, and that IAM and PAM programs must make SoD visible, enforceable, reviewable, and verifiable.
 
-Greater flexibility, however, increases governance complexity. A large collection of overlapping attributes and conditional policies can be difficult to understand, predict, test, and audit. Small changes to an attribute, policy, or dependency may unexpectedly affect access.
+## Third-party and partner access governance: the extended identity problem
 
-The managerial objective is therefore not to choose the most technically sophisticated authorization model. It is to ensure that the model remains **appropriate, explainable, enforceable, testable, and auditable**. Complexity that the people accountable for the resulting risk cannot understand is a governance problem in itself.
+Organizations increasingly rely on contractors, managed service providers, cloud consultants, software vendors, outsourcing partners, auditors, implementation partners, and business-to-business integrations. These relationships create identity dependencies essential to modern operations, yet they are often harder to govern than employee access. A vendor account with long-standing privileged access can provide an unintended pathway into critical systems. A contractor whose access remains active after an engagement ends is a predictable lifecycle failure. A partner integration with broader permissions than required may expose data or infrastructure beyond the intended purpose. External identities may reach cloud consoles, source-code repositories, customer information, financial platforms, remote-access tools, and administrative interfaces, sometimes while facing weaker onboarding, less frequent review, and unclear internal ownership. Third-party identity is therefore an enterprise risk and governance issue, not a secondary access-management task. The broader governance of suppliers is the subject of Chapter 19; this section focuses on the identity dimension.
 
-In practice, organizations often combine RBAC and ABAC. Roles may establish a baseline set of permissions, while attributes and contextual conditions further constrain how, when, and from where those permissions may be exercised. This hybrid approach can combine the administrative simplicity of roles with the contextual precision of attribute-based policies.
+### External access must be owned internally
 
-### Authorization and Segregation of Duties
+The fundamental principle is that external access must be owned internally. Each significant third-party account, federated identity, or integration should have an identifiable internal sponsor accountable for the business justification, the scope of access, the sensitivity of the resources involved, the duration of the relationship, and periodic confirmation that access remains necessary. Without explicit ownership, access persists after projects end, personnel change, or contracts expire, simply because no one is responsible for removing it.
 
-Authorization is also a primary mechanism for enforcing **segregation of duties (SoD)**. The organization should identify permission combinations that create unacceptable concentrations of authority.
+Third-party access should therefore be purpose-specific and time-limited wherever practicable. Access should be granted for a defined purpose and period, and renewal should require confirmation that the need persists. Contract dates, statement-of-work periods, supplier personnel changes, and vendor offboarding should be linked to identity lifecycle controls, and expiry dates should be embedded in provisioning where technically feasible. Long-lived external access may sometimes be justified, but it should be deliberately governed rather than assumed.
 
-For example, the same individual may not be permitted to create a supplier account and approve payments to that supplier. A developer may be restricted from unilaterally approving and deploying changes to production. An identity administrator may be permitted to create accounts but not to independently approve their own privileged access. A person responsible for security operations may require additional oversight before disabling certain monitoring controls.
+### Least privilege and PAM for suppliers
 
-These combinations are sometimes called **toxic combinations** because individual permissions may seem reasonable in isolation but create significant fraud, security, or control risk when combined.
+Least privilege applies to third parties as rigorously as to employees. Broad administrator permissions should not be granted merely because they simplify support. When a supplier requires privileged access, the organization should apply the same or stronger PAM controls used for internal administrators: separate administrative identities, just-in-time elevation, approval workflows, phishing-resistant authentication, credential vaulting, restricted administrative pathways, limited session duration, and session monitoring or recording. This is especially important for managed service providers whose personnel may administer infrastructure for many customers. The organization should know whether access is assigned to named individuals, how the supplier manages its own privileged identities, whether shared accounts exist, and how quickly access can be revoked when supplier personnel change.
 
-Authorization governance must therefore consider not only whether each permission is legitimate but also whether the **combination of permissions** assigned to an identity results in inappropriate authority.
+Monitoring should be proportionate to the risk of the relationship. External access to production environments, cloud administration, identity platforms, security tooling, backups, financial applications, or critical operational systems should never be invisible to the organization's monitoring and assurance processes. Management should be able to determine not only that a supplier had access, but when it was used and which significant actions were performed.
 
-### Access Reviews: Testing Whether Authorization Remains Appropriate
+### Federation, integrations, and contracts
 
-Access reviews provide a mechanism for organizations to periodically assess whether previously approved authorizations remain justified. This is necessary because legitimate access decisions can become inappropriate over time as roles, responsibilities, systems, and risks change.
+Third-party governance must also cover federated and machine-to-machine access. Partners may authenticate through their own identity providers, and applications may exchange data using API credentials, tokens, certificates, or service principals. These arrangements reduce administrative effort but create dependencies on external controls. Federation does not eliminate governance: the organization must understand which attributes and assertions it trusts, what happens when a partner employee leaves, how access is revoked, and what assurance it has that the partner's identity processes remain reliable.
 
-In practice, however, organizations often conduct access reviews poorly. Organizations may conduct periodic certification exercises in which managers receive long lists of users and technical permissions and are asked to approve them. Reviewers may not recognize entitlement names, understand what the access enables, recall why it was originally granted, or know whether it has been used recently.
+Identity governance must therefore be integrated with procurement, contracting, third-party risk management, and supplier offboarding, and access conditions should be evaluated before a supplier is granted connectivity. Contracts should, where appropriate, set expectations for authentication, privileged access, logging, timely notification of personnel changes, incident notification, access termination, subcontractors, and cooperation with audits. Identity controls cannot indefinitely compensate for weak commercial arrangements: if a supplier is not obliged to report changes in its privileged personnel, the organization may not know when access should be revoked. Ending a relationship should trigger a coordinated review of all associated accounts, federated identities, administrative roles, remote-access permissions, API credentials, certificates, tokens, and shared secrets; disabling a single account is rarely sufficient.
 
-Faced with uncertainty and large volumes of information, reviewers may simply approve existing access. The organization can then demonstrate that an access review occurred, but the process may provide little meaningful assurance.
+The crucial governance principle is the following.
 
-This creates a dangerous distinction between **control completion and control effectiveness**. A completed certification is evidence that a process occurred; it is not necessarily evidence that access risk was competently assessed.
+| **Delegating access does not transfer accountability.** The identity may belong to someone outside the organization, but the access rights fall within the organization's risk boundary. |
+|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 
-A governance-grade access review should therefore provide reviewers with **decision-useful information**. Reviewers should be able to understand what the access allows the identity to do, why it was originally granted, which role or responsibility justifies it, when it was last exercised, whether the user still performs the relevant function, whether the permission is privileged or sensitive, and whether it conflicts with other permissions.
+Outsourcing an activity may transfer operational responsibility, but it does not eliminate the need for governance, oversight, evidence, and risk ownership. Third-party identities, privileged vendor access, federated trust, and machine-to-machine integrations should therefore be incorporated into the organization's IAM, PAM, monitoring, and risk-management processes rather than managed as exceptions at their edge.
 
-Reviews should also be **risk-based**. Not every entitlement requires the same frequency or level of scrutiny. Generally prioritize privileged access, administrative roles, financial approvals, access to sensitive or regulated information, production systems, cloud management environments, external identities, dormant accounts, non-human identities, and permissions that can create segregation-of-duties conflicts.
+## PAM: the crown jewel controls managers must demand
 
-High-risk access may warrant more frequent review, stronger evidence, or independent validation than routine, low-risk access does.
+Privileged access is qualitatively different from ordinary access. Ordinary access allows users and systems to perform approved work within established boundaries. Privileged access allows users, administrators, services, and automation tools to change those boundaries: create or disable accounts, assign permissions, change security settings, access data at scale, alter or delete logs, manage encryption keys, deploy software, and interrupt operations. Managers should assume that privileged identities and administrative pathways will be targeted. The governance objective is not to assume that privileged compromise can always be prevented, but to make privilege difficult to obtain, tightly constrained when granted, observable during use, and rapidly revocable.
 
-### Review Must Lead to Remediation
+PAM is therefore a **crown-jewel control domain**, not an optional enhancement for technical teams. A firewall, endpoint platform, backup system, logging platform, identity provider, or encryption infrastructure is only as trustworthy as the privileged-access model that secures its administration. An attacker who gains sufficient administrative authority may be able to disable the very controls intended to detect or contain them.
 
-The effectiveness of an access review ultimately depends on what happens after you identify inappropriate access.
+### Separate privileged and ordinary identities
 
-Removing excessive permissions, resolving segregation-of-duties conflicts, disabling dormant accounts, correcting ownership information, updating role definitions, terminating obsolete identities, and documenting justified exceptions are integral to the control. A review that identifies inappropriate access but does not result in removal, remediation, or formally authorized risk acceptance offers little protection.
+A baseline PAM design begins with strong separation between ordinary activity and privileged administration. Administrators should not browse the web, read email, or open collaboration messages using identities that also hold administrative authority. A separate privileged identity, used only when administrative authority is required, means that compromising routine activity does not immediately yield privileged access. This separation is more than a naming convention: it creates distinct trust boundaries and allows stronger authentication, monitoring, and restrictions for administrative identities than would be practical for everyday use.
 
-Governance should therefore monitor not only whether access reviews were completed but also whether findings were resolved within appropriate timeframes. Useful indicators may include overdue certifications, the percentage of high-risk access reviewed on schedule, the number of permissions removed after review, unresolved segregation-of-duties conflicts, dormant privileged accounts, orphaned accounts, and exceptions that remain beyond their approved duration.
+### Reduce standing privilege
 
-This distinction matters because organizations can achieve high review completion rates while still retaining substantial excessive access. Effective governance assesses the **quality and consequences of the review**, not merely the completion rate.
+Mature PAM seeks to minimize **standing privilege**. Users should not hold permanent administrative authority simply because they occasionally need it; the longer privilege remains available, the larger the window for misuse. **Just-in-time (JIT) access** is the key pattern: a user operates with ordinary permissions, requests elevation when needed, receives it for an approved purpose, and loses it automatically when the task or time window ends. The related principle of **just-enough privilege** grants only the capabilities necessary for the specific task. Together, these reduce the number of permanently privileged identities, narrow the period during which authority can be exploited, and reduce the value of stolen credentials.
 
-### Authorization as Continuous Governance
+### Protect privileged credentials and secrets
 
-The managerial lesson is that authorization is not a one-time configuration exercise. An access decision that was appropriate at the time of approval does not remain so indefinitely. Roles evolve, users move, systems change, new information is created, organizational structures shift, and risk conditions change.
+Credential vaulting and secrets management are central PAM capabilities. Privileged passwords, local administrator credentials, service-account passwords, API keys, certificates, and tokens should not be stored in spreadsheets, scripts, shared folders, source-code repositories, personal notes, or unsecured configuration files. They should be held in controlled systems that enforce access restrictions and, where applicable, rotation, expiry, approval, and logging. In a mature design, users may reach a privileged function without ever seeing the underlying secret: the PAM platform brokers the session, injects credentials, rotates them after use, or issues temporary secrets that expire. The principle is that **privileged authority should be governed independently of possession of a reusable credential**. The cryptographic side of this problem—keys, certificates, and their custody—is treated in Chapter 20.
 
-Authorization must therefore be a continuous governance process. Organizations must deliberately design and maintain roles. Entitlements must have clear purposes and owners. Access must be based on legitimate requirements. Organizations must identify and control conflicting permissions. Exceptions must be documented and limited. Reviews must provide meaningful information to accountable decision-makers, and findings must lead to action.
+### Monitor privileged sessions and actions
 
-Authorization is the point at which several key governance principles become technically enforceable. Least privilege determines the authority level an identity receives. Segregation of duties determines which powers should not be combined. Privacy and data governance determine which information an identity may access. Fraud prevention constrains sensitive transactions. Access reviews verify that prior decisions remain justified.
+Privileged-session management strengthens accountability. High-risk administrative sessions may be brokered, monitored, or recorded where the risk justifies it, not for surveillance's sake but to create reliable evidence, deter misuse, and support investigation. Monitoring should establish which person or process initiated the activity, why it was approved, which resources were accessed, what significant actions were performed, and when the privilege ended. Shared administrative accounts are particularly problematic because logs show what the account did but not who did it. Where they cannot be eliminated, PAM should associate each use with a named individual, approval record, session, and business purpose. Privileged activity should always be attributable to an accountable person or a clearly governed non-human process.
 
-Authentication establishes confidence in the actor's identity. Authorization determines the **extent of organizational authority that identity may exercise**. Effective authorization governance ensures that this authority remains proportionate to legitimate need, is understandable to accountable managers, and is subject to ongoing review throughout the identity lifecycle.
+### Control administrative pathways
 
-## Segregation of Duties: IAM as Fraud Prevention and Control Assurance
+PAM must also govern where privileged actions can originate and how sessions reach sensitive systems. Strong credential controls can be undermined if administration is permitted from ordinary workstations, unmanaged devices, or insecure remote-access services. Mature designs constrain administrative pathways through hardened privileged-access workstations, dedicated management environments, segmented administrative networks, device-compliance requirements, conditional access, phishing-resistant authentication, and session brokering. Privileged access should require not only a privileged identity but a trusted administrative path, so that malware on a routine endpoint or a stolen browser session does not become a route to administrative systems.
 
-Segregation of duties (SoD) is one of the clearest points where cybersecurity governance intersects with financial control, internal audit, compliance, fraud prevention, and organizational accountability. In many high-impact processes, the risk is not only that an external attacker may compromise a system. It is also that a single person—or a single compromised identity—may initiate, approve, execute, conceal, or reverse a consequential action without adequate independent oversight.
+### Non-human privilege and emergency access
 
-This matters in processes such as payments, procurement, payroll, supplier management, financial reporting, identity administration, cybersecurity configuration, cloud administration, privileged access, sensitive data management, and production change control. When a single identity can perform incompatible activities within the same process, the organization creates an opportunity for fraud, error, insider misuse, unauthorized changes, or concealment of inappropriate activity.
+PAM must also encompass non-human identities. Service accounts, deployment pipelines, cloud roles, and workload identities may hold administrative permissions even though no person logs in with them, and they are often long-lived, hard to rotate, and over-permissioned because teams fear disrupting automated processes. The objective is to avoid tightly governed human administrators alongside powerful machine identities that remain effectively invisible; this is developed in its own section below. PAM must likewise provide for emergency or break-glass access when normal identity systems fail, without creating a hidden permanent bypass—the subject of the next section.
 
-Segregation of duties is therefore not merely an accounting or financial control principle. It is an important **cybersecurity governance control because it limits the concentration of digital authority**.
+### PAM as a governance and assurance mechanism
 
-The underlying principle is straightforward: no individual identity should hold a combination of permissions that allows it to complete a high-risk process from beginning to end without meaningful challenge or oversight. Individual permissions may each be legitimate when considered separately, yet become dangerous when combined. The governance problem therefore lies not only in determining whether each entitlement is appropriate, but also in determining whether the **combination of entitlements creates excessive authority**.
+Managers should be able to obtain credible answers to a small set of questions: Who holds privileged authority, and over which systems and data? Why is it required, and is it permanent or temporary? Who approved it, and through which pathways can it be exercised? How are privileged secrets protected and significant activity monitored? When was privileged access last reviewed, and how quickly can it be revoked? These questions move PAM beyond product deployment. An organization may own a PAM platform and still have weak PAM governance if administrator accounts bypass it, service accounts remain unmanaged, passwords are shared informally, permanent cloud roles proliferate, or session records are never reviewed.
 
-IAM must be designed to make segregation-of-duties requirements enforceable in practice. This requires the organization to identify incompatible roles and permissions, define conflict rules, prevent inappropriate combinations where possible, detect violations when they occur, and establish controlled exception processes where complete separation cannot reasonably be achieved.
+The managerial lesson is that privileged authority must be **minimized, justified, separated, time-bounded where practicable, strongly authenticated, exercised through controlled pathways, monitored, attributable, and evidenced**. PAM is not merely a mechanism for protecting administrator passwords; it is a governance safeguard designed to prevent an ordinary compromise from becoming a catastrophic one.
 
-For example, a person responsible for creating a new supplier should not ordinarily be able to approve that supplier, initiate payments to it, and independently reconcile those payments. Each activity may be a legitimate organizational function, but concentrating them in a single identity removes independent oversight and creates an opportunity for fraud or concealment.
+## Break-glass accounts: emergency access without permanent weakness
 
-The same principle applies to cybersecurity administration. An administrator who can create privileged identities, assign elevated permissions, approve their use, disable monitoring, modify audit logs, and independently review the resulting evidence holds excessive authority. If that identity is misused or compromised, the same access that enables the harmful action may also allow the actor to conceal it.
+Emergency access, commonly called **break-glass access**, is necessary because normal identity and administrative pathways can fail. Identity providers may become unavailable, federation may be disrupted, administrators may be locked out, or urgent recovery may be needed during an incident. A well-governed organization must preserve the ability to regain control of critical systems when ordinary mechanisms are unavailable—a resilience requirement that connects directly to the incident and continuity planning of Chapter 12.
 
-In mature organizations, segregation-of-duties rules are embedded directly within identity-governance processes. Access requests can be evaluated against predefined conflict rules before permissions are granted. Organizations can escalate potential conflicts for review rather than discovering them months later during an audit. High-risk exceptions may require explicit business justification, a defined duration, compensating controls, and approval from an accountable authority.
+The governance challenge is that the independence that makes emergency access useful can also make it dangerous. Break-glass identities that bypass normal workflows can become persistent backdoors if they are shared, weakly protected, poorly documented, rarely tested, or excluded from monitoring. The objective is to achieve two outcomes simultaneously: **emergency access must remain available when normal controls fail, and it must remain tightly controlled when no emergency exists**. Break-glass mechanisms should be few, explicitly justified, assigned to defined systems or recovery purposes, and never used for convenience, routine troubleshooting, or avoiding normal privileged-access workflows.
 
-These controls may be both **preventive and detective**. Preventive controls aim to prevent conflicting access from being assigned in the first place. Detective controls identify inappropriate combinations that already exist, perhaps because roles changed, permissions accumulated over time, applications were modified, or emergency access was granted. Both are necessary because authorization environments are dynamic, and a configuration that was appropriate at the time of approval may later create a conflict.
+### Preserve independence without creating a backdoor
 
-Periodic access reviews should therefore assess not only whether individual permissions remain necessary but also whether the combination of permissions assigned to an identity creates inappropriate concentrations of authority. This is especially important for privileged users, financial processes, production systems, security administration, and identities that span multiple applications or business processes.
+Emergency access should be independent of the controls whose failure it is meant to overcome. A recovery mechanism that depends on the same identity provider, authentication service, network path, or PAM platform that has failed provides little resilience. Yet independence must not mean absence of control. Governance should define which normal dependencies may be bypassed during an emergency and which safeguards must remain in force.
 
-When structural separation is impractical, **dual control, additional approval, enhanced monitoring, or other compensating controls** may be necessary. This can arise in small organizations, specialized technical teams, emergency situations, privileged administration, production changes, financial approvals, or sensitive operational activities where staffing or system limitations make full separation difficult.
+| **Break-glass access should bypass failed dependencies, not governance itself.** |
+|----------------------------------------------------------------------------------|
 
-Dual control generally requires more than one authorized person to participate or approve a high-impact action before it is completed. For example, one administrator may prepare a critical production change, while another independently approves or executes it. A financial transaction above a defined threshold may require two authorized approvers. Emergency privileged access may require subsequent independent review.
+### Protect credentials and define activation conditions
 
-Compensating controls do not eliminate the underlying SoD conflict. Rather, they reduce or monitor the associated risk when complete separation is not reasonably achievable. For that reason, the organization should govern compensating arrangements. The organization should document why the conflict exists, who owns the resulting risk, which additional safeguards apply, how long the exception will remain valid, and when it will be reassessed.
+Break-glass credentials and authenticators should receive protection proportionate to the authority they confer: strong authentication, secure storage, controlled custody, restricted knowledge, and physical protection of hardware authenticators. Arrangements in which several administrators casually know a shared emergency password, or in which credentials sit in accessible documents or personal password stores, should be avoided. Where practical, retrieval may require more than one authorized person. The aim is for emergency access to be recoverable without becoming routinely accessible.
 
-Segregation of duties also relates to the **fraud triangle** introduced earlier in this book. One of the three conditions associated with fraud is opportunity. Excessive access, weak oversight, and concentrated decision authority create such opportunities. SoD reduces that opportunity by requiring collaboration, independent approval, or separate execution of sensitive activities.
+Management should also define when break-glass access may legitimately be used—failure of normal identity infrastructure, loss of ordinary privileged access, or a critical incident in which delay would cause significant harm—together with who may initiate it, who must be notified, what approval is required where circumstances permit, and what documentation must follow. The process must remain practical in a real crisis. A mechanism that depends on unavailable personnel, inaccessible systems, or an elaborate approval chain may fail exactly when it is needed.
 
-The same mechanism also constrains external attackers. If an adversary compromises one identity, that identity's permissions determine what the attacker can accomplish. An account that can initiate but not approve a transaction, administer one component but not disable its monitoring, or access information but not alter authorization policies presents a smaller attack surface than an identity with unrestricted end-to-end authority.
+### Monitor, test, and review every use
 
-Segregation of duties therefore helps limit the **blast radius of an identity compromise**. A compromised account is dangerous; a compromised account with multiple conflicting permissions and no independent oversight is substantially more dangerous.
+Break-glass accounts should be excluded from routine use but included in monitoring and alerting. Activation should be treated as a high-significance security event, generating immediate alerts to security operations, identity administrators, system owners, and relevant management. The organization should be able to determine who invoked the mechanism, when, on which system, why normal access was unavailable, what was done, and when emergency access ended. Because some emergencies involve failure of normal monitoring, critical evidence may need collection mechanisms that do not depend on the affected system. **Emergency authority should never become invisible authority.**
 
-For managers, SoD also provides important assurance. A control environment is more credible when high-risk actions require identifiable decision points, independent participation, and evidence of approval. Audit trails should demonstrate not only that an activity occurred but also that the required separation was observed or that an approved exception and a compensating control were in place.
+Emergency access should be tested periodically through controlled exercises. Testing verifies that credentials and authenticators work, that designated personnel understand the procedure, that monitoring detects the event, and that recovery can be performed without unsafe improvisation. It should also confirm that the mechanism has not quietly lost its independence through changes to identity infrastructure, cloud configuration, or networks, and that it has not accumulated unnecessary permissions or custodians. Break-glass testing is therefore both a resilience test and a control-assurance test.
 
-Organizations should consequently be able to identify significant SoD conflicts, explain which roles and permissions create them, demonstrate how they are prevented or detected, identify approved exceptions, and show how those exceptions are monitored and reassessed periodically.
+Every activation should trigger a formal post-use review. This does not imply that emergency use is suspicious, but that it represents an intentional departure from normal controls and warrants heightened accountability. The review should confirm why access was needed, whether its use was authorized and proportionate, what changes were made, and whether normal mechanisms have been restored. Credentials should be rotated or resecured, temporary changes reviewed, and unnecessary permissions removed. If administrators had to improvise because recovery procedures were inadequate, the organization should treat that as a governance lesson rather than simply closing the record.
 
-The managerial lesson is that access rights must be evaluated collectively**, not one entitlement at a time**. A permission that seems reasonable in isolation may become unacceptable when combined with another permission that allows the same identity to approve, execute, conceal, or reverse a sensitive action.
+### Ownership and the managerial test
 
-IAM and PAM programs must therefore make segregation of duties **visible, enforceable, reviewable, and verifiable**. By limiting concentrations of digital authority, SoD strengthens fraud prevention, cybersecurity resilience, internal control, accountability, and assurance.
+Each significant emergency identity or recovery pathway should have a clear owner and a record of the system it protects, who may invoke it, how its credentials are protected, what permissions it holds, how activation is detected, and when it was last tested. Periodic review should confirm that it is still required and that its permissions, custodians, monitoring, and documentation remain current. Obsolete break-glass identities are especially dangerous: administrators assume no one uses them, while attackers specifically seek neglected administrative pathways.
 
-## Third-Party and Partner Access Governance: The Extended Identity Problem
+The managerial question is straightforward: **can the organization regain administrative control during a crisis without creating a permanent weakness during normal operations?** A mature program can answer yes because its emergency access is available when normal mechanisms fail, independent of the dependencies it is designed to recover from, strongly protected while dormant, limited to defined purposes, attributable, alerted on every use, periodically tested, reviewed after each activation, and resecured once the emergency ends. Break-glass access is not a bypass around governance; it is a governed resilience mechanism.
 
-<span id="_Toc215626101" class="anchor"></span>Organizations increasingly rely on third parties, including contractors, managed service providers, cloud consultants, software vendors, outsourcing partners, auditors, implementation partners, and business-to-business integrations. These relationships create identity dependencies essential to modern operations, yet they are often more difficult to govern than employee access.
+## Non-human identities: service accounts, API keys, tokens, and machine-to-machine trust
 
-A third-party identity can become a significant source of exposure when access is persistent, excessive, poorly monitored, or no longer justified. A vendor account with long-standing privileged access can provide an unintended pathway into critical systems. A contractor whose access remains active after an engagement ends is a predictable lifecycle failure. A partner integration with broader permissions than required may expose data, applications, or infrastructure beyond the intended business purpose.
+A major blind spot in many IAM and PAM programs is the governance of non-human identities. Significant compromises do not always begin with an employee account. They may begin with a leaked API key, a long-lived token, an overprivileged service account, a poorly managed certificate, a secret embedded in source code, or credentials exposed through a CI/CD pipeline. These identities can hold substantial authority over systems, cloud resources, data, deployment processes, and security controls—sometimes broader, more persistent, and less visible than that of any human user.
 
-Third-party identity should therefore not be treated as a secondary access-management issue. It is an **enterprise risk and governance issue**. External identities may access internal systems, cloud consoles, source-code repositories, ticketing environments, customer information, financial platforms, production systems, remote-access tools, security platforms, or administrative interfaces. In some cases, third-party personnel or services may exercise substantial operational authority while facing weaker onboarding, less frequent access reviews, different employment controls, or unclear internal ownership.
+Managers must therefore recognize a fundamental principle: **workloads are identities, and machine-to-machine trust is an access-control relationship**. Applications authenticate to databases, microservices call one another, infrastructure-as-code platforms create cloud resources, backup platforms read large volumes of data, pipelines build and deploy software, and security tools quarantine endpoints or block accounts. Each activity requires a mechanism through which one system is trusted to act upon another, whether a service account, API key, token, certificate, workload identity, or cloud role. If these relationships are not governed, powerful access pathways accumulate outside employee-focused IAM processes and remain invisible to managers and reviewers.
 
-The fundamental governance principle is that external access must be owned internally.
+### Inventory, ownership, and least privilege
 
-Each significant third-party account, federated identity, service relationship, or integration should have an identifiable internal sponsor or business owner. That owner should be accountable for the business justification, the scope of access, the sensitivity of the resources involved, the duration of the relationship, and periodic confirmation that continued access remains necessary.
+Governance begins with visibility: an organization cannot govern machine identities it does not know exist. Significant non-human identities should be inventoried and linked to the application, workload, integration, or business process that depends on them and to an accountable owner. Ownership matters because machine identities do not participate naturally in human lifecycle processes. A service account created for a project may keep operating long after the project ends; an API key may remain active after its application is replaced; a certificate may continue to authorize a system no one remembers owning. Each significant non-human identity should have a defined owner, legitimate purpose, authorized scope, appropriate privilege level, credential-management requirements, monitoring expectations, and retirement criteria.
 
-Without explicit ownership, third-party access can persist long after the circumstances that originally justified it have changed. Projects end, supplier personnel change, consultants complete assignments, contracts expire, services are replaced, and responsibilities shift between organizations. If no internal party is accountable for reassessing the associated access, the identity may remain active simply because no one is responsible for removing it.
+Least privilege applies equally to machines. A reporting service that reads a limited data set should not hold database administration rights; a pipeline that publishes one application should not control unrelated production environments. This matters more for machines than for people because an overprivileged automated process may run thousands of times a day and be trusted implicitly by many systems. Machine identities should therefore be evaluated not only by what they do, but by what their permissions would allow if compromised. Identities able to deploy production software, modify cloud infrastructure, administer databases, manage backups, change identity configurations, or issue credentials to other systems should be classified as privileged and governed within the PAM model.
 
-Third-party access should therefore be **purpose-specific and time-limited wherever practicable**. Access should be granted for a defined business purpose and an appropriate period, rather than indefinitely by default. Renewal should require confirmation that the underlying business need persists.
+### Reduce dependence on long-lived secrets
 
-Contract dates, project milestones, statement-of-work periods, supplier personnel changes, and vendor offboarding processes should be linked to identity lifecycle controls. Where technically feasible, expiration dates should be embedded directly in access provisioning to prevent temporary access from silently becoming permanent. Long-lived external access may sometimes be justified, but it should be deliberately governed rather than assumed.
+Static credentials are attractive to attackers because they can be copied and reused without triggering the behavioural indicators associated with compromised human accounts. Passwords, API keys, private keys, and tokens should not be embedded in source code, scripts, container images, configuration files, or build logs. Secrets-management platforms provide stronger protection through access control, logging, rotation, versioning, and expiry. Better still, where technically feasible, organizations should reduce reliance on long-lived reusable secrets altogether through short-lived credentials, managed identities, workload identity federation, certificate-based authentication, and dynamically issued tokens. Protecting a secret indefinitely is inherently difficult; reducing credential lifetime limits how long a stolen secret remains useful. Where long-lived credentials remain necessary because of legacy constraints, they should be treated as controlled exceptions with justification, compensating safeguards, and periodic review.
 
-The principle of **least privilege** applies to third parties as rigorously as to employees. Access should align with the specific services the external party is expected to perform. Do not grant broad administrator permissions merely because they simplify support or reduce the number of access requests.
+### Govern the machine identity lifecycle
 
-When a supplier requires privileged access, the organization should apply the same or stronger PAM controls as those used for internal administrators. Depending on risk, these may include just-in-time privilege elevation, separate administrative identities, approval workflows, restricted administrative pathways, phishing-resistant authentication, credential vaulting, limited session duration, activity monitoring, and privileged-session recording.
+Non-human identities need a lifecycle just as human ones do: deliberate creation, assignment to an owner, appropriate permissions, periodic review, modification when requirements change, and retirement when the purpose ends. Triggers include application retirement, project completion, supplier termination, infrastructure replacement, platform migration, certificate expiry, and redesign of automated processes. The governance question is the same one applied elsewhere in IAM: does this identity still have a legitimate reason to exist, and does it still require the authority it holds? Dormant, orphaned, or unexplained identities should be investigated and disabled or removed.
 
-This is particularly important for managed service providers and technology vendors whose personnel may administer infrastructure for multiple customers. The organization should understand whether access is assigned to identifiable individuals, how the supplier manages its privileged identities, how authentication is performed, whether shared accounts exist, and how quickly access can be revoked when supplier personnel change.
+### Supply-chain, CI/CD, and cloud identities
 
-Monitoring should also be **proportionate to the risk posed by the external relationship**. Higher-risk third-party access may warrant stronger controls, such as hardened access points, managed devices, network or application restrictions, ticket-based approval, session recording, detailed activity logging, enhanced alerting, or retrospective review of privileged actions.
+Non-human identity governance intersects directly with software supply-chain security. Source-code repositories, build servers, artifact repositories, package managers, signing services, and deployment pipelines trust one another through machine identities. A compromised CI/CD identity may allow an attacker to alter source code, introduce malicious dependencies, tamper with builds, obtain further credentials, or push unauthorized software into production, and its activity may be assumed legitimate because it appears to come from normal development processes. Pipeline identities should therefore be governed according to the authority they can exercise, not classified as ordinary technical accounts.
 
-External access to production environments, cloud administration, identity platforms, sensitive information, cybersecurity tooling, backup environments, financial applications, or critical operational systems should never be invisible to the organization’s monitoring and assurance processes. The organization should be able to determine not only that a supplier had access but also when that access was exercised and which significant actions were performed.
+Cloud environments amplify the issue because workloads routinely obtain permissions to create resources, modify storage permissions, alter network configurations, manage encryption services, and create further identities. Cloud roles and workload identities should have clearly defined trust relationships: management should understand not only which permissions an identity holds, but which systems are permitted to assume or invoke it, especially where trust policies allow another workload, account, tenant, pipeline, or external service to obtain its privileges. Cloud-specific identity architecture is discussed further in Chapter 15.
 
-Third-party identity governance should also cover **federated and non-human access**. Business partners may authenticate via their own identity providers rather than through locally managed accounts. Applications may exchange data using API credentials, tokens, certificates, service principals, or other machine identities. These arrangements can reduce administrative effort, but they also create dependencies on external identity and security controls.
+### Monitor behaviour and avoid anonymous authority
 
-Federation does not eliminate the need for governance. The organization must understand which attributes and authentication assertions it trusts, what happens when a partner employee leaves, how access is revoked, and what assurance there is that the partner's identity processes remain reliable. Similarly, machine-to-machine integrations should have defined ownership, limited permissions, appropriate credential protection, rotation or expiration requirements, and decommissioning procedures.
+Machine identities can in some respects be easier to monitor than people because automated systems behave predictably. A service account that normally reads one database should attract attention if it begins querying unrelated systems; a deployment identity that starts creating administrative users, or a backup account that starts deleting data, warrants investigation. Monitoring should look for unexpected resources, unusual API operations, new execution locations, privilege escalation, dormant-identity use, and activity outside the intended purpose. The objective is to determine whether the machine identity is behaving consistently with the purpose for which its authority was granted.
 
-Third-party identity governance must therefore be integrated with **procurement, contracting, third-party risk management, and supplier offboarding**. Access conditions should be evaluated before a supplier is granted technical connectivity, not after access has already been granted.
+Accountability also suffers when one generic service account is shared across unrelated applications. Shared machine identities simplify administration but weaken attribution and enlarge the impact of credential compromise. Where practicable, distinct workloads should use distinct identities so that permissions can be tailored, credentials rotated or revoked independently, and activity attributed to the responsible system. The goal is to avoid anonymous machine authority, in which powerful credentials are widely shared but no one can say which application used them or why.
 
-Contracts and related agreements should, where appropriate, define expectations for authentication, privileged access, access approval, logging, data handling, incident notification, personnel changes, credential management, access termination, and cooperation with audit or assurance activities. Higher-risk relationships may also warrant requirements for subcontractors or other parties through which the supplier delivers its services.
+### Machine identity as delegated digital authority
 
-This integration is important because identity governance cannot indefinitely compensate for weak commercial arrangements. For example, if a supplier's contractual obligations do not require timely notification of changes to privileged personnel, the organization may have difficulty determining when access should be revoked. Procurement and contracting therefore set the conditions under which effective IAM and PAM controls can operate.
+Modern organizations increasingly delegate operational authority to software. Applications execute transactions, automation modifies infrastructure, pipelines deploy production systems, security tools take containment actions, and APIs transfer organizational data. These are exercises of digital authority even when no person is directly involved at the moment of action. Non-human identities must therefore be inventoried, owned, classified, minimized, protected, monitored, reviewed, and ultimately retired. Managers should be able to ask of a machine identity the same questions they ask of a human one: what it is, who owns it, why it exists, what it can reach, how it authenticates, where its credentials are protected, how compromise would be detected, and what will cause it to be retired. AI agents that act through tools are the newest and fastest-growing form of this delegated authority; Chapter 18 explains why they should be governed as non-human identities with least privilege, accountable owners, and approval gates for consequential actions. Non-human identity governance is not simply secrets management; it is the governance of organizational authority exercised by software.
 
-Third-party offboarding warrants particular attention. Ending a commercial or contractual relationship should trigger a coordinated review of accounts, federated identities, administrative roles, remote-access permissions, API credentials, certificates, tokens, shared secrets, devices, delegated access, and other trust relationships associated with that supplier. Disabling a single user account is rarely sufficient when the relationship has created multiple technical access paths.
+## Auditability and evidence: turning access control into credible assurance
 
-The crucial governance principle is that **delegating access does not transfer accountability**. An organization may allow a vendor to administer infrastructure, operate a platform, manage applications, or provide cybersecurity services, but it remains accountable for the risks arising from the authority it delegates.
+One of the most important lessons for managers is that **access control without evidence is difficult to distinguish from an assumption**. An organization may believe that MFA is enforced, leavers are deprovisioned promptly, privileged access is monitored, and reviews are completed. Unless it can produce reliable evidence, such claims are hard to verify and defend. Evidence is the difference between "we believe the control operates" and "we can demonstrate that it operates." Chapter 3 discusses how such evidence supports compliance; here the focus is on what IAM and PAM evidence must contain.
 
-This principle is especially important when third parties perform functions the organization itself cannot easily observe. Outsourcing an activity may transfer operational responsibility, but it does not eliminate the need for governance, oversight, evidence, and risk ownership.
+Auditability requires both decision traceability and activity traceability: the organization should be able to reconstruct how access was granted, modified, exercised, reviewed, and removed. This does not mean elaborate documentation for every routine action. It means that access decisions and high-impact activity leave sufficient evidence for accountability, assurance, and investigation. At a minimum, the organization should be able to evidence authentication requirements and MFA enforcement, assigned roles and permissions, requests and approvals, access changes, privileged logins and significant privileged actions, review results, lifecycle events, exception approvals, and formal acceptance of residual access risk. The depth of evidence should be proportionate to the authority involved.
 
-A mature organization should be able to consistently answer a set of questions about external identities: Which third parties have access? What business purpose justifies that access? Who internally owns the relationship? What systems, data, and functions can they access? Which permissions are privileged? How is authentication performed? What conditions constrain their access? When will it expire or be reviewed? How will access be revoked if the relationship changes? How is significant activity monitored and documented?
+### Lifecycle and privileged evidence
 
-Third-party access is ultimately an extension of the organization’s identity environment. **The identity may belong to someone outside the organization, but the access rights fall within the organization’s risk boundary.** Effective governance therefore requires that third-party identities, privileged vendor access, federated trust, and machine-to-machine integrations be incorporated into the organization’s IAM, PAM, monitoring, assurance, and risk-management processes rather than managed as exceptions at the edge of those processes.
+For human identities, the organization should be able to show when an individual joined, what access was granted, which role justified it, and who approved it; which permissions were added and removed when responsibilities changed; and when access was disabled after departure, including sessions, remote access, privileged accounts, and delegated permissions for higher-risk identities. This answers a central assurance question: did digital authority change when organizational authority changed? For non-human identities, comparable evidence shows who owns the identity, why it exists, what it can do, what depends on it, when credentials were issued or rotated, when access was last reviewed, and how it will be decommissioned. Without such evidence, machine identities can remain active for years with no one able to explain why.
 
-## PAM: The Crown Jewel Controls Managers Must Demand
+PAM requires the strongest evidence because privileged access represents exceptional authority. Relevant records include privileged-access requests and justifications, approvals, JIT elevation windows, credential retrieval, session start and end, administrative activity, session recordings where justified, and break-glass activations and reviews. The purpose is not documentation for its own sake but to make consequential actions reconstructable and attributable: management should know which person or governed process exercised the authority, why, under what approval, and whether the activity remained within the authorized purpose—even when the underlying system only records that a generic administrative account acted.
 
-Privileged access is qualitatively different from ordinary access. Ordinary access allows users and systems to perform approved work within established boundaries. Privileged access allows users, administrators, services, and automation tools to **change those boundaries**. It can create or disable accounts, modify configurations, assign permissions, change security settings, access sensitive information at scale, alter or delete logs, manage encryption keys, deploy software, modify infrastructure, recover systems, or interrupt operations.
+### Evidence must be reliable
 
-For this reason, managers should assume that privileged identities and administrative pathways will be attractive targets for attackers and that attempts will eventually be made to obtain, misuse, or abuse them. The governance objective is not to assume that privileged compromise can always be prevented, but to make privilege difficult to obtain, tightly constrained when granted, observable during use, and rapidly revocable when no longer justified.
+A record is not automatically reliable evidence. Logs and approval records that can be altered or deleted by the same privileged identities whose actions they document provide limited assurance. High-value evidence should be protected against unauthorized alteration and deletion, access to audit records should be restricted, and sensitive environments may require separation between those who administer systems and those who control audit evidence. Retention should reflect operational, investigative, legal, contractual, privacy, and regulatory needs; keeping identity data indefinitely is not appropriate, but keeping it too briefly can make investigations and compliance demonstrations impossible. Evidence governance should answer not only what is logged, but who can modify it, where it is stored, how long it is kept, and whether it will be available when auditors, investigators, or regulators need it.
 
-**Privileged Access Management (PAM)** makes privileged access harder to obtain and misuse, easier to monitor, and easier to revoke. PAM should not be treated as an optional enhancement for technical teams. It is a **crown-jewel control domain** because compromising privileged access can undermine many of the safeguards on which the organization depends.
+### IAM, PAM, and security operations
 
-A firewall, endpoint security platform, backup system, cloud environment, logging platform, identity provider, encryption infrastructure, or security monitoring system is only as trustworthy as the privileged-access model that secures its administration. If an attacker gains sufficient administrative authority, they may be able to modify or disable the controls intended to detect or contain them.
+Identity evidence should not remain isolated within access-management platforms. Authentication logs, privilege elevations, account changes, token use, and anomalous machine-identity behaviour should be correlated with evidence from endpoints, cloud platforms, applications, ticketing, and change management, as discussed in Chapters 7 and 8. Context distinguishes legitimate activity from misuse: a privileged login outside normal hours may be harmless if it matches an approved emergency change, and highly significant if no change record exists, the device is unfamiliar, and the identity then modifies logging. Identity-related detection, now often packaged by vendors as **identity threat detection and response (ITDR)**, may cover repeated authentication failures, unexpected MFA prompts, suspicious account recovery, unusual privilege elevation, dormant-account use, access from unmanaged devices, high-risk permission changes, abnormal API activity, and emergency-account activation. Not every anomaly is an incident, but significant alerts need defined ownership, triage criteria, and escalation. **Evidence that is collected but never examined provides little control value.**
 
-### Separate Privileged and Ordinary Identities
+### From logging to assurance
 
-A baseline PAM design begins with strong separation between ordinary user activity and privileged administration. Administrators should not routinely browse the web, read email, open collaboration messages, or perform other everyday activities using identities that also possess administrative authority.
+Managers do not need to understand log formats or authentication protocols. They do need to insist that, for significant access, the organization can establish who or what had access, why, who approved it, what it permitted, when and from where it was used, what significant actions were performed, whether the activity matched the identity's role or purpose, whether it was reviewed, whether inappropriate permissions were removed, and whether the organization could reconstruct events if the identity were later suspected of compromise. These are governance questions, not logging questions. An organization may collect billions of identity events and still have weak assurance if those records cannot answer them.
 
-Separate administrative identities reduce the likelihood that compromise of routine user activity immediately produces privileged access. An administrator may therefore have one identity for everyday work and a separate privileged identity used only when administrative authority is required.
+Reliable evidence also supports the three lines model. Operational teams use it to administer access and demonstrate that procedures were followed; risk, compliance, and privacy functions use the same evidence to monitor whether access remains within policy and risk appetite; and internal audit uses it to test design and operating effectiveness independently. **The function performing a control should not be the only source of assurance that the control works.** Without reliable evidence, audits become interviews, investigations become reconstructions from fragments, and compliance claims depend largely on trust. With it, management can identify excessive access, challenge exceptions, verify deprovisioning, investigate suspicious activity, and demonstrate that identity controls operate as intended. The objective is not to "log everything," but to produce **decision-useful, reliable, protected, and reviewable evidence** of how digital authority is granted, exercised, changed, and withdrawn.
 
-This separation is more than an account-management convention. It creates distinct trust boundaries, permits stronger authentication and monitoring for privileged activity, and allows organizations to apply more restrictive conditions to administrative identities than would be practical for routine user access.
+## Measurement: IAM/PAM metrics that matter to governance
 
-### Reduce Standing Privilege
+IAM and PAM are governance domains in part because their effectiveness can be observed and measured. The most useful indicators are not those that count activity—accounts created, passwords reset, tickets processed. Such figures help operational management but say little about whether identity risk is controlled. Governance-grade metrics should show whether access exposure is rising or falling, whether high-risk identities and privileges are controlled, whether lifecycle processes are reliable, whether exceptions are being reduced, and whether evidence exists to demonstrate that access remains appropriate. As discussed in Chapter 4, the most important of these should be framed as key risk indicators with thresholds tied to risk appetite.
 
-Mature PAM also seeks to minimize **standing privilege**. Users should not retain permanent administrative authority simply because they occasionally require it. The longer privileged access remains continuously available, the larger the opportunity window for misuse or compromise.
+Good measurement combines several types of indicators. **Coverage metrics** show whether controls are deployed across the relevant population. **Performance metrics** show whether they operate within expected standards. **Risk indicators** highlight conditions that increase exposure, such as orphaned accounts or standing privilege. **Remediation metrics** show whether identified weaknesses are being corrected. The table below gives representative examples.
 
-Where technically and operationally feasible, privileged access should instead be granted through controlled elevation mechanisms. **Just-in-time (JIT) access** is an important pattern: a user operates with ordinary permissions by default, requests elevated access when required, receives it for a defined and approved purpose, and automatically loses that privilege when the task, session, or authorized time period ends.
+| **Governance area**               | **Example metric**                                                          | **Why it matters**                                      |
+|-----------------------------------|-----------------------------------------------------------------------------|---------------------------------------------------------|
+| MFA coverage                      | % of active workforce identities protected by MFA                           | Shows whether baseline protection is broadly enforced   |
+| Phishing-resistant authentication | % of privileged and high-risk identities using phishing-resistant methods   | Concentrates strong assurance where impact is greatest  |
+| Conditional access                | % of sensitive applications and privileged paths under approved policies    | Shows whether access decisions use context              |
+| Leaver deprovisioning             | % of leavers disabled within the required service level                     | Tests a critical lifecycle control                      |
+| Mover remediation                 | % of role changes with obsolete access removed on time                      | Measures control of privilege creep                     |
+| Standing privilege                | Number of permanently privileged identities, with trend                     | Shows whether persistent authority is shrinking         |
+| Just-in-time privilege            | % of eligible privileged access granted through time-limited elevation      | Shows whether privilege is temporary and justified      |
+| Privileged-session accountability | % of high-risk sessions attributable to a named person or governed process  | Shows whether admin activity can be reconstructed       |
+| Access-review remediation         | % of inappropriate access removed within the required period                | Measures review effectiveness, not completion           |
+| SoD conflicts                     | Unresolved high-risk conflicts, and % of exceptions with owner and expiry   | Shows whether authority concentrations are governed     |
+| Break-glass readiness             | % of emergency mechanisms tested; % of activations reviewed                 | Confirms emergency access works and stays accountable   |
+| Dormant and orphaned accounts     | Accounts beyond inactivity threshold or without valid owner                 | Identifies identities that escaped lifecycle governance |
+| Third-party access                | % of external identities with sponsor, purpose, and expiry                  | Ties external access to a live relationship             |
+| Non-human identities              | % of significant machine identities with owner and privilege classification | Shows whether machine authority is visible              |
+| Secret hygiene                    | % of machine credentials meeting rotation or short-lived requirements       | Tracks reduction of long-lived secrets                  |
+| Identity exceptions               | Active exceptions and % past review or expiry date                          | Shows whether exceptions stay temporary                 |
+| Evidence completeness             | % of sampled high-risk access decisions with full evidence                  | Tests whether controls are demonstrable                 |
 
-A related principle is **just-enough privilege**: the elevated identity should receive only the administrative capabilities necessary for the specific task rather than broad unrestricted authority.
+### Interpreting metrics and trends
 
-Together, these approaches reduce the number of identities possessing permanent administrative rights, narrow the period during which privileged authority can be exploited, and reduce the value of stealing a credential that does not itself provide continuous administrative access.
+Metrics should not be read mechanically. A rise in access-review findings may indicate poor governance, or it may show that an improved review process is finally exposing excess that was previously hidden. A fall in privileged user accounts may reflect better least privilege, or a transfer of privilege into unmanaged service accounts and cloud roles. A high MFA coverage figure can create false confidence if the uncovered remainder includes administrators; a 99 percent result matters less than knowing which one percent remains outside the control. Reporting should therefore be segmented—ordinary versus privileged users, employees versus third parties, human versus non-human identities, routine versus critical systems—because enterprise averages hide concentrations of exposure.
 
-### Protect Privileged Credentials and Secrets
+Most identity measures are more meaningful as trends than as isolated values. Management learns more from whether standing privilege is declining and being replaced by controlled elevation than from a single count. Each significant indicator should therefore carry a current value, a target, a trend, an escalation threshold, and an accountable owner; a metric without an expected range informs but does not drive governance action. A balanced framework also combines leading indicators, such as phishing-resistant coverage, standing privilege, overdue reviews, and identities without owners, which reveal deteriorating conditions before an incident, with lagging indicators, such as confirmed identity compromises, privileged-account misuse, and access-related audit findings, which show whether controls are preventing the outcomes they were designed to address.
 
-Credential vaulting and secrets management are also central PAM capabilities. Privileged passwords, local administrator credentials, service-account passwords, API keys, certificates, tokens, cryptographic secrets, and automation credentials should not be stored in spreadsheets, scripts, shared folders, source-code repositories, personal notes, unsecured configuration files, or other unmanaged locations.
+### Measure effectiveness, not administrative activity
 
-Privileged secrets should instead be stored and managed through controlled systems capable of enforcing appropriate access restrictions and, where applicable, rotation, expiration, approval, logging, and recovery procedures.
+Managers should distinguish carefully between activity metrics and effectiveness metrics. "Ten thousand access reviews completed" measures activity. "Ninety-eight percent of high-risk access reviewed on time" measures process performance. "Twenty-three percent of reviewed permissions were removed" says something about the quality of the existing access model, and "95 percent of inappropriate permissions remediated within 30 days" measures corrective effectiveness. Similarly, "500 privileged-access requests processed" is operational information, whereas "standing administrative access declined by 30 percent without an increase in unmanaged privileged identities" is evidence of risk reduction. Measurement should focus on whether exposure is changing, not on whether IAM teams are busy.
 
-The governance objective is to reduce the number of people and systems that directly know or possess reusable privileged credentials. In a mature design, users may sometimes obtain access to a privileged function without ever seeing the underlying password or secret. The PAM platform can broker access, inject credentials into an approved session, rotate credentials after use, or provide temporary secrets that expire automatically.
+Executives do not need every technical indicator. The dashboard should let them answer a smaller set of consequential questions: whether fewer identities hold unnecessary access, whether privilege is increasingly temporary, whether people and suppliers lose access promptly when relationships change, whether SoD conflicts are declining, whether machine and third-party identities are visible and owned, whether exceptions are genuinely temporary, and whether privileged actions can be reconstructed. The objective is not to maximize every metric, but to understand whether **digital authority is becoming more controlled or less controlled over time**.
 
-This distinction matters because **privileged authority should be governed independently from possession of a reusable credential**. If administrative capability can be granted temporarily without distributing long-lived secrets, the organization reduces opportunities for credential theft, copying, reuse, and uncontrolled sharing.
+## Implementation roadmap: a practical sequence for managers
 
-### Monitor Privileged Sessions and Actions
+Organizations often approach IAM and PAM as large technology transformation programs and then struggle with legacy applications, inconsistent identity data, fragmented ownership, unclear decision rights, and resistance to change. A more governable approach builds capability progressively, with each stage reducing meaningful exposure, improving visibility, strengthening evidence, and laying a foundation for the next. The roadmap is not a rigid technical sequence; activities overlap, and some controls must be accelerated where risk is high. The principle is that **IAM and PAM maturity should progress according to risk and dependency, not according to software deployment schedules**.
 
-Privileged-session management strengthens accountability. High-risk administrative sessions may be proxied, brokered, monitored, or recorded when justified by the level of risk. The objective is not surveillance for its own sake, but to create reliable evidence, deter misuse, support incident investigation, and establish accountability for actions performed through powerful identities.
+### Stage 1: establish a reliable identity and authentication foundation
 
-Monitoring should focus not merely on whether a privileged account was used, but on **which person or process initiated the activity, why the access was approved, when it began, which resources were accessed, what significant actions were performed, and when the privilege ended**.
+The first stage defines authoritative identity sources, improves the quality of identity records, reduces duplicate identity stores, and consolidates identity providers where feasible. Later controls—automated provisioning, access reviews, role assignment, conditional access, and PAM—become unreliable if identity data is incomplete or disconnected from authoritative business information. Authentication is strengthened at the same time: MFA is enforced broadly for significant access, phishing-resistant methods are prioritized for privileged administrators, identity administrators, cloud management, remote administration, and financial approvals, and conditional-access policies progressively incorporate device posture, identity risk, and resource sensitivity. The objective is greater confidence that the identities exercising digital authority are legitimate and appropriately authenticated.
 
-Shared administrative accounts are particularly problematic because they weaken attribution. If several people know the same administrator password, subsequent logs may show what the account did without showing which individual was responsible. Where shared accounts cannot be eliminated, PAM should provide mechanisms that associate each use with a named individual, authentication event, approval record, session, and business purpose.
+### Stage 2: strengthen identity lifecycle discipline
 
-This is a fundamental assurance requirement. Privileged activity should be attributable to an accountable human identity or a clearly governed non-human process.
+The second stage standardizes joiner–mover–leaver processes and integrates them with HR, contractor, and supplier processes so that identity changes originate from authoritative events rather than manual requests. Deprovisioning often yields immediate risk reduction: leavers, expired contractor accounts, obsolete external identities, and dormant accounts should be disabled promptly. Mover processes should remove access tied to former responsibilities, not merely add new access. Measurable expectations—deprovisioning service levels, the share of lifecycle events processed through approved workflows, and orphaned identities—should be introduced here. The objective is to keep digital authority synchronized with organizational reality.
 
-### Control Administrative Pathways
+### Stage 3: bring privileged authority under control
 
-PAM governance must also address **where privileged actions can originate and how administrative sessions reach sensitive systems**. Strong credential controls can be undermined if privileged access is permitted from ordinary workstations, unmanaged devices, broad networks, insecure remote-access services, or untrusted locations.
+The third stage identifies where privileged authority exists and begins with the systems and identities capable of the most significant consequences. Ordinary and administrative identities are separated, standing privilege is reduced, privileged credentials are vaulted, and just-in-time or just-enough privilege is introduced where feasible. High-risk sessions are made attributable and monitored, administrative pathways are constrained, and break-glass mechanisms are designed, protected, tested, and reviewed. The objective is not to place every administrative account into a PAM platform immediately, but to ensure that the most consequential forms of digital authority are progressively brought under stronger control.
 
-A mature design therefore constrains administrative pathways according to risk. Controls may include hardened or privileged administrative workstations, dedicated management environments, segmented administrative networks, private management endpoints, device-compliance requirements, conditional access, phishing-resistant authentication, session brokering, network restrictions, and stronger controls for remote administration.
+### Stage 4: strengthen authorization and role governance
 
-The principle is that privileged access should not merely require a privileged identity; it should occur through a **trusted administrative path**. This reduces the likelihood that malware on a routine endpoint, stolen browser sessions, compromised personal devices, or insecure networks become pathways to administrative systems.
+The fourth stage improves the quality of authorization decisions, starting with high-risk systems, sensitive information, financial processes, production environments, cloud platforms, and functions where SoD conflicts could have material consequences. Business-owned roles are defined, entitlements rationalized, unnecessary access removed, and RBAC, ABAC, or hybrid models applied where they improve consistency. Access reviews mature from administrative certifications into decision-useful processes, and findings lead to remediation. The objective is to demonstrate that authorization remains justified and that excessive authority is actually reduced.
 
-### Govern Non-Human Privilege
+### Stage 5: extend governance to third parties and non-human identities
 
-PAM must also encompass **non-human identities**. Service accounts, automation platforms, deployment pipelines, scripts, API credentials, cloud roles, workload identities, certificates, tokens, and machine-to-machine services may possess administrative or high-impact permissions even though no human user interactively logs in with them.
+As human and privileged-access governance mature, comparable discipline is extended to external and machine identities. Third-party access receives internal sponsors, documented justification, defined scope, appropriate authentication, and expiry or renewal mechanisms, with privileged supplier access governed like internal administration. Service accounts, workload identities, API credentials, certificates, cloud roles, and pipeline identities are inventoried and assigned owners; their privileges are assessed by risk; static secrets are replaced where feasible with managed identities, workload federation, or short-lived credentials; and high-risk machine identities are brought within PAM. The objective is to prevent identity governance from stopping at the human workforce while significant external and automated authority remains unmanaged. The figure below summarizes the sequence.
 
-These identities can create significant governance challenges because they are often long-lived, deeply integrated into applications, difficult to rotate, and poorly understood outside the technical teams that created them. They may also accumulate excessive privileges because reducing permissions can create fear of disrupting automated processes.
+<span id="_Toc243635551" class="anchor"></span>Figure 52: IAM implementation roadmap
 
-A mature PAM program should therefore assign ownership and business or technical purpose to significant non-human privileged identities. Their permissions should follow least-privilege principles, credentials or secrets should be protected appropriately, and access should be reviewed, monitored, rotated, expired, or decommissioned where relevant.
+### Build monitoring, evidence, and measurement into every stage
 
-The objective is to avoid a situation in which human administrator accounts are tightly governed while powerful machine identities remain effectively invisible.
+Monitoring and evidence should be designed into every stage rather than deferred to the end. Identity and privilege events should be logged, protected, retained, and integrated with security operations so that management can see whether controls actually operate rather than relying on implementation status reports. Metrics should evolve with the program, from MFA coverage, dormant accounts, and deprovisioning timeliness early on to standing-privilege reduction, review remediation, SoD conflicts, non-human identity ownership, and exception ageing later. This matters because risk migrates: reducing human administrator accounts achieves little if equivalent privilege moves into unmanaged cloud roles, and improving employee deprovisioning while ignoring external identities leaves comparable exposure elsewhere. Measurement should show that identity exposure is being reduced rather than merely relocated.
 
-### Emergency and Break-Glass Access
+### Define milestones as risk-reduction outcomes and prioritize by risk
 
-PAM governance must also account for exceptional circumstances. Organizations may require **break-glass or emergency access** when ordinary identity systems, authentication services, network paths, or approval workflows are unavailable.
+Managers should require each stage to produce observable governance outcomes rather than technology milestones. "We purchased an IAM platform" and "the PAM system is live" are implementation statements; they do not show that identity risk has fallen. More meaningful milestones might include the following, with thresholds set according to the organization's risk appetite.
 
-Emergency access should not become a hidden permanent bypass around normal controls. Break-glass identities should be tightly restricted, protected with strong authentication and credential-management measures, used only for defined emergency purposes, and monitored closely. Their use should trigger notification and subsequent review, and credentials should be changed or resecured after use where appropriate.
+- MFA enforced for nearly all in-scope users, with every privileged user on approved phishing-resistant authentication.
 
-Managers should view emergency access as a resilience mechanism rather than an exception from governance. The organization must be capable of recovering critical systems when normal controls fail, but it must do so without creating uncontrolled administrative pathways that persist indefinitely.
+- Leavers disabled within the approved service level in at least 99 percent of cases.
 
-### PAM as a Governance and Assurance Mechanism
+- Standing privileged accounts substantially reduced, with most eligible administrative access converted to time-limited elevation.
 
-Managers should be able to obtain credible answers to several fundamental questions: Who possesses privileged authority? Which systems and data can they control? Why is that privilege required? Is it permanent or temporary? Who approved it? Through which administrative pathways can it be exercised? How are privileged secrets protected? How is significant activity monitored? How are exceptions handled? How does emergency access work? When was privileged access last reviewed? How quickly can it be revoked?
+- All break-glass accounts tested successfully during the review period.
 
-These questions move PAM beyond product deployment. An organization may own a privileged-access platform and still have weak PAM governance if administrator accounts bypass it, service accounts remain unmanaged, passwords are shared informally, permanent cloud roles proliferate, or session monitoring is rarely reviewed.
+- All high-risk third-party identities and service accounts assigned accountable owners and expiry, review, or credential requirements.
 
-The managerial lesson is that privileged authority must be **minimized, justified, separated, time-bounded where practicable, strongly authenticated, exercised through controlled pathways, monitored, attributable, reviewable, and evidenced**.
+- All privileged activity on critical systems attributable to a named individual or governed process.
 
-PAM is therefore not merely a technical mechanism for protecting administrator passwords. It is an architectural and governance safeguard designed to prevent an ordinary compromise from becoming a catastrophic one. Effective PAM constrains the identities and mechanisms capable of changing the organization's control environment itself—and provides management with evidence that this exceptional digital authority remains under control.
+Organizations should also resist implementing controls uniformly across every system from the outset. A risk-based roadmap prioritizes the identities and access paths capable of the greatest business consequences. A high-risk cloud administrator account may justify immediate phishing-resistant authentication and PAM controls while broader role engineering is still incomplete; a legacy application holding highly sensitive data may warrant accelerated lifecycle and review controls even if interim manual processes are required. The scenario methods of Chapters 5 and 6 are well suited to making these priorities explicit and defensible.
 
-## Break-Glass Accounts: Emergency Access Without Permanent Weakness
+### Illustrative scenario: prioritizing privileged access at a Québec manufacturer
 
-Emergency access, commonly referred to as **break-glass access**, is necessary because normal identity and administrative pathways can fail. Identity providers may become unavailable, federation services may be disrupted, administrators may be locked out, authentication mechanisms may fail, or urgent recovery actions may be required during a cybersecurity incident. A well-governed organization must therefore preserve the ability to regain control of critical systems when ordinary access mechanisms are unavailable.
+Consider a mid-sized Québec manufacturer with 1,200 employees, a cloud-based ERP system, a growing portfolio of SaaS applications, and an outsourced IT provider that administers its servers. The board has approved a two-year IAM program, and the vendor proposes beginning with a full role-engineering exercise across all applications. The CISO instead runs two scenarios with the risk owners: ransomware entering through a compromised provider administrator account, and fraudulent supplier payments through an ERP user who can both create suppliers and release payments. Both scenarios rate as high residual risk, well above the appetite the board has set for operational disruption and financial loss.
 
-The governance challenge is that the very independence that makes emergency access useful can also make it dangerous. Break-glass identities that bypass normal workflows, dependencies, or approval mechanisms can become persistent backdoors if they are shared, weakly protected, poorly documented, rarely tested, or excluded from monitoring.
+The resulting roadmap reorders the work. In the first quarter, the outsourced provider's personnel move to named, phishing-resistant administrative identities brokered through just-in-time elevation, and the shared domain administrator password is retired. Two break-glass accounts are created, stored under dual custody, alerted on use, and tested. The ERP owner commissions a targeted SoD analysis of the purchase-to-pay process, which identifies fourteen users holding the supplier-creation and payment-release combination; eleven are remediated, and three are approved as time-limited exceptions with a second-approver control and a named risk owner. Broader role engineering is scheduled for the second year.
 
-The objective is therefore to achieve two outcomes simultaneously: **emergency access must remain available when normal controls fail, and it must remain tightly controlled when no emergency exists**.
+Quarterly reporting to the audit committee shows standing privileged accounts, the share of provider sessions attributable to named individuals, and open SoD exceptions against their expiry dates. The program can show the board within months that the two most consequential scenarios have moved inside appetite, which is a stronger basis for continued investment than a report that the platform has been deployed.
 
-Break-glass access should be exceptional by design. Accounts and other emergency-access mechanisms should be few in number, explicitly justified, assigned to clearly defined systems or recovery purposes, and subject to documented governance. They should not become alternative administrator accounts used for convenience, routine troubleshooting, faster access, or avoidance of normal privileged-access workflows.
+### Manage IAM and PAM as a governance transformation
 
-Their purpose is **exceptional authority in exceptional circumstances**.
+IAM and PAM implementation should be treated as a risk-reduction and governance transformation program, not a software deployment project. Technology is necessary, but success also depends on authoritative data, business ownership, clear decision rights, effective processes, integration with HR and supplier management, meaningful access models, monitoring, and credible assurance. Each stage should remove known weaknesses, reduce unnecessary digital authority, improve management's visibility, and establish the foundation for the next. A successful roadmap is defined not by how many identity technologies have been deployed, but by whether **access becomes more accurate, privilege more constrained, evidence more credible, exceptions more controlled, and accountability more explicit over time**.
 
-### Preserve Independence Without Creating a Backdoor
+## Concluding integration: identity governance as the core of modern cybersecurity
 
-Emergency access should be sufficiently independent from the controls whose failure it is intended to overcome. For example, a recovery mechanism that depends entirely on the same identity provider, authentication service, network path, or PAM platform that has failed may provide little resilience during an actual crisis.
+In identity-centric enterprises, cybersecurity governance depends heavily on the ability to govern digital identities and the authority attached to them. IAM and PAM determine whether access is appropriately granted, whether excessive privilege is constrained, whether insider and third-party risk is reduced, whether attackers can escalate after an initial compromise, and whether management can produce credible evidence for investigations, audits, and assurance.
 
-At the same time, independence must not mean absence of control. Break-glass mechanisms still require strong protection, accountability, and oversight. Governance should define which normal dependencies may appropriately be bypassed during an emergency and which safeguards must remain in force.
+The central conclusion of this chapter is straightforward.
 
-This creates an important architectural principle: **break-glass access should bypass failed dependencies, not governance itself**.
+| **When identity governance is weak, many other cybersecurity controls become fragile.** |
+|-----------------------------------------------------------------------------------------|
 
-### Protect Emergency Credentials
+Organizations invest in segmentation, endpoint protection, cloud security, monitoring, data protection, backups, and incident response. Yet a strong firewall offers limited protection if a compromised administrator can change its rules; logging provides limited assurance if a privileged identity can disable it; secure cloud storage can still leak data if an overprivileged account can change its access policy; and backups offer little resilience if administrative credentials allow an attacker to delete them. Identity governance affects not only who enters the environment, but **who or what has the authority to change the environment once inside it**.
 
-Break-glass credentials and authenticators should receive protection proportionate to the authority they provide. Depending on the environment, this may involve strong authentication, secure credential storage, controlled custody, restricted knowledge of credentials, physical protection of authenticators, or other mechanisms designed to prevent unauthorized use.
+Conversely, disciplined identity governance strengthens many other investments. Strong authentication increases confidence that the actor using an identity is legitimate. Least privilege reduces the authority available for misuse. Segregation of duties prevents concentrations of authority that enable fraud and concealment. Lifecycle governance keeps access aligned with employment, contracts, and business requirements. PAM constrains exceptional authority so that an ordinary compromise does not become a catastrophic one. Third-party governance ties external identities to legitimate relationships and internal accountability, and non-human identity governance extends the same principles to workloads, automation, and APIs. Monitoring and evidence make all of this observable and defensible.
 
-Where credentials are stored for emergency retrieval, access to them should itself be tightly controlled and evidenced. Organizations should avoid arrangements in which multiple administrators casually know a shared emergency password or where credentials are stored in easily accessible documents, scripts, personal password stores, or unsecured locations.
+In this sense, IAM and PAM operationalize principles developed throughout this book. Policies become enforceable through authentication and authorization rules. Risk appetite becomes concrete through conditional-access policies and authentication tiers. Accountability becomes demonstrable through attribution and evidence. Risk treatment becomes actionable when excessive access is removed, privileged pathways are constrained, and exceptions are deliberately governed with owners and expiry dates. Identity also spans the whole cybersecurity lifecycle. Before an incident, it reduces unnecessary access and strengthens authentication; during an intrusion, it limits lateral movement and privilege escalation; in detection, it surfaces anomalous authentication and privilege use; in response, it allows sessions to be terminated, credentials rotated, and tokens revoked; and in recovery, governed emergency access lets authorized personnel regain control without abandoning governance.
 
-Where practical, access to emergency credentials may require participation by more than one authorized individual, particularly when the account provides extensive control over critical systems.
+For Business Technology Management professionals, the practical implication is that IAM and PAM must be governed as continuous risk-management disciplines, not implemented once as account-administration projects.
 
-The objective is to ensure that emergency access remains **recoverable without becoming routinely accessible**.
+### Questions managers and boards should ask
 
-### Define Explicit Activation Conditions
+The following questions reveal whether identity governance exists in practice or merely in policy.
 
-Management should define the circumstances under which break-glass access may legitimately be used. Examples may include failure of the normal identity infrastructure, loss of ordinary privileged-access capability, a critical incident requiring immediate intervention, or a recovery situation in which delay would create significant additional harm.
+- **Ownership:** Who owns identity and access decisions for each significant system, and who is authorized to approve sensitive and privileged access?
 
-The authorization model should also specify who may initiate emergency access, who must be notified, what level of approval is required where circumstances permit, and what documentation must follow the event.
+- **Legitimacy:** What constitutes legitimate access, and can we explain why each high-risk entitlement exists?
 
-The process must remain practical during a real crisis. An emergency mechanism that requires unavailable personnel, inaccessible systems, or an overly complex approval chain may fail precisely when it is most needed. Governance must therefore balance control with operational resilience.
+- **Authentication:** How is authentication strength matched to risk, and which privileged or high-risk identities still lack phishing-resistant methods?
 
-### Monitor Every Use
+- **Recovery:** Could an attacker bypass strong authentication through the help desk or account-recovery process?
 
-Break-glass accounts should be excluded from routine administrative use but **included in monitoring and alerting**. Their activation should be treated as an unusual and high-significance security event.
+- **Least privilege:** How much standing privilege remains, and is it declining in favour of time-limited elevation?
 
-Where technically feasible, use of emergency access should generate immediate alerts to appropriate functions such as security operations, identity or PAM administrators, system owners, and relevant management. The organization should be able to determine who invoked the emergency mechanism, when access began, which system was accessed, why normal authentication or administration was unavailable, what significant actions were performed, and when emergency access ended.
+- **Segregation of duties:** Which toxic combinations exist in our critical processes, and how are approved exceptions monitored and retired?
 
-Logging and evidence should be designed carefully because some emergencies may involve failure of the organization's normal monitoring infrastructure. Critical emergency-access evidence may therefore require collection or protection mechanisms that do not depend entirely on the affected system.
+- **Lifecycle:** How quickly does access change when roles and relationships change, including for contractors and suppliers?
 
-The objective is that **emergency authority should never become invisible authority**.
+- **Third parties:** Which external parties hold privileged access, who sponsors them internally, and when does that access expire?
 
-### Test Break-Glass Access Before It Is Needed
+- **Machine identities:** Do we know how many non-human identities we have, who owns them, and which are privileged?
 
-Emergency access should be tested periodically through controlled exercises. A break-glass mechanism that exists only in documentation may not work when an actual crisis occurs.
+- **Emergency access:** When were our break-glass accounts last tested, and would we know immediately if one were used?
 
-Testing can verify that credentials remain usable, authenticators function correctly, designated personnel understand the procedure, required systems can be reached, monitoring detects the event, alerts reach the appropriate recipients, and recovery actions can be performed without unsafe improvisation.
+- **Evidence:** Could we reconstruct, from protected evidence, every significant privileged action on a critical system last quarter?
 
-Testing should also verify that emergency access has not quietly lost its independence. Changes to identity infrastructure, cloud configurations, networks, authentication technologies, or security policies can unintentionally make a previously functional break-glass process dependent on systems it was intended to bypass.
+- **Assurance:** How does management know, independently of the teams operating the controls, that the IAM and PAM environment works as intended?
 
-Conversely, testing may reveal that an emergency identity has acquired unnecessary permissions or that too many individuals can obtain access.
+The ultimate objective is not to eliminate every identity-related risk. Organizations must delegate authority to employees, administrators, suppliers, applications, and automated processes in order to operate. The governance challenge is to ensure that this authority is **deliberate, proportionate, constrained, observable, reviewable, and revocable**. IAM determines how digital authority is distributed throughout the organization; PAM applies stronger governance to its most consequential forms. Together, they are one of the essential foundations through which cybersecurity governance becomes operational, measurable, and defensible.
 
-Break-glass testing is therefore both a **resilience test and a control-assurance test**.
+## Chapter summary
 
-### Review Every Activation
+Identity has become one of the most important cybersecurity control planes, because users, workloads, suppliers, and APIs now act across cloud, SaaS, and hybrid environments where the network is no longer the main boundary. The chapter argues that IAM and PAM are governance domains, not administrative functions: every digital identity carries delegated organizational authority, IAM determines how broadly that authority is distributed, and PAM controls its most consequential forms. When identity governance fails, attackers do not need to defeat controls; they inherit the authority to use, modify, or disable them. Managers must therefore ensure that digital authority is deliberate, proportionate, constrained, observable, reviewable, and revocable.
 
-Use of break-glass access should trigger a formal post-use review. This does not imply that emergency use is inherently suspicious or that every activation constitutes a security incident. Rather, emergency access represents an intentional departure from normal administrative controls and therefore warrants heightened evidence and accountability.
+### Key points to retain
 
-After use, the organization should confirm why emergency access was required, whether its use was authorized and proportionate, which actions were performed, whether any unintended or unauthorized changes occurred, and whether normal privileged-access mechanisms have been restored.
+- IAM governs access across the organization, while PAM governs exceptional privileges within it; privileged access can alter the safeguards that constrain everyone else.
 
-Credentials, authentication factors, tokens, or other emergency secrets should be rotated, reset, or otherwise resecured where appropriate. Temporary changes made during the emergency should be reviewed, and any elevated permissions that are no longer required should be removed.
+- Identity failures dominate incidents because credentials are scalable targets, trust extends beyond the organization, permissions accumulate, privileged pathways escape controls, and misuse resembles legitimate activity.
 
-The post-use process should also identify whether the emergency exposed weaknesses in normal identity, PAM, recovery, or operational procedures. If administrators were forced to improvise because documented recovery processes were inadequate, the organization should treat that as a governance lesson rather than simply closing the emergency-access record.
+- A mature program delivers verified identity, least privilege, segregation of duties, lifecycle discipline, and auditable evidence; policies stay aspirational until identity controls enforce them.
 
-### Govern Ownership and Periodic Review
+- Access is a business risk decision implemented through technology, so decision rights must be shared among a central identity function, business owners, and risk, compliance, and audit oversight.
 
-Break-glass mechanisms require clear ownership. For each significant emergency identity or recovery pathway, management should be able to identify the system it protects, the business or technical owner, who may invoke it, how its credentials are protected, what permissions it possesses, how activation is detected, and when it was last tested.
+- The joiner–mover–leaver process should keep digital access aligned with organizational reality, removing obsolete access at every role change and departure, including for non-human identities.
 
-Periodic review should confirm that the account is still required, that its permissions remain appropriate, that authorized custodians remain valid, that monitoring remains effective, and that documentation reflects the current environment.
+- Not all MFA is equal: high-consequence identities need phishing-resistant authentication, conditional access, explicit authentication tiers, and recovery processes that are never the weakest path.
 
-Emergency accounts should not survive indefinitely merely because they are rarely used. An obsolete break-glass identity may become particularly dangerous because administrators may assume that no one uses it while attackers specifically seek neglected administrative pathways.
+- Authorization determines what an authenticated identity may do; RBAC and ABAC must stay explainable, and access reviews matter only when findings lead to removal or formal risk acceptance.
 
-### The Managerial Objective
+- Segregation of duties prevents toxic combinations of permissions, uses preventive and detective enforcement, and relies on governed compensating controls such as dual control when separation is impractical.
 
-The managerial question is straightforward: **can the organization regain administrative control during a crisis without creating a permanent weakness during normal operations?**
+- Third-party access must be owned internally, purpose-specific, time-limited, and governed by PAM; delegating access does not transfer accountability.
 
-A mature PAM program should be able to answer yes. Emergency access should be:
+- PAM minimizes standing privilege, separates administrative identities, vaults secrets, monitors sessions, and constrains administrative pathways; break-glass access must bypass failed dependencies, not governance.
 
-- available when normal administrative mechanisms fail;
+- Workloads are identities: service accounts, API keys, tokens, pipelines, and AI agents need inventories, owners, least privilege, short-lived credentials, monitoring, and retirement.
 
-- independent of the specific dependencies it is designed to recover from;
+- Reliable, protected evidence and trend-based metrics tied to risk appetite show whether exposure is falling, and a risk-based roadmap should define milestones as risk-reduction outcomes.
 
-- strongly protected while dormant;
+### Key terms
 
-- limited to clearly defined emergency purposes;
+- **Identity and Access Management (IAM)** — The policies, processes, technologies, roles, and accountability mechanisms used to govern human and non-human digital identities and their access to resources throughout their lifecycle.
 
-- attributable to authorized individuals;
+- **Privileged Access Management (PAM)** — The specialized domain of identity governance that controls identities, credentials, and activities conferring elevated authority capable of materially affecting systems, data, security settings, or business outcomes.
 
-- monitored and alerted whenever activated;
+- **Least privilege** — The principle that an identity receives only the access needed for a legitimate role, task, or function, and no more.
 
-- periodically tested;
+- **Privilege creep** — The gradual accumulation of permissions as people and systems change roles or purposes without obsolete access being removed.
 
-- reviewed after every use; and
+- **Joiner–mover–leaver (JML)** — The lifecycle process that creates, adjusts, and removes access as people join, change responsibilities, and leave the organization.
 
-- resecured immediately once the emergency ends.
+- **Phishing-resistant authentication** — Authentication in which cryptography binds the authenticator to the legitimate service so the protocol, not user vigilance, prevents capture and replay, as with FIDO2/WebAuthn keys or PKI smart cards.
 
-Break-glass access is therefore not a bypass around governance. It is a **governed resilience mechanism**. Properly designed, it allows the organization to recover control when ordinary IAM and PAM mechanisms fail while ensuring that the exceptional authority created for emergencies does not become a permanent path around the very controls it is intended to protect.
+- **Authentication Assurance Level (AAL)** — A NIST SP 800-63-4 level of confidence that the person using an identity controls its authenticators; AAL3 requires a phishing-resistant, non-exportable authenticator.
 
-## Non-Human Identities: Service Accounts, API Keys, Tokens, and Machine-to-Machine Trust
+- **Conditional access** — Predefined policies that decide whether and on what terms access is granted, using role, authentication strength, device posture, context, risk, and resource sensitivity.
 
-<span id="_Toc215808028" class="anchor"></span>A major blind spot in many modern IAM and PAM programs is the governance of **non-human identities**. Significant compromises do not always begin with an employee or administrator account. They may begin with a leaked API key, a long-lived authentication token, an overprivileged service account, an expired or poorly managed certificate, a secret embedded in source code, or credentials exposed through a development or CI/CD pipeline.
+- **Role-Based Access Control (RBAC)** — An authorization model that assigns approved permission sets to defined roles and then associates identities with those roles.
 
-These identities do not represent individual employees, but they can possess substantial authority over systems, applications, cloud resources, data, deployment processes, security controls, and administrative functions. From a governance perspective, the absence of a human user does not reduce the importance of the access. In some cases, machine identities possess broader, more persistent, and less visible privileges than human users.
+- **Attribute-Based Access Control (ABAC)** — An authorization model that decides access using attributes of the identity, resource, action, and context, such as device status or data classification.
 
-Managers must therefore recognize a fundamental principle: **workloads are identities, and machine-to-machine trust is an access-control relationship**.
+- **Toxic combination** — A set of individually legitimate permissions that together allow one identity to complete and conceal a high-risk process without independent challenge.
 
-Applications authenticate to databases. Microservices call other microservices. Automation scripts modify systems. Infrastructure-as-code platforms create and configure cloud resources. Monitoring systems collect telemetry across the environment. Backup platforms access large volumes of organizational data. CI/CD pipelines build, test, sign, and deploy software. Security tools may quarantine endpoints, block accounts, or modify network controls. Each of these activities requires some mechanism through which one system is trusted to act upon another.
+- **Just-in-time (JIT) access** — A PAM pattern in which privilege is granted on request for an approved purpose and removed automatically when the task or time window ends.
 
-That trust may be expressed through service accounts, API keys, tokens, certificates, secrets, workload identities, cloud roles, service principals, or other authentication mechanisms. If these relationships are not governed, the organization may accumulate powerful access pathways that exist outside traditional employee-focused IAM processes and remain largely invisible to managers and access reviewers.
+- **Break-glass access** — Governed emergency access that lets authorized personnel regain control when normal identity or administrative pathways fail, without becoming a permanent bypass.
 
-### Inventory and Ownership
+- **Non-human identity** — A service account, workload identity, API key, token, certificate, pipeline, or similar machine credential through which software exercises delegated authority.
 
-Effective governance begins with visibility. An organization cannot govern machine identities that it does not know exist.
+- **Identity threat detection and response (ITDR)** — Vendor term for identity-related detection, such as unusual privilege elevation, suspicious recovery, dormant-account use, or emergency-account activation, correlated with other security evidence.
 
-Significant non-human identities should therefore be inventoried and associated with identifiable ownership. Management should be able to determine which application, workload, integration, platform, or business process depends on each identity and who is accountable for its continued use.
+## Review questions
 
-Ownership is especially important because machine identities do not naturally participate in human lifecycle processes. They do not resign, change departments, or appear on termination reports. A service account created for a project may continue operating long after the project has ended. An API key may remain active after the application that used it has been replaced. A certificate may continue to authorize a system no one remembers owning.
+### Essay questions
 
-Without explicit ownership, obsolete machine identities can persist indefinitely.
+1.  The chapter argues that privileged access is 'delegated organizational authority within digital systems' rather than a stronger form of ordinary access. Analyze this claim and explain how it changes the way managers should govern administrators, suppliers, and machine identities.
 
-Each significant non-human identity should therefore have a defined owner, legitimate purpose, authorized scope, expected systems or resources, appropriate privilege level, credential-management requirements, monitoring expectations, and retirement criteria.
+2.  Evaluate the statement that 'a completed certification proves that a process ran, not that access risk was competently assessed.' Design an access review and segregation-of-duties process that would provide genuine assurance in a payments or purchase-to-pay process.
 
-### Apply Least Privilege to Machines
+3.  An organization reports 99 percent MFA coverage and concludes that its authentication risk is low. Using the chapter, critique this conclusion and recommend an authentication strategy, including tiers, phishing resistance, conditional access, and recovery.
 
-The principle of **least privilege** applies equally to machine identities. An application should receive only the permissions required to perform its intended function. A reporting service that needs to read a limited data set should not have administrative database permissions. A deployment pipeline that publishes one application should not automatically possess broad control over unrelated production environments.
+4.  Apply the chapter to an organization of your choice (or to the Québec manufacturer in the illustrative scenario). Identify its most consequential identity risks, propose a prioritized IAM and PAM roadmap, and define three milestones expressed as risk-reduction outcomes.
 
-This is particularly important because machine identities often operate continuously and automatically. An excessive permission assigned to a human account may be exercised occasionally. An overprivileged automated process may operate thousands of times per day and may be trusted implicitly by multiple systems.
+5.  Non-human identities and AI agents increasingly exercise organizational authority with no person involved at the moment of action. Assess why they are often a governance blind spot and propose the controls, evidence, and metrics management should require.
 
-Machine identities should therefore be evaluated not only according to what they currently do, but according to **what their permissions would allow them to do if compromised**.
+### Multiple-choice questions
 
-High-impact machine identities should be classified as privileged identities and governed accordingly. Examples may include identities capable of deploying production software, modifying cloud infrastructure, administering databases, managing backups, changing identity configurations, accessing sensitive information at scale, altering security controls, or issuing credentials to other systems.
+Choose the best answer. Answers are listed in the appendix "Answers to multiple-choice questions".
 
-These identities belong within the PAM governance model even though no human administrator interacts with them directly.
+**1.** According to the chapter, what is the most useful managerial distinction between IAM and PAM?
 
-### Reduce Dependence on Long-Lived Secrets
+> A. IAM governs access across the organization, while PAM governs exceptional privileges within it
+>
+> B. IAM governs employee accounts, while PAM governs all supplier and contractor accounts
+>
+> C. IAM is a business process, while PAM is a purely technical function owned by IT
+>
+> D. IAM covers cloud services, while PAM covers on-premises servers and network devices
 
-Secrets management is central to non-human identity governance. Static credentials are attractive to attackers because they can often be copied and reused without triggering the same behavioural indicators associated with compromised human accounts.
+**2.** Why does the chapter describe privileged access as more than a stronger form of ordinary access?
 
-Passwords, API keys, private keys, tokens, and other sensitive machine credentials should not be embedded directly in source code, scripts, container images, configuration files, spreadsheets, shared folders, build logs, or other unmanaged locations.
+> A. It always requires hardware tokens that ordinary users are never issued
+>
+> B. It is delegated organizational authority that can change the safeguards constraining other users
+>
+> C. It is legally owned by the IT department rather than by business units
+>
+> D. It is used only during emergencies and is otherwise disabled by default
 
-Controlled vaults and secrets-management platforms can provide stronger protection by supporting access control, logging, rotation, versioning, expiration, policy enforcement, and integration with application and deployment workflows.
+**3.** Which of the following is one of the five structural reasons the chapter gives for identity failures dominating the incident landscape?
 
-Where technically feasible, organizations should reduce their dependence on long-lived reusable secrets altogether. Alternatives may include **short-lived credentials, managed identities, workload identity federation, certificate-based authentication, dynamically issued tokens, or other mechanisms that allow systems to authenticate without permanently storing a reusable shared secret**.
+> A. Encryption algorithms protecting stored passwords are routinely broken by attackers
+>
+> B. Firewalls cannot inspect traffic once users connect from remote locations
+>
+> C. Permissions accumulate over time because removal receives less attention than granting
+>
+> D. Identity platforms are rarely included in vendor support contracts
 
-This represents an important governance improvement because protecting a secret indefinitely is inherently difficult. Reducing the lifetime and reuse of credentials limits the period during which a stolen credential remains valuable.
+**4.** In the chapter's three-layer IAM operating model, which layer should judge whether a particular employee genuinely needs access to a business resource?
 
-### Govern the Machine Identity Lifecycle
+> A. The central identity function, because it operates the identity platforms and workflows
+>
+> B. Internal audit, because it provides independent assurance over access decisions
+>
+> C. The help desk, because it receives and processes most access requests
+>
+> D. Business ownership, because access is a business risk decision implemented through technology
 
-Non-human identities require a lifecycle just as human identities do.
+**5.** An analyst transfers from accounts payable to treasury. Under joiner–mover–leaver discipline, what should the role change trigger?
 
-They should be deliberately created, assigned to an owner, configured with appropriate permissions, periodically reviewed, modified when requirements change, and retired when the underlying system or business purpose ends.
+> A. Provisioning of treasury access while keeping prior access in case it is needed
+>
+> B. A full account deletion and new identity, with no review of earlier approvals
+>
+> C. No change until the next annual access certification campaign is completed
+>
+> D. Provisioning of treasury access and removal of accounts-payable access no longer justified
 
-Lifecycle triggers may include application retirement, project completion, supplier termination, infrastructure replacement, changes to cloud architecture, migration to a new platform, expiration of a certificate, replacement of an integration, or redesign of an automated process.
+**6.** Why does the chapter warn that push-based MFA approvals are not phishing-resistant?
 
-The governance question should be the same one applied elsewhere in IAM: **does this identity still have a legitimate reason to exist, and does it still require the authority it currently possesses?**
+> A. Push notifications cannot be delivered to mobile devices outside the corporate network
+>
+> B. Push approvals store the user's password in plain text on the mobile device
+>
+> C. Attackers can send repeated requests until a user accepts one, a pattern called MFA fatigue
+>
+> D. Push methods are not recognized by NIST SP 800-63-4 at any assurance level
 
-Dormant, unused, orphaned, or unexplained identities should therefore be investigated and, where appropriate, disabled or removed.
+**7.** Under NIST SP 800-63-4 as described in the chapter, how are synced passkeys treated?
 
-Rotation and expiration should also reflect the type of credential and risk involved. Long-lived credentials may occasionally be necessary because of legacy-system limitations, but they should be treated as controlled exceptions with documented justification, compensating safeguards, and periodic review.
+> A. Acceptable at AAL3 because they are phishing-resistant and convenient for users
+>
+> B. Acceptable at AAL2 but not at AAL3, which needs a phishing-resistant, non-exportable authenticator
+>
+> C. Not acceptable at any level because they can be copied between devices
+>
+> D. Acceptable only for identity proofing, not for authentication or federation
 
-### Software Supply-Chain and CI/CD Risk
+**8.** An organization deploys phishing-resistant keys for administrators, but the help desk resets accounts after a caller answers basic personal questions. What weakness does this illustrate?
 
-Non-human identity governance also intersects directly with **software supply-chain security**.
+> A. Recovery has become an alternative path around strong authentication controls
+>
+> B. Conditional access policies have been configured too strictly for administrators
+>
+> C. Role explosion has made administrator roles too difficult to review
+>
+> D. Federation has extended trust to an unmanaged external identity provider
 
-Modern software-development and deployment environments depend heavily on automated trust relationships. Source-code repositories, build servers, artifact repositories, package managers, deployment pipelines, signing services, cloud platforms, infrastructure-as-code tools, and production environments may all exchange credentials or trust one another through machine identities.
+**9.** Which statement best describes the governance risk of role explosion in RBAC?
 
-A compromised CI/CD or deployment identity may therefore provide an attacker with capabilities far beyond ordinary system access. Depending on its permissions, the attacker may be able to alter source code, introduce malicious dependencies, manipulate build processes, modify deployment artifacts, change infrastructure, obtain additional credentials, weaken security controls, or deploy unauthorized software into production.
+> A. Roles become so broad that every user ends up receiving administrator permissions by default
+>
+> B. So many narrow roles exist that they are almost as hard to govern as permissions
+>
+> C. Roles are replaced entirely by attributes, making access decisions unpredictable and hard to audit
+>
+> D. Roles are deleted automatically whenever business processes change or the organization restructures
 
-The risk is amplified when automated identities are highly trusted because their activities may be assumed to originate from legitimate development or operational processes.
+**10.** According to the chapter, what is the main governance concern with ABAC?
 
-Machine identities associated with development and deployment pipelines should consequently be treated according to the authority they can exercise rather than simply classified as technical service accounts.
+> A. Overlapping attributes and conditional policies can be hard to predict, test, and audit
+>
+> B. It cannot use context such as device status, location, or authentication strength
+>
+> C. It requires every user to be assigned to exactly one job role at all times
+>
+> D. It is prohibited by ISO/IEC 27002:2022 for systems holding sensitive information
 
-### Cloud and Automation Identities
+**11.** A business unit reports 100 percent completion of its quarterly access certifications, yet almost no access was removed. What does the chapter suggest management should conclude?
 
-Cloud environments further increase the importance of machine identity governance because applications and workloads routinely obtain permissions to interact with infrastructure and platform services.
+> A. The access model is clean, so reviews can safely move from quarterly to annual
+>
+> B. Reviewers are performing well, so remediation tracking is no longer necessary
+>
+> C. Review frequency is too high and is creating unnecessary administrative work
+>
+> D. Completion shows the process ran, but not that access risk was competently assessed
 
-An automation identity may be authorized to create virtual resources, modify storage permissions, alter network configurations, manage encryption services, create additional identities, access databases, or change security policies. If compromised, that identity may provide an attacker with an opportunity to establish persistence, expose information, disable monitoring, or escalate privileges across interconnected services.
+**12.** Which combination is the clearest example of a toxic combination in a purchase-to-pay process?
 
-Cloud roles and workload identities should therefore have clearly defined trust relationships. Management should understand not only which permissions an identity possesses, but also **which systems are permitted to assume or invoke that identity**.
+> A. One user can view supplier records and also print purchase-order reports
+>
+> B. One user can submit expense claims and also view their own payment history
+>
+> C. One user can create a new supplier and also release payments to that supplier
+>
+> D. One user can update their own contact details and also reset their password
 
-This is particularly important where trust policies allow one workload, cloud account, tenant, pipeline, or external service to obtain another identity's privileges.
+**13.** How does the chapter link segregation of duties to the fraud triangle introduced in Chapter 1?
 
-### Monitor Machine Behaviour
+> A. SoD reduces rationalization by requiring employees to sign annual ethics statements
+>
+> B. SoD reduces pressure by distributing workloads more evenly across finance teams
+>
+> C. SoD reduces opportunity, the fraud condition that controls can most directly influence
+>
+> D. SoD removes all three fraud conditions once preventive conflict rules are in place
 
-Machine identities require monitoring appropriate to their expected behaviour. In some respects, they can be easier to monitor than humans because automated systems often perform relatively predictable activities.
+**14.** What principle does the chapter state about third-party access governance?
 
-A service account that normally accesses one database from a particular workload should warrant attention if it suddenly begins querying unrelated systems. An automation identity that normally performs deployments during controlled workflows should be investigated if it begins creating administrative users. A backup account that normally performs scheduled read operations should attract scrutiny if it begins deleting or modifying data.
+> A. Suppliers become fully accountable for any access granted under a signed contract
+>
+> B. Federated partner identities need no internal governance once trust is configured
+>
+> C. External access should be permanent to avoid disrupting essential supplier support
+>
+> D. Delegating access does not transfer accountability; external access stays within our risk boundary
 
-Monitoring may therefore consider unexpected resources, unusual API operations, changes in access patterns, abnormal transaction volume, new execution locations, unexpected privilege escalation, dormant identity use, or activity outside the identity's intended purpose.
+**15.** Which practice best reflects the PAM goal of reducing standing privilege?
 
-The objective is not simply to detect that a credential was used. It is to determine whether **the machine identity is behaving consistently with the purpose for which its authority was granted**.
+> A. Granting time-limited elevation for an approved task and removing it automatically afterwards
+>
+> B. Giving all administrators permanent rights but recording their sessions on video
+>
+> C. Sharing one administrator password among the team and rotating it every year
+>
+> D. Assigning administrative rights to users' ordinary email and browsing identities
 
-High-risk machine identities should receive monitoring comparable to other privileged identities, including appropriate logging, alerting, behavioural analysis, and investigation of anomalous activity.
+**16.** Which statement captures the chapter's principle for break-glass emergency access?
 
-### Avoid Anonymous Machine Authority
+> A. It should rely on the main identity provider so that it stays fully consistent
+>
+> B. It should bypass failed dependencies, not governance itself
+>
+> C. It should be known to all administrators so it is always available in a crisis
+>
+> D. It should be excluded from monitoring so attackers cannot detect its existence
 
-Accountability is more difficult when machine identities are shared across unrelated applications or processes. A single generic service account used by multiple systems may make administration easier, but it weakens attribution and expands the impact of credential compromise.
+**17.** Why does the chapter argue that least privilege matters even more for machine identities than for people?
 
-Where practicable, distinct workloads and applications should use distinct identities. This allows permissions to be tailored more precisely, credentials to be rotated or revoked independently, and activity to be attributed to the specific system or process responsible.
+> A. An overprivileged automated process may run thousands of times daily and be trusted implicitly
+>
+> B. Machine identities are always exempt from logging, so their activity cannot be observed
+>
+> C. Machine identities can never be classified as privileged under the PAM model
+>
+> D. Machine identities always use phishing-resistant authentication, so they are rarely compromised
 
-The governance objective is to avoid creating **anonymous machine authority** in which powerful credentials are broadly shared but no one can determine which application used them or why.
+**18.** Logs of privileged activity are stored on a platform that the same domain administrators can modify and delete. What is the main assurance problem?
 
-### Machine Identity as Delegated Digital Authority
+> A. The logs are probably too small to support a full forensic investigation
+>
+> B. The logs will be retained too long and breach every privacy requirement
+>
+> C. The evidence can be altered by the identities whose actions it documents
+>
+> D. The logs record activity in a format that managers cannot read directly
 
-The managerial lesson is that identity governance cannot stop with employees, administrators, contractors, and partners. Modern organizations increasingly delegate operational authority to software.
+**19.** Which of the following is an effectiveness metric rather than an activity metric, in the chapter's terms?
 
-Applications make transactions. Automation modifies infrastructure. Pipelines deploy production systems. Security tools take containment actions. Backup platforms access critical information. APIs transfer organizational data. These are exercises of digital authority even when no human user is directly involved at the moment an action occurs.
+> A. Ten thousand access reviews completed during the year
+>
+> B. 95 percent of inappropriate permissions remediated within 30 days
+>
+> C. Five hundred privileged-access requests processed this quarter
+>
+> D. Two thousand password resets handled by the service desk
 
-Non-human identities must therefore be **inventoried, owned, classified, minimized, protected, monitored, reviewed, rotated or renewed where appropriate, and ultimately retired**.
+**20.** In the Québec manufacturer scenario, why did the CISO reorder the vendor's proposed IAM roadmap?
 
-Managers should be able to ask the same fundamental questions of a machine identity that they ask of a human one: What is this identity? Who owns it? Why does it exist? What can it access? How much authority does it possess? How does it authenticate? Where are its credentials protected? When was its access last reviewed? How would compromise be detected? How can it be revoked? What will cause it to be retired?
-
-Without this discipline, an organization may have sophisticated controls over employees and administrators while some of its most consequential access paths remain unmanaged. Non-human identity governance therefore not simply secrets management. It is the governance of organizational authority exercised by software, workloads, devices, and automated processes.
-
-## Auditability and Evidence: Turning Access Control into Credible Assurance
-
-One of the most important governance lessons for managers is that **access control without evidence is difficult to distinguish from an assumption**. An organization may believe that multi-factor authentication is enforced, terminated users are deprovisioned promptly, privileged access is monitored, segregation-of-duties conflicts are controlled, or periodic access reviews are completed. Unless it can produce reliable evidence that these controls are operating as intended, however, such claims remain difficult to verify and defend.
-
-Evidence creates the difference between **“we believe the control operates” and “we can demonstrate that it operates.”**
-
-Auditability in IAM and PAM therefore requires both **decision traceability and activity traceability**. The organization should be able to reconstruct how access was granted, modified, exercised, reviewed, and removed. This does not mean that every routine action requires elaborate documentation. It means that access decisions and high-impact identity activity should leave sufficient evidence to support accountability, assurance, and investigation.
-
-At a minimum, an organization should be capable of producing evidence concerning authentication requirements, MFA deployment and enforcement, assigned roles and permissions, access requests and approvals, changes to access, privileged logins, significant privileged actions, periodic access-review results, identity lifecycle events, exception approvals, and formal acceptance of residual access risk where applicable.
-
-The level of evidence should be **proportionate to the authority and risk involved**. Routine low-risk access may require relatively simple records. Privileged or high-impact access requires stronger evidence because those identities may be able to modify systems, change permissions, alter configurations, disable controls, access sensitive information at scale, manipulate logs, or affect the access rights of other users.
-
-### Evidence of the Identity Lifecycle
-
-Lifecycle evidence is particularly important because access changes continuously as organizational relationships change.
-
-For human identities, the organization should be able to reconstruct when an individual joined, what access was initially granted, which role or business requirement justified it, who approved the access, and when it became effective. When responsibilities change, evidence should show which permissions were added, which were removed, who authorized the changes, and whether any segregation-of-duties or privileged-access implications were identified.
-
-When an individual leaves, management should be able to determine when the termination or departure became effective and when relevant access was disabled or revoked. For higher-risk identities, evidence may also be required for session termination, remote-access revocation, privileged-account disablement, delegated permissions, and other access pathways associated with the individual.
-
-This allows management to answer an important assurance question: **did digital authority change when organizational authority changed?**
-
-For non-human identities, lifecycle evidence requires a different but comparable structure. The organization should be able to determine who owns the service account, application identity, workload identity, API credential, certificate, token, or other machine identity; why it exists; what permissions it possesses; what systems depend on it; when credentials were issued or changed; whether the identity remains active; when its access was last reviewed; and how it will eventually be decommissioned.
-
-Without this evidence, machine identities can remain active for years without anyone being able to demonstrate why they still exist or whether their authority remains appropriate.
-
-### Evidence of Privileged Authority
-
-PAM requires particularly strong evidence because privileged access represents exceptional digital authority.
-
-Evidence may include privileged-access requests, approval records, business justification, privilege-elevation events, just-in-time access windows, credential retrieval or use, session initiation and termination, administrative activity, privileged-session recordings where justified, emergency-access activation, break-glass reviews, and actions taken after privileged use.
-
-The purpose is not to create documentation for its own sake. The purpose is to make consequential actions **reconstructable and attributable**.
-
-Management should be able to determine not merely that an administrator account was used, but which person or governed process exercised that authority, why the access was required, whether it was properly approved, what significant actions were performed, and whether the resulting activity remained within the authorized purpose.
-
-This is especially important when shared or technical privileged identities cannot be eliminated. The underlying system may record that a generic administrative account performed an action, but PAM controls should, where possible, provide the additional evidence required to associate that use with a named individual, approved workflow, session, or automated process.
-
-### Evidence Must Be Reliable
-
-The existence of a record does not automatically make it reliable evidence.
-
-IAM and PAM evidence should therefore be subject to controls that protect its **integrity, availability, and appropriate retention**. Logs and approval records that can be altered or deleted by the same privileged identities whose actions they are intended to document provide limited assurance.
-
-High-value evidence should be protected against unauthorized alteration and deletion. Access to audit records should itself be restricted, and particularly sensitive environments may require separation between those who administer systems and those who control or review audit evidence.
-
-Retention requirements should also reflect operational, investigative, legal, contractual, privacy, and regulatory needs. Retaining identity data indefinitely is not necessarily appropriate, but retaining it for too short a period may make investigations, audits, or compliance demonstrations impossible.
-
-Evidence governance should therefore answer not only **what is logged**, but also who can modify the evidence, where it is stored, how long it is retained, and whether it will still be available when management, auditors, investigators, or regulators need it.
-
-### IAM, PAM, and Security Operations
-
-Auditability also creates an important connection between IAM, PAM, and **security operations**.
-
-Identity evidence should not remain isolated within access-management platforms if it is relevant to detecting and investigating suspicious activity. Authentication logs, privilege-elevation events, administrative actions, account changes, token use, and anomalous machine-identity behaviour may need to be centralized or correlated with operational evidence from endpoints, cloud platforms, applications, networks, ticketing systems, change-management processes, and other security controls.
-
-This broader context helps distinguish legitimate activity from misuse.
-
-A privileged login outside an expected window may be harmless if it corresponds to an approved emergency change. The same event may be highly significant if no change record exists, the device is unfamiliar, and the identity subsequently modifies logging controls. Evidence becomes substantially more useful when events can be examined together rather than as isolated records.
-
-Identity-related monitoring may therefore include events such as repeated failed authentication, unexpected MFA activity, suspicious account recovery, unusual privileged elevation, dormant-account use, access from unmanaged devices, changes to high-risk permissions, abnormal API activity, unusual workload behaviour, emergency-account activation, or privileged activity outside approved conditions.
-
-Not every anomaly represents an incident. Governance should ensure, however, that significant alerts have defined ownership, triage criteria, escalation procedures, and response expectations. **Evidence that is collected but never examined provides limited control value.**
-
-### From Logging to Assurance
-
-Managers do not need to understand every identity log field, authentication protocol, event identifier, or technical data format. They do need to insist that the organization can answer fundamental accountability questions.
-
-For significant access, management should be able to determine:
-
-- Who or what had access?
-
-- Why was that access required?
-
-- Who approved it?
-
-- What permissions were provided?
-
-- When did the access become effective?
-
-- When and from where was it used?
-
-- What significant actions were performed?
-
-- Was the activity consistent with the identity's role or system purpose?
-
-- Was the access periodically reviewed?
-
-- Were inappropriate permissions removed?
-
-- Were exceptions explicitly approved?
-
-- Can the organization reconstruct what happened if the identity is later suspected of compromise or misuse?
-
-These are governance questions, not logging questions.
-
-An organization may collect billions of identity events and still have weak assurance if those records cannot answer these basic questions. Conversely, a well-designed evidence model focuses on information that supports accountability, risk management, control testing, investigation, and decision-making.
-
-### Evidence and the Three Lines of Assurance
-
-IAM and PAM evidence also supports different layers of organizational assurance.
-
-Operational teams use evidence to administer access, investigate anomalies, and demonstrate that required procedures were completed. Risk, compliance, privacy, and security-governance functions can use the same evidence to monitor whether access remains within policy and risk expectations. Internal audit can independently test whether those controls are designed appropriately and operating effectively.
-
-This distinction reinforces an important governance principle: **the function performing the control should not be the only source of assurance that the control works**.
-
-Reliable IAM and PAM evidence allows other management and assurance functions to challenge, test, and verify access-control claims rather than relying entirely on interviews or representations from the teams that operate the systems.
-
-### The Managerial Objective
-
-Credible IAM and PAM assurance ultimately depends on the organization's ability to move from assertion to demonstration.
-
-Without reliable evidence, audits can become interviews, investigations can become reconstruction exercises based on incomplete information, and compliance claims may depend largely on trust. Management may know what policies require without knowing whether those requirements are consistently enforced.
-
-With reliable evidence, access control becomes governable. Management can identify excessive access, challenge exceptions, verify deprovisioning, investigate suspicious activity, evaluate privileged actions, measure control performance, and demonstrate to auditors and other stakeholders that identity-related controls operate as intended.
-
-The managerial lesson is therefore broader than simply **“log everything.”** The objective is to produce **decision-useful, reliable, protected, and reviewable evidence** that demonstrates how digital authority is granted, exercised, monitored, changed, and withdrawn.
-
-In this sense, auditability converts IAM and PAM from collections of technical controls into sources of **credible assurance**. It enables the organization not merely to state that access is controlled, but to demonstrate that control through evidence that can withstand management review, audit, investigation, and challenge.
-
-## Measurement: IAM/PAM Metrics That Matter to Governance
-
-IAM and PAM are governance domains in part because their effectiveness can be observed and measured. The most useful indicators are not those that simply count activity, such as the number of accounts created, password resets completed, or access tickets processed. Those measures may be useful for operational management, but they say relatively little about whether identity-related risk is being controlled.
-
-**Governance-grade metrics should help management determine whether access exposure is increasing or decreasing, whether high-risk identities and privileges are adequately controlled, whether lifecycle processes are reliable, whether exceptions are being reduced, and whether sufficient evidence exists to demonstrate that access remains appropriate.**
-
-Good IAM and PAM measurement therefore combines several types of indicators. **Coverage metrics** show whether important controls have been deployed across the relevant population. **Performance metrics** show whether those controls operate within expected standards. **Risk indicators** highlight conditions that may increase exposure, such as orphaned accounts or standing privilege. **Outcome and remediation metrics** show whether identified weaknesses are being corrected.
-
-The following table provides examples of IAM and PAM metrics that can support executive oversight, risk reporting, audit preparation, and continuous improvement.
-
-| **Governance area**                   | **Example metric**                                                                                                                                      | **Why it matters**                                                                                                                                              |
-|---------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **MFA coverage**                      | Percentage of active workforce identities protected by MFA                                                                                              | Shows whether baseline authentication protection is broadly enforced.                                                                                           |
-| **Phishing-resistant authentication** | Percentage of privileged and high-risk identities using approved phishing-resistant authentication                                                      | Indicates whether stronger authentication is concentrated on identities with the greatest potential impact.                                                     |
-| **Conditional access**                | Percentage of sensitive applications and privileged access paths governed by approved conditional-access policies                                       | Shows whether access decisions incorporate relevant context such as device posture, identity risk, location, authentication strength, and resource sensitivity. |
-| **Joiner provisioning**               | Percentage of new identities provisioned through approved role-based or standardized workflows                                                          | Indicates whether onboarding follows governed access models rather than informal or ad hoc requests.                                                            |
-| **Mover remediation**                 | Percentage of significant role changes for which obsolete access is removed within the defined period                                                   | Measures whether privilege accumulation and access inherited from previous responsibilities are being controlled.                                               |
-| **Leaver deprovisioning**             | Percentage of terminated identities disabled within the required service level                                                                          | Measures the reliability and timeliness of one of the most important identity lifecycle controls.                                                               |
-| **Privileged access coverage**        | Percentage of identified privileged human accounts governed through approved PAM controls                                                               | Indicates whether privileged authority is governed rather than administered outside controlled processes.                                                       |
-| **Standing privilege**                | Number or percentage of identities with permanent privileged access, including trend over time                                                          | Shows whether unnecessary persistent administrative authority is being reduced.                                                                                 |
-| **Just-in-time privilege**            | Percentage of eligible privileged access granted through time-limited elevation                                                                         | Indicates whether administrative authority is temporary, justified, and automatically removed when no longer required.                                          |
-| **Privileged-session accountability** | Percentage of high-risk privileged sessions attributable to a named user or governed process and appropriately logged, brokered, monitored, or recorded | Demonstrates whether consequential administrative activity can be reconstructed and reviewed.                                                                   |
-| **Privileged-access review**          | Percentage of privileged identities reviewed within the required review period                                                                          | Shows whether exceptional authority is periodically reassessed.                                                                                                 |
-| **Access-review completion**          | Percentage of required access certifications completed within the defined period                                                                        | Provides a basic measure of review-process execution.                                                                                                           |
-| **Access-review remediation**         | Percentage of identified inappropriate access removed or otherwise resolved within the required period                                                  | Measures the effectiveness of access reviews rather than merely their completion.                                                                               |
-| **Segregation-of-duties conflicts**   | Number of unresolved high-risk SoD conflicts and trend over time                                                                                        | Shows whether combinations of permissions are creating excessive concentrations of authority.                                                                   |
-| **SoD exceptions**                    | Percentage of approved SoD exceptions with documented owner, compensating controls, review date, and expiry where applicable                            | Indicates whether unavoidable conflicts are governed rather than informally tolerated.                                                                          |
-| **Break-glass readiness**             | Percentage of required break-glass mechanisms tested successfully during the review period                                                              | Confirms that emergency access is available and functional when needed.                                                                                         |
-| **Break-glass use**                   | Number of break-glass activations and percentage subjected to post-use review                                                                           | Shows whether emergency access remains exceptional, observable, and accountable.                                                                                |
-| **Dormant accounts**                  | Number or percentage of active accounts exceeding the approved inactivity threshold                                                                     | Identifies unnecessary identities that may increase attack surface.                                                                                             |
-| **Orphaned accounts**                 | Number of accounts without a valid owner, employment relationship, contract, application, or business justification                                     | Highlights identities that may have escaped normal lifecycle governance.                                                                                        |
-| **Third-party access**                | Percentage of active external identities with an assigned internal sponsor, documented purpose, and defined review or expiry date                       | Shows whether external access has internal ownership and remains tied to a legitimate relationship.                                                             |
-| **Non-human identity ownership**      | Percentage of significant service accounts, workload identities, API credentials, certificates, tokens, and machine identities with assigned owners     | Indicates whether machine identities are visible and accountable.                                                                                               |
-| **Non-human privilege**               | Number or percentage of machine identities classified as privileged and governed through appropriate PAM or equivalent controls                         | Shows whether powerful automated identities receive governance comparable to privileged human identities.                                                       |
-| **Credential and secret hygiene**     | Percentage of in-scope machine credentials meeting defined rotation, expiration, or short-lived credential requirements                                 | Indicates whether dependence on long-lived or unmanaged machine secrets is being reduced.                                                                       |
-| **Identity exceptions**               | Number of active IAM/PAM exceptions, percentage past review or expiry date, and trend over time                                                         | Shows whether temporary departures from policy are being governed or becoming permanent weaknesses.                                                             |
-| **Identity-related security events**  | Number and trend of significant identity anomalies investigated within required service levels                                                          | Indicates whether suspicious authentication, privilege, or machine-identity activity is being detected and acted upon.                                          |
-| **Evidence completeness**             | Percentage of sampled high-risk access decisions for which required approval, justification, review, and activity evidence can be produced              | Tests whether IAM and PAM controls are demonstrable rather than merely asserted.                                                                                |
-
-### Metrics Must Be Interpreted, Not Merely Reported
-
-IAM and PAM metrics should not be interpreted mechanically. A number is rarely meaningful without context, trend, scope, and an understanding of how the underlying process operates.
-
-For example, a high number of access-review findings may indicate poor access governance. It may also indicate that a newly improved review process is finally identifying excessive permissions that previously remained hidden. In the short term, more findings may therefore represent stronger detection rather than deteriorating control.
-
-Similarly, a reduction in privileged user accounts may indicate improved least privilege, but it may also conceal a transfer of privilege into unmanaged service accounts, cloud roles, automation identities, or shared credentials. A high MFA coverage percentage can create false confidence if the remaining unprotected identities include administrators or other high-impact users. A 99-percent compliance figure may therefore be less important than understanding **which one percent remains outside the control**.
-
-Governance reporting should consequently include appropriate segmentation. Management may need to distinguish between ordinary users and administrators, employees and third parties, human and non-human identities, routine applications and critical systems, or low-risk and high-risk access. Enterprise-wide averages can otherwise hide significant concentrations of exposure.
-
-### Trends Matter More Than Isolated Numbers
-
-Many IAM and PAM measures are most useful when viewed as trends.
-
-A single count of standing privileged accounts provides limited information. Management gains more value from understanding whether the number is increasing or decreasing, whether newly created privileged accounts are justified, and whether permanent privilege is gradually being replaced by controlled elevation.
-
-The same applies to orphaned accounts, SoD conflicts, access-review findings, expired exceptions, non-human identities without owners, and delayed deprovisioning. The trend helps management determine whether control maturity is improving, remaining stable, or deteriorating.
-
-Where appropriate, metrics should therefore include:
-
-> **Current value → target → trend → threshold → accountable owner.**
-
-For significant indicators, management should also define when deviation becomes sufficiently important to require investigation or escalation. A metric without an expected range or escalation threshold may inform management but does not necessarily support governance action.
-
-### Leading and Lagging Indicators
-
-A mature IAM/PAM measurement framework should contain both **leading and lagging indicators**.
-
-Leading indicators describe conditions that influence future risk. Examples include MFA coverage, phishing-resistant authentication adoption, standing privilege, JIT utilization, overdue access reviews, orphaned identities, unresolved SoD conflicts, third-party accounts without sponsors, or machine identities without defined owners. These measures can reveal deteriorating control conditions before a material incident occurs.
-
-Lagging indicators describe events or consequences that have already occurred. Examples may include confirmed identity compromise, misuse of privileged accounts, access-related audit findings, policy violations, unauthorized access incidents, or security events caused by delayed deprovisioning.
-
-Leading indicators are particularly valuable for governance because they provide an opportunity to intervene before control weaknesses produce significant consequences. Lagging indicators remain important because they help management determine whether existing controls are preventing the outcomes they were designed to address.
-
-### Measure Effectiveness, Not Administrative Activity
-
-Managers should distinguish carefully between **activity metrics and effectiveness metrics**.
-
-For example:
-
-- “10,000 access reviews completed” measures activity.
-
-- “98 percent of high-risk access reviewed on time” measures process performance.
-
-- “23 percent of reviewed permissions were removed” provides information about the quality of the existing access model.
-
-- “95 percent of identified inappropriate permissions were remediated within 30 days” measures corrective effectiveness.
-
-Likewise:
-
-- “500 privileged-access requests processed” is operational information.
-
-- “82 percent of eligible privileged access is now time-limited” is a governance indicator.
-
-- “Standing administrative access declined by 30 percent without an increase in unmanaged privileged identities” provides stronger evidence of risk reduction.
-
-Measurement should therefore focus increasingly on whether controls change the organization's exposure, not simply whether IAM and PAM teams are busy.
-
-### Executive Questions Behind the Metrics
-
-Executives do not need to review every technical identity indicator. The dashboard should enable them to answer a smaller number of consequential governance questions:
-
-- Are fewer identities holding unnecessary or excessive access?
-
-- Are privileged identities increasingly governed through controlled and temporary mechanisms?
-
-- Are employees, contractors, and suppliers losing access promptly when their relationship or responsibilities change?
-
-- Are high-risk roles protected by stronger authentication?
-
-- Are segregation-of-duties conflicts declining or being appropriately controlled?
-
-- Are third-party identities owned, time-bounded, and reviewed?
-
-- Are machine identities visible, appropriately privileged, and governed throughout their lifecycle?
-
-- Are exceptions genuinely temporary?
-
-- Are access reviews identifying problems and producing remediation?
-
-- Can significant privileged actions be reconstructed and attributed?
-
-- Are identity anomalies being detected, investigated, and resolved?
-
-- Can management produce credible evidence that the IAM and PAM control environment is operating as intended?
-
-These questions transform identity measurement from operational reporting into **governance intelligence**.
-
-The managerial objective is not to maximize every IAM or PAM metric. It is to maintain a balanced set of indicators that allows management to understand whether **digital authority is becoming more controlled or less controlled over time**.
-
-Effective measurement makes identity risk visible. It enables trends to be challenged, thresholds to trigger action, control weaknesses to be prioritized, investments to be justified, and management to determine whether IAM and PAM are reducing exposure rather than merely administering access.
-
-## Implementation Roadmap: A Practical Sequence for Managers
-
-Organizations often approach IAM and PAM as large-scale technology transformation programs and then struggle with complexity, legacy applications, inconsistent identity data, fragmented ownership, unclear decision rights, and organizational resistance. A more governable approach is to build capability progressively, using a sequence in which each stage reduces meaningful exposure, improves visibility, strengthens evidence, and creates a stronger foundation for the next.
-
-The roadmap should not be interpreted as a rigid technical sequence. Some activities will overlap, and organizations may need to accelerate specific controls where risk is especially high. The underlying principle is that **IAM and PAM maturity should progress according to risk and dependency, not according to software deployment schedules**.
-
-### Stage 1: Establish a Reliable Identity and Authentication Foundation
-
-The first stage is to establish a reliable identity foundation. The organization should define authoritative identity sources, improve the quality and consistency of identity records, reduce unnecessary duplication of identity stores, and consolidate identity providers where feasible.
-
-This foundation matters because later controls depend on accurate information about who or what an identity represents. Automated provisioning, access reviews, role assignment, conditional access, and privileged-access governance become unreliable if identity records are incomplete, inconsistent, or disconnected from authoritative business information.
-
-Authentication should also be strengthened at this stage. MFA should be broadly enforced for significant organizational access, with stronger and phishing-resistant authentication prioritized for high-risk identities and access paths such as privileged administrators, identity administrators, cloud-management environments, remote administration, financial approvals, and sensitive systems.
-
-Conditional-access policies can then progressively incorporate additional context such as authentication strength, device posture, network characteristics, identity risk, and resource sensitivity.
-
-The objective is not simply to deploy an identity provider or MFA technology. It is to increase the organization's confidence that **the identities exercising digital authority are legitimate and appropriately authenticated**.
-
-### Stage 2: Strengthen Identity Lifecycle Discipline
-
-Once the identity foundation is sufficiently reliable, the organization should strengthen lifecycle controls.
-
-Joiner–mover–leaver processes should be standardized, integrated with relevant human-resources, contractor, supplier, and business processes, and supported by clearly defined responsibilities. Where feasible, identity changes should originate from authoritative events rather than depend primarily on manual requests and informal communication.
-
-Deprovisioning deserves particular attention because it can produce immediate risk reduction. Terminated employees, expired contractor accounts, obsolete external identities, dormant accounts, and other access relationships that no longer have a legitimate purpose should be disabled or removed promptly.
-
-Role changes are equally important. A mover process should not simply add access required for the new position. It should also identify and remove permissions associated with responsibilities that no longer exist.
-
-This stage should introduce measurable expectations such as deprovisioning service levels, percentage of lifecycle events processed automatically or through approved workflows, number of orphaned identities, and access remaining after significant role changes.
-
-The objective is to keep **digital authority synchronized with organizational reality**.
-
-### Stage 3: Bring Privileged Authority Under Control
-
-The third stage is to establish stronger governance over privileged identities, credentials, sessions, and administrative pathways.
-
-The organization should identify where privileged authority exists and begin with the systems and identities capable of producing the most significant consequences. Ordinary user accounts should be separated from administrative identities. Standing privilege should be reduced. Privileged credentials and secrets should be protected through appropriate vaulting or secrets-management mechanisms, and just-in-time or just-enough privilege should be introduced where technically and operationally feasible.
-
-High-risk privileged sessions should be attributable, monitored, and evidenced. Administrative pathways should be constrained through stronger authentication, controlled devices, hardened administrative environments, session brokering, network restrictions, or other mechanisms appropriate to the environment.
-
-Break-glass and emergency-access mechanisms should also be designed, protected, tested, monitored, and reviewed.
-
-The objective is not necessarily to place every administrative account into a PAM platform immediately. It is to ensure that the **most consequential forms of digital authority are identified and progressively brought under stronger control**.
-
-### Stage 4: Strengthen Authorization and Role Governance
-
-The fourth stage is to improve the quality of authorization decisions.
-
-This work should begin with high-risk systems, sensitive information, financial processes, production environments, cloud platforms, and functions in which segregation-of-duties conflicts could produce material consequences.
-
-Business-owned roles should be defined and mapped to legitimate responsibilities. Entitlements should be rationalized, unnecessary access removed, and role ownership established. RBAC, ABAC, or hybrid authorization models can then be applied where they improve consistency and control.
-
-Access reviews should also mature from administrative certification exercises into meaningful governance processes. Reviewers should receive understandable information about what access enables, why it was granted, whether it remains aligned with the user's role, when it was last exercised, and whether it creates conflicts with other permissions.
-
-Review findings must lead to remediation. Inappropriate access should be removed, role models corrected, conflicts resolved, and exceptions documented and governed.
-
-The objective is not to demonstrate that access-review forms were completed. It is to demonstrate that **authorization remains justified and that excessive authority is actually reduced**.
-
-### Stage 5: Extend Governance to Third Parties and Non-Human Identities
-
-As human identity and privileged-access governance mature, the organization should extend comparable discipline to external and machine identities.
-
-Third-party access should have explicit internal ownership, documented business justification, defined scope, appropriate authentication, review requirements, and expiration or renewal mechanisms. Privileged supplier access should be governed through the same principles applied to internal administrators.
-
-Non-human identities should also be inventoried and governed systematically. Service accounts, workload identities, API credentials, tokens, certificates, cloud roles, automation scripts, machine identities, and CI/CD pipeline identities should have defined owners and legitimate purposes.
-
-Their privileges should be assessed according to risk. Static secrets should be reduced where feasible in favour of managed identities, workload federation, short-lived credentials, or other mechanisms that reduce dependence on long-lived reusable secrets. High-risk machine identities should be brought within PAM or equivalent privileged-governance controls.
-
-Dormant, orphaned, unexplained, or obsolete non-human identities should be investigated and retired when no longer required.
-
-The objective is to prevent identity governance from stopping at the human workforce while significant external and automated authority remains unmanaged.
-
-<img src="media/image52.png" style="width:6in;height:4.5in" />
-
-Figure 52: IAM Implementation roadmap
-
-### Build Monitoring, Evidence, and Measurement into Every Stage
-
-Monitoring and evidence should not be deferred until the end of the roadmap. They should be designed into every stage.
-
-Identity and privilege events should be logged appropriately, protected against unauthorized alteration, retained according to defined requirements, and integrated with security operations where relevant. Management should be able to determine whether important controls are actually operating rather than relying primarily on implementation status reports.
-
-Metrics should evolve with the program. Early measures may focus on MFA coverage, dormant accounts, deprovisioning timeliness, and privileged-account inventory. Later measures may include standing-privilege reduction, JIT adoption, access-review remediation, SoD conflicts, third-party sponsorship, non-human identity ownership, credential lifecycle compliance, exception aging, and privileged-session accountability.
-
-This is important because risk can migrate. Reducing human administrator accounts provides limited benefit if equivalent privilege moves into unmanaged cloud roles or service accounts. Improving employee deprovisioning while ignoring external identities can leave comparable exposure elsewhere.
-
-Measurement should therefore help management determine whether **overall identity exposure is being reduced rather than merely relocated**.
-
-### Define Milestones as Risk-Reduction Outcomes
-
-Managers should require each stage to produce observable security and governance outcomes rather than simply technology milestones.
-
-“We purchased an IAM platform” or “the PAM system is live” are implementation statements. They do not demonstrate that identity risk has been reduced.
-
-More meaningful milestones might include:
-
-- MFA enforced for 98 percent of in-scope users, with all privileged users protected by approved phishing-resistant authentication;
-
-- terminated identities disabled within the approved service level in at least 99 percent of cases;
-
-- standing privileged accounts reduced by 60 percent;
-
-- 90 percent of eligible administrative access converted to time-limited elevation;
-
-- all break-glass accounts tested successfully during the review period;
-
-- all high-risk third-party identities assigned an internal sponsor and expiry or review date;
-
-- all high-risk service accounts assigned accountable owners and governed credential requirements;
-
-- 95 percent of inappropriate access identified through reviews remediated within the approved period; and
-
-- all privileged activity on critical systems attributable to a named individual or governed process.
-
-The specific thresholds will vary by organization and risk appetite. The important principle is that milestones should describe **improved control conditions**, not merely completion of technical tasks.
-
-### Prioritize According to Risk
-
-Organizations should also resist the temptation to implement IAM controls uniformly across every system from the beginning.
-
-Legacy systems, low-risk applications, critical infrastructure, cloud platforms, financial systems, and modern SaaS environments may require different treatment. A risk-based roadmap should prioritize identities and access paths capable of producing the greatest business consequences.
-
-A high-risk cloud administrator account may justify immediate phishing-resistant authentication and PAM controls even while broader role engineering remains incomplete. A legacy application containing highly sensitive information may warrant accelerated lifecycle and access-review controls even if integration with the central IAM platform requires manual interim processes.
-
-The roadmap should therefore provide strategic direction without preventing management from addressing urgent concentrations of risk.
-
-### Manage IAM and PAM as a Governance Transformation
-
-IAM and PAM implementation should ultimately be treated as a **risk-reduction and governance transformation program**, not simply as a software deployment project.
-
-Technology is necessary, but successful implementation also depends on authoritative data, business ownership, clear decision rights, effective processes, integration with HR and supplier management, meaningful access models, operational monitoring, and credible assurance.
-
-Progress should therefore be assessed through outcomes such as:
-
-- more accurate access;
-
-- stronger authentication;
-
-- fewer unnecessary identities;
-
-- reduced standing privilege;
-
-- faster deprovisioning;
-
-- fewer unresolved SoD conflicts;
-
-- greater visibility of machine and third-party identities;
-
-- stronger evidence of privileged activity;
-
-- fewer unmanaged exceptions; and
-
-- clearer accountability for identity-related decisions.
-
-The managerial lesson is that IAM and PAM maturity develops incrementally. Each stage should remove known weaknesses, reduce the amount of unnecessary digital authority, improve management's visibility, and establish the control foundation required for the next level of maturity.
-
-A successful roadmap is therefore not defined by how many identity technologies have been deployed. It is defined by whether **access becomes more accurate, privilege more constrained, evidence more credible, exceptions more controlled, and accountability more explicit over time**.
-
-## Concluding Integration: Identity Governance as the Core of Modern Cybersecurity
-
-In increasingly identity-centric enterprises, cybersecurity governance depends heavily on the organization's ability to govern digital identities and the authority attached to them. IAM and PAM determine whether access is appropriately granted, whether excessive privilege is constrained, whether insider and third-party risk is reduced, whether attackers can escalate after an initial compromise, and whether management can produce credible evidence for investigations, audits, compliance, and assurance.
-
-The central managerial conclusion of this chapter is straightforward: **when identity governance is weak, many other cybersecurity controls become fragile**.
-
-An organization may invest in network segmentation, endpoint protection, cloud-security technologies, monitoring platforms, data-protection controls, backup systems, and incident-response capabilities. Yet these safeguards can be undermined if attackers, insiders, compromised applications, or unmanaged machine identities acquire permissions that allow them to bypass, modify, or disable those controls.
-
-A strong firewall provides limited protection if a compromised administrator can change its rules. Effective logging provides limited assurance if a privileged identity can disable or alter the logs. Secure cloud storage can still expose sensitive information if an overprivileged account can modify its access policies. Reliable backups may provide little resilience if administrative credentials allow an attacker to delete or encrypt them. Identity governance therefore affects not only who enters the environment, but also **who or what has the authority to change the environment once inside it**.
-
-Conversely, disciplined identity governance strengthens the effectiveness of many other cybersecurity investments.
-
-- **Strong authentication** increases confidence that the actor exercising an identity is legitimate.
-
-- **Least privilege** reduces the amount of unnecessary authority available for misuse or compromise.
-
-- **Segregation of duties** prevents excessive concentrations of authority and reduces opportunities for fraud, error, and concealment.
-
-- **Lifecycle governance** ensures that digital access changes as employment, contractual relationships, roles, applications, and business requirements change.
-
-- **Privileged Access Management** constrains exceptional administrative authority and reduces the likelihood that an ordinary compromise becomes a catastrophic one.
-
-- **Third-party access governance** ensures that external identities remain tied to legitimate business relationships and internal accountability.
-
-- **Non-human identity governance and secrets management** extend these same principles to applications, workloads, services, automation, APIs, and machine-to-machine trust.
-
-- **Monitoring, logging, and evidence** make identity decisions and activity observable, reviewable, and defensible.
-
-Together, these mechanisms turn identity from an administrative concern into a system of **controlled digital authority**.
-
-IAM and PAM are therefore not auxiliary technical disciplines. They are structural governance domains because they translate management expectations into enforceable access decisions. Risk appetite may establish how much exposure the organization is willing to tolerate, but identity controls determine which actors are actually permitted to reach particular resources, under which conditions, with what level of authority, and with what oversight.
-
-In this sense, IAM and PAM operationalize several of the governance principles developed throughout this book. Policies become enforceable through authentication and authorization rules. Least privilege becomes meaningful through role design and privilege management. Segregation of duties becomes operational through entitlement controls and approval workflows. Accountability becomes demonstrable through attribution, logging, and evidence. Risk treatment becomes actionable when excessive access is removed, privileged pathways are constrained, and exceptions are deliberately governed.
-
-Identity governance also creates an important bridge between **prevention, detection, response, and recovery**.
-
-Before an incident, it reduces unnecessary access and strengthens authentication. During an intrusion, it can limit an attacker's ability to move laterally, escalate privilege, or access sensitive resources. Detection capabilities can identify suspicious authentication, anomalous privilege use, or unexpected machine-identity behaviour. During response, identities and sessions can be disabled, credentials rotated, tokens revoked, and administrative pathways restricted. During recovery, controlled emergency access allows authorized personnel to regain control of systems without abandoning governance.
-
-Identity is therefore relevant throughout the cybersecurity lifecycle rather than only at the moment of login.
-
-For Business Technology Management professionals, the practical implication is that IAM and PAM must be governed as **continuous risk-management disciplines**, not implemented once as account-administration projects.
-
-- Management should be able to explain:
-
-- Who owns identity and access decisions?
-
-- What constitutes legitimate access?
-
-- Who is authorized to approve sensitive and privileged access?
-
-- How is authentication strength matched to risk?
-
-- How are permissions constrained through least privilege?
-
-- How are segregation-of-duties conflicts identified and managed?
-
-- How does access change when organizational roles and relationships change?
-
-- How are privileged identities, credentials, sessions, and administrative pathways controlled?
-
-- How are third-party and non-human identities governed?
-
-- How are exceptions approved, monitored, and retired?
-
-- How does management know that the control environment continues to operate as intended?
-
-These questions reveal whether identity governance exists in practice or merely in policy.
-
-The ultimate objective is not to eliminate every identity-related risk. Modern organizations must delegate authority to employees, administrators, suppliers, applications, workloads, and automated processes to operate. The governance challenge is to ensure that this authority is **deliberate, proportionate, constrained, observable, reviewable, and revocable**.
-
-That is the central role of IAM and PAM.
-
-Modern cybersecurity increasingly depends on the organization's ability to govern **who or what may exercise digital authority, over which resources, under which conditions, for how long, and with what evidence and accountability**.
-
-IAM determines how that authority is distributed throughout the organization. PAM applies stronger governance to its most consequential forms. Together, they provide one of the essential foundations through which cybersecurity governance becomes operational, measurable, and defensible.
+> A. The board refused to fund any role-engineering work across its applications
+>
+> B. Regulators required PAM deployment before any other identity control could proceed
+>
+> C. The outsourced provider could not support the ERP system's role-based access model
+>
+> D. Two scenarios exceeded risk appetite, so the most consequential access paths were addressed first

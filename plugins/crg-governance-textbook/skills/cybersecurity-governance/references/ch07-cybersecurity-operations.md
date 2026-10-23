@@ -1,10 +1,30 @@
-<!-- Introduction to Cybersecurity Governance, 3rd ed., v2.1g (Aug 2026) - (c) Marc-André Léger. Licensed under CC BY-NC 4.0 (https://creativecommons.org/licenses/by-nc/4.0/). Third-party standards, frameworks and quotations remain under their owners' terms. -->
+<!-- Léger, M.-A. (2026). Introduction to Cybersecurity Governance for Business Technology Management (3rd ed., v2.51). Chapter 7: Cybersecurity Operations. CC BY-NC 4.0 -->
 
 # Chapter 7: Cybersecurity Operations
 
+## Learning outcomes
+
+After completing this chapter, you should be able to:
+
+1.  Explain how cybersecurity operations carry out and sustain the risk decisions set by governance, including the treatment portfolio approved after a risk assessment.
+
+2.  Describe the minimum elements of a cybersecurity operating model and the imbalances between people, process, technology, and authority that cause it to fail.
+
+3.  Apply the five-step operational cybersecurity cycle to identify critical assets, threats, and weaknesses, appraise exposure, and select countermeasures for an organization.
+
+4.  Distinguish the core operational practices that prevent predictable failures and propose a useful indicator for each.
+
+5.  Compare in-house, hybrid, and outsourced security operations centre (SOC) models and justify a choice on the basis of risk, business context, and accountability.
+
+6.  Evaluate a security technology portfolio in terms of operational capability rather than tool ownership.
+
+7.  Design a measurement set that combines efficiency, effectiveness, and risk-linked outcome metrics, with leading and lagging indicators, owners, and escalation thresholds.
+
+8.  Interpret SOC 1, SOC 2, and SOC 3 reports, including Type I and Type II, carve-outs, and complementary user entity controls, when relying on a service provider.
+
 Cybersecurity operations involve the daily activities that turn governance policies into tangible protection. Leaders guide these policies by setting objectives, risk appetite, and resource allocation, while operations execute these decisions continuously using people, processes, and technology. Essentially, governance specifies the acceptable risk level, and operations ensure this by mitigating unacceptable risks and maintaining controls, enabling the organization to operate reliably even under stress.
 
-This chapter views cybersecurity operations as rooted in management, procedures, and organizational structure. It concentrates on how managers and cybersecurity leaders develop and implement an operating model that ensures confidentiality, integrity, and availability (CIA) through disciplined execution. This focus aligns with standards-based approaches: for instance, an information security management system (ISMS) explicitly aims to safeguard the CIA objectives by employing a risk management process to tackle potential threats. 
+This chapter views cybersecurity operations as rooted in management, procedures, and organizational structure. It concentrates on how managers and cybersecurity leaders develop and implement an operating model that ensures confidentiality, integrity, and availability (CIA) through disciplined execution. This focus aligns with standards-based approaches: as the introduction to ISO/IEC 27001:2022 puts it, an information security management system (ISMS) “preserves the confidentiality, integrity and availability of information by applying a risk management process.” 
 
 ## Cybersecurity operations and the risk-centric logic of governance
 
@@ -14,15 +34,13 @@ A risk-focused operating model starts with the idea that not all risks can or sh
 
 Operationally, this means there are two ongoing responsibilities.
 
-- Initially, the organization needs to have a clear understanding of what it is safeguarding—such as its assets, sensitive data, and supporting infrastructure—along with potential threats and vulnerabilities, and the significance of these risks in terms of business impact. 
+- First, the organization needs to have a clear understanding of what it is safeguarding—such as its assets, sensitive data, and supporting infrastructure—along with potential threats and vulnerabilities, and the significance of these risks in terms of business impact. 
 
-- Secondly, it should execute a repeatable cycle of prevention, detection, response, and recovery, with ongoing monitoring and refinement, to make sure controls stay effective as conditions evolve.
+- Second, it should execute a repeatable cycle of prevention, detection, response, and recovery, with ongoing monitoring and refinement, to make sure controls stay effective as conditions evolve.
 
-This chapter therefore treats cybersecurity operations as the capability to continuously implement a risk treatment program, rather than as an isolated cybersecurity toolset.
+This chapter therefore treats cybersecurity operations as the capability to continuously implement a risk treatment program, rather than as an isolated cybersecurity toolset. It picks up where Chapter 6 left off: once management has approved a treatment portfolio, operations must deliver and sustain it. Detection, orchestration, vulnerability management, response, and testing are examined in more depth in Chapter 8.
 
-<img src="media/image33.png" style="width:6in;height:4in" />
-
-<span id="_Toc235166915" class="anchor"></span>Figure 33: Cybersecurity operations and the risk-centric logic of governance
+<span id="_Toc243635532" class="anchor"></span>Figure 33: Cybersecurity operations and the risk-centric logic of governance
 
 ## Building the cybersecurity operations capability: people, process, technology, and authority
 
@@ -48,34 +66,32 @@ A cybersecurity team is responsible for defending the organization’s digital a
 
 In a managerial operating model, grouping cybersecurity roles by operational purpose is more effective than by job titles. A mature cybersecurity operations team usually covers monitoring and triage, investigation and incident response, engineering and automation, vulnerability management, and governance coordination (including policy, risk, compliance, and reporting). This approach aligns with current SOC models, which separate monitoring and detection, incident response and threat hunting, threat intelligence, and detection and automation engineering.
 
-The size and specialization of a team should align with the organization's scale, complexity, regulatory requirements, and threat landscape. Further staffing guidance is available in Chapter 22. Smaller organizations may require generalists and external vendors, while larger ones often need specialized roles and typically transition to a cybersecurity platform model, typically supported by a cybersecurity operations centre (SOC). In all scenarios, leaders need to connect staffing choices directly to the organization’s risk profile and service standards while respecting its financial and human constraints.
+The size and specialization of a team should align with the organization's scale, complexity, regulatory requirements, and threat landscape. Chapter 21 discusses staffing, organizational design, and accountability in more depth. Smaller organizations may require generalists and external vendors, while larger ones often need specialized roles and a more structured operating model, typically supported by a security operations centre (SOC). In all scenarios, leaders need to connect staffing choices directly to the organization’s risk profile and service standards while respecting its financial and human constraints.
 
 ## The five-step operational cybersecurity cycle, viewing OPSEC as a managerial process
 
-At a high level, operating a cybersecurity organization can be described as a five-step cycle. The vocabulary varies across organizations, and terms such as operational cybersecurity (OPSEC), cybersecurity operations, and information cybersecurity operations, along with internal jargon, often shift with culture, tooling, and historical practices. However, the core logic remains stable, and managers should recognize the pattern even if the labels differ.
+At a high level, operating a cybersecurity organization can be described as a five-step cycle. The vocabulary varies across organizations, and terms such as operations security (OPSEC), security operations, and cybersecurity operations, along with internal jargon, often shift with culture, tooling, and historical practices. However, the core logic remains stable, and managers should recognize the pattern even if the labels differ. The cycle below adapts the classic five-step OPSEC process developed in military and government settings, which moves from identifying critical information, through the analysis of threats, vulnerabilities, and risk, to the application of countermeasures.
 
-<img src="media/image34.png" style="width:6in;height:4in" />
+<span id="_Toc243635533" class="anchor"></span>Figure 34: Five-step operational cybersecurity cycle
 
-<span id="_Toc235166916" class="anchor"></span>Figure 34: Five-step operational cybersecurity cycle
-
-- **Step 1: Identify sensitive data and critical assets.**
+- **Step 1: Identify sensitive data and critical assets.**  
   Operations start with identifying what needs protection, which involves data discovery, asset inventory, and classification. It also requires understanding how information is utilized, its flow, and relevant legal or contractual restrictions. The goal isn't just to document these aspects but to establish a practical basis for prioritizing security efforts.
 
-- **Step 2: Identify relevant threats.**
+- **Step 2: Identify relevant threats.**  
   The organization needs to identify credible threat sources and events that could impact its sensitive information and systems. This encompasses external threats like criminal groups, competitors, and opportunistic attackers, as well as internal threats such as malicious or negligent insiders. Additionally, non-adversarial factors like accidents, failures, or misconfigurations should be considered. While threat intelligence provides one insight, learning from incidents and near-misses within operations is equally vital.
 
-- **Step 3: Identify vulnerabilities and weaknesses.**
+- **Step 3: Identify vulnerabilities and weaknesses.**  
   Threats become risks only when vulnerabilities exist and can be exploited. These vulnerabilities might be technical, such as unpatched software and misconfigurations; process-related, like weak change control; or human-related, including susceptibility to phishing, workarounds, and poor credential hygiene.
 
-- **Step 4: Appraise the exposure to adverse outcomes.**
-  The organization estimates the significance of each vulnerability-threat pair, considering likelihood and business impact. This process links operational cybersecurity to governance, as the team evaluates whether the potential exposure of outcomes is acceptable and sets remediation priorities accordingly. Standards-based risk management highlights this continuous cycle of understanding risk and acting.
+- **Step 4: Appraise the exposure to adverse outcomes.**  
+  The organization estimates the significance of each vulnerability-threat pair, considering likelihood and business impact. This process links operational cybersecurity to governance, as the team evaluates whether the potential exposure is acceptable and sets remediation priorities accordingly. Standards-based risk management highlights this continuous cycle of understanding risk and acting.
 
-- **Step 5: Implement countermeasures and monitor effectiveness.**
+- **Step 5: Implement countermeasures and monitor effectiveness.**  
   The final step involves not just deploying controls but doing so within a plan that minimizes unacceptable risks while keeping operations feasible. This includes implementing technical, process, and human controls, such as training. Activities such as ethical hacking, penetration testing, and red teaming can help identify vulnerabilities early, before attackers do.
 
 This cycle not only adheres to best practices but also aligns with ISO/IEC 27005’s approach, which views risk treatment as a set of options and actions applied to risks, including the option to accept residual risk when appropriate. It also supports the concept that risk treatment decisions need to be communicated and coordinated across organizational levels to ensure they are practical and effective. 
 
-## Core Operational Practices That Prevent Predictable Failures
+## Core operational practices that prevent predictable failures
 
 Cybersecurity operations are most effective when they prevent routine, predictable failures rather than merely reacting to major attacks after they occur. Many significant incidents do not begin with an extraordinary adversary capability. They begin with ordinary operational weaknesses: unknown assets, misconfigurations, uncontrolled changes, excessive privileges, delayed patching, incomplete monitoring, untested backups, or unclear incident-response responsibilities.
 
@@ -131,7 +147,7 @@ Useful indicators include the percentage of critical vulnerabilities remediated 
 
 ### Incident response, disaster recovery, and business continuity
 
-Even strong operations cannot prevent every incident. Operational maturity therefore requires the organization to plan, rehearse, and improve its response and recovery capabilities. Incident response, disaster recovery, and business continuity are closely connected but not identical. Incident response focuses on detecting, analyzing, containing, eradicating, and recovering from security incidents. Disaster recovery focuses on restoring technology capabilities. Business continuity focuses on maintaining critical business functions and services while disruption is occurring.
+Even strong operations cannot prevent every incident. Operational maturity therefore requires the organization to plan, rehearse, and improve its response and recovery capabilities. Incident response, disaster recovery, and business continuity are closely connected but not identical. Incident response focuses on detecting, analyzing, containing, eradicating, and recovering from security incidents. Disaster recovery focuses on restoring technology capabilities. Business continuity focuses on maintaining critical business functions and services while disruption is occurring. NIST SP 800-61 Rev. 3 (2025) now frames incident response within the six functions of the NIST CSF 2.0 rather than as a stand-alone lifecycle, and Chapter 12 examines these capabilities in detail.
 
 These capabilities must be operational, not merely documented. Plans should define roles, escalation paths, communication channels, legal and regulatory notification responsibilities, evidence-preservation requirements, recovery priorities, and decision authority during a crisis. They should also be tested through tabletop exercises, technical recovery tests, backup restoration tests, and post-incident reviews. The purpose is to ensure that the organization can act under stress rather than improvising during an emergency.
 
@@ -139,9 +155,9 @@ Useful indicators include mean time to contain incidents, backup restore-test su
 
 Taken together, these operational practices reduce predictable failure. They also create the evidence managers need to govern cybersecurity responsibly. A mature cybersecurity operation is not one that claims incidents will never happen. It is one that knows its assets, controls change, limits privileges, automates where appropriate, monitors what matters, systematically remediates vulnerabilities, and can respond and recover when controls fail.
 
-## The Security Operations Center (SOC): Purpose, Tiers, and Modern Operating Models
+## The security operations centre (SOC): purpose, tiers, and modern operating models
 
-A Security Operations Center (SOC) is an organizational capability for monitoring, analyzing, coordinating, and responding to cybersecurity events. It should not be understood merely as a room with screens or as a specific technology platform. A SOC may be a centralized team, a distributed team working across regions and time zones, a virtual operating model, or a hybrid arrangement that combines internal personnel with external managed security service providers. What matters is not the physical form of the SOC, but the capability it provides: continuous visibility into security-relevant activity, structured analysis of alerts and incidents, coordinated response, and evidence that cybersecurity operations are being managed.
+A security operations centre (SOC) is an organizational capability for monitoring, analyzing, coordinating, and responding to cybersecurity events. It should not be understood merely as a room with screens or as a specific technology platform. A SOC may be a centralized team, a distributed team working across regions and time zones, a virtual operating model, or a hybrid arrangement that combines internal personnel with external managed security service providers. What matters is not the physical form of the SOC, but the capability it provides: continuous visibility into security-relevant activity, structured analysis of alerts and incidents, coordinated response, and evidence that cybersecurity operations are being managed.
 
 The SOC’s managerial purpose is to reduce uncertainty during normal operations and during incidents. It gives the organization a mechanism for detecting abnormal activity, triaging events, escalating serious issues, coordinating response actions, and producing operational evidence for management, audit, compliance, and post-incident learning. In this sense, the SOC is both an operational function and a governance instrument. It helps leadership know whether controls are working, whether incidents are being detected, whether response times are acceptable, and whether emerging threats are being translated into operational action.
 
@@ -163,7 +179,7 @@ The main benefit of the tiered model is efficiency. It enables the organization 
 
 Modern SOCs increasingly extend beyond traditional network-security monitoring. Incidents rarely respect organizational boundaries. A ransomware event may involve identity compromise, endpoint behaviour, cloud activity, backup integrity, business-process disruption, third-party access, legal notification duties, and executive communications. A narrow SOC that monitors only network alerts may miss important signals from identity platforms, cloud services, endpoints, applications, suppliers, physical access systems, or operational technology.
 
-For this reason, modern SOC models integrate telemetry and workflows from multiple operational domains. They may coordinate with a Network Operations Center (NOC), cloud operations, DevSecOps teams, identity and access management, vulnerability management, fraud teams, physical security, operational technology teams, privacy, legal, and business continuity. This does not mean that the SOC owns all these functions. Rather, it means that the SOC must be able to exchange information with them, escalate effectively, and coordinate during incidents.
+For this reason, modern SOC models integrate telemetry and workflows from multiple operational domains. They may coordinate with a network operations centre (NOC), cloud operations, DevSecOps teams, identity and access management, vulnerability management, fraud teams, physical security, operational technology teams, privacy, legal, and business continuity. This does not mean that the SOC owns all these functions. Rather, it means that the SOC must be able to exchange information with them, escalate effectively, and coordinate during incidents.
 
 This integration is important because many cyber events are visible only when signals are combined. Fraud indicators may have cyber causes. Physical access events may precede unauthorized system activity. DevSecOps pipelines may introduce vulnerabilities into production environments. Cloud misconfigurations may create exposure that is invisible to traditional network monitoring. Vendor activity may become a pathway for compromise. A modern SOC therefore needs not only technical tools, but also relationships, decision rights, playbooks, and communication channels that connect security monitoring with the wider organization.
 
@@ -213,7 +229,7 @@ A useful measurement program distinguishes among operational efficiency, operati
 
 - Risk-linked outcome metrics connect operational performance to business exposure. Examples include reductions in residual risk for priority scenarios, decreases in the number of critical vulnerabilities on high-value assets, fewer overdue remediation actions, improved backup restoration success, improved recovery-time performance, reduced number of unmanaged assets, closure of audit findings, reduction in repeat incidents, and improved control coverage for critical business services. These measures are especially important because they show whether operations are reducing the likelihood or impact of adverse outcomes.
 
-Managers should also distinguish between leading and lagging indicators. Leading indicators provide early warning of an impending major incident. Examples include patching delays, configuration drift, a growing alert backlog, failed backup tests, rising exception requests, expired certificates, incomplete access reviews, and missing logs from critical systems. Lagging indicators describe what has already happened, such as incidents, outages, confirmed breaches, fraud events, recovery delays, audit findings, or financial losses. A mature measurement program uses both: leading indicators to prevent deterioration and lagging indicators to learn from actual failures.
+Managers should also distinguish between leading and lagging indicators. Leading indicators provide early warning that exposure is rising or controls are weakening, before an incident occurs. Examples include patching delays, configuration drift, a growing alert backlog, failed backup tests, rising exception requests, expired certificates, incomplete access reviews, and missing logs from critical systems. Lagging indicators describe what has already happened, such as incidents, outages, confirmed breaches, fraud events, recovery delays, audit findings, or financial losses. A mature measurement program uses both: leading indicators to prevent deterioration and lagging indicators to learn from actual failures.
 
 Metrics should be interpreted in context. Faster response time is valuable only if the response is accurate and proportionate. A lower alert volume may indicate better tuning, but it may also indicate reduced visibility. A high incident count may indicate worsening threat exposure, but it may also reflect improved detection. Managers should therefore avoid treating individual metrics as simple performance grades. The purpose of measurement is to support informed discussion, identify trends, and guide corrective action.
 
@@ -225,15 +241,13 @@ The ultimate purpose of measurement is continuous improvement. When operations f
 
 Cybersecurity operations are interconnected. Organizations rely on suppliers, cloud providers, managed service providers, and outsourcing partners, all of which add to their operational risk. Consequently, managers require standardized assurance methods to assess the controls of these third parties.
 
-In this context, SOC reports (System and Organization Controls reports) are commonly utilized to offer assurance for service organizations. SOC 1 emphasizes controls related to internal control over financial reporting (ICFR). SOC 2 covers controls pertinent to cybersecurity, availability, processing integrity, confidentiality, and privacy, often used by technology and cloud service providers. SOC 3 is a more general disclosure intended for wider audiences.
+In this context, SOC reports (System and Organization Controls reports, issued under AICPA attestation standards) are commonly used to provide assurance about service organizations; the acronym should not be confused with the security operations centre discussed earlier. SOC 1 emphasizes controls related to internal control over financial reporting (ICFR). SOC 2 covers controls relevant to security, availability, processing integrity, confidentiality, and privacy (the AICPA Trust Services Criteria), often used by technology and cloud service providers. SOC 3 is a general-use summary of a SOC 2 examination intended for wider audiences. In Canada, the comparable standard for reports on controls at a service organization is CSAE 3416, and ISAE 3402 is the international equivalent.
 
-A key operational distinction exists between Type I and Type II reports. Type I reports evaluate control design at a specific moment, while Type II reports examine the controls' effectiveness over a span of time.
+A key operational distinction exists between Type I and Type II reports. Type I reports evaluate control design at a specific moment, while Type II reports also examine the controls' operating effectiveness over a period, typically six to twelve months. Before relying on either type, managers should check the scope and period covered, any exceptions reported by the auditor, subservice organizations that were carved out of the scope, and the complementary user entity controls that the customer itself must operate.
 
-Managers utilize these reports to aid in vendor selection, ongoing vendor monitoring, and regulatory discussions. Operationally, SOC reports serve as a governance link: they offer evidence of compliance with expectations and shape contractual requirements related to incident reporting, logging retention, change management, access controls, and vulnerability management in third-party relationships.
+Managers use these reports to support vendor selection, ongoing vendor monitoring, and regulatory discussions; third-party governance is covered in Chapter 19. Operationally, SOC reports serve as a governance link: they offer evidence of compliance with expectations and shape contractual requirements related to incident reporting, logging retention, change management, access controls, and vulnerability management in third-party relationships.
 
-<img src="media/image35.png" style="width:6in;height:4in" />
-
-<span id="_Toc235166917" class="anchor"></span>Figure 35: SOC reports
+<span id="_Toc243635534" class="anchor"></span>Figure 35: SOC reports
 
 ## Operational challenges: people, process, and complexity
 
@@ -253,8 +267,330 @@ Prioritization is essential because cybersecurity operations will always face mo
 
 The underlying governance challenge is to prevent operational complexity from becoming unmanaged risk. Managers should ask whether the organization has enough skilled people, whether procedures are repeatable and current, whether tools are integrated and useful, whether evidence can support audit and investigation, and whether priorities reflect business risk rather than technical noise. Cybersecurity operations succeed when people, process, and technology form a sustainable capability rather than a collection of disconnected activities.
 
+### Illustrative scenario: a logistics company chooses its SOC model
+
+Transports Fleuve-Nord is a fictional Québec trucking and logistics company with about 1,400 employees, a fleet equipped with telematics, three distribution centres, and a dispatch platform that schedules every delivery. Large retail customers now require round-the-clock incident notification in their contracts, and Fleuve-Nord's own risk assessment, performed with CyberRiskGuardian, placed ransomware affecting dispatch and fraud through compromised email above tolerance. The security team of six worked business hours only. Alerts that fired overnight were read the next morning. The executive committee asked the head of cybersecurity to present options for continuous monitoring and response, with costs, risks, and a recommendation.
+
+**The two options.** The first option was an in-house 24/7 SOC. The internal estimate showed that covering every shift, with allowances for vacations, illness, and training, would require roughly doubling the team, in a labour market where experienced analysts are hard to recruit and retain. The second option was a hybrid SOC: a managed security service provider (MSSP) would provide continuous Tier 1 monitoring and initial Tier 2 investigation, while the internal team would keep deeper investigation, detection priorities, incident command, and every decision involving business risk. The in-house option offered the strongest business context and control over evidence; the hybrid option offered coverage faster and at a lower cost, but created dependency on a provider and a risk of escalation failures at the boundary. The committee chose the hybrid model, on the condition that accountability would remain visibly internal.
+
+**Building the team.** Rather than hiring by job title, the head of cybersecurity organized the internal team around operational purposes. A SOC service manager owns the MSSP relationship and its performance. A detection and automation engineer decides which use cases matter and maintains response playbooks. An incident response lead runs major incidents and exercises. A vulnerability management analyst drives remediation with IT. A governance coordinator maintains risk, compliance, and reporting. A fleet operations specialist was designated as an on-call contact for telematics events, because the provider could not judge on its own whether a disabled vehicle tracker was a fault or an attack.
+
+**Applying the five-step cycle.** The onboarding project followed the operational cycle. In step 1, the team identified critical assets and sensitive data: the dispatch platform, the identity platform, telematics, customer shipment data, and payroll. In step 2, it identified relevant threats, including ransomware groups targeting logistics, payment fraud through business email compromise, and insiders selling shipment information to cargo thieves. In step 3, it documented weaknesses: shared dispatcher accounts, a flat network connecting telematics gateways, and SaaS applications that sent no logs anywhere. In step 4, it appraised exposure, linking each weakness to the priority scenarios and to what a dispatch outage would mean for deliveries and contractual penalties. In step 5, it implemented countermeasures and monitoring in priority order: log sources from the dispatch and identity platforms were connected to the provider first, shared accounts were eliminated, and a red-team exercise tested whether the provider would detect a simulated intrusion through a dispatcher workstation.
+
+**The contract as an operating model.** Procurement and legal translated these decisions into the MSSP agreement. It defines the systems and logs in scope, severity criteria, escalation targets for high-severity events, and a named escalation path that reaches a decision-maker at any hour. It pre-authorizes the provider to isolate ordinary endpoints but requires internal approval before any action on dispatch servers, because an unnecessary shutdown would itself stop deliveries. It also sets evidence-retention requirements, personal information handling consistent with Law 25, monthly reporting, and exit provisions that guarantee the return of logs and detection content.
+
+**Relying on assurance.** The tender required an assurance report whose scope covered the security monitoring services: a SOC 2 Type II report, or a report under CSAE 3416 or ISAE 3402 with equivalent scope. One bidder offered only a Type I report, which says nothing about operating effectiveness over time, and was eliminated. The finalist's SOC 2 Type II report carved out the cloud provider hosting its platform and listed complementary user entity controls. Fleuve-Nord now notifies the provider of new log sources, keeps its asset inventory current, and reviews access to the provider's portal quarterly, because the report's conclusions depend on the customer performing those controls.
+
+**Measuring what matters.** The provider's first monthly report highlighted tens of thousands of events processed. Management asked for different measures: the percentage of critical systems sending usable logs, mean time to triage and to contain, the percentage of high-severity alerts escalated within target, false-positive trends, unresolved critical alerts, and corrective actions closed after exercises. Leading indicators, such as log sources that went silent and overdue remediation on Internet-facing systems, were given owners and escalation thresholds.
+
+What good looks like emerged from a tabletop exercise four months later. The provider detected the simulated intrusion quickly, but its escalation call reached an outdated on-call number, and the exercise stalled. The gap was corrected within a week, the escalation path is now tested monthly, and the executive committee receives a short quarterly view of coverage, response times, open gaps, and decisions required. The organization did not outsource responsibility; it bought capacity and kept accountability.
+
+### Questions managers and boards should ask
+
+- **Operating model:** Did we choose between an in-house, hybrid, or outsourced SOC on the basis of our risk profile, business context, and staffing realities, or on cost alone?
+
+- **Accountability:** When monitoring is outsourced, who in our organization owns escalation decisions, incident command, and the acceptance of residual risk?
+
+- **Coverage:** What percentage of our critical systems send usable logs to the SOC, and which important systems are not monitored at all?
+
+- **Escalation:** Has the escalation path from the SOC to an internal decision-maker been tested outside business hours in the past quarter?
+
+- **Containment authority:** Which containment actions may the SOC or provider take on its own, and which require business approval because they could disrupt critical services?
+
+- **Team design:** Are our cybersecurity roles organized around operational purposes, with clear ownership of detection engineering, incident response, vulnerability management, and governance coordination?
+
+- **Operational cycle:** Is the five-step cycle performed continuously, so that new assets, threats, and weaknesses change monitoring and countermeasures, or only at project time?
+
+- **Metrics:** Do our SOC reports show effectiveness and risk-linked outcomes, or mainly volumes of activity?
+
+- **Assurance reliance:** For each provider we rely on, does the SOC 2 or equivalent report cover the right services and period, what exceptions and carve-outs does it contain, and are we performing the complementary user entity controls it assumes?
+
+- **Exit:** If we had to change providers, could we recover our logs, detection content, and incident history?
+
+- **Sustainability:** Are alert fatigue, workload, and turnover monitored as operational risks for our internal team and our provider?
+
 ## Conclusion: what good operations look like
 
 Cybersecurity operations refer to the organizational discipline that translates risk decisions into consistent protection. This is accomplished through an operating model that integrates structured processes such as change, access, vulnerability management, and incident response; skilled personnel, including tiered analysts, responders, engineers, and intelligence teams; enabling technologies like monitoring, detection, and orchestration; and performance metrics that connect activities to risk mitigation.
 
 Organizations maintain confidentiality, integrity, and availability by applying risk management within an ISMS framework. Operationally, this entails continuously executing the cybersecurity cycle: identifying critical assets, assessing threats and vulnerabilities, evaluating potential risks, implementing protective measures, monitoring results, and making evidence-based improvements.
+
+## Chapter summary
+
+Cybersecurity operations are the daily activities that turn governance decisions into tangible protection. Governance specifies the level of risk the organization will accept; operations reduce unacceptable risk and keep controls working under changing conditions. The chapter treats operations as the continuous delivery of a risk treatment program rather than a toolset. It shows how a balanced operating model combines people, processes, technology, and executive authority; how a five-step cycle adapted from OPSEC keeps protection aligned with assets, threats, and weaknesses; how core practices prevent predictable failures; how a SOC provides visibility and coordinated response; and how measurement and third-party assurance show managers whether operations actually work.
+
+### Key points to retain
+
+- Operations carry out and maintain risk management decisions: not every risk can be eliminated, so effort goes to the risks judged unacceptable.
+
+- A sound operating model defines ownership and accountability, auditable processes, architecture and tools, and measures of both efficiency and effectiveness.
+
+- Executive sponsorship is a crucial enabler; without it, the cybersecurity function cannot secure funding, enforce standards, or mandate remediation.
+
+- Cybersecurity roles should be grouped by operational purpose, such as monitoring, response, engineering, vulnerability management, and governance coordination, rather than by job title.
+
+- The five-step cycle identifies critical assets, threats, and vulnerabilities, appraises exposure, and implements and monitors countermeasures, and it must run continuously.
+
+- Most serious incidents start with ordinary weaknesses, so asset inventory, change control, least privilege, automation, logging, vulnerability management, and tested recovery must be managed as controls.
+
+- A SOC is a capability, not a room; tiering matches alert complexity to expertise but depends on playbooks, severity criteria, and good handoffs.
+
+- Outsourcing monitoring to a managed security service provider does not outsource accountability for escalation, containment authority, evidence, or residual risk.
+
+- The right question about a security tool is not whether the organization owns it but whether it can operate the capability; tool sprawl creates its own risks.
+
+- Measurement should combine efficiency, effectiveness, and risk-linked outcome metrics, use leading and lagging indicators, and attach an owner, target, and escalation threshold to each key measure.
+
+- SOC 2 Type II reports test operating effectiveness over a period, but managers must check scope, exceptions, carve-outs, and the complementary user entity controls they must perform.
+
+- People, process, and technology complexity are persistent operational risks; alert fatigue, turnover, outdated procedures, and fragmented tools must be actively managed.
+
+### Key terms
+
+- **Cybersecurity operations** — The continuous capability that implements and sustains the organization's risk treatment decisions through people, processes, and technology.
+
+- **Operating model** — The defined combination of ownership, processes, architecture and tools, and performance measures through which cybersecurity work is organized and governed.
+
+- **Five-step operational cycle** — An adaptation of the OPSEC process: identify sensitive data and assets, identify threats, identify vulnerabilities, appraise exposure, and implement and monitor countermeasures.
+
+- **Operations security (OPSEC)** — A process developed in military and government settings that moves from identifying critical information, through analysis of threats, vulnerabilities, and risk, to countermeasures.
+
+- **Configuration drift** — The silent movement of systems away from their approved baselines through uncontrolled changes that can weaken security.
+
+- **Least privilege** — The principle that users receive only the access necessary to perform approved duties, limiting damage from error, misuse, or compromise.
+
+- **Dual control** — A requirement that a high-risk privileged action be approved or performed by more than one person to reduce insider opportunity and support accountability.
+
+- **Security operations centre (SOC)** — An organizational capability for monitoring, analyzing, coordinating, and responding to cybersecurity events, whatever its physical form.
+
+- **Tiered SOC model** — A structure in which Tier 1 triages alerts, Tier 2 investigates in depth, and Tier 3 handles complex incidents, hunting, and detection engineering.
+
+- **Managed security service provider (MSSP)** — An external provider that supplies monitoring, tools, threat intelligence, or expertise, while accountability for outcomes stays with the client organization.
+
+- **Tool sprawl** — An accumulation of overlapping, poorly integrated security tools that adds cost, alerts, blind spots, and unclear ownership.
+
+- **Leading indicator** — A measure that warns that exposure is rising or controls are weakening before an incident occurs, such as patching delays or silent log sources.
+
+- **Lagging indicator** — A measure of what has already happened, such as incidents, outages, breaches, audit findings, or financial losses.
+
+- **SOC report (System and Organization Controls)** — An AICPA attestation report on a service organization's controls: SOC 1 for financial reporting, SOC 2 for Trust Services Criteria, SOC 3 for general use.
+
+- **Complementary user entity controls** — Controls that a service provider's assurance report assumes the customer itself operates, without which the report's conclusions may not hold.
+
+## Review questions
+
+### Essay questions
+
+1.  The chapter argues that cybersecurity operations should be understood as the continuous implementation of a risk treatment program rather than as a toolset. Analyze this claim and explain what changes, in practice, for managers who adopt it.
+
+2.  Choose an organization you know (or use Transports Fleuve-Nord) and apply the five-step operational cybersecurity cycle to it. For each step, identify concrete findings and explain how they would shape monitoring and countermeasures.
+
+3.  Evaluate the decision of Transports Fleuve-Nord to adopt a hybrid SOC. Under what conditions would an in-house SOC have been the better choice, and which contractual and operational safeguards made the hybrid model defensible?
+
+4.  A vice-president tells you that the organization is well protected because it has bought a SIEM, an EDR platform, and a SOAR tool. Using the chapter, critically assess this statement and propose how management should evaluate the security technology portfolio.
+
+5.  Design a balanced set of operational metrics for a SOC that reports monthly to an executive committee. Justify your choice of efficiency, effectiveness, and risk-linked outcome measures, and explain how leading and lagging indicators, owners, and thresholds make them management controls.
+
+### Multiple-choice questions
+
+Choose the best answer. Answers are listed in the appendix "Answers to multiple-choice questions".
+
+**1.** According to the chapter, what is the most straightforward way for managers to understand cybersecurity operations?
+
+> A. As the purchase and configuration of security products
+>
+> B. As carrying out and maintaining risk management decisions
+>
+> C. As the technical work of the IT department alone
+>
+> D. As a compliance activity performed before external audits
+
+**2.** Which element is NOT listed among the minimum components a sound cybersecurity operating model should define?
+
+> A. Ownership and accountability
+>
+> B. Standardized and auditable processes
+>
+> C. Performance measures of efficiency and effectiveness
+>
+> D. A commitment to eliminate all identified risks
+
+**3.** Why does the chapter describe executive sponsorship as a crucial enabler rather than a soft factor?
+
+> A. Without it, the function struggles to secure funding, enforce standards, or mandate remediation
+>
+> B. It replaces the need for documented processes, measurable controls, and regular reporting
+>
+> C. It allows the security team to bypass normal IT change procedures when urgent
+>
+> D. It guarantees that the organization will pass its next external certification audit
+
+**4.** In the five-step operational cycle, during which step does the organization estimate the significance of each threat-vulnerability pair in terms of likelihood and business impact?
+
+> A. Step 1: Identify sensitive data and critical assets
+>
+> B. Step 2: Identify relevant threats
+>
+> C. Step 4: Appraise the exposure to adverse outcomes
+>
+> D. Step 5: Implement countermeasures and monitor
+
+**5.** A team lists shared dispatcher accounts, a flat network, and SaaS applications that send no logs. Which step of the five-step cycle is it performing?
+
+> A. Identifying critical assets and sensitive data
+>
+> B. Identifying relevant threats to the organization
+>
+> C. Identifying vulnerabilities and weaknesses
+>
+> D. Implementing countermeasures and monitoring effectiveness
+
+**6.** The chapter states that an asset inventory is a governance mechanism, not merely a technical list. What makes it a governance mechanism?
+
+> A. Each important asset has an owner, business purpose, criticality, and expected protection level
+>
+> B. It is maintained exclusively by the security operations centre for its own use
+>
+> C. It lists every device on the network regardless of its business importance
+>
+> D. It is reviewed only once a year, during the annual certification audit
+
+**7.** Why should administrative accounts be separated from regular user accounts in sensitive environments?
+
+> A. To allow administrators to skip multi-factor authentication on daily tasks
+>
+> B. To reduce the chance that email, browsing, or phishing exposes privileged credentials
+>
+> C. To keep privileged actions out of the central logging platform and its reports
+>
+> D. To remove the need for periodic reviews of privileged access rights
+
+**8.** Which statement best reflects the chapter's view of automation in cybersecurity operations?
+
+> A. Automation should replace analyst judgment wherever it is technically possible to do so
+>
+> B. Automation is useful mainly for producing monthly management reports and dashboards
+>
+> C. Automation should be avoided because it tends to amplify human mistakes
+>
+> D. Automation should reinforce approved processes and be governed, tested, logged, and overseen
+
+**9.** How does the chapter distinguish incident response, disaster recovery, and business continuity?
+
+> A. Incident response handles security incidents, disaster recovery restores technology, business continuity maintains critical functions
+>
+> B. They are three names for the same process used by different departments
+>
+> C. Disaster recovery handles security incidents, while incident response restores technology
+>
+> D. Business continuity is a technical activity, while incident response is a business activity
+
+**10.** In a tiered SOC, which tier normally reviews alerts, identifies likely false positives, executes approved first-response actions, and escalates uncertain or severe events?
+
+> A. Tier 3
+>
+> B. Tier 2
+>
+> C. Tier 1
+>
+> D. The executive crisis team
+
+**11.** Which risk does the chapter associate with tiered SOC operations?
+
+> A. Tiering forces specialists to spend most of their time on routine alerts
+>
+> B. Poor handoffs and unclear escalation criteria can delay detection or weaken response
+>
+> C. Tiering makes it impossible to process large volumes of daily alerts
+>
+> D. Tiered models cannot be combined with playbooks or severity criteria
+
+**12.** Why do modern SOCs integrate telemetry from identity, cloud, endpoints, suppliers, physical access, and operational technology?
+
+> A. Because the SOC must take ownership of all of those functions itself
+>
+> B. Because network monitoring is no longer accepted by most security standards
+>
+> C. Because integration removes the need for separate incident response teams and plans
+>
+> D. Because many cyber events are visible only when signals from several domains are combined
+
+**13.** An organization outsources 24/7 monitoring to a managed security service provider. According to the chapter, what remains the organization's responsibility?
+
+> A. Accountability for cybersecurity outcomes, escalation decisions, and residual risk acceptance
+>
+> B. Only the payment of the monthly service fee to the provider
+>
+> C. Nothing further, provided the contract includes service-level targets
+>
+> D. Only the selection and licensing of the provider's monitoring tools
+
+**14.** A firm owns a SIEM receiving logs from 40% of critical systems, an EDR on half its endpoints, and a scanner unconnected to remediation. What is the chapter's most likely diagnosis?
+
+> A. The firm has achieved operational maturity through tool coverage
+>
+> B. The firm should purchase additional tool categories to close gaps
+>
+> C. The firm owns tools but has not operationalized them into a capability
+>
+> D. The firm should eliminate monitoring until all tools are fully deployed
+
+**15.** Which of the following is an example of a risk-linked outcome metric rather than an efficiency metric?
+
+> A. Mean time to triage alerts
+>
+> B. Analyst workload per shift
+>
+> C. Ticket ageing in the alert queue
+>
+> D. Reduction in residual risk for priority scenarios
+
+**16.** Which of these is a leading indicator in the chapter's sense?
+
+> A. The number of confirmed breaches reported during the last quarter
+>
+> B. A growing alert backlog and missing logs from critical systems
+>
+> C. Financial losses recorded after a fraud event was discovered
+>
+> D. Audit findings issued by internal audit after the annual review
+
+**17.** After better alert tuning, a SOC's monthly alert volume drops by half. How should a manager interpret this, according to the chapter?
+
+> A. As proof that the threat environment facing the company has improved
+>
+> B. As a sign that monitoring staff numbers can be reduced immediately
+>
+> C. As a performance grade showing the SOC is now twice as effective
+>
+> D. With care, since it may reflect better tuning but could also mean reduced visibility
+
+**18.** What is the key difference between a SOC 2 Type I report and a SOC 2 Type II report?
+
+> A. Type I covers financial reporting controls, while Type II covers security and availability controls
+>
+> B. Type I assesses design at one point; Type II also tests operating effectiveness over time
+>
+> C. Type I is issued in Canada; Type II is issued in the United States
+>
+> D. Type I is for general use; Type II is a summary for wider audiences
+
+**19.** A provider's SOC 2 Type II report carves out its cloud host and lists complementary user entity controls. What should the customer conclude?
+
+> A. The report covers the cloud host, so no further review is needed
+>
+> B. The report is invalid and must be rejected outright by procurement
+>
+> C. Assess the carved-out provider separately and perform the user entity controls itself
+>
+> D. The customer can ignore the user entity controls if no exceptions were reported
+
+**20.** In the Fleuve-Nord tabletop exercise, the provider detected the intrusion quickly but its call reached an outdated on-call number. Which lesson does this best illustrate?
+
+> A. Escalation paths are part of the control and need regular testing, including after hours
+>
+> B. Detection speed is the only SOC metric that really matters to management
+>
+> C. Hybrid SOCs should be abandoned after any failed tabletop exercise
+>
+> D. Tier 1 analysts should be allowed to contain dispatch servers on their own
