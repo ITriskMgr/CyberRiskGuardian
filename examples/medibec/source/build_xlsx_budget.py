@@ -36,11 +36,11 @@ wp = wb.create_sheet("Budget_Params")
 wp["A1"] = "Cybersecurity budget guideline and appetite mapping"; wp["A1"].font = TTL
 header(wp, 3, ["Parameter", "Value", "Source / note"], [58, 16, 100])
 params = [
-    ("Total IT budget incl. salaries (CAD)", B["IT_BUDGET"], MONEY, "Business case s.4 (E3). Evidence gap - appears high for a 15-person IT team; validate with Finance."),
+    ("Total IT budget incl. salaries (CAD)", B["IT_BUDGET"], MONEY, "Business case s.4 (E3). Information gap — organizational validation required: appears high for a 15-person IT team; validate with Finance."),
     ("Guideline floor - risk seeking (% of IT budget)", B["BAND"]["min"], "0.0%", "User-supplied guideline."),
     ("Guideline median - risk neutral", B["BAND"]["median"], "0.0%", "User-supplied guideline."),
     ("Guideline ceiling - risk averse", B["BAND"]["max"], "0.0%", "User-supplied guideline."),
-    ("Risk appetite (linked)", "=Parameters!B4", "0.00", "From Parameters sheet (analyst estimate 0.30)."),
+    ("Risk appetite (linked)", "=Parameters!B4", "0.00", "From Parameters sheet (analytical estimate 0.30)."),
     ("Appetite anchor for ceiling (risk averse)", 0.30, "0.00", "Appetite scale anchor 0.3 = risk averse."),
     ("Appetite anchor for median (risk neutral)", 0.50, "0.00", "Appetite scale anchor 0.5 = risk neutral."),
     ("Appetite anchor for floor (risk seeking)", 0.70, "0.00", "Appetite scale anchor 0.7 = relatively high appetite."),
@@ -168,7 +168,7 @@ for y in range(3):
 put(ws, rr, 6, f"=SUM(C{rr}:E{rr})", fmt=MONEY)
 
 r = 23
-ws.cell(row=r, column=1, value="Sensitivity to the IT budget figure (evidence gap) - option D and recommended").font = BD
+ws.cell(row=r, column=1, value="Sensitivity to the IT budget figure (information gap) - option D and recommended").font = BD
 header(ws, r + 1, ["IT budget (CAD)", "", "D % Y1", "D % Y2", "D % Y3", "D band check", "Target CAD @ appetite"])
 for i, itb in enumerate((100e6, 75e6, 50e6, 25e6, 10e6)):
     rr = r + 2 + i
@@ -180,7 +180,7 @@ for i, itb in enumerate((100e6, 75e6, 50e6, 25e6, 10e6)):
 
 # ------------------------------------------------------------------ Budget_Risk
 wr = wb.create_sheet("Budget_Risk")
-wr["A1"] = "Residual risk by funding level (same CRG formulas; second-wave reductions are analyst estimates)"; wr["A1"].font = TTL
+wr["A1"] = "Residual risk by funding level (same CRG formulas; second-wave reductions are analytical estimates)"; wr["A1"].font = TTL
 header(wr, 3, ["ID", "Scenario", "Estimated", "Tolerated", "P (portfolio)", "Q (portfolio)", "Residual (portfolio)", "Ratio (portfolio)", "Status (portfolio)",
                "P (with 2nd wave)", "Q (with 2nd wave)", "Residual (2nd wave)", "Ratio (2nd wave)", "Status (2nd wave)"],
        [6, 50, 10, 10, 9, 9, 11, 9, 22, 9, 9, 11, 9, 22])

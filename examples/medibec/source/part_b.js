@@ -1,7 +1,7 @@
 
 // ================================================================ 4. APPETITE
 add(h1("4. Risk appetite"));
-add(callout(`**Estimated Risk Appetite: ${f2(D.APPETITE)}** (risk averse). Analyst estimate - validation required. Unchanged from the 10-scenario assessment.`, "DEEAF6"));
+add(callout(`**Estimated Risk Appetite: ${f2(D.APPETITE)}** (risk averse). Analytical estimate — validation required. Unchanged from the 10-scenario assessment.`, "DEEAF6"));
 add(spacer());
 add(p("**Rationale.**"));
 add(bl("**Sector and mission** - healthcare delivery where cyber events can affect clinical decisions; MediBec states a **low** appetite for risks to patient safety, health-data confidentiality, compliance and public trust (E5)."));

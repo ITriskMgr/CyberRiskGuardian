@@ -16,7 +16,7 @@ SCOPE = [
     ("Maturity (indicative)", "Perimeter controls (firewalls, IDS/IPS, antimalware), EDR, encrypted storage, on/off-site backups, push MFA on remote access. No evidence of PAM, SIEM/24x7 monitoring, segmentation, immutable backup, vendor risk programme, tested IR.", "Documented (E2) + exercise evidence (E6) + analyst inference"),
     ("Known weaknesses (exercise evidence)", "Macro phishing lure from look-alike domain; PowerShell alert closed as low severity; MFA push approved from unusual geography; external download of medical-image export; unusual queries by ehr-sync-svc; clinic backup failures.", "Exercise evidence (E6) - validate"),
     ("Obligations", "Quebec and Canadian privacy expectations for health information (confidentiality incidents, register, notification where risk of serious injury), professional obligations, contracts with cloud/technology vendors, evidence preservation.", "Documented (s.5) - legal counsel to confirm regime"),
-    ("Risk appetite", "Low appetite for patient-safety, health-data, compliance and trust risks; moderate for governed innovation. Case tolerance 0.40 normalized; analyst estimate 0.30 used in CRG calculations. Residual > 0.25 executive review; > 0.40 Board acceptance.", "Documented (E5) + analyst estimate"),
+    ("Risk appetite", "Low appetite for patient-safety, health-data, compliance and trust risks; moderate for governed innovation. Case tolerance 0.40 normalized; analytical estimate 0.30 used in CRG calculations. Residual > 0.25 executive review; > 0.40 Board acceptance.", "Documented (E5) + analytical estimate"),
 ]
 OBJECTIVES = [
     ("O1", "Safe, continuous patient care in all 10 clinics", "Clinical documentation, diagnostics, prescribing, appointments"),
@@ -210,7 +210,7 @@ DISP = {  # Select / Consolidate / Consider / Defer -> target
     "C31": ("Consider", "Watch list - explicit management review (escalation flags)"),
     "C21": ("Consider", "Promote if a patient portal is confirmed"),
     "C18": ("Defer", "Watch list - standard finance controls"), "C33": ("Defer", "Watch list - communications controls"),
-    "C10": ("Defer", "Watch list"), "C19": ("Defer", "Standard control (MDM)"), "C25": ("Defer", "Evidence gap - telehealth use"),
+    "C10": ("Defer", "Watch list"), "C19": ("Defer", "Standard control (MDM)"), "C25": ("Defer", "Information gap - telehealth use"),
     "C28": ("Defer", "Standard control (disposal)"), "C37": ("Defer", "Low materiality"), "C38": ("Defer", "Out of scope"), "C39": ("Defer", "Out of scope (physical)"),
 }
 assert set(DISP) == {c[0] for c in M.CANDIDATES} == set(SCORES), set(SCORES) ^ set(DISP)

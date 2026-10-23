@@ -101,7 +101,7 @@ add(
   p("**Companion file:** MediBec_CyberRiskGuardian_Workbook_30_Budget.xlsx (live calculations incl. budget)"),
   p("**Relationship to earlier work:** extends the 10-scenario assessment of the same date; S1-S10 are carried over unchanged. This edition adds the cybersecurity budget (Section 11)."),
   spacer(),
-  callout("**Source and status.** Based solely on the MediBec Business Case v2.0b, a fictional teaching case. All probabilities, damages, CVSS vectors, costs and effectiveness values are **analyst estimates - validation required**. Scores are relative decision-support indicators, not predictions of incidents or dollar losses. Risk acceptance decisions remain with MediBec management."),
+  callout("**Source and status.** Based solely on the MediBec Business Case v2.0b, a fictional teaching case. All probabilities, damages, CVSS vectors, costs and effectiveness values are analytical estimates (**Analytical estimate — validation required**). Scores are relative decision-support indicators, not predictions of incidents or dollar losses. Risk acceptance decisions remain with MediBec management."),
   new Paragraph({ children: [new PageBreak()] }),
   new Paragraph({ children: [new TextRun({ text: "Contents", font: FONT, size: 32, bold: true, color: NAVY })], spacing: { after: 200 } }),
   new TableOfContents("Contents", { hyperlink: true, headingStyleRange: "1-2" }),
@@ -129,10 +129,10 @@ add(bl("**Patient-safety integrity risks** - record manipulation (S10), interfac
 add(h3("Cybersecurity budget"));
 { const pc = (x) => (x * 100).toFixed(1) + "%"; const m1 = (x) => "$" + (x / 1e6).toFixed(1) + "M"; const OD = BJ.OPTIONS.D;
 add(bl(`**Appetite-consistent budget:** with appetite 0.30, the guideline (4% risk seeking - 7.8% risk neutral - 12% risk averse, of total IT budget incl. salaries) places MediBec at **12%, i.e. ${m1(BJ.TARGET_030 * BJ.IT_BUDGET)} per year** on the stated ${m1(BJ.IT_BUDGET)} IT budget.`));
-add(bl(`**Current spend is below the guideline floor** - about ${m1(BJ.OPTIONS.A.cyber[0])} (${pc(BJ.OPTIONS.A.pct[0])}) on analyst estimates.`));
+add(bl(`**Current spend is below the guideline floor** - about ${m1(BJ.OPTIONS.A.cyber[0])} (${pc(BJ.OPTIONS.A.pct[0])}) on analytical estimates.`));
 add(bl(`**Risk-driven budget** (portfolio, 5 new roles, second-wave treatments, insurance placeholder, 10% contingency): ${OD.cyber.map(m1).join(" / ")} over three years (${OD.pct.map(pc).join(" / ")}) - within the band but implying an appetite near 0.6. It brings all but ${BJ.COUNTS.enh[0]} scenarios (S9, S19, S28) within or near tolerance.`));
 add(bl(`**Recommended:** ramp to ${BJ.REC_Y.map(m1).join(" / ")} (7% / 9.5% / 12%), adding capacity, security-by-design, device modernization, resilience and a gated risk-reduction reserve. IT and cybersecurity projects total about ${m1([0,1,2].reduce((a,y)=>a+BJ.proj_cyber[y]+BJ.proj_it[y]+BJ.T2_RESERVE_Y[y]+BJ.T2_FIXED.filter((t)=>t[0]!=="T2-2").reduce((b,t)=>b+t[3][y],0),0))} over three years (Section 11.7).`));
-add(bl("**Critical evidence gap:** the CAD 100M IT budget looks high for 15 IT staff. At about CAD 46-50M the risk-driven budget alone would already sit at 10-12%."));
+add(bl("**Critical information gap:** the CAD 100M IT budget looks high for 15 IT staff. At about CAD 46-50M the risk-driven budget alone would already sit at 10-12%."));
 }
 add(h3("Decisions requested"));
 add(nl(`**Management decision required** - Confirm the risk appetite (0.30 estimated vs. 0.40 in the case). At 0.40, ${case40.above.length} scenarios remain above tolerance (${listIds(case40.above)}) and ${case40.approx.length} are approximately at it.`));
@@ -170,7 +170,7 @@ add(p("Factor = 1,000 for all 30 scenarios. The original CyberRiskGuardian workb
 add(h2("2.3 Evidence register"));
 add(table(["ID", "Source", "Basis", "Content used"], D.EVIDENCE, [6, 30, 17, 47], { size: 15 }));
 add(spacer());
-add(p("Basis tags: **(E#)** documented case evidence; **Exercise evidence** simulated injects - validate; **Analyst assumption** / **Analyst estimate - validation required**; **Evidence gap - organizational input required**. Many new scenarios (S11-S30) rest on fewer case facts than S1-S10; their confidence ratings are correspondingly lower."));
+add(p("Basis tags: **(E#)** documented case evidence; **Exercise evidence** simulated injects - validate; **Analyst assumption** / **Analytical estimate — validation required**; **Information gap — organizational validation required**. Many new scenarios (S11-S30) rest on fewer case facts than S1-S10; their confidence ratings are correspondingly lower."));
 add(h2("2.4 Changes from the 10-scenario assessment"));
 add(bl("S1-S10: statements, parameters, CVSS vectors and reductions unchanged; estimated, tolerated and residual risk are identical."));
 add(bl("Shared initiatives now serve more scenarios, so each scenario's allocated cost is lower and its cost-effectiveness higher; portfolio totals, not scenario allocations, should drive budget decisions."));
@@ -185,7 +185,7 @@ add(table(["Area", "Documented facts (E1-E4)", "Implication for risk"], [
   ["Cloud and remote access", "Cloud-based remote data access for staff and clinicians", "Identity is the new perimeter; cloud configuration and logging unknown"],
   ["Endpoints and devices", "Workstations, tablets, handhelds, interconnected medical equipment", "Device inventory and patch status unknown; certification limits patching"],
   ["Applications", "Integrated EHR, radiology, lab, pharmacy, billing, communications", "Highly interdependent; one compromise spreads across clinical workflows"],
-  ["People and budget", "15 IT staff, 2 cybersecurity; IT budget stated as CAD 100M incl. salaries", "Capacity is the binding constraint. **Evidence gap** - the stated budget appears high relative to 15 staff; cybersecurity budget share not stated"],
+  ["People and budget", "15 IT staff, 2 cybersecurity; IT budget stated as CAD 100M incl. salaries", "Capacity is the binding constraint. **Information gap — organizational validation required** - the stated budget appears high relative to 15 staff; cybersecurity budget share not stated"],
   ["Governance", "Steering Committee (teaching assumption); Board accepts material residual risk", "Structure exists on paper; operation and reporting unproven"],
   ["Regulatory", "Quebec and Canadian privacy expectations, health information confidentiality, professional obligations", "Confidentiality incidents involving health data are likely to trigger register, assessment and notification duties - **legal counsel to confirm applicable regime**"],
 ], [16, 42, 42]));
@@ -193,12 +193,12 @@ add(h2("3.1 Crown-jewel assets and services"));
 add(table(["ID", "Asset / service", "Business purpose", "Owner", "C", "I", "A", "Technical dependencies", "Third parties"],
   D.CROWN, [5, 15, 15, 14, 7, 7, 7, 17, 13], { size: 14 }));
 add(spacer());
-add(p("Owners are proposed roles, not documented appointments - **Evidence gap - organizational input required**."));
+add(p("Owners are proposed roles, not documented appointments - **Information gap — organizational validation required**."));
 
 
 // ================================================================ 4. APPETITE
 add(h1("4. Risk appetite"));
-add(callout(`**Estimated Risk Appetite: ${f2(D.APPETITE)}** (risk averse). Analyst estimate - validation required. Unchanged from the 10-scenario assessment.`, "DEEAF6"));
+add(callout(`**Estimated Risk Appetite: ${f2(D.APPETITE)}** (risk averse). Analytical estimate — validation required. Unchanged from the 10-scenario assessment.`, "DEEAF6"));
 add(spacer());
 add(p("**Rationale.**"));
 add(bl("**Sector and mission** - healthcare delivery where cyber events can affect clinical decisions; MediBec states a **low** appetite for risks to patient safety, health-data confidentiality, compliance and public trust (E5)."));
@@ -254,7 +254,7 @@ S.forEach((s, idx) => {
   add(table(["Parameter", "Value", "Reading", "Rationale", "Evidence", "Confidence"],
     Object.entries(s.params).map(([key, v]) => [PN[key], f2(v.v), v.qual, v.rat, v.ev, v.conf]), [18, 7, 12, 43, 9, 11], { size: 15 }));
   add(spacer());
-  add(p(`All values: **Analyst estimate - validation required.**`, { run: { size: 18 } }));
+  add(p(`All values: **Analytical estimate — validation required.**`, { run: { size: 18 } }));
   add(h3("CVSS v4.0"));
   add(p(`**Vector:** ${s.cvss}   **CVSS-B:** ${s.cvss_score.toFixed(1)} (${s.cvss_sev})`));
   add(p(s.cvss_note));
@@ -295,7 +295,7 @@ add(table(["Root cause", "Scenarios", "Observation"], [
 add(h2("8.2 Concentration and systemic dependencies"));
 add(bl("**Montreal hub** - EHR, identity, backups and WAN converge on one site (S16); any enterprise-wide event affects all 10 clinics."));
 add(bl("**Identity platform** - one directory, one MFA method and one cloud tenant gate every crown jewel (S1, S20, S27)."));
-add(bl("**EHR and software suppliers** - concentration risk via both remote access (S9) and software updates (S19); supplier identity and contracts are an **Evidence gap**."));
+add(bl("**EHR and software suppliers** - concentration risk via both remote access (S9) and software updates (S19); supplier identity and contracts are an **Information gap — organizational validation required**."));
 add(bl("**Scenario chaining** - entry (S1, S6, S12, S20, S23, S24, S27) + undetected (S8) + no recovery (S3) = S2 at maximum damage. Treating I01, I03 and I04 breaks most chains."));
 add(h2("8.3 Shared controls"));
 add(table(["Initiative", "Scenarios", "Why it is shared"],
@@ -346,7 +346,7 @@ TIERS.forEach(([t, ids]) => ids.forEach((id, j) => { const s = byId[id]; tierRow
 if (tierRows.length !== 30) throw new Error("tiers " + tierRows.length);
 add(table(["Tier", "ID", "Scenario", "Estimated", "Res / Tol", "Basis"], tierRows, [13, 5, 32, 9, 8, 33], { size: 13 }));
 add(h2("10.2 Recommended investment portfolio"));
-add(p("Costs are **indicative analyst estimates in CAD**, not quotations or approved budgets. **Initial** = one-time implementation; **recurring** = annual operating cost; **Year 1** = initial + first-year recurring. Cyber-insurance premiums are excluded (**Evidence gap**)."));
+add(p("Costs are **indicative analytical estimates in CAD**, not quotations or approved budgets. **Initial** = one-time implementation; **recurring** = annual operating cost; **Year 1** = initial + first-year recurring. Cyber-insurance premiums are excluded (**Information gap — organizational validation required**)."));
 add(table(["ID", "Initiative", "Scenarios", "Owner", "Priority", "Initial", "Recurring / yr", "Start - end", "Success indicator"],
   INIT.map((i) => [i[0], `**${i[1]}**\n${i[2]}`, i[3].join(", "), i[4], i[5], k(i[6]), k(i[7]), `${i[8]} - ${i[9]}`, i[10]]),
   [4, 30, 10, 11, 8, 7, 8, 9, 13], { size: 13 }));
@@ -381,11 +381,11 @@ add(h1("11. Cybersecurity budget and funding strategy"));
     ["Ceiling - risk averse", pc(BJ.BAND.max), "0.30 (risk averse)", money(BJ.BAND.max * BJ.IT_BUDGET)],
   ], [30, 22, 24, 24]));
   add(spacer());
-  add(p(`The appetite scale and the guideline are aligned by linear interpolation between the anchors (0.30 -> 12%, 0.50 -> 7.8%, 0.70 -> 4%), clamped at the band limits. With the estimated appetite of **${f2(D.APPETITE)}**, the **appetite-consistent cybersecurity budget is ${pc(BJ.TARGET_030)} of the IT budget - ${money(BJ.TARGET_030 * BJ.IT_BUDGET)} per year**. At the case's 0.40 it would be ${pc(BJ.TARGET_040)} (${money(BJ.TARGET_040 * BJ.IT_BUDGET)}). The IT budget of ${money(BJ.IT_BUDGET)} is the case figure (E3) and is an **Evidence gap - organizational input required** (see 11.5).`));
+  add(p(`The appetite scale and the guideline are aligned by linear interpolation between the anchors (0.30 -> 12%, 0.50 -> 7.8%, 0.70 -> 4%), clamped at the band limits. With the estimated appetite of **${f2(D.APPETITE)}**, the **appetite-consistent cybersecurity budget is ${pc(BJ.TARGET_030)} of the IT budget - ${money(BJ.TARGET_030 * BJ.IT_BUDGET)} per year**. At the case's 0.40 it would be ${pc(BJ.TARGET_040)} (${money(BJ.TARGET_040 * BJ.IT_BUDGET)}). The IT budget of ${money(BJ.IT_BUDGET)} is the case figure (E3) and is an **Information gap — organizational validation required** (see 11.5).`));
   add(table(["Appetite", "Target % of IT budget", "Target CAD"], BJ.APP_TABLE.map((r) => [f2(r[0]), pc(r[1]), money(r[2])]), [30, 35, 35]));
 
   add(h2("11.2 Current position"));
-  add(p(`The case documents two cybersecurity staff and perimeter, antimalware, EDR and e-mail controls, but no cybersecurity budget. Valuing the two staff at the workbook convention and the existing tooling at an analyst estimate gives a current run cost of about **${money(O.A.cyber[0])} - ${pc(O.A.pct[0])} of the IT budget, below the 4% guideline floor**. Even if the true figure were several times higher, MediBec is likely under-invested relative to both the guideline and its stated appetite. **Evidence gap - organizational input required**: actual security spend, including security embedded in IT contracts and licences.`));
+  add(p(`The case documents two cybersecurity staff and perimeter, antimalware, EDR and e-mail controls, but no cybersecurity budget. Valuing the two staff at the workbook convention and the existing tooling at an analytical estimate gives a current run cost of about **${money(O.A.cyber[0])} - ${pc(O.A.pct[0])} of the IT budget, below the 4% guideline floor**. Even if the true figure were several times higher, MediBec is likely under-invested relative to both the guideline and its stated appetite. **Information gap — organizational validation required**: actual security spend, including security embedded in IT contracts and licences.`));
 
   add(h2("11.3 Bottom-up (risk-driven) budget"));
   add(p("The treatments identified in this assessment were phased by fiscal year (October-September; Y1 = 2026-27): one-time costs are spread evenly between each initiative's start and end month and recurring costs start at completion. Each initiative is split between the cybersecurity budget and the IT budget according to its nature (11.7). This phased view differs from the simplified 'Year-1 cost' used for cost-effectiveness in Section 10, which charges all initial and a full year of recurring cost to Year 1."));
@@ -431,7 +431,7 @@ add(h1("11. Cybersecurity budget and funding strategy"));
     [5, 33, 12, 13, 10, 10, 17], { size: 13, fillFn: (r, i) => (i === 5 ? clsFill(BJ.ENH_RES[r[0]].cls) : undefined) }));
   add(spacer());
   const stillAbove = S.filter((s) => BJ.ENH_RES[s.id].cls.startsWith("Above")).map((s) => s.id);
-  add(p(`With second-wave funding, ${moved.length} scenarios change status and only **${stillAbove.join(", ")}** remain above tolerance - the vendor, software-supply-chain and privileged-insider scenarios that spending by MediBec alone cannot fix. They are addressed by transfer (insurance placeholder E09, contract terms) and formal acceptance, not by more budget. Second-wave reductions are **Analyst estimates - validation required**. Beyond option D the model shows sharply diminishing returns: further money does not move any remaining scenario within tolerance.`));
+  add(p(`With second-wave funding, ${moved.length} scenarios change status and only **${stillAbove.join(", ")}** remain above tolerance - the vendor, software-supply-chain and privileged-insider scenarios that spending by MediBec alone cannot fix. They are addressed by transfer (insurance placeholder E09, contract terms) and formal acceptance, not by more budget. Second-wave reductions are **Analytical estimate — validation required**. Beyond option D the model shows sharply diminishing returns: further money does not move any remaining scenario within tolerance.`));
   add(p(`**Uncertainty argument for a risk-averse budget.** Under the pessimistic sensitivity case (all parameters shifted 0.10 against MediBec, Section 9), ${BJ.PESS_ABOVE.D} of 30 scenarios would be above tolerance even with second-wave funding. A risk-averse organization funds capacity to respond if estimates prove optimistic; that is the purpose of the Tranche 2 reserve below.`));
 
   add(h2("11.5 Reconciling the budget with the risk appetite"));
@@ -560,7 +560,7 @@ add(table(["#", "Decision", "Options", "Recommended", "Authority"], [
   ["D4", "Patient-safety residual (S7, S10, S16, S29)", "Accept with compensating controls / restrict connectivity / fund redundancy", "CMO sign-off on compensating controls, downtime procedures and the I18 business case", "Clinical leadership + Executive"],
   ["D5", "Capacity and staffing", "Status quo / +1 FTE / +2 FTE / managed services", "+1 vulnerability FTE (costed), MDR, and assess an IAM/application-security role (not costed)", "CIO, Executive"],
   ["D6", "Cyber-insurance review", "Maintain / increase / obtain", "Broker review aligned with S2, S9, S19 and S28 residuals", "CFO"],
-  ["D7", "Validate estimates and close evidence gaps", "-", "SME workshop within 60 days, prioritizing S11-S30 assumptions; re-run workbook", "Cybersecurity lead"],
+  ["D7", "Validate estimates and close information gaps", "-", "SME workshop within 60 days, prioritizing S11-S30 assumptions; re-run workbook", "Cybersecurity lead"],
   ["D8", "Assign risk owners", "-", "Confirm the owners proposed in Section 7 for all 30 scenarios", "Executive leadership"],
   ["D9", "Cybersecurity budget level", "Recommended ramp 7% / 9.5% / 12% / risk-driven only (~5%) with appetite revised to ~0.6 / status quo (below floor)", "Approve the ramp; hold 12% to 2030 subject to annual reassessment", "Board / ownership group"],
   ["D10", "Confirm IT budget and current security spend", "-", "Finance to confirm within 30 days; re-run Budget sheets before approving Y2", "CFO / CIO"],

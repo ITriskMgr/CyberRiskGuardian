@@ -89,7 +89,7 @@ add(
   p("**Methodology:** CyberRiskGuardian (Excel Guide v1.0c formulas), CVSS v4.0, multiplication factor 1,000"),
   p("**Companion file:** MediBec_CyberRiskGuardian_Workbook.xlsx (live calculations)"),
   spacer(),
-  callout("**Source and status.** Based solely on the MediBec Business Case v2.0b, a fictional teaching case. All probabilities, damages, CVSS vectors, costs and effectiveness values are **analyst estimates - validation required**. Scores are relative decision-support indicators, not predictions of incidents or dollar losses. Risk acceptance decisions remain with MediBec management."),
+  callout("**Source and status.** Based solely on the MediBec Business Case v2.0b, a fictional teaching case. All probabilities, damages, CVSS vectors, costs and effectiveness values are analytical estimates (**Analytical estimate — validation required**). Scores are relative decision-support indicators, not predictions of incidents or dollar losses. Risk acceptance decisions remain with MediBec management."),
   new Paragraph({ children: [new PageBreak()] }),
   new Paragraph({ children: [new TextRun({ text: "Contents", font: FONT, size: 32, bold: true, color: NAVY })], spacing: { after: 200 } }),
   new TableOfContents("Contents", { hyperlink: true, headingStyleRange: "1-2" }),
@@ -115,7 +115,7 @@ add(bl("**Recoverability** - backups exist but isolation, immutability and resto
 add(bl("**Flat, device-rich clinic networks** - medical devices, Wi-Fi and workstations not demonstrably segmented; patching constrained."));
 add(bl("**Third-party and cloud visibility** - no vendor assurance, contract clauses or cloud posture management evidenced."));
 add(h3("Decisions requested"));
-add(nl("**Management decision required** - Confirm the cybersecurity risk appetite (analyst estimate 0.30 vs. 0.40 stated in the case). At 0.40, only S9 remains above tolerance and S7 sits at the upper edge."));
+add(nl("**Management decision required** - Confirm the cybersecurity risk appetite (analytical estimate 0.30 vs. 0.40 stated in the case). At 0.40, only S9 remains above tolerance and S7 sits at the upper edge."));
 add(nl(`**Management decision required** - Approve the treatment portfolio (${money(Y1)} Year 1) and immediate 0-90-day actions: phishing-resistant MFA for privileged and remote access, 24/7 MDR, backup isolation, cloud public-access block, service-account lockdown, tabletop exercise.`));
 add(nl("**Management decision required** - Board / ownership-group decision on residual risk above tolerance for S2, S5, S7, S9, S10: accept formally, fund further treatment, or transfer (cyber insurance, vendor contracts)."));
 add(nl("**Management decision required** - Clinical leadership sign-off on S7 and S10: the appetite statement allows no residual risk creating a credible immediate threat to patient care."));
@@ -148,7 +148,7 @@ add(p("Factor = 1,000 for every scenario. Parameters: Pb(A) threat presence; Pb(
 add(h2("2.3 Evidence register"));
 add(table(["ID", "Source", "Basis", "Content used"], D.EVIDENCE, [6, 30, 17, 47], { size: 15 }));
 add(spacer());
-add(p("Basis tags used in this report: **(E#)** documented case evidence; **Exercise evidence** simulated injects - validate; **Analyst assumption** / **Analyst estimate - validation required**; **Evidence gap - organizational input required**. Instructor Annex A values were used only as a calibration cross-check: the estimates here fall in a comparable range (e.g. resilience 0.30-0.40 vs. 0.38-0.55 in the annex), but were derived independently."));
+add(p("Basis tags used in this report: **(E#)** documented case evidence; **Exercise evidence** simulated injects - validate; **Analyst assumption** / **Analytical estimate — validation required**; **Information gap — organizational validation required**. Instructor Annex A values were used only as a calibration cross-check: the estimates here fall in a comparable range (e.g. resilience 0.30-0.40 vs. 0.38-0.55 in the annex), but were derived independently."));
 
 // ================================================================ 3. CONTEXT
 add(h1("3. Organizational and technology context"));
@@ -159,7 +159,7 @@ add(table(["Area", "Documented facts (E1-E4)", "Implication for risk"], [
   ["Cloud and remote access", "Cloud-based remote data access for staff and clinicians", "Identity is the new perimeter; cloud configuration and logging unknown"],
   ["Endpoints and devices", "Workstations, tablets, handhelds, interconnected medical equipment", "Device inventory and patch status unknown; certification limits patching"],
   ["Applications", "Integrated EHR, radiology, lab, pharmacy, billing, communications", "Highly interdependent; one compromise spreads across clinical workflows"],
-  ["People and budget", "15 IT staff, 2 cybersecurity; IT budget stated as CAD 100M incl. salaries", "Capacity is the binding constraint. **Evidence gap** - the stated budget appears high relative to 15 staff; cybersecurity budget share not stated"],
+  ["People and budget", "15 IT staff, 2 cybersecurity; IT budget stated as CAD 100M incl. salaries", "Capacity is the binding constraint. **Information gap — organizational validation required** - the stated budget appears high relative to 15 staff; cybersecurity budget share not stated"],
   ["Governance", "Steering Committee (teaching assumption); Board accepts material residual risk", "Structure exists on paper; operation and reporting unproven"],
   ["Regulatory", "Quebec and Canadian privacy expectations, health information confidentiality, professional obligations", "Confidentiality incidents involving health data are likely to trigger register, assessment and notification duties - **legal counsel to confirm applicable regime**"],
 ], [16, 42, 42]));
@@ -167,11 +167,11 @@ add(h2("3.1 Crown-jewel assets and services"));
 add(table(["ID", "Asset / service", "Business purpose", "Owner", "C", "I", "A", "Technical dependencies", "Third parties"],
   D.CROWN, [5, 15, 15, 14, 7, 7, 7, 17, 13], { size: 14 }));
 add(spacer());
-add(p("Owners are proposed roles, not documented appointments - **Evidence gap - organizational input required**."));
+add(p("Owners are proposed roles, not documented appointments - **Information gap — organizational validation required**."));
 
 // ================================================================ 4. APPETITE
 add(h1("4. Risk appetite"));
-add(callout(`**Estimated Risk Appetite: ${f2(D.APPETITE)}** (risk averse). Analyst estimate - validation required.`, "DEEAF6"));
+add(callout(`**Estimated Risk Appetite: ${f2(D.APPETITE)}** (risk averse). Analytical estimate — validation required.`, "DEEAF6"));
 add(spacer());
 add(p("**Rationale.**"));
 add(bl("**Sector and mission** - healthcare delivery where cyber events can affect clinical decisions; MediBec states a **low** appetite for risks to patient safety, health-data confidentiality, compliance and public trust (E5)."));
@@ -226,7 +226,7 @@ S.forEach((s, idx) => {
   add(table(["Parameter", "Value", "Reading", "Rationale", "Evidence", "Confidence"],
     Object.entries(s.params).map(([key, v]) => [PN[key], f2(v.v), v.qual, v.rat, v.ev, v.conf]), [18, 7, 12, 43, 9, 11], { size: 15 }));
   add(spacer());
-  add(p(`All values: **Analyst estimate - validation required.**`, { run: { size: 18 } }));
+  add(p(`All values: **Analytical estimate — validation required.**`, { run: { size: 18 } }));
   add(h3("CVSS v4.0"));
   add(p(`**Vector:** ${s.cvss}   **CVSS-B:** ${s.cvss_score.toFixed(1)} (${s.cvss_sev})`));
   add(p(s.cvss_note));
@@ -264,7 +264,7 @@ add(table(["Root cause", "Scenarios", "Observation"], [
 add(h2("8.2 Concentration and systemic dependencies"));
 add(bl("**Montreal hub** - EHR, identity, backups and WAN converge on one site; any enterprise-wide compromise affects all 10 clinics simultaneously."));
 add(bl("**Identity platform** - a single directory and MFA service gate every crown jewel; its compromise defeats most other controls."));
-add(bl("**EHR vendor** - a single integrated EHR supplier represents concentration risk (S9); vendor identity and contract terms are an **Evidence gap**."));
+add(bl("**EHR vendor** - a single integrated EHR supplier represents concentration risk (S9); vendor identity and contract terms are an **Information gap — organizational validation required**."));
 add(bl("**Scenario chaining** - S1 or S6 (entry) + S8 (undetected) + S3 (no recovery) = S2 at maximum damage. Treating the chain's weakest links (I01, I03, I04) reduces several scenarios at once."));
 add(h2("8.3 Shared controls"));
 add(table(["Initiative", "Scenarios", "Why it is shared"],
@@ -304,7 +304,7 @@ const prio = [
 ];
 add(table(["#", "ID", "Scenario", "Basis", "Action"], prio, [4, 5, 16, 45, 30], { size: 15 }));
 add(h2("10.2 Recommended investment portfolio"));
-add(p("Costs are **indicative analyst estimates in CAD**, not quotations or approved budgets. Basis: **initial** = one-time implementation; **recurring** = annual operating cost; **Year 1** = initial + first-year recurring. Cyber-insurance premiums are excluded (**Evidence gap** - broker quotation required)."));
+add(p("Costs are **indicative analytical estimates in CAD**, not quotations or approved budgets. Basis: **initial** = one-time implementation; **recurring** = annual operating cost; **Year 1** = initial + first-year recurring. Cyber-insurance premiums are excluded (**Information gap — organizational validation required** - broker quotation required)."));
 add(table(["ID", "Initiative", "Scenarios", "Owner", "Priority", "Initial", "Recurring / yr", "Start - end", "Success indicator"],
   INIT.map((i) => [i[0], `**${i[1]}**\n${i[2]}`, i[3].join(", "), i[4], i[5], k(i[6]), k(i[7]), `${i[8]} - ${i[9]}`, i[10]]),
   [4, 30, 9, 11, 8, 7, 8, 9, 14], { size: 13 }));
@@ -381,7 +381,7 @@ add(table(["#", "Decision", "Options", "Recommended", "Authority"], [
   ["D4", "Patient-safety residual (S7, S10)", "Accept with compensating controls / restrict device connectivity", "CMO sign-off on compensating controls and clinical downtime procedures", "Clinical leadership + Executive"],
   ["D5", "Staffing", "Status quo / +1 FTE / +2 FTE / managed services", "+1 vulnerability FTE (costed) and MDR; assess IAM/PAM engineer", "CIO, Executive"],
   ["D6", "Cyber-insurance review", "Maintain / increase / obtain", "Obtain broker review aligned with S2 and S9 residuals", "CFO"],
-  ["D7", "Validate estimates and close evidence gaps", "-", "SME workshop within 60 days; re-run workbook", "Cybersecurity lead"],
+  ["D7", "Validate estimates and close information gaps", "-", "SME workshop within 60 days; re-run workbook", "Cybersecurity lead"],
   ["D8", "Assign risk owners", "-", "Confirm owners proposed in Section 7", "Executive leadership"],
 ], [4, 20, 20, 36, 20], { size: 15 }));
 add(spacer());

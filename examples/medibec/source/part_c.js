@@ -15,7 +15,7 @@ add(table(["Root cause", "Scenarios", "Observation"], [
 add(h2("8.2 Concentration and systemic dependencies"));
 add(bl("**Montreal hub** - EHR, identity, backups and WAN converge on one site (S16); any enterprise-wide event affects all 10 clinics."));
 add(bl("**Identity platform** - one directory, one MFA method and one cloud tenant gate every crown jewel (S1, S20, S27)."));
-add(bl("**EHR and software suppliers** - concentration risk via both remote access (S9) and software updates (S19); supplier identity and contracts are an **Evidence gap**."));
+add(bl("**EHR and software suppliers** - concentration risk via both remote access (S9) and software updates (S19); supplier identity and contracts are an **Information gap — organizational validation required**."));
 add(bl("**Scenario chaining** - entry (S1, S6, S12, S20, S23, S24, S27) + undetected (S8) + no recovery (S3) = S2 at maximum damage. Treating I01, I03 and I04 breaks most chains."));
 add(h2("8.3 Shared controls"));
 add(table(["Initiative", "Scenarios", "Why it is shared"],
@@ -66,7 +66,7 @@ TIERS.forEach(([t, ids]) => ids.forEach((id, j) => { const s = byId[id]; tierRow
 if (tierRows.length !== 30) throw new Error("tiers " + tierRows.length);
 add(table(["Tier", "ID", "Scenario", "Estimated", "Res / Tol", "Basis"], tierRows, [13, 5, 32, 9, 8, 33], { size: 13 }));
 add(h2("10.2 Recommended investment portfolio"));
-add(p("Costs are **indicative analyst estimates in CAD**, not quotations or approved budgets. **Initial** = one-time implementation; **recurring** = annual operating cost; **Year 1** = initial + first-year recurring. Cyber-insurance premiums are excluded (**Evidence gap**)."));
+add(p("Costs are **indicative analytical estimates in CAD**, not quotations or approved budgets. **Initial** = one-time implementation; **recurring** = annual operating cost; **Year 1** = initial + first-year recurring. Cyber-insurance premiums are excluded (**Information gap — organizational validation required**)."));
 add(table(["ID", "Initiative", "Scenarios", "Owner", "Priority", "Initial", "Recurring / yr", "Start - end", "Success indicator"],
   INIT.map((i) => [i[0], `**${i[1]}**\n${i[2]}`, i[3].join(", "), i[4], i[5], k(i[6]), k(i[7]), `${i[8]} - ${i[9]}`, i[10]]),
   [4, 30, 10, 11, 8, 7, 8, 9, 13], { size: 13 }));
