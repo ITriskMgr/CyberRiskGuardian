@@ -51,7 +51,7 @@ python3 scripts/build_evals.py
 ```
 Incrémentez la version (semver) dans le `plugin.json` de chaque plugiciel modifié et dans `.claude-plugin/marketplace.json`.
 
-Les 21 jeux de diapositives des chapitres du manuel sont publiés comme fichiers joints de la version GitHub `education-slides-v2.51` (Releases), et non dans l'historique git.
+Les 21 jeux de diapositives des chapitres du manuel sont publiés comme fichiers joints de la version GitHub [`education-slides-v2.51`](https://github.com/ITriskMgr/CyberRiskGuardian/releases/tag/education-slides-v2.51), et non dans l'historique git.
 
 ## Rappels
 - **Licence** : ce dépôt est l'Édition communautaire, sous CC BY-NC 4.0. L'usage commercial exige une édition professionnelle (Licence commerciale CyberRiskGuardian); les collèges, cégeps et universités qui veulent l'édition éducative ont besoin de la Licence éducative. Ne publiez jamais de contenu des éditions éducative ou professionnelles (dont l'Édition Éducateur et le guide de ressources de l'enseignant) dans ce dépôt public. Renseignements : https://cyberriskguardian.ca · sales@cyberriskguardian.ca. Les notes de licence se trouvent dans `LICENSE` et `NOTICE.md`.

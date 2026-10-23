@@ -28,7 +28,7 @@ education/
 
 ## Chapter slide decks (textbook v2.51)
 
-The 21 chapter decks are too large for the repository history (about 105 MB), so they are published as assets of a GitHub release: **Releases → education-slides-v2.51**. They are free under CC BY-NC 4.0, in English.
+The 21 chapter decks are too large for the repository history (about 105 MB), so they are published as assets of a GitHub release: [**education-slides-v2.51**](https://github.com/ITriskMgr/CyberRiskGuardian/releases/tag/education-slides-v2.51). They are free under CC BY-NC 4.0, in English.
 
 | Ch. | Chapter | Asset |
 |---|---|---|

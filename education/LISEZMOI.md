@@ -28,7 +28,7 @@ education/
 
 ## Présentations des chapitres (manuel v2.51)
 
-Les 21 présentations des chapitres sont trop volumineuses pour l'historique du dépôt (environ 105 Mo); elles sont publiées comme fichiers joints d'une version GitHub : **Releases → education-slides-v2.51**. Elles sont gratuites sous licence CC BY-NC 4.0, en anglais.
+Les 21 présentations des chapitres sont trop volumineuses pour l'historique du dépôt (environ 105 Mo); elles sont publiées comme fichiers joints d'une version GitHub : [**education-slides-v2.51**](https://github.com/ITriskMgr/CyberRiskGuardian/releases/tag/education-slides-v2.51). Elles sont gratuites sous licence CC BY-NC 4.0, en anglais.
 
 | Ch. | Chapitre | Fichier |
 |---|---|---|
