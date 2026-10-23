@@ -7,7 +7,7 @@ date: "October 2026"
 
 # How to use this kit
 
-This kit gives instructors ready-to-adapt assignment briefs and rubrics for courses that use CyberRiskGuardian, and gives students the criteria their work will be judged on. It is based on the assessment design of *BTM 440 Information Systems Risks, Security and Audit* (Concordia University, Fall 2026), generalized so that any institution can use it.
+This kit gives instructors ready-to-adapt assignment briefs and rubrics for courses that use CyberRiskGuardian, and gives students the criteria their work will be judged on. It is based on the assessment design of an undergraduate cybersecurity course, generalized so that any institution can use it.
 
 **For instructors.** Replace the bracketed items — [due week], [weight], [page limit], [submission platform] — with your own. Keep the criteria and the descriptors: they are what makes grading consistent between sections and teaching assistants. Your course outline and assignment instructions remain the authoritative source; say so to students.
 
@@ -248,4 +248,4 @@ Include near the title page or in an appendix:
 
 **Rules.** Generative AI is allowed on assignments with this acknowledgement and is not allowed during the exam. You are responsible for everything you submit. A fabricated or untraceable source is both an evidence problem and an academic-integrity concern. Do not paste confidential material into an external AI service unless you are authorized to.
 
-*© 2026 Marc-André Léger. Licensed under CC BY-NC 4.0. Adapted from the BTM 440 Student Assignment Guide (Concordia University, Fall 2026).*
+*© 2026 Marc-André Léger. Licensed under CC BY-NC 4.0. Adapted from the author's student assignment guide for an undergraduate cybersecurity course.*

@@ -10,7 +10,7 @@ toc-title: "Table des matières"
 
 Ce guide aide les enseignants, les auxiliaires d'enseignement et les coordonnateurs de programme à intégrer CyberRiskGuardian (CRG) dans un cours de gestion des risques en cybersécurité, de gouvernance, d'audit des TI ou de gestion des technologies d'affaires. Il explique ce que la méthode enseigne, quelle version de l'outil utiliser, comment l'intégrer dans un seul atelier ou dans une session complète, comment animer les laboratoires et comment évaluer équitablement le travail lorsque les étudiants sont autorisés à utiliser l'IA générative.
 
-L'ensemble a été conçu à partir du matériel fourni avec CyberRiskGuardian (les spécifications de la méthode, le manuel de gouvernance, l'exemple complet MediBec et les fonctionnalités pédagogiques de l'application de bureau) et à partir du cours de l'auteur, *BTM 440 Business Information Systems Risks, Security and Audit* (Université Concordia, automne 2026), où CRG a été utilisé pour le travail d'équipe d'évaluation des risques.
+L'ensemble a été conçu à partir du matériel fourni avec CyberRiskGuardian (les spécifications de la méthode, le manuel de gouvernance, l'exemple complet MediBec et les fonctionnalités pédagogiques de l'application de bureau) et à partir du cours de premier cycle de l'auteur sur les risques, la sécurité et l'audit des systèmes d'information, où CRG a été utilisé pour le travail d'équipe d'évaluation des risques.
 
 ## Contenu de l'ensemble
 
@@ -190,7 +190,7 @@ Pondération suggérée : 20–30 % de la note du cours, au moyen de la grille 
 
 ## Modèle 3 — Session complète (12 semaines)
 
-C'est le modèle utilisé dans le cours BTM 440. L'évaluation des risques (A1) alimente la politique de sécurité (A2) et le plan d'audit (A3), de sorte que les étudiants suivent une même organisation, du risque à la gouvernance jusqu'à l'assurance.
+C'est le modèle utilisé dans le cours de premier cycle de l'auteur. L'évaluation des risques (A1) alimente la politique de sécurité (A2) et le plan d'audit (A3), de sorte que les étudiants suivent une même organisation, du risque à la gouvernance jusqu'à l'assurance.
 
 | Semaine | Thème du cours | Activité CRG | Échéance |
 |---|---|---|---|
@@ -207,7 +207,7 @@ C'est le modèle utilisé dans le cours BTM 440. L'évaluation des risques (A1) 
 | 11 | Criminalistique numérique; normes et certification | Laboratoire 12, partie 2 : du risque à la politique de gestion des identités et des accès (IAM) | **A3 plan d'audit** (individuel) |
 | 12 | Sécurité des applications; révision | Préparation à l'examen; banque de questions de quiz (Édition Éducateur) | **A2 politique IAM** |
 
-Pondérations suggérées, comme dans le cours BTM 440 : A1 20 % (équipe), A2 10 % (équipe), A3 10 % (individuel), examen final 40 % (incluant une dissertation sur une étude de cas), quiz et laboratoires 20 %.
+Pondérations suggérées, comme dans le cours de premier cycle de l'auteur : A1 20 % (équipe), A2 10 % (équipe), A3 10 % (individuel), examen final 40 % (incluant une dissertation sur une étude de cas), quiz et laboratoires 20 %.
 
 ## Modèle 4 — Projet intégrateur ou séminaire aux cycles supérieurs
 
@@ -266,7 +266,7 @@ L'expérience avec la méthode montre qu'une poignée d'idées causent l'essenti
 
 # L'IA générative dans le cours
 
-CyberRiskGuardian est lui-même un outil assisté par l'IA; le cours doit donc adopter une position claire sur l'IA. La position ci-dessous est celle utilisée dans le cours BTM 440; adaptez-la à la politique de votre établissement.
+CyberRiskGuardian est lui-même un outil assisté par l'IA; le cours doit donc adopter une position claire sur l'IA. La position ci-dessous est celle utilisée dans le cours de premier cycle de l'auteur; adaptez-la à la politique de votre établissement.
 
 **Permise pour les travaux,** avec une déclaration explicite (modèle dans la Trousse d'évaluation). Les étudiants sont responsables de tout ce qu'ils remettent, y compris de tout ce qu'une IA a produit.
 

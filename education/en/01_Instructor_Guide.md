@@ -9,7 +9,7 @@ date: "October 2026"
 
 This guide helps instructors, teaching assistants and program coordinators bring CyberRiskGuardian (CRG) into a course on cybersecurity risk management, governance, IT audit or business technology management. It explains what the method teaches, which version of the tool to use, how to fit it into a single workshop or a full term, how to run the labs, and how to assess the work fairly when students are allowed to use generative AI.
 
-The package was built from the material that ships with CyberRiskGuardian (the method specifications, the governance textbook, the MediBec worked example and the desktop application's teaching features) and from the author's own course, *BTM 440 Business Information Systems Risks, Security and Audit* (Concordia University, Fall 2026), where CRG has been used for the team risk-assessment assignment.
+The package was built from the material that ships with CyberRiskGuardian (the method specifications, the governance textbook, the MediBec worked example and the desktop application's teaching features) and from the author's own undergraduate course on information systems risks, security and audit, where CRG has been used for the team risk-assessment assignment.
 
 ## What is in the package
 
@@ -189,7 +189,7 @@ Suggested weight: 20–30% of the course grade, using the A1 rubric of the Asses
 
 ## Model 3 — Full term (12 weeks)
 
-This is the model used in BTM 440. The risk assessment (A1) feeds the security policy (A2) and the audit plan (A3), so students follow one organization from risk to governance to assurance.
+This is the model used in the author's undergraduate course. The risk assessment (A1) feeds the security policy (A2) and the audit plan (A3), so students follow one organization from risk to governance to assurance.
 
 | Week | Course topic | CRG activity | Due |
 |---|---|---|---|
@@ -206,7 +206,7 @@ This is the model used in BTM 440. The risk assessment (A1) feeds the security p
 | 11 | Digital forensics; standards and certification | Lab 12, part 2: from risk to IAM policy | **A3 audit plan** (individual) |
 | 12 | Application security; review | Exam preparation; quiz bank (Educator Edition) | **A2 IAM policy** |
 
-Suggested weights, as in BTM 440: A1 20% (team), A2 10% (team), A3 10% (individual), final exam 40% (including an essay on a business case), quizzes and labs 20%.
+Suggested weights, as in the author's undergraduate course: A1 20% (team), A2 10% (team), A3 10% (individual), final exam 40% (including an essay on a business case), quizzes and labs 20%.
 
 ## Model 4 — Capstone or graduate seminar
 
@@ -265,7 +265,7 @@ Experience with the method shows that a handful of ideas cause most of the confu
 
 # Generative AI in the course
 
-CyberRiskGuardian is itself an AI-assisted tool, so the course must take a clear position on AI. The position below is the one used in BTM 440; adapt it to your institution's policy.
+CyberRiskGuardian is itself an AI-assisted tool, so the course must take a clear position on AI. The position below is the one used in the author's undergraduate course; adapt it to your institution's policy.
 
 **Allowed on assignments,** with an explicit acknowledgement (template in the Assessment Kit). Students are responsible for everything they submit, including anything an AI produced.
 

@@ -8,7 +8,7 @@ toc-title: "Table des matières"
 
 # Comment utiliser cette trousse
 
-Cette trousse fournit aux enseignants des énoncés de travaux et des grilles d'évaluation prêts à adapter pour les cours qui utilisent CyberRiskGuardian, et présente aux étudiants les critères selon lesquels leurs travaux seront évalués. Elle s'appuie sur la conception de l'évaluation du cours *BTM 440 Information Systems Risks, Security and Audit* (Université Concordia, automne 2026), généralisée afin que tout établissement puisse l'utiliser.
+Cette trousse fournit aux enseignants des énoncés de travaux et des grilles d'évaluation prêts à adapter pour les cours qui utilisent CyberRiskGuardian, et présente aux étudiants les critères selon lesquels leurs travaux seront évalués. Elle s'appuie sur la conception de l'évaluation d'un cours de premier cycle en cybersécurité, généralisée afin que tout établissement puisse l'utiliser.
 
 **Pour les enseignants.** Remplacez les éléments entre crochets — [semaine de remise], [pondération], [nombre de pages maximal], [plateforme de remise] — par les vôtres. Conservez les critères et les descripteurs : ce sont eux qui assurent la cohérence de la correction entre les groupes-cours et les auxiliaires d'enseignement. Votre plan de cours et vos consignes de travaux demeurent la source qui fait autorité ; dites-le aux étudiants.
 
@@ -249,4 +249,4 @@ Chaque membre de l'équipe remplit ce formulaire de façon confidentielle. L'ens
 
 **Règles.** L'IA générative est permise dans les travaux, avec cette déclaration, et n'est pas permise pendant l'examen. Vous êtes responsable de tout ce que vous remettez. Une source fabriquée ou introuvable constitue à la fois un problème de preuve et une question d'intégrité académique. Ne collez pas de documents confidentiels dans un service d'IA externe, sauf si vous y êtes autorisé.
 
-*© 2026 Marc-André Léger. Sous licence CC BY-NC 4.0. Adapté du BTM 440 Student Assignment Guide (Université Concordia, automne 2026).*
+*© 2026 Marc-André Léger. Sous licence CC BY-NC 4.0. Adapté du guide des travaux de l'auteur pour un cours de premier cycle en cybersécurité.*
