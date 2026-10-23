@@ -1,5 +1,5 @@
 {
- "_comment": "CyberRiskGuardian data model. One file drives crg_calc.py, the report and (with CRG Pro) the workbook. Values below are a fictional example - replace them. Params: PbA=Pb(A), Pbx=Pb(psi,A), De=expected damage, Dm=maximum damage, Th=resilience, Mu=criticality; each {v, qual, rat, ev, conf}. red_p/red_i = probability/impact reduction of the treatment package (0-1).",
+ "_comment": "CyberRiskGuardian data model. One file drives crg_calc.py, the report and (with CRG Pro) the workbook. Values below are a fictional example - replace them. Params: PbA=Pb(A), Pbx=Pb(psi,A), De=expected damage, Dm=maximum damage, Th=resilience, Mu=organizational criticality (expected utility); each {v, qual, rat, ev, conf}; all 0-1, Dm >= De, Th in (0,1]. APPETITE is required (strictly between 0 and 1). cvss = CVSS v4.0 vector (required; the score is recomputed from it). red_p/red_i = probability/impact reduction of the treatment package (0-1; combine measures per lever with 1 - prod(1 - r_i)). cost (optional) = Year-1 cost allocated to the scenario, enables cost-effectiveness.",
  "APPETITE": 0.30,
  "FACTOR": 1000,
  "CASE_APPETITE": 0.40,
@@ -40,6 +40,7 @@
    "cvss_note": "Representative weakness: single-channel push MFA. Explain every metric.",
    "red_p": 0.80,
    "red_i": 0.75,
+   "cost": 240000,
    "inits": ["I01"],
    "treatment": "Phishing-resistant MFA and conditional access.",
    "owner": "CIO",

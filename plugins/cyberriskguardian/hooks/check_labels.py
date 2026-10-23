@@ -8,7 +8,10 @@ Checks that risk-assessment outputs carry the standard markers:
   - "Management decision required"                    when the output is a report or summary
   - "Information gap — organizational validation required"    when the text admits missing information
 
-French equivalents and the earlier "Analytical estimate" / "Information gap" wording are accepted.
+French equivalents are accepted. The retired wording ("Analyst estimate — validation required",
+"Evidence gap — organizational input required", FR "Estimation de l'analyste — validation requise",
+"Lacune de preuve — renseignement / information organisationnel(le) requis(e)") no longer counts as a marker:
+it is detected and reported as outdated, with the replacement to use.
 
 Modes
   hook  (default when stdin is JSON): PostToolUse on Write/Edit, or Stop. Warns, never blocks a tool;
@@ -21,11 +24,16 @@ import json, os, re, sys, unicodedata, zipfile
 
 DASH = r"\s*[—–\-:]\s*"
 MARKERS = {
-    "estimate": [rf"analyst estimate{DASH}validation required", rf"analytical estimate{DASH}validation required",
-                 rf"estimation de l.analyste{DASH}validation requise", rf"estimation analytique{DASH}validation requise"],
-    "gap": [rf"evidence gap{DASH}organi[sz]ational input required", rf"information gap{DASH}organi[sz]ational validation required",
-            rf"lacune de preuve{DASH}information organisationnelle requise", rf"lacune d.information{DASH}validation organisationnelle requise"],
+    "estimate": [rf"analytical estimate{DASH}validation required", rf"estimation analytique{DASH}validation requise"],
+    "gap": [rf"information gap{DASH}organi[sz]ational validation required",
+            rf"lacune d.information{DASH}validation organisationnelle requise"],
     "decision": [r"management decision required", r"d[ée]cision de la direction requise"],
+}
+# Retired wording: detected and reported as outdated, never accepted as the marker.
+OUTDATED = {
+    "estimate": [rf"analyst(?:'s)? estimates?{DASH}validation required", rf"estimation de l.analyste{DASH}validation requise"],
+    "gap": [rf"evidence gap{DASH}organi[sz]ational (?:input|validation) required",
+            rf"lacune de preuve{DASH}(?:renseignement|information) organisationnel(?:le)? requis(?:e)?"],
 }
 LABEL_TEXT = {
     "estimate": "Analytical estimate — validation required (FR: Estimation analytique — validation requise)",
@@ -46,6 +54,12 @@ def norm(t):
 
 def has(text, key):
     return any(re.search(p, text, re.I) for p in MARKERS[key])
+
+
+def outdated(text):
+    """Return the marker keys for which retired wording appears in the text."""
+    t = norm(text)
+    return [k for k, pats in OUTDATED.items() if any(re.search(p, t, re.I) for p in pats)]
 
 
 def required(text, name=""):
@@ -74,10 +88,15 @@ def read_file(path):
     return None
 
 
-def message(need, where):
-    lines = [f"CyberRiskGuardian label check: {where} is missing required markers:"]
-    lines += [f"- {LABEL_TEXT[k]}" for k in need]
-    lines.append("Add each marker where it applies (estimated parameters, missing facts, decisions for management).")
+def message(need, where, old=()):
+    lines = []
+    if need:
+        lines.append(f"CyberRiskGuardian label check: {where} is missing required markers:")
+        lines += [f"- {LABEL_TEXT[k]}" for k in need]
+        lines.append("Add each marker where it applies (estimated parameters, missing facts, decisions for management).")
+    if old:
+        lines.append(f"CyberRiskGuardian label check: {where} uses outdated marker wording. Replace it with:")
+        lines += [f"- {LABEL_TEXT[k]}" for k in old]
     return "\n".join(lines)
 
 
@@ -93,9 +112,9 @@ def hook(data):
             return 0
         if not text:
             return 0
-        need = required(text, os.path.basename(path))
-        if need:
-            msg = message(need, os.path.basename(path))
+        need, old = required(text, os.path.basename(path)), outdated(text)
+        if need or old:
+            msg = message(need, os.path.basename(path), old)
             print(json.dumps({"systemMessage": msg,
                               "hookSpecificOutput": {"hookEventName": "PostToolUse", "additionalContext": msg}}))
         return 0
@@ -106,9 +125,10 @@ def hook(data):
         if isinstance(text, list):
             text = " ".join(x.get("text", "") for x in text if isinstance(x, dict))
         need = [k for k in required(str(text)) if k == "estimate"]
-        if need:
+        old = outdated(str(text))
+        if need or old:
             print(json.dumps({"decision": "block",
-                              "reason": message(need, "your last reply") + " Restate the reply with the markers; change nothing else."}))
+                              "reason": message(need, "your last reply", old) + " Restate the reply with the current markers; change nothing else."}))
         return 0
     return 0
 
@@ -122,10 +142,13 @@ def cli(paths):
             print(f"{p}: cannot read ({e})"); bad += 1; continue
         if text is None:
             print(f"{p}: skipped (unsupported type)"); continue
-        need = required(text, os.path.basename(p))
-        if need:
+        need, old = required(text, os.path.basename(p)), outdated(text)
+        if need or old:
             bad += 1
-            print(f"{p}: MISSING " + "; ".join(LABEL_TEXT[k] for k in need))
+            if need:
+                print(f"{p}: MISSING " + "; ".join(LABEL_TEXT[k] for k in need))
+            if old:
+                print(f"{p}: OUTDATED wording - replace with " + "; ".join(LABEL_TEXT[k] for k in old))
         else:
             print(f"{p}: OK")
     return 1 if bad else 0
