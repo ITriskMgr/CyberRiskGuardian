@@ -3,23 +3,29 @@ name: quantify-worked-example
 tags: ["smoke", "regression", "quantify"]
 runs: 3
 execution:
-  prompt: "Compute the CyberRiskGuardian KRIs for one scenario with the calculator, not by hand: Pb(A) 0.70, Pb(ψ,A) 0.60, CVSS-B 9.4, δe 0.60, δm 0.80, θ 0.50, μ(E) 0.65, appetite 0.35, factor 1,000, probability reduction 0.65, impact reduction 0.70. Give estimated, tolerated, mitigated and residual risk, the ratio and the classification."
+  prompt: "Compute the CyberRiskGuardian risk indices for one scenario with the calculator, not by hand: Pb(A) 0.70, Pb(ψ,A) 0.60, CVSS vector CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:P/VC:H/VI:H/VA:H/SC:H/SI:H/SA:H, δe 0.60, δm 0.80, θ 0.50, μ(E) 0.65, appetite 0.35, factor 1,000, probability reduction 0.65, impact reduction 0.70, cost $62,000. Give the CVSS score, estimated, tolerated, mitigated and residual risk, the risk-to-tolerance ratio, the classification and the cost-effectiveness."
   max_turns: 10
   timeout_seconds: 600
   allowed_tools: ["Bash", "Read", "Skill", "Write"]
 graders:
+  - name: cvss
+    type: "regex"
+    pattern: "\\b9[.,]3\\b"
   - name: estimated
     type: "regex"
-    pattern: "3[,\\s ]?592"
+    pattern: "3[,\\s ]?554"
   - name: tolerated
     type: "regex"
-    pattern: "1[,\\s ]?796"
+    pattern: "1[,\\s ]?777"
   - name: residual
     type: "regex"
-    pattern: "1[,\\s ]?958"
+    pattern: "1[,\\s ]?937"
   - name: ratio
     type: "regex"
     pattern: "1[.,]09"
+  - name: cost-effectiveness
+    type: "regex"
+    pattern: "26[.,]09"
   - name: calculator-used
     type: "tool_used"
     tool: "Bash"

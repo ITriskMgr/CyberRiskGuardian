@@ -15,7 +15,7 @@ graders:
     pattern: "Estimated Risk Appetite:\\s*\\**\\s*0[.,](?:[12]\\d?|3\\d?)\\b"
   - name: estimate-marker
     type: "regex"
-    pattern: "Analyst estimate|Analytical estimate|Estimation de l.analyste|Estimation analytique"
+    pattern: "Analytical estimate|Estimation analytique"
     flags: "i"
   - name: decision-marker
     type: "regex"

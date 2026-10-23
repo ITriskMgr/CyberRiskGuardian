@@ -1,0 +1,17 @@
+schema_version: "1.1"
+name: quantify-input-validation
+tags: ["regression", "quantify"]
+runs: 2
+execution:
+  prompt: "Compute the CyberRiskGuardian risk indices with the calculator for this scenario: Pb(A) 0.60, Pb(ψ,A) 0.50, δe 0.70, δm 0.50, θ 0.40, μ(E) 0.80, appetite 0.30, no treatment, CVSS vector CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:P/VC:H/VI:H/VA:N/SC:N/SI:N/SA:N with a stored score of 9.4."
+  max_turns: 8
+  timeout_seconds: 600
+  allowed_tools: ["Bash", "Read", "Skill"]
+graders:
+  - name: tool
+    type: "tool_used"
+    tool: "Bash"
+    input_match: "crg_calc"
+  - name: rejects-dm
+    type: "llm"
+    criteria: "The reply reports that the input is invalid because the maximum damage δm (0.50) is lower than the expected damage δe (0.70), and asks for corrected values instead of silently changing them or presenting risk indices computed from the invalid input. It may also note that the stored CVSS score 9.4 does not match the score computed from the vector (8.6)."

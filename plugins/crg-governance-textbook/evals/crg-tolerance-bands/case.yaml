@@ -1,0 +1,23 @@
+schema_version: "1.1"
+name: crg-tolerance-bands
+tags: ["textbook"]
+runs: 2
+execution:
+  prompt: "According to the CyberRiskGuardian governance textbook, how is the risk-to-tolerance ratio read, and what does the tolerance verdict depend on? Cite the chapter."
+  max_turns: 10
+  timeout_seconds: 600
+  allowed_tools: ["Read", "Grep", "Glob", "Skill"]
+graders:
+  - name: band-low
+    type: "regex"
+    pattern: "0[.,]90"
+  - name: band-high
+    type: "regex"
+    pattern: "1[.,]10"
+  - name: chapter-6
+    type: "regex"
+    pattern: "Chap(?:ter|itre)\\s+6\\b"
+    flags: "i"
+  - name: faithful
+    type: "llm"
+    criteria: "The reply gives the three bands (below 0.90 below tolerance, 0.90 to 1.10 approximately at tolerance, above 1.10 above tolerance), explains that the verdict depends only on damage, treatment and appetite because probabilities, CVSS, criticality, resilience and the factor cancel, and does not present 1.25 as the threshold (the book says that single threshold is retired)."

@@ -12,8 +12,8 @@ import json, os, shutil
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-EST = r"Analyst estimate|Analytical estimate|Estimation de l.analyste|Estimation analytique"
-GAP = r"Evidence gap|Information gap|Lacune de preuve|Lacune d.information"
+EST = r"Analytical estimate|Estimation analytique"
+GAP = r"Information gap|Lacune d.information"
 DEC = r"Management decision required|D[ée]cision de la direction requise"
 FIND = "The fixture file {f} is not in the working directory: it is in a fixtures/ directory added to this session (listed among the additional working directories). Search there, for example with Glob **/fixtures/{f} from the added directory, then read it."
 
@@ -25,7 +25,7 @@ CORE = {
    dict(name="evidence-ids", type="regex", pattern=r"\bE1\b"),
    dict(name="gap-marker", type="regex", pattern=GAP, flags="i"),
    dict(name="intake-skill", type="tool_used", tool="Skill", input_match="crg-context-intake|cyber-risk-assessment"),
-   dict(name="grounded", type="llm", criteria="The reply contains an evidence register with IDs, a crown-jewel table that includes the electronic health record and clinical systems, and a scope with a 12-month horizon. Facts are traceable to the MediBec profile; the reply does not invent facts absent from it (such as named vendors, headcounts or budgets) and labels missing information as an evidence gap."),
+   dict(name="grounded", type="llm", criteria="The reply contains an evidence register with IDs, a crown-jewel table that includes the electronic health record and clinical systems, and a scope with a 12-month horizon. Facts are traceable to the MediBec profile; the reply does not invent facts absent from it (such as named vendors, headcounts or budgets) and labels missing information as an information gap."),
   ]),
  "context-intake-interview": dict(
   tags=["smoke", "intake"], runs=2, max_turns=6, tools=["Skill"],
@@ -52,12 +52,14 @@ CORE = {
   ]),
  "quantify-worked-example": dict(
   tags=["smoke", "regression", "quantify"], runs=3, max_turns=10, tools=["Bash", "Read", "Skill", "Write"],
-  prompt="Compute the CyberRiskGuardian KRIs for one scenario with the calculator, not by hand: Pb(A) 0.70, Pb(ψ,A) 0.60, CVSS-B 9.4, δe 0.60, δm 0.80, θ 0.50, μ(E) 0.65, appetite 0.35, factor 1,000, probability reduction 0.65, impact reduction 0.70. Give estimated, tolerated, mitigated and residual risk, the ratio and the classification.",
+  prompt="Compute the CyberRiskGuardian risk indices for one scenario with the calculator, not by hand: Pb(A) 0.70, Pb(ψ,A) 0.60, CVSS vector CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:P/VC:H/VI:H/VA:H/SC:H/SI:H/SA:H, δe 0.60, δm 0.80, θ 0.50, μ(E) 0.65, appetite 0.35, factor 1,000, probability reduction 0.65, impact reduction 0.70, cost $62,000. Give the CVSS score, estimated, tolerated, mitigated and residual risk, the risk-to-tolerance ratio, the classification and the cost-effectiveness.",
   graders=[
-   dict(name="estimated", type="regex", pattern=r"3[,\s ]?592"),
-   dict(name="tolerated", type="regex", pattern=r"1[,\s ]?796"),
-   dict(name="residual", type="regex", pattern=r"1[,\s ]?958"),
+   dict(name="cvss", type="regex", pattern=r"\b9[.,]3\b"),
+   dict(name="estimated", type="regex", pattern=r"3[,\s ]?554"),
+   dict(name="tolerated", type="regex", pattern=r"1[,\s ]?777"),
+   dict(name="residual", type="regex", pattern=r"1[,\s ]?937"),
    dict(name="ratio", type="regex", pattern=r"1[.,]09"),
+   dict(name="cost-effectiveness", type="regex", pattern=r"26[.,]09"),
    dict(name="calculator-used", type="tool_used", tool="Bash", input_match="crg_calc"),
    dict(name="classification", type="llm", criteria="The scenario is classified as approximately at tolerance (ratio between 0.90 and 1.10)."),
   ]),
@@ -73,10 +75,17 @@ CORE = {
   tags=["regression", "quantify"], runs=1, fixtures=["medibec30.json"], max_turns=10, tools=["Bash", "Read", "Glob", "Skill"],
   prompt=FIND.format(f="medibec30.json") + " It is a CyberRiskGuardian data model for the 30-scenario MediBec assessment. Run the CyberRiskGuardian calculator on it and report the total estimated risk, the total residual risk and the counts above, approximately at and below tolerance.",
   graders=[
-   dict(name="total-estimated", type="regex", pattern=r"84[,\s ]?491"),
-   dict(name="total-residual", type="regex", pattern=r"41[,\s ]?104"),
+   dict(name="total-estimated", type="regex", pattern=r"84[,\s ]?305"),
+   dict(name="total-residual", type="regex", pattern=r"41[,\s ]?023"),
    dict(name="counts", type="regex", pattern=r"12\b[^\n]{0,60}above|above[^\n]{0,60}\b12\b", flags="i"),
    dict(name="tool", type="tool_used", tool="Bash", input_match="crg_calc"),
+  ]),
+ "quantify-input-validation": dict(
+  tags=["regression", "quantify"], runs=2, max_turns=8, tools=["Bash", "Read", "Skill"],
+  prompt="Compute the CyberRiskGuardian risk indices with the calculator for this scenario: Pb(A) 0.60, Pb(ψ,A) 0.50, δe 0.70, δm 0.50, θ 0.40, μ(E) 0.80, appetite 0.30, no treatment, CVSS vector CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:P/VC:H/VI:H/VA:N/SC:N/SI:N/SA:N with a stored score of 9.4.",
+  graders=[
+   dict(name="tool", type="tool_used", tool="Bash", input_match="crg_calc"),
+   dict(name="rejects-dm", type="llm", criteria="The reply reports that the input is invalid because the maximum damage δm (0.50) is lower than the expected damage δe (0.70), and asks for corrected values instead of silently changing them or presenting risk indices computed from the invalid input. It may also note that the stored CVSS score 9.4 does not match the score computed from the vector (8.6)."),
   ]),
  "summary-report-markers": dict(
   tags=["smoke", "report"], runs=2, max_turns=8, tools=["Skill"],
@@ -104,6 +113,30 @@ TEXTBOOK = {
    dict(name="citation", type="regex", pattern=r"Chap(?:ter|itre)\s+\d+", flags="i"),
    dict(name="read-book", type="tool_used", tool="Read", input_match=r"references/ch\d+"),
    dict(name="faithful", type="llm", criteria="The explanation follows the textbook: first line (operations and management, risk owners), second line (risk management and compliance oversight), third line (independent internal audit giving assurance to the board), and it may add the book's extension to executive management and the board. It cites a chapter of Léger's Introduction to Cybersecurity Governance and does not mix in content the book does not contain without saying so."),
+  ]),
+ "renumbered-chapter": dict(
+  tags=["smoke", "textbook"], runs=2, max_turns=10, tools=["Read", "Grep", "Glob", "Skill"],
+  prompt="Which chapter of the CyberRiskGuardian governance textbook covers third-party and supply-chain cybersecurity governance? Summarize its lifecycle model in three sentences and cite the chapter.",
+  graders=[
+   dict(name="chapter-19", type="regex", pattern=r"Chap(?:ter|itre)\s+19\b", flags="i"),
+   dict(name="read-ch19", type="tool_used", tool="Read", input_match=r"references/ch19-"),
+   dict(name="faithful", type="llm", criteria="The reply identifies Chapter 19 (Third-Party and Supply-Chain Cybersecurity Governance) of the v2.51 edition, not Chapter 20, summarizes the book's lifecycle model for third-party governance (for example tiering, due diligence, contracting, monitoring, incident coordination and exit) and cites the chapter."),
+  ]),
+ "crg-tolerance-bands": dict(
+  tags=["textbook"], runs=2, max_turns=10, tools=["Read", "Grep", "Glob", "Skill"],
+  prompt="According to the CyberRiskGuardian governance textbook, how is the risk-to-tolerance ratio read, and what does the tolerance verdict depend on? Cite the chapter.",
+  graders=[
+   dict(name="band-low", type="regex", pattern=r"0[.,]90"),
+   dict(name="band-high", type="regex", pattern=r"1[.,]10"),
+   dict(name="chapter-6", type="regex", pattern=r"Chap(?:ter|itre)\s+6\b", flags="i"),
+   dict(name="faithful", type="llm", criteria="The reply gives the three bands (below 0.90 below tolerance, 0.90 to 1.10 approximately at tolerance, above 1.10 above tolerance), explains that the verdict depends only on damage, treatment and appetite because probabilities, CVSS, criticality, resilience and the factor cancel, and does not present 1.25 as the threshold (the book says that single threshold is retired)."),
+  ]),
+ "cvss-by-equivalency": dict(
+  tags=["textbook"], runs=1, max_turns=10, tools=["Read", "Grep", "Glob", "Skill"],
+  prompt="How does the CyberRiskGuardian textbook score a non-technical weakness, such as supplier bank details changed by e-mail without a call-back, with CVSS v4.0? Cite the chapter.",
+  graders=[
+   dict(name="chapter-6", type="regex", pattern=r"Chap(?:ter|itre)\s+6\b", flags="i"),
+   dict(name="faithful", type="llm", criteria="The reply explains scoring by equivalency: mapping the weakness onto the CVSS metrics by analogy, justifying every metric in one line, labelling the score 'limited applicability' and marking it 'Analytical estimate — validation required', and it notes that a score is still required because CVSS is a mandatory multiplier. It does not claim the score measures business risk or should rank scenarios."),
   ]),
  "appetite-vs-tolerance": dict(
   tags=["textbook"], runs=2, max_turns=10, tools=["Read", "Grep", "Glob", "Skill"],
