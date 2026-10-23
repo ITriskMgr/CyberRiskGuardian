@@ -10,7 +10,7 @@ Produce board-ready briefs:
 
 1. **Bottom line** (2-3 sentences): overall exposure, whether residual risk is within appetite, what is being asked.
 2. **Top risks** (table, max 5 rows): scenario in business terms, status vs tolerance, key treatment.
-3. **Investment** : total cost (initial, recurring, Year 1), budget as % of IT budget vs the 4-12% guideline and the appetite-consistent target.
+3. **Investment** : total cost (initial, recurring, Year 1), budget as % of total IT budget vs the appetite-consistent point target (12% / 7.8% / 4% at appetite 0.30 / 0.50 / 0.70, linear in between), with the gap stated and escalated.
 4. **Decisions required**: numbered, each with the recommended option and the accountable body.
 5. **Caveats**: at most three, naming the evidence that would change the answer.
 

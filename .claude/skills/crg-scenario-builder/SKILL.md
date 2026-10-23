@@ -1,25 +1,25 @@
 ---
 name: crg-scenario-builder
 description: >
-  This skill should be used when the user asks to "create cyber risk scenarios", "generate 20 candidate scenarios", "select risk
+  This skill should be used when the user asks to "create cyber risk scenarios", "generate candidate scenarios", "select risk
   scenarios", "screen candidate scenarios", "choose the 10 most material cyber scenarios", "build a scenario screening matrix",
   "review a scenario portfolio", or wants Sections A–E (context, candidates, screening, final portfolio, quality review), or when
   the cyber-risk-assessment workflow reaches steps 5 to 8.
 metadata:
-  version: "2.0.0"
+  version: "2.1.0"
   author: "Marc-André Léger (methodology) - packaged with Claude"
-  edition: "Core (free, CC BY-NC 4.0)"
+  edition: "Community Edition (Core plugin, free, CC BY-NC 4.0)"
 ---
 
 # Scenario builder: candidates, screening and selection (CyberRiskGuardian steps 5–8)
 
-Select a defensible, evidence-based, decision-useful portfolio of cybersecurity risk scenarios representing the organization's most material exposures and uncertainties. The goal is not to list every conceivable threat. Treat selection as strategic filtering and prioritization aligned with ISO 31000, ISO/IEC 27001/27005, NIST guidance and FAIR concepts. Read `references/scenario-selection-instructions.md` for the complete 20-step procedure and critical rules before starting.
+Select a defensible, evidence-based, decision-useful portfolio of cybersecurity risk scenarios representing the organization's most material exposures and uncertainties. The goal is not to list every conceivable threat. Treat selection as strategic filtering and prioritization aligned with ISO 31000, ISO/IEC 27001/27005, NIST guidance and FAIR concepts. Read `references/scenario-selection-instructions.md` for the complete procedure (its 20 numbered items detail CRG steps 4–9; the mapping is at the top of that file) and the critical rules before starting.
 
 ## Procedure
 
 1. **Context first (Section A).** Scope, 12-month horizon, objectives, critical processes, assets, obligations, maturity, known weaknesses, third parties, continuity needs. Build the Objective → Process → Primary asset → Supporting assets → Dependencies → Consequences map. List single points of failure, concentration risk and peripheral assets. Translate appetite into materiality criteria. List assumptions and gaps; never invent facts.
-2. **Candidate population (Section B).** Generate about 25–40 candidates for 10 final scenarios (scale proportionally) using top-down, bottom-up, threat-driven, dependency-driven and localized generic strategies. Write each as threat + vulnerability/condition + asset/process + adverse event + material consequence; use multi-stage chains where justified. Tag CIA, strategy and source.
-3. **Screening (Section C).** Score every candidate 1–5 on: business criticality, asset criticality, threat relevance, exposure/vulnerability, potential impact, regulatory/legal, operational resilience, dependency/concentration, evidence strength, risk velocity, control uncertainty, decision usefulness. Record rationale. Add mandatory escalation flags (safety, essential service, catastrophic data loss, systemic failure, severe privacy, major regulatory, existential financial, privileged infrastructure, backup/recovery destruction, primary+recovery failure, supply-chain concentration, multi-unit spread). Rate selection confidence H/M/L and evidence basis. Apply FAIR reasoning (threat event frequency, capability, resistance strength, loss magnitude) where information allows.
+2. **Candidate population (Section B).** Generate about 25–40 candidates for 10 final scenarios (scale proportionally), **never fewer than 20**, using at least three of the five generation strategies: top-down, bottom-up, threat-driven, dependency-driven and localized generic. Generative AI is a drafting aid that applies these strategies, not a sixth strategy. For cloud and SaaS exposure, start from the cloud causal-chain patterns in the instructions. Write each as threat + vulnerability/condition + asset/process + adverse event + material consequence; use multi-stage chains where justified. Tag CIA, strategy and source.
+3. **Screening (Section C).** Score every candidate 1–5 on the **12 screening criteria** (book ch05; total out of 60 is a screening aid, not a mechanical rule): business criticality, asset criticality, threat relevance, exposure/vulnerability, potential impact, regulatory/legal, operational resilience, dependency/concentration, evidence strength, risk velocity, control uncertainty, decision usefulness. Record rationale. Add mandatory escalation flags (safety, essential service, catastrophic data loss, systemic failure, severe privacy, major regulatory, existential financial, privileged infrastructure, backup/recovery destruction, primary+recovery failure, supply-chain concentration, multi-unit spread). Rate selection confidence H/M/L and evidence basis. Apply FAIR reasoning (threat event frequency, capability, resistance strength, loss magnitude) where information allows.
 4. **Consolidate.** Group variants and stages of the same exposure into families; keep scenarios separate only when assets, actors, consequences, controls, owners or treatment decisions differ materially. Prevent any one technique's variants from dominating.
 5. **Sensitivity.** Score families under at least four weighting schemes (equal, impact-led, evidence-led, decision-led) using the highest member score per family. Flag families selected by judgement (not top-10 in all schemes) and unselected candidates that rank in the top 10 (explicit review).
 6. **Select (Section D).** Choose 10 unless evidence justifies otherwise, balancing materiality, tolerance exceedance, evidence, uncertainty, regulatory/safety weight, dependencies, coverage and decision usefulness — not the ten highest totals. For each: statement, objective, assets, threat, vulnerabilities, consequences, dependencies, known controls, appetite relevance, selection rationale, evidence basis, confidence, validation needs; answer the six "why this scenario?" questions; prepare quantification inputs (Pb(A), Pb(ψ,A), δe, δm, θ, μ, CVSS applicability, control effectiveness, mitigations, reductions, cost) as estimate + rationale + confidence + evidence required; map cross-functional validators (R/C) and anticipated disagreements.
@@ -31,7 +31,7 @@ A scenario is a causal chain, never a threat name: **threat source or event → 
 
 ## Developing each selected scenario (step 8)
 
-For every selected scenario record: ID, name, statement, objective and process, stakeholders, background, threat source and initiating event, vulnerabilities or predisposing conditions, affected assets and processes, dependencies, existing controls (evidence-backed only), event sequence, consequences across confidentiality, integrity, availability, operations, finance, regulatory, reputation, privacy and safety, appetite relevance, selection rationale, evidence basis, confidence and validation needs. When the user asks for the quick version, generate 20 candidates and develop the 10 most material.
+For every selected scenario record: ID, name, statement, objective and process, stakeholders, background, threat source and initiating event, vulnerabilities or predisposing conditions, affected assets and processes, dependencies, existing controls (evidence-backed only), event sequence, consequences across confidentiality, integrity, availability, operations, finance, regulatory, reputation, privacy and safety, appetite relevance, selection rationale, evidence basis, confidence and validation needs. When the user asks for the quick version (the student-lab minimum), generate 20 candidates and develop the 10 most material.
 
 ## Output
 

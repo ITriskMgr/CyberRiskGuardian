@@ -2,6 +2,8 @@
 
 Source: methodology provided by the CyberRiskGuardian author (Marc-André Léger), September 2026. Governs scenario generation, screening and selection (steps 5–8 of the CyberRiskGuardian process).
 
+**Mapping to the 19 CRG steps** (book ch06 §The steps of a CRG assessment). The numbered items below are sub-steps, not CRG step numbers: items 1–3 rely on steps 1–3 (evidence, context, scope); item 4 = step 4 (appetite and materiality); items 5–8 = step 5 (generate); items 9–10 = step 6 (screen); items 11–18 = step 7 (select); item 19 prepares steps 8–9 (develop causal chains, parameters); item 20 anticipates step 15 (sensitivity).
+
 **Role.** Senior Cybersecurity Risk Analyst selecting scenarios for a formal assessment. The goal is not to list every conceivable threat. It is a manageable, decision-useful portfolio that represents the organization's **material** exposure and can then be analyzed in detail. Align with ISO 31000, ISO/IEC 27001/27005, NIST risk-management guidance and FAIR concepts.
 
 ## Steps
@@ -22,7 +24,21 @@ Source: methodology provided by the CyberRiskGuardian author (Marc-André Léger
 
    Flag **peripheral assets** that reach critical systems, and identify concentration risk.
 4. **Risk appetite and materiality.** Use tolerance thresholds as selection criteria (financial, operational, data, regulatory, privacy, safety, contractual, strategic, reputational, supplier, essential service). Keep plausible scenarios that could exceed tolerance even when their probability is low.
-5. **Broad candidate population.** For 10 final scenarios, generate about 25–40 candidates. Use top-down, bottom-up, threat-driven and localized generic generation, and never select a generic scenario just because it is common.
+5. **Broad candidate population.** For 10 final scenarios, generate about 25–40 candidates (scale proportionally for other portfolio sizes), **never fewer than 20** (20 is the quick version used in the student labs). Use **at least three** of the five generation strategies:
+   - **top-down** — from objectives, obligations and undesirable end states;
+   - **bottom-up** — from critical systems, processes, data flows and the weaknesses the evidence shows;
+   - **threat-driven** — from actors and techniques active against the sector and region;
+   - **dependency-driven** — from single points of failure, concentration risk, suppliers, cloud and peripheral assets;
+   - **localized generic** — from published generic scenarios, each localized to real assets, outcomes and risk criteria; never select a generic scenario just because it is common.
+
+   A candidate produced by more than one strategy deserves attention. Generative AI is a drafting aid that applies these strategies, not a sixth strategy.
+
+   **Cloud causal-chain patterns** (localize each to the organization's tenants, providers and data; use only where the exposure is credible):
+   - *Misconfigured storage* — an opportunistic actor finds a cloud storage bucket or share-link left public through a configuration error and no posture monitoring → bulk download of sensitive exports → privacy breach, notification and regulatory action.
+   - *Identity federation abuse* — an actor compromises the identity provider or a federated trust (stolen signing key, consent phishing, over-privileged guest) with weak conditional access → tokens accepted by every connected SaaS → tenant-wide access and data theft.
+   - *SaaS supplier outage* — a critical SaaS or cloud region fails (provider incident or ransomware at the provider) with no tested exit or manual fallback → mission-critical process stops for days → service, revenue and safety consequences.
+   - *Key or secret exposure in infrastructure-as-code* — long-lived cloud keys or secrets committed to a repository or pipeline without secret scanning or rotation → attacker deploys resources or reads data with valid credentials → data exposure, fraud or resource abuse.
+   - *Tenant isolation or CSP compromise* — a flaw or compromise at the cloud service provider breaks tenant isolation or the provider's administrative plane → customer data accessed or altered without any action by the organization → breach the organization must still notify and manage contractually.
 6. **Write real scenarios.** Each candidate is threat source/event + vulnerability/condition + asset/process + adverse event + material consequence. It must be specific enough to estimate likelihood, impact, capability, vulnerability, control effectiveness, financial consequence and mitigation.
 7. **Multi-stage and hybrid scenarios** where justified (initial access → escalation → lateral movement → critical system → interruption → exposure → notification → third-party/reputation). Do not combine unrelated events artificially.
 8. **FAIR-inspired reasoning** where information exists: threat event frequency, threat capability, resistance strength/vulnerability, and loss magnitude (primary and secondary).
@@ -41,7 +57,7 @@ Source: methodology provided by the CyberRiskGuardian author (Marc-André Léger
 12. **Portfolio coverage.** Do not simply take the top 10 scores. Check coverage of:
     - C/I/A, identity, ransomware, cloud/SaaS, third party, insider
     - application/API, infrastructure, endpoint, OT/IoT/medical, privacy
-    - fraud/BEC, resilience/DR, AI
+    - fraud/BEC, resilience/DR, AI, safety
 
     Include a category only when the exposure is credible and material.
 13. **Decision-usefulness test.** Could better understanding change a decision on investment, controls, acceptance, transfer, architecture, suppliers, resilience or governance?
