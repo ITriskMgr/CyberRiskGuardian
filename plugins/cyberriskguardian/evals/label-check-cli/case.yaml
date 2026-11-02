@@ -1,0 +1,27 @@
+schema_version: "1.1"
+name: label-check-cli
+tags: ["smoke", "label-check"]
+runs: 2
+execution:
+  prompt: "The fixture file draft_summary.md is not in the working directory: it is in a fixtures/ directory added to this session (listed among the additional working directories). Search there, for example with Glob **/fixtures/draft_summary.md from the added directory, then read it. Run the CyberRiskGuardian label check (/label-check) on it and tell me what to fix. Do not edit the file."
+  max_turns: 10
+  timeout_seconds: 600
+  allowed_tools: ["Bash", "Read", "Glob", "Skill"]
+context:
+  add_dirs: [fixtures]
+graders:
+  - name: check-run
+    type: "tool_used"
+    tool: "Bash"
+    input_match: "check_labels"
+  - name: retired-marker
+    type: "regex"
+    pattern: "Analyst estimate"
+    flags: "i"
+  - name: replacement
+    type: "regex"
+    pattern: "Analytical estimate|Estimation analytique"
+    flags: "i"
+  - name: findings
+    type: "llm"
+    criteria: "The reply reports that the draft lacks the Information gap marker (the supplier list was not provided) and the Management decision required marker, that 'Analyst estimate — validation required' is retired wording to replace with 'Analytical estimate — validation required', and that an ABS() residual is outdated (residual = estimated − mitigated with a MAX(0, …) guard). It suggests wording fixes only, changes no number and does not edit the file."

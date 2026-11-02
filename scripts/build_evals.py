@@ -96,6 +96,25 @@ CORE = {
    dict(name="gap-marker", type="regex", pattern=GAP, flags="i"),
    dict(name="conclusion-first", type="llm", criteria="The summary opens with the conclusion (two scenarios above tolerance, one approximately at tolerance, and what management must decide), includes a portfolio table with the given numbers unchanged, marks treatment directions as indicative and uncosted, and lists next steps that need CRG Pro (costed treatment, sensitivity, budget) without inventing costs."),
   ]),
+ "quick-scan-table": dict(
+  tags=["scenarios", "quick-scan"], runs=1, fixtures=["medibec_profile.md"], max_turns=30, timeout=1200, tools=["Read", "Glob", "Grep", "Skill", "Bash", "Write"],
+  prompt=FIND.format(f="medibec_profile.md") + " Run a CyberRiskGuardian quick scan for MediBec (the /crg-quick-scan procedure): at least twenty candidates, the 10 most material, and their pre-treatment verdicts in one table. No treatment. Reply in the conversation.",
+  graders=[
+   dict(name="calculator-used", type="tool_used", tool="Bash", input_match="crg_calc"),
+   dict(name="estimate-marker", type="regex", pattern=EST, flags="i"),
+   dict(name="decision-marker", type="regex", pattern=DEC, flags="i"),
+   dict(name="gap-marker", type="regex", pattern=GAP, flags="i"),
+   dict(name="one-table", type="llm", criteria="The reply states that at least twenty candidates were generated (typically 25 to 40) and gives ONE table of 10 selected scenarios with, for each, a short causal chain, a CVSS v4.0 score, estimated risk, tolerated risk, the pre-treatment risk-to-tolerance ratio and a verdict using the bands below 0.90, 0.90-1.10 and above 1.10. It proposes no measures, costs, residual risk or budget, does not rank or select on CVSS, and calls the computed values risk indices rather than KRIs."),
+  ]),
+ "label-check-cli": dict(
+  tags=["smoke", "label-check"], runs=2, fixtures=["draft_summary.md"], max_turns=10, tools=["Bash", "Read", "Glob", "Skill"],
+  prompt=FIND.format(f="draft_summary.md") + " Run the CyberRiskGuardian label check (/label-check) on it and tell me what to fix. Do not edit the file.",
+  graders=[
+   dict(name="check-run", type="tool_used", tool="Bash", input_match="check_labels"),
+   dict(name="retired-marker", type="regex", pattern=r"Analyst estimate", flags="i"),
+   dict(name="replacement", type="regex", pattern=EST, flags="i"),
+   dict(name="findings", type="llm", criteria="The reply reports that the draft lacks the Information gap marker (the supplier list was not provided) and the Management decision required marker, that 'Analyst estimate — validation required' is retired wording to replace with 'Analytical estimate — validation required', and that an ABS() residual is outdated (residual = estimated − mitigated with a MAX(0, …) guard). It suggests wording fixes only, changes no number and does not edit the file."),
+  ]),
  "assess-french": dict(
   tags=["language"], runs=1, fixtures=["medibec_profile.md"], max_turns=30, timeout=1200, tools=["Read", "Glob", "Grep", "Skill", "Bash", "Write"],
   prompt="Le fichier medibec_profile.md ne se trouve pas dans le répertoire de travail : il est dans un répertoire fixtures/ ajouté à cette session (parmi les répertoires de travail additionnels). Cherchez-le là, par exemple avec Glob **/fixtures/medibec_profile.md, puis lisez-le. Fais un balayage rapide CyberRiskGuardian pour MediBec : 20 candidats, 10 scénarios, verdicts avant traitement. Réponds dans la conversation.",
@@ -120,7 +139,7 @@ TEXTBOOK = {
   graders=[
    dict(name="chapter-19", type="regex", pattern=r"Chap(?:ter|itre)\s+19\b", flags="i"),
    dict(name="read-ch19", type="tool_used", tool="Read", input_match=r"references/ch19-"),
-   dict(name="faithful", type="llm", criteria="The reply identifies Chapter 19 (Third-Party and Supply-Chain Cybersecurity Governance) of the v2.51 edition, not Chapter 20, summarizes the book's lifecycle model for third-party governance (for example tiering, due diligence, contracting, monitoring, incident coordination and exit) and cites the chapter."),
+   dict(name="faithful", type="llm", criteria="The reply identifies Chapter 19 (Third-Party and Supply-Chain Cybersecurity Governance) of the v2.51b edition, not Chapter 20, summarizes the book's lifecycle model for third-party governance (for example tiering, due diligence, contracting, monitoring, incident coordination and exit) and cites the chapter."),
   ]),
  "crg-tolerance-bands": dict(
   tags=["textbook"], runs=2, max_turns=10, tools=["Read", "Grep", "Glob", "Skill"],
@@ -137,6 +156,25 @@ TEXTBOOK = {
   graders=[
    dict(name="chapter-6", type="regex", pattern=r"Chap(?:ter|itre)\s+6\b", flags="i"),
    dict(name="faithful", type="llm", criteria="The reply explains scoring by equivalency: mapping the weakness onto the CVSS metrics by analogy, justifying every metric in one line, labelling the score 'limited applicability' and marking it 'Analytical estimate — validation required', and it notes that a score is still required because CVSS is a mandatory multiplier. It does not claim the score measures business risk or should rank scenarios."),
+  ]),
+ "product-rule": dict(
+  tags=["smoke", "textbook", "v2.51b"], runs=2, max_turns=10, tools=["Read", "Grep", "Glob", "Skill"],
+  prompt="According to the CyberRiskGuardian governance textbook, how do the probability reductions of several measures in one treatment package combine? What would twenty controls of 0.06 each give? Cite the chapter.",
+  graders=[
+   dict(name="formula", type="regex", pattern=r"1\s*[−-]\s*∏|product rule|1\s*[−-]\s*prod", flags="i"),
+   dict(name="chapter-6", type="regex", pattern=r"Chap(?:ter|itre)\s+6\b", flags="i"),
+   dict(name="about-0.71", type="regex", pattern=r"0[.,]71"),
+   dict(name="faithful", type="llm", criteria="The reply explains the product rule 1 − ∏(1 − rᵢ) per lever (probability and impact separately), says reductions are never added (twenty controls of 0.06 give about 0.71, not 1.20) and that the package reduction stays within 0 to 1, and cites Chapter 6 of the v2.51b edition."),
+  ]),
+ "candidate-population": dict(
+  tags=["textbook", "v2.51b"], runs=2, max_turns=10, tools=["Read", "Grep", "Glob", "Skill"],
+  prompt="How many candidate scenarios does the CyberRiskGuardian governance textbook recommend generating before selecting the ten most material, and which MediBec reference totals confirm the calculation engine? Cite the chapters.",
+  graders=[
+   dict(name="twenty", type="regex", pattern=r"twenty|\b20\b", flags="i"),
+   dict(name="25-40", type="regex", pattern=r"25\s*(?:to|[–-])\s*40"),
+   dict(name="estimated-84305", type="regex", pattern=r"84[,\s ]?305"),
+   dict(name="residual-41023", type="regex", pattern=r"41[,\s ]?023"),
+   dict(name="faithful", type="llm", criteria="The reply says at least twenty candidates, typically 25 to 40, before selecting ten (Chapter 5 and the CRG appendix), and gives the MediBec engine check of 84,305 total estimated and 41,023 residual risk (Chapter 6 or the appendix), citing the chapters."),
   ]),
  "appetite-vs-tolerance": dict(
   tags=["textbook"], runs=2, max_turns=10, tools=["Read", "Grep", "Glob", "Skill"],

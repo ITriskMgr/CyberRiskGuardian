@@ -18,4 +18,4 @@ graders:
     input_match: "references/ch19-"
   - name: faithful
     type: "llm"
-    criteria: "The reply identifies Chapter 19 (Third-Party and Supply-Chain Cybersecurity Governance) of the v2.51 edition, not Chapter 20, summarizes the book's lifecycle model for third-party governance (for example tiering, due diligence, contracting, monitoring, incident coordination and exit) and cites the chapter."
+    criteria: "The reply identifies Chapter 19 (Third-Party and Supply-Chain Cybersecurity Governance) of the v2.51b edition, not Chapter 20, summarizes the book's lifecycle model for third-party governance (for example tiering, due diligence, contracting, monitoring, incident coordination and exit) and cites the chapter."

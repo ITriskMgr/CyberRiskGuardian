@@ -1,0 +1,26 @@
+schema_version: "1.1"
+name: candidate-population
+tags: ["textbook", "v2.51b"]
+runs: 2
+execution:
+  prompt: "How many candidate scenarios does the CyberRiskGuardian governance textbook recommend generating before selecting the ten most material, and which MediBec reference totals confirm the calculation engine? Cite the chapters."
+  max_turns: 10
+  timeout_seconds: 600
+  allowed_tools: ["Read", "Grep", "Glob", "Skill"]
+graders:
+  - name: twenty
+    type: "regex"
+    pattern: "twenty|\\b20\\b"
+    flags: "i"
+  - name: 25-40
+    type: "regex"
+    pattern: "25\\s*(?:to|[–-])\\s*40"
+  - name: estimated-84305
+    type: "regex"
+    pattern: "84[,\\s ]?305"
+  - name: residual-41023
+    type: "regex"
+    pattern: "41[,\\s ]?023"
+  - name: faithful
+    type: "llm"
+    criteria: "The reply says at least twenty candidates, typically 25 to 40, before selecting ten (Chapter 5 and the CRG appendix), and gives the MediBec engine check of 84,305 total estimated and 41,023 residual risk (Chapter 6 or the appendix), citing the chapters."

@@ -77,7 +77,7 @@ NEGATION = re.compile(r"\b(?:never|not|no|instead of|without|retired|replaces?|r
 
 def outdated(text):
     """List of (found wording, replacement) for retired markers and method wording.
-    Method wording that is explicitly negated nearby ("never ABS()", "not a 4–12% band") is not reported."""
+    Method wording that is explicitly negated nearby in the same sentence ("never ABS()", "not a 4–12% band") is not reported."""
     t = norm(text)
     out = []
     for pat, rep in OUTDATED_MARKERS:
@@ -86,7 +86,7 @@ def outdated(text):
             out.append((m.group(0).strip(), rep))
     for pat, rep in OUTDATED_METHOD:
         for m in re.finditer(pat, t, re.I):
-            window = t[max(0, m.start() - 40):m.end()]
+            window = re.split(r"[.!?;\n]\s", t[max(0, m.start() - 40):m.end()])[-1]   # same sentence only
             if not NEGATION.search(window):
                 out.append((m.group(0).strip(), rep))
                 break

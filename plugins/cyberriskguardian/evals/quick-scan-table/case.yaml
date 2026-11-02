@@ -1,0 +1,31 @@
+schema_version: "1.1"
+name: quick-scan-table
+tags: ["scenarios", "quick-scan"]
+runs: 1
+execution:
+  prompt: "The fixture file medibec_profile.md is not in the working directory: it is in a fixtures/ directory added to this session (listed among the additional working directories). Search there, for example with Glob **/fixtures/medibec_profile.md from the added directory, then read it. Run a CyberRiskGuardian quick scan for MediBec (the /crg-quick-scan procedure): at least twenty candidates, the 10 most material, and their pre-treatment verdicts in one table. No treatment. Reply in the conversation."
+  max_turns: 30
+  timeout_seconds: 1200
+  allowed_tools: ["Read", "Glob", "Grep", "Skill", "Bash", "Write"]
+context:
+  add_dirs: [fixtures]
+graders:
+  - name: calculator-used
+    type: "tool_used"
+    tool: "Bash"
+    input_match: "crg_calc"
+  - name: estimate-marker
+    type: "regex"
+    pattern: "Analytical estimate|Estimation analytique"
+    flags: "i"
+  - name: decision-marker
+    type: "regex"
+    pattern: "Management decision required|D[ée]cision de la direction requise"
+    flags: "i"
+  - name: gap-marker
+    type: "regex"
+    pattern: "Information gap|Lacune d.information"
+    flags: "i"
+  - name: one-table
+    type: "llm"
+    criteria: "The reply states that at least twenty candidates were generated (typically 25 to 40) and gives ONE table of 10 selected scenarios with, for each, a short causal chain, a CVSS v4.0 score, estimated risk, tolerated risk, the pre-treatment risk-to-tolerance ratio and a verdict using the bands below 0.90, 0.90-1.10 and above 1.10. It proposes no measures, costs, residual risk or budget, does not rank or select on CVSS, and calls the computed values risk indices rather than KRIs."

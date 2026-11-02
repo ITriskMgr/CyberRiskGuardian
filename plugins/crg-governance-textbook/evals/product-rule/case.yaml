@@ -1,0 +1,24 @@
+schema_version: "1.1"
+name: product-rule
+tags: ["smoke", "textbook", "v2.51b"]
+runs: 2
+execution:
+  prompt: "According to the CyberRiskGuardian governance textbook, how do the probability reductions of several measures in one treatment package combine? What would twenty controls of 0.06 each give? Cite the chapter."
+  max_turns: 10
+  timeout_seconds: 600
+  allowed_tools: ["Read", "Grep", "Glob", "Skill"]
+graders:
+  - name: formula
+    type: "regex"
+    pattern: "1\\s*[−-]\\s*∏|product rule|1\\s*[−-]\\s*prod"
+    flags: "i"
+  - name: chapter-6
+    type: "regex"
+    pattern: "Chap(?:ter|itre)\\s+6\\b"
+    flags: "i"
+  - name: about-0.71
+    type: "regex"
+    pattern: "0[.,]71"
+  - name: faithful
+    type: "llm"
+    criteria: "The reply explains the product rule 1 − ∏(1 − rᵢ) per lever (probability and impact separately), says reductions are never added (twenty controls of 0.06 give about 0.71, not 1.20) and that the package reduction stays within 0 to 1, and cites Chapter 6 of the v2.51b edition."
