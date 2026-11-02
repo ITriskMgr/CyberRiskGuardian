@@ -54,6 +54,8 @@ The 21 chapter decks are too large for the repository history (about 105 MB), so
 | 20 | Cryptography and Key Management in Managerial Terms | `Ch20_Cryptography_and_Key_Management_in_Managerial_Terms_v2-51.pptx` |
 | 21 | People, Organizational Design, and Accountability Mechanisms | `Ch21_People_Organizational_Design_and_Accountability_Mechanisms_v2-51.pptx` |
 
+The decks were built from v2.51. The text is now **v2.51b** (the corrected v2.51, in the `crg-governance-textbook` plugin 2.1.1): MediBec totals 84,305 / 41,023, treatment packages combined by the product rule 1 − ∏(1 − rᵢ), at least twenty candidate scenarios (typically 25 to 40), and the risk triangle as threat, vulnerability and exposure. Where a deck differs, the v2.51b text governs.
+
 The introductory CRG deck stays in `slides/` (English and French).
 
 ## Educator Edition
@@ -75,6 +77,7 @@ Licence enquiries: sales@cyberriskguardian.ca · cyberriskguardian.ca
 2. Choose a tool track: Claude plugin, desktop application, or Excel model.
 3. Run Lab 0 yourself and confirm the engine check **84,305 / 41,023** (in Excel: the chapter 6 worked example, 3,554.46 / 1,937.18).
 4. Use MediBec for the labs; assign a different case for graded work.
+5. Claude track (Core plugin 2.2.0): `/crg-quick-scan` gives at least twenty candidates, ten scenarios and their pre-treatment verdicts in one table; `/label-check <file>` checks a deliverable for the three markers — **Analytical estimate — validation required**, **Information gap — organizational validation required**, **Management decision required** — and reports retired wording.
 
 Maintainers: the .docx and .pdf files are generated from the Markdown sources with `python3 scripts/build_education.py`.
 

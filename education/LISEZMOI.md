@@ -54,6 +54,8 @@ Les 21 présentations des chapitres sont trop volumineuses pour l'historique du 
 | 20 | Cryptography and Key Management in Managerial Terms | `Ch20_Cryptography_and_Key_Management_in_Managerial_Terms_v2-51.pptx` |
 | 21 | People, Organizational Design, and Accountability Mechanisms | `Ch21_People_Organizational_Design_and_Accountability_Mechanisms_v2-51.pptx` |
 
+Les présentations ont été produites à partir de la v2.51. Le texte est maintenant la **v2.51b** (la v2.51 corrigée, dans le plugiciel `crg-governance-textbook` 2.1.1) : totaux MediBec 84 305 / 41 023, réductions d'un ensemble de mesures combinées selon la règle du produit 1 − ∏(1 − rᵢ), au moins vingt scénarios candidats (habituellement de 25 à 40) et triangle du risque formé de la menace, de la vulnérabilité et de l'exposition. En cas d'écart, le texte v2.51b prévaut.
+
 La présentation d'introduction à CRG demeure dans `slides/` (anglais et français).
 
 ## Édition Éducateur
@@ -75,6 +77,7 @@ Demandes de licence : sales@cyberriskguardian.ca · cyberriskguardian.ca
 2. Choisissez un parcours d'outil : plugiciel Claude, application de bureau ou modèle Excel.
 3. Faites vous-même le laboratoire 0 et confirmez la vérification du moteur **84 305 / 41 023** (dans Excel : l'exemple du chapitre 6, 3 554,46 / 1 937,18).
 4. Utilisez MediBec pour les laboratoires; attribuez un cas différent pour les travaux notés.
+5. Volet Claude (plugiciel Core 2.2.0) : `/crg-quick-scan` produit au moins vingt candidats, dix scénarios et leurs verdicts avant traitement dans un seul tableau; `/label-check <fichier>` vérifie qu'un livrable porte les trois mentions — **Estimation analytique — validation requise**, **Lacune d’information — validation organisationnelle requise**, **Décision de la direction requise** — et signale la formulation retirée.
 
 Responsables du dépôt : les fichiers .docx et .pdf sont produits à partir des sources Markdown avec `python3 scripts/build_education.py`.
 
