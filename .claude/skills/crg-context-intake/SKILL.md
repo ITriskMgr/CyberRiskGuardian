@@ -5,7 +5,7 @@ description: >
   jewels", "create an evidence register", "interview me about my organization for a cyber risk assessment", "map critical assets and
   dependencies", or "define the assessment scope", or when the cyber-risk-assessment workflow reaches steps 1 to 3.
 metadata:
-  version: "2.1.1"
+  version: "2.2.0"
   author: "Marc-André Léger (methodology) - packaged with Claude"
   edition: "Community Edition (Core plugin, free, CC BY-NC 4.0)"
 ---
@@ -49,4 +49,4 @@ An evidence register table, a context summary, the crown-jewel table and depende
 
 ## Language
 
-Reply in the user's language. In French, write the markers as **Estimation analytique — validation requise**, **Lacune d'information — validation organisationnelle requise** and **Décision de la direction requise**.
+Reply in the user's language. In French, write the markers as **Estimation analytique — validation requise**, **Lacune d’information — validation organisationnelle requise** and **Décision de la direction requise**.

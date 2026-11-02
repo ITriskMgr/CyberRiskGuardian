@@ -3,7 +3,7 @@
 # Copyright (c) 2026 Marc-André Léger
 """CyberRiskGuardian calculation engine - Community Edition (Core plugin).
 
-Implements the CyberRiskGuardian risk-index formulas without modification (book v2.51 ch06 "The risk
+Implements the CyberRiskGuardian risk-index formulas without modification (book v2.51b ch06 "The risk
 index and underlying formulas"; Excel Guide v1.0c s.11): estimated, tolerated, mitigated and residual
 risk, the risk-to-tolerance ratio and its bands, cost-effectiveness, CVSS v4.0 base scoring (via the
 `cvss` package), the appetite-consistent budget target and the case-style normalized cross-check.
@@ -33,7 +33,7 @@ DEFAULT_APPETITE = float(os.environ.get("CRG_DEFAULT_APPETITE", "0.30"))
 DEFAULT_FACTOR = float(os.environ.get("CRG_FACTOR", "1000"))
 STD_FACTOR = 1000.0
 
-# Budget best practice (book v2.51 ch04, ch06 "Calibrating the budget to risk appetite"):
+# Budget best practice (book v2.51b ch04, ch06 "Calibrating the budget to risk appetite"):
 # % of total IT budget including salaries, point targets with linear interpolation, clamped outside.
 BUDGET_POINTS = ((0.30, 0.12), (0.50, 0.078), (0.70, 0.04))
 

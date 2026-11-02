@@ -8,7 +8,7 @@
 | Component | Location | Purpose |
 |---|---|---|
 | Skills | `.claude/skills/` (sources: `plugins/cyberriskguardian/skills/`, `plugins/crg-governance-textbook/skills/`) | Core workflow `cyber-risk-assessment`, which hands off to `crg-context-intake`, `crg-risk-appetite`, `crg-scenario-builder`, `crg-quantify` and `crg-summary-report`; the textbook skill `cybersecurity-governance` |
-| Commands | `.claude/commands/` | `/crg-assess`, `/crg-quick-scan`, `/select-scenarios`, `/crg-calc`, `/qc-review` |
+| Commands | `.claude/commands/` | `/crg-assess`, `/crg-quick-scan`, `/select-scenarios`, `/crg-calc`, `/qc-review`, `/label-check` |
 | Subagents | `.claude/agents/` | `risk-scenario-analyst` (candidates and screening), `risk-qc-reviewer` (independent read-only review) |
 | Output styles | `.claude/output-styles/` | `CyberRiskGuardian Analyst` (default via settings), `CyberRiskGuardian Executive Brief` |
 | Rules | `.claude/rules/` | Evidence discipline and data protection (always); workbook, report and methodology-maintenance rules (path-gated) |

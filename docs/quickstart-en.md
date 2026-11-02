@@ -24,7 +24,7 @@ Then install the calculator dependencies once: `pip install cvss "mcp>=1.2"`. Re
 1. Gather what you have about the organization: a profile, an IT overview, a supplier list, audit or incident notes. No documents? Say so, and Claude will interview you, five questions at a time.
 2. Type `/crg-quick-scan` followed by a short description, or attach the documents. Example:
    `/crg-quick-scan Regional clinic network, 10 sites, electronic health records, remote access for clinicians.`
-3. Answer any questions. Claude estimates the risk appetite, builds at least 20 candidate scenarios (the quick version; a full assessment uses about 25–40), selects the 10 most material and computes estimated and tolerated risk with the calculator.
+3. Answer any questions. Claude estimates the risk appetite, builds at least twenty candidate scenarios (typically 25–40), selects the 10 most material and computes estimated and tolerated risk with the calculator.
 4. Read the result table: each scenario is **above**, **approximately at** or **below** tolerance before treatment.
 
 For the full Core workflow with a written management summary, use `/crg-assess`.
@@ -45,11 +45,12 @@ A built-in check warns you when a deliverable is missing a marker it needs, or s
 
 | Command | Use |
 |---|---|
-| `/crg-quick-scan` | 20+ candidates, 10 scenarios, pre-treatment verdicts in one table |
+| `/crg-quick-scan` | At least twenty candidates (typically 25–40), 10 scenarios, pre-treatment verdicts in one table |
 | `/crg-assess` | Full Core workflow and management summary |
 | `/select-scenarios` | Scenario screening and selection only (Sections A–E) |
 | `/crg-calc` | Risk indices (estimated, tolerated, residual, risk-to-tolerance ratio) for one scenario |
 | `/qc-review` | Independent review of a report before you send it |
+| `/label-check <files>` | Checks the three markers and reports retired wording |
 
 Ask governance questions in plain language, for example "What is the difference between risk appetite and risk tolerance?" The textbook plugin answers with a chapter citation.
 

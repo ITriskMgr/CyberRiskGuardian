@@ -15,7 +15,7 @@ People stay accountable for validation and risk decisions.
 
 The latest version is CyberRiskGuardian with Threat Live-feed, available here: https://github.com/ITriskMgr/CyberRiskGuardian_ThreatIntel
 
-Methodology and textbook © Marc-André Léger. This repository is the free **Community Edition**, licensed under **CC BY-NC 4.0**. The Educational and Professional editions are available under the Educational or Commercial Licence (see [Licence](#licence)). Packaged with Claude, version 2.1.0 (October 2026), aligned with the textbook *Introduction to Cybersecurity Governance*, 3rd ed., v2.51.
+Methodology and textbook © Marc-André Léger. This repository is the free **Community Edition**, licensed under **CC BY-NC 4.0**. The Educational and Professional editions are available under the Educational or Commercial Licence (see [Licence](#licence)). Packaged with Claude: Core 2.2.0 and textbook plugin 2.1.1 (November 2026), aligned with the textbook *Introduction to Cybersecurity Governance*, 3rd ed., v2.51b (the corrected v2.51). Release notes: `CHANGELOG.md`.
 
 ## What's inside
 
@@ -28,7 +28,7 @@ CyberRiskGuardian/
 │   ├── cyberriskguardian/              # CyberRiskGuardian Core (free)
 │   │   ├── skills/  cyber-risk-assessment, crg-context-intake, crg-risk-appetite,
 │   │   │            crg-scenario-builder, crg-quantify, crg-summary-report
-│   │   ├── commands/  crg-assess, crg-quick-scan, select-scenarios, crg-calc, qc-review
+│   │   ├── commands/  crg-assess, crg-quick-scan, select-scenarios, crg-calc, qc-review, label-check
 │   │   ├── agents/    risk-scenario-analyst, risk-qc-reviewer
 │   │   ├── hooks/     SessionStart guardrails + check_labels.py (PostToolUse, Stop)
 │   │   ├── mcp/       crg_server.py: crg_risk, cvss4_score
@@ -85,11 +85,12 @@ Start with `education/README.md` (or `education/LISEZMOI.md`). Lab answer keys, 
 | Ask or run | What happens |
 |---|---|
 | "Run a cyber risk assessment for <org>" / `/crg-assess` | Core workflow: context, appetite, scenarios, quantification, management summary |
-| "Quick cyber risk scan" / `/crg-quick-scan` | 20+ candidates, 10 scenarios, pre-treatment verdicts in one table |
+| "Quick cyber risk scan" / `/crg-quick-scan` | At least twenty candidates (typically 25–40), 10 scenarios, pre-treatment verdicts in one table |
 | "Select the most material scenarios" / `/select-scenarios` | Sections A–E scenario selection |
 | `/crg-calc 0.75 0.5 0.7 0.95 0.35 0.95 0.75 0.75 CVSS:4.0/… 0.30` | Risk indices for one scenario |
 | "Explain the three lines model" | Answer from the textbook with chapter citation |
 | `/qc-review <files>` | Independent read-only quality review |
+| `/label-check <files>` | Checks the three standard markers (EN/FR) and reports retired wording |
 
 Calculator: `python3 plugins/cyberriskguardian/skills/crg-quantify/scripts/crg_calc.py data.json [--appetite 0.30] [--factor 1000] [--json] [--it-budget N --cyber-spend N]`, or `--budget-target 0.35` for the appetite-consistent budget target. Every input is validated; CVSS scores are recomputed from their vectors. The data model is `plugins/cyberriskguardian/skills/crg-quantify/assets/scenario-template.json`.
 
@@ -104,7 +105,7 @@ Label check: `python3 plugins/cyberriskguardian/hooks/check_labels.py report.md`
 4. Regression: `crg_calc.py examples/medibec/source/medibec30.json` must report total estimated 84,305 and residual 41,023.
    Template check: the textbook's chapter 6 worked example entered in `education/templates/CyberRiskGuardian_Excel_Model_Blank_v2-6.xlsx` must give 3,554.46 estimated and 1,937.18 residual after recalculation.
    Education documents: after editing a Markdown source in `education/`, rebuild its .docx and .pdf with `python3 scripts/build_education.py` (pandoc, python-docx, LibreOffice).
-5. Bump the versions (semver) in each changed `plugin.json` and in `marketplace.json`; current version 2.1.0.
+5. Bump the versions (semver) in each changed `plugin.json` and in `marketplace.json`; current versions: Core 2.2.0, textbook 2.1.1. Record the change in `CHANGELOG.md`.
 
 ## Deliberately excluded
 - `CLAUDE.local.md` and `.claude/settings.local.json`, which hold private preferences.
@@ -124,7 +125,7 @@ Label check: `python3 plugins/cyberriskguardian/hooks/check_labels.py report.md`
 
 The Community Edition in this repository covers:
 - the core method specifications and the CyberRiskGuardian Core and CRG Governance Textbook plugins (methodology, skills, agents, commands, hooks, calculator, evals);
-- the governance textbook (3rd ed., v2.51) packaged as a reference skill;
+- the governance textbook (3rd ed., v2.51b) packaged as a reference skill (English; the French reference set awaits the French v2.51b source);
 - the MediBec example;
 - the education package (`education/`) and the blank Excel model.
 

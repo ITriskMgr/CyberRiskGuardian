@@ -5,7 +5,7 @@ description: >
   assessment", "what risk appetite should we use", "translate risk appetite into materiality criteria", or "calibrate appetite on a
   0 to 1 scale", or when the cyber-risk-assessment workflow reaches step 4.
 metadata:
-  version: "2.1.1"
+  version: "2.2.0"
   author: "Marc-André Léger (methodology) - packaged with Claude"
   edition: "Community Edition (Core plugin, free, CC BY-NC 4.0)"
 ---
@@ -42,4 +42,4 @@ Hand off to `crg-scenario-builder` next.
 
 ## Language
 
-Reply in the user's language. In French, write the markers as **Estimation analytique — validation requise**, **Lacune d'information — validation organisationnelle requise** and **Décision de la direction requise**.
+Reply in the user's language. In French, write the markers as **Estimation analytique — validation requise**, **Lacune d’information — validation organisationnelle requise** and **Décision de la direction requise**.

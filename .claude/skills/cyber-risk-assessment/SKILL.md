@@ -6,7 +6,7 @@ description: >
   scenario-driven cybersecurity risk analysis with the CyberRiskGuardian methodology. It runs the Core workflow end to end
   (context, appetite, scenarios, quantification, summary report) and hands each step to the matching crg-* skill.
 metadata:
-  version: "2.1.0"
+  version: "2.2.0"
   author: "Marc-André Léger (methodology) - packaged with Claude"
   edition: "Community Edition (Core plugin, free, CC BY-NC 4.0)"
 ---
@@ -25,7 +25,7 @@ CRG organizes an assessment into **19 numbered steps** in seven groups, then the
 |---|---|---|
 | 1–3. Evidence register, organizational context, crown jewels, scope and dependencies | `crg-context-intake` | Evidence register (E1, E2...), context summary, crown-jewel map, scope statement, gaps |
 | 4. Risk appetite and materiality | `crg-risk-appetite` | `Estimated Risk Appetite: X.XX` with rationale, or the approved value; materiality criteria |
-| 5–8. Candidates, screening, selection, scenario development | `crg-scenario-builder` | Candidate population (about 25–40, never fewer than 20), screening on 12 criteria, final portfolio (10 by default), developed causal chains |
+| 5–8. Candidates, screening, selection, scenario development | `crg-scenario-builder` | Candidate population (at least twenty, typically 25–40), screening on 12 criteria, final portfolio (10 by default), developed causal chains |
 | 9–11. Parameters, CVSS v4.0, estimated and tolerated risk | `crg-quantify` | Parameter table with rationale and confidence, CVSS vectors, risk indices (Re, Rt, risk-to-tolerance ratio) from the calculator |
 | Summary report | `crg-summary-report` | Management summary with portfolio table, priorities and decisions required |
 
@@ -67,7 +67,7 @@ Use these markers literally wherever they apply. The methodology hooks check for
 - **Information gap — organizational validation required**
 - **Management decision required**
 
-When writing in French, use: **Estimation analytique — validation requise**, **Lacune d'information — validation organisationnelle requise**, **Décision de la direction requise**.
+When writing in French, use: **Estimation analytique — validation requise**, **Lacune d’information — validation organisationnelle requise**, **Décision de la direction requise**.
 
 ## Reply
 

@@ -24,7 +24,7 @@ Source: methodology provided by the CyberRiskGuardian author (Marc-André Léger
 
    Flag **peripheral assets** that reach critical systems, and identify concentration risk.
 4. **Risk appetite and materiality.** Use tolerance thresholds as selection criteria (financial, operational, data, regulatory, privacy, safety, contractual, strategic, reputational, supplier, essential service). Keep plausible scenarios that could exceed tolerance even when their probability is low.
-5. **Broad candidate population.** For 10 final scenarios, generate about 25–40 candidates (scale proportionally for other portfolio sizes), **never fewer than 20** (20 is the quick version used in the student labs). Use **at least three** of the five generation strategies:
+5. **Broad candidate population.** For 10 final scenarios, generate **at least twenty** candidates, **typically 25–40** (scale proportionally for other portfolio sizes; twenty is the quick version used in the student labs and `/crg-quick-scan`). Use **at least three** of the five generation strategies:
    - **top-down** — from objectives, obligations and undesirable end states;
    - **bottom-up** — from critical systems, processes, data flows and the weaknesses the evidence shows;
    - **threat-driven** — from actors and techniques active against the sector and region;

@@ -5,7 +5,7 @@ description: >
   "produce the management summary", "what should management decide", "write the executive summary of the cyber risk assessment",
   or when the cyber-risk-assessment workflow has finished quantification.
 metadata:
-  version: "2.1.1"
+  version: "2.2.0"
   author: "Marc-André Léger (methodology) - packaged with Claude"
   edition: "Community Edition (Core plugin, free, CC BY-NC 4.0)"
 ---
@@ -38,4 +38,4 @@ Default to a document in the environment's document format. Use Word only when t
 
 ## Language
 
-Reply in the user's language. In French, write the markers as **Estimation analytique — validation requise**, **Lacune d'information — validation organisationnelle requise** and **Décision de la direction requise**.
+Reply in the user's language. In French, write the markers as **Estimation analytique — validation requise**, **Lacune d’information — validation organisationnelle requise** and **Décision de la direction requise**.

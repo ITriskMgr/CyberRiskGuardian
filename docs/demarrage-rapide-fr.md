@@ -24,7 +24,7 @@ Installez ensuite une fois les dépendances du calculateur : `pip install cvss "
 1. Rassemblez ce que vous avez sur l'organisation : un profil, une vue d'ensemble des TI, une liste de fournisseurs, des notes d'audit ou d'incident. Aucun document? Dites-le, et Claude vous interrogera, cinq questions à la fois.
 2. Tapez `/crg-quick-scan` suivi d'une courte description, ou joignez les documents. Exemple :
    `/crg-quick-scan Réseau de cliniques régionales, 10 sites, dossiers médicaux électroniques, accès à distance pour les cliniciens.`
-3. Répondez aux questions. Claude estime l'appétit pour le risque, construit au moins 20 scénarios candidats (version rapide; une évaluation complète en utilise environ 25 à 40), retient les 10 plus importants et calcule le risque estimé et le risque toléré avec le calculateur.
+3. Répondez aux questions. Claude estime l'appétit pour le risque, construit au moins vingt scénarios candidats (habituellement de 25 à 40), retient les 10 plus importants et calcule le risque estimé et le risque toléré avec le calculateur.
 4. Lisez le tableau des résultats : chaque scénario est **au-dessus**, **à peu près au niveau** ou **en dessous** de la tolérance avant traitement.
 
 Pour la démarche Core complète avec un résumé écrit pour la direction, utilisez `/crg-assess`.
@@ -36,7 +36,7 @@ Chaque livrable porte trois marqueurs. Ils indiquent ce qu'il reste à faire :
 | Marqueur | Signification | Que faire |
 |---|---|---|
 | **Estimation analytique — validation requise** | Une valeur estimée par Claude | La confirmer avec les personnes qui connaissent le système ou le processus |
-| **Lacune d'information — validation organisationnelle requise** | Un fait que personne n'a fourni | Trouver le document ou demander au responsable |
+| **Lacune d’information — validation organisationnelle requise** | Un fait que personne n'a fourni | Trouver le document ou demander au responsable |
 | **Décision de la direction requise** | Un choix qui revient à la direction | L'inscrire à l'ordre du jour |
 
 Une vérification intégrée vous avertit lorsqu'un livrable n'a pas un marqueur requis ou emploie encore une formulation retirée, comme « Estimation de l'analyste ».
@@ -45,11 +45,12 @@ Une vérification intégrée vous avertit lorsqu'un livrable n'a pas un marqueur
 
 | Commande | Usage |
 |---|---|
-| `/crg-quick-scan` | 20 candidats ou plus, 10 scénarios, verdicts avant traitement dans un tableau |
+| `/crg-quick-scan` | Au moins vingt candidats (habituellement de 25 à 40), 10 scénarios, verdicts avant traitement dans un tableau |
 | `/crg-assess` | Démarche Core complète et résumé pour la direction |
 | `/select-scenarios` | Tri et sélection des scénarios seulement (sections A à E) |
 | `/crg-calc` | Indices de risque (estimé, toléré, résiduel, ratio risque-tolérance) d'un scénario |
 | `/qc-review` | Revue indépendante d'un rapport avant de l'envoyer |
+| `/label-check <fichiers>` | Vérifie les trois mentions et signale la formulation retirée |
 
 Posez vos questions de gouvernance en langage courant, par exemple : « Quelle est la différence entre l'appétit pour le risque et la tolérance au risque? » Le plugiciel du manuel répond en citant le chapitre.
 

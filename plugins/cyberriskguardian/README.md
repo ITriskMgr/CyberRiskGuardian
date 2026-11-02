@@ -1,6 +1,6 @@
 # CyberRiskGuardian Core
 
-Free, scenario-driven cybersecurity risk assessment with the CyberRiskGuardian methodology, part of the **Community Edition**. Core covers CRG steps 1–11 of the 19-step method and takes you from organizational context to a management summary: evidence and context, risk appetite, about 25–40 candidate scenarios (never fewer than 20) narrowed to the 10 most material, quantification with CVSS v4.0, and the decisions management must take.
+Free, scenario-driven cybersecurity risk assessment with the CyberRiskGuardian methodology, part of the **Community Edition**. Core covers CRG steps 1–11 of the 19-step method and takes you from organizational context to a management summary: evidence and context, risk appetite, at least twenty candidate scenarios (typically 25–40) narrowed to the 10 most material, quantification with CVSS v4.0, and the decisions management must take.
 
 ## Install
 
@@ -27,10 +27,10 @@ In Claude Cowork, upload `cyberriskguardian.plugin` (a zip of this folder) throu
 | Skill | `crg-scenario-builder` | Causal-chain candidates, 12-criterion screening, consolidation, selection, scenario development (Sections A–E) |
 | Skill | `crg-quantify` | Pb(A), Pb(ψ,A), δe, δm, θ, μ(E) with confidence; CVSS v4.0 (by equivalency for non-technical weaknesses); estimated and tolerated risk, risk-to-tolerance ratio |
 | Skill | `crg-summary-report` | Management summary with portfolio table, priorities and decisions |
-| Commands | `crg-assess`, `crg-quick-scan`, `select-scenarios`, `crg-calc`, `qc-review` | Entry points |
+| Commands | `crg-assess`, `crg-quick-scan`, `select-scenarios`, `crg-calc`, `qc-review`, `label-check` | Entry points |
 | Agents | `risk-scenario-analyst`, `risk-qc-reviewer` | Delegated scenario screening and independent read-only review |
 | Output styles | `CyberRiskGuardian Analyst`, `CyberRiskGuardian Executive Brief` | Analyst voice with evidence markers; one-page board brief |
-| Hooks | SessionStart, PostToolUse, Stop | Methodology guardrails; checks that outputs carry the estimate, information-gap and decision markers and reports retired wording as outdated |
+| Hooks | SessionStart, PostToolUse, Stop | Methodology guardrails; label check: outputs must carry the three standard markers (EN/FR) — estimate, information gap, management decision — and retired marker or method wording is reported as outdated |
 | MCP | `crg-calculator` (local Python) | `crg_risk` (validated inputs, CVSS recomputed from the vector, cost-effectiveness), `cvss4_score`, `crg_budget_target` |
 | Evals | `evals/` | One suite per skill, run with `claude plugin eval` |
 

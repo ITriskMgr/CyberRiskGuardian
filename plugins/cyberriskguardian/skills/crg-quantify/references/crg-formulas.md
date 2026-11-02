@@ -2,7 +2,7 @@
 
 ## Formulas (authoritative, never modify silently)
 
-Source: book *Introduction to Cybersecurity Governance* (3rd ed., v2.51) ch06 §The risk index and underlying formulas; CyberRiskGuardian Excel Guide v1.0c, s.11. These computed values are **risk indices** (Re, Rt, residual, ratio); they are not KRIs.
+Source: book *Introduction to Cybersecurity Governance* (3rd ed., v2.51b) ch06 §The risk index and underlying formulas; CyberRiskGuardian Excel Guide v1.0c, s.11. These computed values are **risk indices** (Re, Rt, residual, ratio); they are not KRIs.
 
 ```
 Estimated risk (Re) = Pb(A) × Pb(ψ,A) × CVSS × ((δe + δm) / 2) × μ(E) ÷ θ(ψ,A) × Factor

@@ -33,14 +33,14 @@ The Community Edition methodology lives in two public plugins:
 | Full task specification (the 19 CRG steps, report and QC) | `plugins/cyberriskguardian/skills/cyber-risk-assessment/references/master-task-spec.md` |
 | Evidence register, context, crown jewels, scope | `plugins/cyberriskguardian/skills/crg-context-intake/` |
 | Risk appetite and materiality | `plugins/cyberriskguardian/skills/crg-risk-appetite/` |
-| Scenario candidates (25–40, never fewer than 20; five generation strategies), 12-criterion screening, selection (Sections A–E, 14 critical rules) | `plugins/cyberriskguardian/skills/crg-scenario-builder/` |
+| Scenario candidates (at least twenty, typically 25–40; five generation strategies), 12-criterion screening, selection (Sections A–E, 14 critical rules) | `plugins/cyberriskguardian/skills/crg-scenario-builder/` |
 | Parameters, CVSS v4.0, formulas, calculator | `plugins/cyberriskguardian/skills/crg-quantify/` |
 | Management summary and deliverable conventions | `plugins/cyberriskguardian/skills/crg-summary-report/` |
-| Reference textbook: *Introduction to Cybersecurity Governance*, 3rd ed., v2.51 (October 2026) | `plugins/crg-governance-textbook/skills/cybersecurity-governance/` |
+| Reference textbook: *Introduction to Cybersecurity Governance*, 3rd ed., v2.51b (corrected v2.51, October 2026) | `plugins/crg-governance-textbook/skills/cybersecurity-governance/` |
 
 Treatment portfolios, sensitivity, budget calibration (point targets 12% / 7.8% / 4% of total IT budget incl. salaries at appetite 0.30 / 0.50 / 0.70, linear in between), KRI design, the workbook builder and the full report are in the private CRG Pro marketplace (Educational and Professional editions).
 
-### Key formulas (book v2.51 ch06; CyberRiskGuardian Excel Guide v1.0c — never modify silently)
+### Key formulas (book v2.51b ch06; CyberRiskGuardian Excel Guide v1.0c — never modify silently)
 ```
 Estimated = Pb(A) × Pb(ψ,A) × CVSS × ((δe + δm)/2) × μ(E) ÷ θ × Factor
 Tolerated = Pb(A) × Pb(ψ,A) × CVSS × Appetite × μ(E) ÷ θ × Factor
