@@ -28,8 +28,8 @@
     {
       "name": "crg-governance-textbook",
       "source": "./plugins/crg-governance-textbook",
-      "description": "The textbook Introduction to Cybersecurity Governance for Business Technology Management (Léger, 3rd ed., v2.51, October 2026; 21 chapters, CRG appendix and answer key) as a reference skill: governance, risk, compliance and resilience concepts with chapter citations.",
-      "version": "2.1.0",
+      "description": "The textbook Introduction to Cybersecurity Governance for Business Technology Management (Léger, 3rd ed., v2.51b, October 2026; 21 chapters, CRG appendix and answer key) as a reference skill: governance, risk, compliance and resilience concepts with chapter citations.",
+      "version": "2.1.1",
       "category": "education",
       "keywords": [
         "cybersecurity",

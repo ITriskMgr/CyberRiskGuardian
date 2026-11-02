@@ -78,7 +78,7 @@ Two further patterns have become common. **Multicloud** refers to the deliberate
 
 ## What actually changes in the cloud: the risk profile
 
-Cloud adoption changes the risk landscape in predictable ways. Viewed through the risk triangle of Chapters 1 and 4 (threat, vulnerability, and impact), the cloud does not invent entirely new categories of risk. It shifts where vulnerabilities concentrate, how quickly threats can exploit them, and how far the impact can spread. Understanding these shifts is what allows managers to write realistic risk scenarios and to set priorities that reflect how cloud incidents actually happen.
+Cloud adoption changes the risk landscape in predictable ways. Viewed through the risk triangle of Chapters 1 and 4 (threat, vulnerability, and exposure), the cloud does not invent entirely new categories of risk. It shifts where vulnerabilities concentrate, how quickly threats can exploit them, and how far the impact can spread. Understanding these shifts is what allows managers to write realistic risk scenarios and to set priorities that reflect how cloud incidents actually happen.
 
 ### The management plane as the dominant attack surface
 

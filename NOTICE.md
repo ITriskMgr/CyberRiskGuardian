@@ -36,12 +36,12 @@ Versions already released under CC BY-NC 4.0 remain available under that licence
   - the formula conventions.
 - The plugins in this repository (CyberRiskGuardian Core and CRG Governance Textbook): skills, commands, subagents, output styles, hooks, evaluation suites and configuration.
 - The Core calculator script and the Core MCP calculator server.
-- The textbook *Introduction to Cybersecurity Governance for Business Technology Management*, 3rd edition, version 2.51 (October 2026), packaged as a reference skill in `plugins/crg-governance-textbook/skills/cybersecurity-governance/references/`.
+- The textbook *Introduction to Cybersecurity Governance for Business Technology Management*, 3rd edition, version 2.51b (corrected v2.51, October 2026), packaged as a reference skill in `plugins/crg-governance-textbook/skills/cybersecurity-governance/references/`.
 - The fictional MediBec teaching case and the example deliverables in `examples/medibec/`.
 - The education package in `education/` (instructor guide, lab workbook, assessment kit, case library, introductory slides) and the blank CyberRiskGuardian Excel model (`education/templates/`). The 21 chapter slide decks are published as release assets of this repository.
 
 ## Suggested attribution
-> *CyberRiskGuardian* and *Introduction to Cybersecurity Governance* (3rd ed., v2.51) by Marc-André Léger, licensed under CC BY-NC 4.0 (https://creativecommons.org/licenses/by-nc/4.0/). Changes: <describe your changes>.
+> *CyberRiskGuardian* and *Introduction to Cybersecurity Governance* (3rd ed., v2.51b) by Marc-André Léger, licensed under CC BY-NC 4.0 (https://creativecommons.org/licenses/by-nc/4.0/). Changes: <describe your changes>.
 
 ## Third-party material
 The following remain the property of their respective owners and are used here by reference or quotation:

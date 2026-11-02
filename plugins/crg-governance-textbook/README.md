@@ -1,6 +1,6 @@
 # CRG Governance Textbook
 
-*Introduction to Cybersecurity Governance for Business Technology Management*, 3rd edition, version 2.51 (October 2026), by Marc-André Léger, as a Claude skill. Use it to explain governance, risk, compliance and resilience concepts with chapter citations, and as the reference text behind the CyberRiskGuardian method. Version 2.51 has 21 chapters (former Chapters 19–22 are now 18–21), the appendix on using CyberRiskGuardian with the book, the multiple-choice answer key, the references and a bibliography.
+*Introduction to Cybersecurity Governance for Business Technology Management*, 3rd edition, version 2.51b (the corrected v2.51 of October 2026), by Marc-André Léger, as a Claude skill. Use it to explain governance, risk, compliance and resilience concepts with chapter citations, and as the reference text behind the CyberRiskGuardian method. Version 2.51 has 21 chapters (former Chapters 19–22 are now 18–21), the appendix on using CyberRiskGuardian with the book, the multiple-choice answer key, the references and a bibliography. The v2.51b corrections: MediBec reference totals 84,305 / 41,023, treatment packages combined by the product rule 1 − ∏(1 − rᵢ), at least twenty candidate scenarios (typically 25 to 40), and the risk triangle as threat, vulnerability and exposure.
 
 ## Install
 
@@ -21,6 +21,8 @@ On older Claude Code versions:
 |---|---|---|
 | Skill | `cybersecurity-governance` | Chapter index and one reference file per chapter, appendix, answer key, references and bibliography; answers cite the chapter |
 | Evals | `evals/` | Concept questions checked for chapter citations |
+
+The reference set is in English. `references-fr/` is reserved for the French text and awaits the French v2.51b source.
 
 ## What the plugin runs and sends
 

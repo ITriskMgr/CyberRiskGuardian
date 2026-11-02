@@ -8,15 +8,15 @@ description: >
   "investment governance", "third-party governance", "AI governance", "post-quantum cryptography" - or when a risk
   assessment needs the book's definitions, frameworks or chapter guidance as the reference text.
 metadata:
-  version: "2.1.0"
+  version: "2.1.1"
   author: "Marc-André Léger"
-  source: "Introduction to Cybersecurity Governance for Business Technology Management, 3rd edition, v2.51 (October 2026)"
+  source: "Introduction to Cybersecurity Governance for Business Technology Management, 3rd edition, v2.51 (October 2026, corrected — v2.51b)"
   license: "CC BY-NC 4.0"
 ---
 
-# Cybersecurity Governance reference (Léger, 3rd ed., v2.51)
+# Cybersecurity Governance reference (Léger, 3rd ed., v2.51b)
 
-Use the author's textbook as the reference for governance, risk, compliance and resilience concepts behind the CyberRiskGuardian method. It covers business technology management in 21 chapters and uses this standards baseline (October 2026):
+Use the author's textbook as the reference for governance, risk, compliance and resilience concepts behind the CyberRiskGuardian method. It covers business technology management in 21 chapters and uses this standards baseline (October 2026). The text is v2.51b, the corrected v2.51: the MediBec reference totals are 84,305 / 41,023, treatment packages combine by the product rule 1 − ∏(1 − rᵢ), scenario work starts from at least twenty candidates (typically 25 to 40), and the risk triangle reads threat, vulnerability and exposure.
 - NIST CSF 2.0, SP 800-61 Rev. 3 (incident response) and SP 800-63-4 (digital identity);
 - CIS Critical Security Controls v8.1;
 - FIRST CVSS v4.0;
@@ -31,23 +31,24 @@ Use the author's textbook as the reference for governance, risk, compliance and 
 ## How to use
 
 1. Identify the concept or chapter the question needs from the index below. Read only that file from `references/`. Chapters are long, so use Grep on the `##` section headings to jump to the relevant part.
-2. Quote or paraphrase the book faithfully and cite it as: *Léger, M.-A. (2026). Introduction to Cybersecurity Governance (3rd ed., v2.51), Chapter N.* For the appendices, cite "Appendix: Using CyberRiskGuardian with this book" or "Appendix: Answers to multiple-choice questions".
+2. Quote or paraphrase the book faithfully and cite it as: *Léger, M.-A. (2026). Introduction to Cybersecurity Governance for Business Technology Management (3rd ed., v2.51b), Chapter N: Title.* Each reference file starts with its own citation line. For the appendices, cite "Appendix: Using CyberRiskGuardian with this book" or "Appendix: Answers to multiple-choice questions".
 3. Keep the book's own terminology, e.g. "security is the absence of unacceptable risk", the IPM cycle, risk appetite as the managerial core, **risk indices** (computed) versus **key risk indicators** (measured), the risk-to-tolerance ratio and its bands (below 0.90, 0.90–1.10, above 1.10).
 4. Where the book and a newer official standard differ, say so and defer to the official publication for operational decisions. This follows the book's editorial note.
 5. For assessments, pair the book with the `cyber-risk-assessment` skill of the CyberRiskGuardian Core plugin:
    - Chapter 4: risk appetite on a 0–1 scale, appetite versus tolerance, the tolerance bands, treatment strategies (including transfer recorded as a decision), KRIs and the budget benchmark.
-   - Chapter 5: CRG's scenario process — evidence register, context and crown jewels, about 25–40 candidates (never fewer than 20), five generation strategies, twelve screening criteria, escalation flags, families, weighting schemes, coverage and the final ten.
-   - Chapter 6: the CRG workflow (19 steps), the risk index and its formulas, valid ranges, the risk-to-tolerance ratio and what cancels, CVSS v4.0 and scoring by equivalency, the workbook procedure (steps 1–8), the MediBec worked example, prioritization, portfolio and budget calibration, KRIs, the management report and quality control.
+   - Chapter 5: CRG's scenario process — evidence register, context and crown jewels, at least twenty candidates, typically 25–40, five generation strategies, twelve screening criteria, escalation flags, families, weighting schemes, coverage and the final ten.
+   - Chapter 6: the CRG workflow (19 steps), the risk index and its formulas, valid ranges, the risk-to-tolerance ratio and what cancels, CVSS v4.0 and scoring by equivalency, the workbook procedure (steps 1–8), the MediBec worked example, prioritization, portfolio and budget calibration, treatment packages combined by the product rule, KRIs, the management report and quality control.
    - Chapter 17: cybersecurity economics — ALE, FAIR and Monte Carlo, ROSI, Gordon–Loeb, insurance as transfer, budgeting, and the CRG cross-check.
    - The CRG appendix: what CRG is, the editions, three ways to work, the chapter-by-chapter guide and the Excel teaching template.
 6. For review-question answers, use `zz-appendix-mcq-answer-key.md` (answer letters only; rationales and essay guidance are in the instructor resource guide, which is not part of this plugin).
 7. Figures are not included in this text version. The figure list is in `00-figures.md`; refer to figures by number when needed.
+8. The reference set is English. A French reference set (`references-fr/`) awaits the French v2.51b source; until then answer French questions from the English text, translate faithfully and say that the quotation is translated.
 
 ## Chapter index (`references/`)
 
 | File | Content |
 |---|---|
-| `00-front-matter.md` | Title, revision note (v2.51 changes), standards baseline, notice on AI use |
+| `00-front-matter.md` | Title, revision note (v2.51 changes; v2.51b corrections), standards baseline, notice on AI use |
 | `00-acronyms.md` · `00-figures.md` | Acronyms; list of figures |
 | `00-introduction.md` | Purpose and structure of the book |
 | `ch01-basic-concepts-of-cybersecurity.md` | Domain definition; security as the absence of unacceptable risk; CIA triad; privacy vs confidentiality; data classification; fraud and risk triangles; human factor and zero trust; maturity; three lines model and lines of accountability; risk appetite as the managerial core |

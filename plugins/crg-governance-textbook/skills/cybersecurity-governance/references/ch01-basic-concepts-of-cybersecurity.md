@@ -248,7 +248,7 @@ This is the central takeaway: **cybersecurity is a continuously managed state of
 
 - The **fraud triangle** clarifies the motivations behind insider threats and highlights the need for structural oversight.
 
-- The **risk triangle** structures scenario-based reasoning by connecting threats, vulnerabilities, and business impacts.
+- The **risk triangle** structures scenario-based reasoning by connecting threats, vulnerabilities, and exposure.
 
 - **Attack lifecycle models** (such as the Cyber Kill Chain or MITRE ATT&CK) reveal multiple points for intervention, detection, and disruption; they are examined in Chapter 4.
 
