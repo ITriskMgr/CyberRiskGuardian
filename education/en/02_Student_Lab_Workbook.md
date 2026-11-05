@@ -1,8 +1,8 @@
 ---
 title: "CyberRiskGuardian Student Lab Workbook"
-subtitle: "Twelve labs on the MediBec teaching case — Education Package 1.0"
+subtitle: "Thirteen labs on the MediBec teaching case — Education Package 2.1.1"
 author: "Marc-André Léger, PhD"
-date: "October 2026"
+date: "November 2026"
 ---
 
 # How to use this workbook
@@ -12,10 +12,10 @@ These labs teach you to run a scenario-driven cybersecurity risk assessment with
 Each lab gives you its objectives, the time it takes, what you need, the steps, the deliverable and three questions to check your understanding. Answers to those questions are in Appendix D. Work in the tool track your instructor chose:
 
 - **Track A — Claude**: the CyberRiskGuardian plugin or project in Claude.
-- **Track B — Desktop**: the CyberRiskGuardian desktop application in your browser.
+- **Track B — Desktop**: the CyberRiskGuardian desktop application (1.9.1 or later) in your browser.
 - **Track C — Excel**: the CyberRiskGuardian workbook (Analyse, S1–S10, M1–M10 sheets).
 
-Where a step differs by track, it is marked **[A]**, **[B]** or **[C]**.
+Where a step differs by track, it is marked **[A]**, **[B]** or **[C]**. After Lab 7 you can practise on a second case, CanaRetail, with its published solution (see *Practice case — CanaRetail*).
 
 ## Five rules for every lab
 
@@ -34,13 +34,13 @@ Where a step differs by track, it is marked **[A]**, **[B]** or **[C]**.
 
 1. Install or open your track.
    - **[A]** In Claude Code: `/plugin install cyberriskguardian --marketplace ITriskMgr/CyberRiskGuardian`, then `/plugin install crg-governance-textbook --marketplace ITriskMgr/CyberRiskGuardian`. Run `pip install cvss "mcp>=1.2"` once, restart and approve the `crg-calculator` server.
-   - **[B]** Unzip the desktop application, then double-click `start.command` (macOS, Linux) or `start.bat` (Windows). Leave the terminal window open. The application opens at `http://localhost:8099`. Always use this same address: your work is stored by your browser for that exact address.
+   - **[B]** Follow the **First-time installation** guide of the release (a PDF on the release page, and `FIRST-INSTALL.md` in the ZIP). In short: unzip the desktop application, then double-click `start.command` (macOS, Linux) or `start.bat` (Windows). Leave the terminal window open. The application opens at `http://localhost:8099`. Always use this same address, in one window only: your work is stored by your browser for that exact address. On the Process page, the card *Set up the application for your practice* offers **Answer the set-up questions**: one question about your experience sets the level of detail (answer *New to it — show me why each screen matters*, which gives **Detailed**), and the module questions can keep their defaults (your instructor will tell you if a lab needs a module). You can also skip it and change the level later in Settings → Language & detail. The **First-time setup** guide explains each screen of a first assessment.
    - **[C]** Open the blank model `templates/CyberRiskGuardian_Excel_Model_Blank_v2-6.xlsx` (or the copy your instructor gave you); save a copy under your team's name. It opens in manual calculation mode: press **F9** (Formulas → Calculate Now) before reading any number.
 2. Verify the engine.
    - **[A]** Run `python3 crg_calc.py medibec30.json` from the plugin's `crg-quantify/scripts` folder against the MediBec example. It must print **total estimated 84,305** and **residual 41,023**.
-   - **[B]** The bottom of the left sidebar must read **engine verified · 84,305 / 41,023**.
+   - **[B]** The pinned footer of the side menu must read **✓ Engine verified**. Point at it (or open Help → About & versions) to see the totals **84,305 / 41,023**.
    - **[C]** Enter the textbook's chapter 6 worked example in sheet S1 and row 3 of the Analyse sheet: Pb(A) 0.70, Pb(ψ,A) 0.60, δe 0.60, δm 0.80, θ 0.50, μ(E) 0.65, CVSS 9.3 in G3 with the vector `CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:P/VC:H/VI:H/VA:H/SC:H/SI:H/SA:H` in H3, appetite 0.35 in E14; on M1, an "Other" row with cost 62,000, impact reduction 0.70 and Pb reduction 0.65 included. After Calculate Now you must read estimated risk 3,554.46, tolerated 1,777.23, residual 1,937.18 and a ratio of 1.09. Then clear the inputs (or start again from the blank model).
-3. **[B]** Open the MediBec workspace, then **Process** (first menu item). Read the nineteen steps of a complete assessment.
+3. **[B]** Open the MediBec workspace, then Start → **Process**. Read the nineteen steps of a complete assessment. The **next-step card** at the top always names the next step, its checklist and the screen that does it. On any screen, the top-bar **Help** opens *Help on this screen*, with a *Read more: Chapter …* link to the textbook passage behind it.
 4. Read the three markers in the "Five rules" above. Find one example of each in the MediBec example deliverables or workspace.
 
 **Deliverable:** a screenshot of the verified engine (or your calculator output), with your name and the date.
@@ -87,7 +87,7 @@ A risk assessment starts from the business, not from a list of threats. You need
 4. Identify **five or six crown jewels**: the assets or services whose loss would most harm the mission. For each, give a business owner, the importance of confidentiality, integrity and availability (High / Very high), and its main dependencies.
 5. List at least three **information gaps** (facts you would need but the case does not give) and two **assumptions** you are making, each with its marker.
    - **[A]** Ask the assistant to run the context intake on the case document. Compare its crown jewels with yours; keep only what the case supports.
-   - **[B]** Organization → Workspaces → *New workspace* (type *Classroom business case*), drop the case document, tick *Extract the profile & appetite* and *Then extract the crown jewels*, choose **Rules only (no AI, offline)**. Review every proposed value and its tag (FACT, INFERENCE, ASSUMPTION, EXTERNAL, UNKNOWN). Resolve the UNKNOWN values you can from the case.
+   - **[B]** Organization → Workspaces → *New workspace*, *Start from* *Blank assessment*, type *Classroom business case*; drop the case document, tick *Extract the profile & appetite from these documents after creation* and *Then extract the crown jewels*, choose **Rules only (no AI, offline)** and click *Create workspace*. Review every proposed value and its tag (FACT, INFERENCE, ASSUMPTION, EXTERNAL, UNKNOWN). Resolve the UNKNOWN values you can from the case.
 
 **Deliverable:** the context table, one dependency chain, the crown-jewel list and the gaps-and-assumptions list (two pages maximum).
 
@@ -126,7 +126,7 @@ Values of 0.1 and 0.9 are extremes that should not normally be used.
 3. Decide on a value. You may keep the case's 0.40 or propose another value; either way, justify it in five to eight sentences. The published MediBec assessment used **0.30** (an analytical estimate below the stated 0.40, because of patient-safety and health-data sensitivity). Explain whether you agree.
 4. Record the value with its marker: if it differs from the case, it is an **Analytical estimate — validation required**, and the final choice is a **Management decision required**.
    - **[A]** Ask: *"Estimate MediBec's cybersecurity risk appetite on a 0–1 scale, with the rationale."* Compare the answer with the case statement; do not accept a value you cannot justify yourself.
-   - **[B]** Organization → Profile & appetite: enter the appetite and its rationale. The *appetite estimator* at the bottom proposes a value from ticked factors.
+   - **[B]** Organization → Profile & appetite: enter the appetite and its rationale. The *Appetite estimator* at the bottom proposes a value from ticked factors.
    - **[C]** Enter the appetite in the Analyse sheet (cell E14 in the standard template).
 
 **Deliverable:** the appetite value and its rationale (half a page).
@@ -166,7 +166,7 @@ Use this sentence pattern:
 5. **Select ten.** Do not just take the ten highest totals: check that the portfolio covers different assets, actors and consequences, and that no single technique dominates. For each selected scenario, answer: *Why this one, and not the strongest scenario you left out?*
 6. Develop **one** selected scenario fully: name, stakeholders, threat source, initiating event, vulnerabilities, affected assets and processes, existing controls (only those the case evidences), event sequence (five to eight steps), consequences (confidentiality, integrity, availability, operations, finance, regulatory, reputation, privacy, safety), assumptions.
    - **[A]** `/select-scenarios` runs the full screening procedure (Sections A–E). Or ask for 20 candidates, then challenge each: *"Which step of this chain does the case evidence?"*
-   - **[B]** Batch scenarios → *Threat patterns × assets* → tick the patterns, *Tick crown jewels + 5 most critical*, set *Number of candidates* to 20, **Generate candidates**. Edit names and statements in the grid, tick ten and **Add selected to the register**. Optionally: Ontology · CRGO → *Suggest scenarios* to see related library scenarios.
+   - **[B]** Batch scenarios → *Threat patterns × assets* → tick the patterns, *Tick crown jewels + 5 most critical*, set *Number of candidates* to 20, **Generate candidates**. Edit names and statements in the grid, tick all twenty and **Add the ticked rows as screening candidates**: step 5 of the Process counts the candidates in Scenario screening → *Candidates & scores*, where you score them. After your selection, tick your ten in Batch scenarios and **Add … selected to the register**. Optionally: Organization → Ontology · CRGO → *Suggest scenarios* to see related library scenarios.
 
 **Deliverable:** the 20 candidates with scores, your ten selected with a one-line justification each, and one fully developed scenario (Appendix C template).
 
@@ -412,7 +412,7 @@ The verdict changes across the range: S1 is a scenario where **better evidence i
 
 1. Build the lower, central and higher cases for your scenario.
 2. Does the verdict change? If it is "above" even in the lower case, the scenario needs transfer or formal acceptance, not just more spending.
-3. Identify the single parameter whose change moves the result most. **[B]** Forecasts → *Drivers* (tornado chart); *Monte Carlo* turns your confidence levels into ranges.
+3. Identify the single parameter whose change moves the result most. **[B]** Tools → Forecasts → *Drivers* (tornado chart); *Monte Carlo* turns your confidence levels into ranges.
 4. Write two sentences for management: what you are confident about, and what evidence would change the recommendation.
 
 **Deliverable:** the three-case table and the two-sentence statement.
@@ -446,7 +446,7 @@ A KRI is useful only if someone can measure it, from a named source, on a schedu
 
 1. Define **three KRIs** for your top scenarios, with every column of the table above.
 2. For each KRI, state what management should do when it crosses the warning threshold.
-3. **[B]** KRI dashboard → *Record a measurement*. After four readings, Forecasts → *KRI projections* says whether a threshold will be crossed.
+3. **[B]** Risk assessment → KRI dashboard → *Record a measurement*. After four readings, Tools → Forecasts → *KRI projections* says whether a threshold will be crossed.
 
 **Deliverable:** three complete KRIs.
 
@@ -503,7 +503,7 @@ The published 30-scenario assessment found: after treatment, 12 scenarios above 
 
 ## Steps
 
-1. SIEM → *Overview*: set the as-of date to **9 October 2026**.
+1. Security operations → SIEM → *Overview*: set the as-of date to **9 October 2026**.
 2. Work through the ten exercises your instructor assigns (EX-01 to EX-10) in SIEM and SOAR: triage order, a true positive closed as benign, coverage gaps, silent telemetry, TLP restrictions, an indicator with confidence 95, a case that may or may not be an incident, actions without valid approval, playbook readiness, detection gaps.
 3. Batch scenarios → *From security operations (SIEM & SOAR)*, as of 9 October. **Record the evidence on S2.** Open S2 in the Scenario editor: the *Security-operations evidence* card shows it, and **no parameter has changed**.
 4. Decide, as a team, whether the evidence justifies changing Pb(A), Pb(ψ,A) or θ for S2. Write the rationale. Then run Governance → *Quality review*.
@@ -536,7 +536,7 @@ The published 30-scenario assessment found: after treatment, 12 scenarios above 
 2. Write five numbered policy statements. Each names an actor, uses **must** or **must not**, and states an outcome that can be tested. Put technical values (password length, review intervals) in a named *standard*, not in the policy.
 3. Define one KPI for the policy with target, owner, data source and frequency.
 
-**Deliverable:** the audit test design and the five policy statements with one KPI.
+**Deliverable:** the audit test design and the five policy statements with one KPI. If your course uses Lab 13, base Part 2 on its registers.
 
 ## Check your understanding
 
@@ -546,6 +546,78 @@ The published 30-scenario assessment found: after treatment, 12 scenarios above 
 12.2. Rewrite as a testable statement: "Appropriate security controls should be used for remote access."
 
 12.3. Where should "passwords must be at least 14 characters" be written, and why?
+
+# Lab 13 — Identity, access and configuration posture (desktop track)
+
+**Objectives:** read an organization's identity, access and configuration posture from population-level registers; recompute an indicator from its register; turn a finding into evidence and a parameter proposal without letting the tool decide; connect the posture to the IAM policy of assignment A2.
+**Time:** 90 minutes. **Requires:** the desktop application (1.9.1 or later) and a copy of the MediBec workspace. Tracks A and C do steps 2 and 7, and the CRG-22 recomputation of step 4, on paper with Table 13.1. **Read first:** textbook Chapter 10 (IAM and PAM) and Chapter 14 (baselines and drift).
+
+## Background
+
+Two optional modules of the desktop application record how well identities, privileged access and configurations are governed: **Identity & access management (IAM/PAM)** and **Configuration management**. They are strategic posture registers, not administration tools:
+
+- they hold **counts per population** (a group of accounts, a privileged tier, a review campaign, a configuration scope), never a name, username, e-mail address or secret;
+- a **blank count is unknown, not zero** ("Leave blank when unknown — 0 means none"), and stays unknown in every calculation;
+- their indicators (CRG-17 to CRG-25) are **measured KRIs** with thresholds, not risk indices;
+- a **finding** proposed by a rule gives a direction only (Pb(ψ,A) ↑ or θ ↓). You type the new value; the application shows the ratio before and after; **Accept** is a separate act, recorded in the scenario's basis and the revision log. Nothing is ever applied automatically.
+
+The MediBec workspace holds a fictional sample for both modules, dated 1 November 2026: five account populations, three privileged tiers, two emergency (break-glass) account sets, two access-review campaigns, two segregation-of-duties rules, three baselines, three configuration scopes, three deviations and a quarter of configuration changes. Five findings are already recorded (IF-01 to IF-05) and linked as evidence (E13 to E15). No proposal has been accepted, so the totals stay 84,305 / 41,023.
+
+## Table 13.1 — MediBec sample counts (for Tracks A and C)
+
+Privileged role groups: PR-01 IdP, domain and cloud-tenant administrators; PR-02 EHR, database and server administrators; PR-03 application and support administrators.
+
+| Group | Tier | Holders | Standing | JIT | MFA | Shared | Last review |
+|---|---|---|---|---|---|---|---|
+| PR-01 | 0 | 9 | 9 | 0 | 9 | 1 | 2026-03-10 |
+| PR-02 | 1 | 27 | 21 | 6 | 24 | 0 | 2025-10-02 |
+| PR-03 | 2 | 58 | 58 | 0 | 41 | 0 | (blank) |
+
+JIT: just-in-time holders. MFA: holders with MFA. Shared: shared administrative accounts.
+
+| Configuration scope | In scope | Assigned a baseline | Assessed | Compliant |
+|---|---|---|---|---|
+| CS-01 Windows servers | 96 | 88 | 70 | 58 |
+| CS-02 Clinical workstations | 1,020 | 1,020 | 912 | 801 |
+| CS-03 Connected medical devices | 340 | 0 | (blank) | (blank) |
+
+## Steps
+
+1. **[B]** Settings → Modules: switch on **Identity & access management (IAM/PAM)** and **Configuration management** (group Governance). Two new screens appear under Governance.
+2. **Read the identity indicators.** Governance → Identity & access management (IAM/PAM) → Overview. Copy the six indicator tiles (value, numerator and denominator, unknown and stale counts, status). Then recompute **CRG-18 Privileged MFA coverage** and **CRG-19 Standing-privilege ratio** yourself from the Privileged roles tab (or Table 13.1). CRG-19 counts tiers 0 and 1 only. Your figures must agree with the tiles.
+3. **Look at the rows behind them.** On the Accounts and Privileged roles tabs, find a row whose status is *Inferred* and a row badged **stale**. Why do the service and AI-agent populations have no MFA count?
+4. **Read the configuration indicators.** Governance → Configuration management → Overview. Copy the three tiles and the key figures. Recompute **CRG-22 Baseline assignment coverage** from the configuration scopes. Then open *Deviations & exceptions*: why is DV-02 shown with *Expired — not counted*?
+5. **From a finding to evidence.** Governance → Identity & access management (IAM/PAM) → *Findings & proposals*. Among the proposed findings, pick **IR-03 Standing tier 0 privilege** (row PR-01). **Record** it (it becomes IF-06), then **Record as evidence**: note the E-number it receives (E16 in a fresh copy of MediBec). **Link scenario** to S1 (credential compromise of clinical administrator accounts).
+6. **From evidence to a proposal.** On the recorded finding, **Propose a parameter change** for S1's Pb(ψ,A) (today 0.55). Type the value **you** defend, a confidence and a rationale that cites the finding and its E-number (the dialog pre-fills the citation), and read the ratio now and after, computed by the engine. Notice that the ratio does not move (0.93 → 0.93): Pb(ψ,A) cancels out of the ratio (Lab 6), while estimated and tolerated risk both rise. A posture finding usually changes a scenario's rank, not its verdict. **Save as proposal.** **Do not Accept** it in the workspace you use for the other labs: accepting changes MediBec's totals, and the reference figures of Labs 6 to 10 would no longer match.
+7. **From posture to policy (A2).** Write three IAM policy needs the registers support (for example MFA for every privileged holder, review of every emergency-account use, an owner for every service account). For each, give the indicator that would monitor it, with a target, a warning and a critical threshold, and the register that is its data source.
+8. Write two sentences for management: what the identity and configuration posture says about S1 and S6, and which counts must be confirmed before anyone relies on them.
+
+**Deliverable:** the indicator table with your two recomputed values; a screenshot of the saved proposal with its rationale; the three policy needs with their indicators; the two sentences.
+
+## Check your understanding
+
+13.1. The service-account population (AP-03) has no MFA count. Is its MFA coverage 0%?
+
+13.2. The finding IR-02 shows the direction hint "Pb(ψ,A) ↑". Why does the application not compute the new value itself?
+
+13.3. DV-02 is a *compensated* deviation, yet it counts in CRG-24 Expired exceptions. Why?
+
+# Practice case — CanaRetail (self-study, desktop track)
+
+**Objectives:** repeat Labs 4 to 7 on a second organization and check yourself against a complete, published solution.
+**Time:** 2 to 3 hours, on your own. **Input:** the CanaRetail business case (`cases/CanaRetail_BusinessCase_v2-0c_Student.docx`) and the bundled CanaRetail workspace.
+
+CanaRetail is a fictional national retailer: 100 stores and an e-commerce platform. The desktop application bundles its Module D assessment in English and French: ten scenarios (the nine supplied by the case and one original, S10), their parameters, CVSS vectors, ten treatment initiatives and a management summary, at the case's appetite of 0.5. Because the solution is public, CanaRetail is for practice, **never for graded work**.
+
+## Steps
+
+1. **[B]** Organization → Workspaces → New workspace, *Start from* **Teaching example: CanaRetail — national retail** (English or French). In Risk assessment → Scenario register, read **only the names and statements** of the ten scenarios and choose three. Do not open their parameters yet.
+2. **Work first, look later.** From the case document only, write the six parameters of each of your three scenarios with rationale (Lab 4) and its CVSS v4.0 vector (Lab 5). Then open each one in the Scenario editor and compare your values with the solution's. For every difference larger than 0.15, write one sentence: which evidence in the case supports each value?
+3. **Check the engine.** Risk calculator: for S1 you should read estimated 4,453, tolerated 2,783 and residual 2,572, a ratio of 0.92 — approximately at tolerance. The totals are **27,526 estimated** and **16,049 residual**.
+4. **Read the portfolio** (Labs 6 and 7). After treatment, 2 scenarios are above tolerance (S2, S9), 3 approximately at (S1, S6, S10) and 5 below. Why does S10's treatment (I02, I03, I06, I08) leave it approximately at tolerance rather than below?
+5. **Identity link.** If your instructor uses Lab 13, open Governance → Identity & access management (IAM/PAM) → *Findings & proposals* in the CanaRetail workspace: one finding (service accounts without an owner) carries a **pending** proposal on S10 (Pb(ψ,A) 0.40 → 0.45). Decide whether you would accept it, and why. Do not accept it if you want the totals above to stay valid.
+
+**Deliverable:** none to hand in; keep your comparison notes for the A1 assignment.
 
 # Appendix A — Formula sheet
 
@@ -650,6 +722,8 @@ Budget guideline (CRG): cybersecurity spend of **12%** of the total IT budget (s
 
 **Lab 12.** 12.1 It tests existence, not operation. Operating effectiveness requires evidence that reviews were performed over a period, on a sample, with exceptions resolved. 12.2 Example: "System owners must enforce multi-factor authentication for all remote access to systems that process patient information, as specified in the Authentication Standard." 12.3 In the Authentication (or Password) Standard, because technical values change faster than policy and must be updated without re-approving the policy.
 
+**Lab 13.** 13.1 No. MFA counts apply to people and emergency accounts only; a service or AI-agent identity has no MFA, so the cell is blank. A blank is unknown or not applicable, never 0%. The weakness of service accounts shows elsewhere: 11 of 74 have no owner (finding IR-01). 13.2 A rule only knows that a register shows a weakness; it cannot know how much that weakness changes exploitation for one particular scenario. The value is the analyst's estimate (**Analytical estimate — validation required**), argued from the evidence, and accepting it is a separate, recorded act, so no number changes without a person deciding. 13.3 Its exception EXC-90 expired on 30 September 2026. An expired exception compensates nothing, so the deviation is shown *Expired — not counted* and counts in CRG-24 until the exception is renewed or the deviation is remediated. *Reference values (1 November 2026): CRG-17 98.27% (1,479 / 1,505), CRG-18 78.72% (74 / 94), CRG-19 83.33% (30 / 36), CRG-20 85.06%, CRG-21 0%, CRG-23 80.6%; CRG-22 76.1% (1,108 / 1,456), CRG-24 1, CRG-25 86.67%.*
+
 # Appendix E — Glossary
 
 **Appetite** — the amount of cybersecurity risk management is willing to pursue or retain, on a 0–1 scale.
@@ -663,5 +737,10 @@ Budget guideline (CRG): cybersecurity spend of **12%** of the total IT budget (s
 **Resilience (θ)** — the demonstrated ability to prevent, detect, contain, respond, recover and maintain critical operations.
 **Tolerated risk** — the appetite applied to a specific scenario through the CRG formula.
 **Shared control** — one initiative that reduces several scenarios; its cost is counted once in the portfolio.
+**Baseline (configuration)** — an approved, versioned minimum secure configuration for a platform; a departure from it is a **deviation**.
+**Break-glass (emergency) account** — an account kept for when normal access fails; every use must be reviewed.
+**Finding (IAM, configuration)** — a weakness a rule detects in a register; it gives a direction for Pb(ψ,A) or θ, never a value.
+**Population-level register** — a register that holds counts per group (accounts, tiers, scopes), never names or identifiers.
+**Standing privilege** — privileged access held permanently, as opposed to granted just in time.
 
 *© 2026 Marc-André Léger. Licensed under CC BY-NC 4.0. MediBec is a fictional organization. All parameter values are illustrative analytical estimates for teaching.*

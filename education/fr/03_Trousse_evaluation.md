@@ -1,8 +1,8 @@
 ---
 title: "Trousse d'évaluation CyberRiskGuardian"
-subtitle: "Énoncés de travaux, grilles d'évaluation et autovérifications — Ensemble pédagogique 1.0"
+subtitle: "Énoncés de travaux, grilles d'évaluation et autovérifications — Ensemble pédagogique 2.1.1"
 author: "Marc-André Léger, Ph. D."
-date: "octobre 2026"
+date: "novembre 2026"
 toc-title: "Table des matières"
 ---
 
@@ -10,7 +10,7 @@ toc-title: "Table des matières"
 
 Cette trousse fournit aux enseignants des énoncés de travaux et des grilles d'évaluation prêts à adapter pour les cours qui utilisent CyberRiskGuardian, et présente aux étudiants les critères selon lesquels leurs travaux seront évalués. Elle s'appuie sur la conception de l'évaluation d'un cours de premier cycle en cybersécurité, généralisée afin que tout établissement puisse l'utiliser.
 
-**Pour les enseignants.** Remplacez les éléments entre crochets — [semaine de remise], [pondération], [nombre de pages maximal], [plateforme de remise] — par les vôtres. Conservez les critères et les descripteurs : ce sont eux qui assurent la cohérence de la correction entre les groupes-cours et les auxiliaires d'enseignement. Votre plan de cours et vos consignes de travaux demeurent la source qui fait autorité ; dites-le aux étudiants.
+**Pour les enseignants.** Remplacez les éléments entre crochets — [semaine de remise], [pondération], [nombre de pages maximal], [plateforme de remise], [permis / non permis] — par les vôtres. Conservez les critères et les descripteurs : ce sont eux qui assurent la cohérence de la correction entre les groupes-cours et les auxiliaires d'enseignement. Votre plan de cours et vos consignes de travaux demeurent la source qui fait autorité ; dites-le aux étudiants.
 
 **Pour les étudiants.** Lisez la grille d'évaluation avant de commencer, et non après. Chaque critère vous indique ce que démontre un travail solide. Utilisez la liste d'autovérification avant de remettre votre travail.
 
@@ -92,6 +92,10 @@ Votre équipe agit à titre de consultants en cybersécurité auprès de l'organ
 3. **Établissez l'appétence pour le risque de l'organisation**, en utilisant la tolérance au risque indiquée dans le cas ou une solution de rechange justifiée.
 4. **Choisissez des mesures de traitement** pour ramener le risque inacceptable à un niveau tolérable, et comparez le risque résiduel au risque toléré.
 
+Utilisez le cas que votre enseignant vous attribue. MediBec et CanaRetail sont des cas d'exercice dont les solutions sont publiques ; ils ne servent pas à ce travail.
+
+**Consultant virtuel (parcours application de bureau) : [permis / non permis] pour ce travail.** S'il est permis, déclarez-le dans votre déclaration d'utilisation de l'IA et joignez les conversations sur lesquelles vous vous êtes appuyés (Outils → Consultant virtuel → *Historique* → *Exporter en Markdown*). S'il ne l'est pas, réglez *Consultant virtuel* et *Consultant virtuel — critique des paramètres* à **Désactivé** dans Paramètres → IA — locale et distante avant de commencer.
+
 ## Livrables
 
 1. Le fichier CyberRiskGuardian complété : le classeur (Analyse, S1–S10, M1–M10), l'exportation de l'espace de travail de l'application de bureau ou le fichier JSON de l'évaluation — selon les consignes de votre enseignant.
@@ -140,6 +144,10 @@ Traduisez votre compréhension des risques de l'organisation en un document de g
 
 Format recommandé : une politique ciblée d'environ 3 à 5 pages, accompagnée d'une brève justification destinée à la direction et d'une carte hiérarchique montrant les normes, lignes directrices et procédures qui en découlent.
 
+**Éléments probants tirés de l'application de bureau.** Si votre espace de travail pour le cas contient des registres de Gestion des identités et des accès (GIA/GAP) (laboratoire 13), vous pouvez les utiliser comme éléments probants : citez l'indicateur (par exemple CRG-18 Couverture de l'AMF des accès privilégiés) ou le constat avec son numéro E, et précisez si les décomptes sont confirmés ou inférés. Les registres contiennent des décomptes par population, jamais de noms. Ils appuient votre argumentation sans remplacer les faits du cas, et la grille d'évaluation est la même quel que soit le parcours.
+
+**Consultant virtuel (parcours application de bureau) : [permis / non permis] pour ce travail.** S'il est permis, déclarez-le dans votre déclaration d'utilisation de l'IA et joignez les conversations sur lesquelles vous vous êtes appuyés (Outils → Consultant virtuel → *Historique* → *Exporter en Markdown*). S'il ne l'est pas, réglez *Consultant virtuel* et *Consultant virtuel — critique des paramètres* à **Désactivé** dans Paramètres → IA — locale et distante avant de commencer.
+
 ## Grille d'évaluation
 
 | Critère | Pondération | Ce que démontre un travail solide |
@@ -178,13 +186,15 @@ Rédigez un plan d'audit de cybersécurité officiel, fondé sur les risques, po
 
 Structure recommandée : sommaire exécutif ; contexte de l'organisation et de l'audit ; univers d'audit ; méthode d'évaluation et classement des risques ; plan d'audit annuel ; feuille de route pluriannuelle ; plan de mission détaillé avec programme de travail ; méthode de test des contrôles ; rapport et suivi ; références et annexes.
 
+**Consultant virtuel (parcours application de bureau) : [permis / non permis] pour ce travail.** S'il est permis, déclarez-le dans votre déclaration d'utilisation de l'IA et joignez les conversations sur lesquelles vous vous êtes appuyés (Outils → Consultant virtuel → *Historique* → *Exporter en Markdown*). S'il ne l'est pas, réglez *Consultant virtuel* et *Consultant virtuel — critique des paramètres* à **Désactivé** dans Paramètres → IA — locale et distante avant de commencer.
+
 ## Grille d'évaluation
 
 | Critère | Pondération | Ce que démontre un travail solide |
 |---|---|---|
 | Alignement sur les affaires et contexte | 10 % | Part des objectifs, des services critiques et des risques d'affaires ; mandat, destinataires, indépendance et autorité d'approbation clairs ; faits du cas utilisés, hypothèses qualifiées |
 | Univers d'audit | 15 % | Environ 5 à 10 entités auditables par domaine (gouvernance, processus, information, personnes, technologie, tiers, résilience, changement), chacune avec un responsable, une limite de portée et un lien vers un service ou un risque — et non un inventaire matériel |
-| Méthode d'évaluation et classement des risques | 20 % | Facteurs et pondérations totalisant 100 %, points d'ancrage de cotation, une formule, des preuves et une justification pour chaque cote, des niveaux de priorité, des dérogations documentées, une arithmétique recalculable ; les résultats de l'A1 utilisés comme intrant sans traiter le CVSS ou le ratio résiduel/toléré de CRG comme la totalité de la priorité |
+| Méthode d'évaluation et classement des risques | 20 % | Facteurs et pondérations totalisant 100 %, points d'ancrage de cotation, une formule, des preuves et une justification pour chaque cote, des niveaux de priorité, des dérogations documentées, une arithmétique recalculable ; les résultats de l'A1 utilisés comme intrant sans traiter le CVSS ou le ratio de tolérance de CRG comme la totalité de la priorité |
 | Portefeuille annuel, feuille de route et ressources | 20 % | Missions retenues, reportées, combinées ou sur lesquelles on s'appuie, avec motifs ; omissions à risque élevé divulguées ; heures dont le total concorde, avec réserve et suivi ; compétences ; une feuille de route de trois ans ; autres sources d'assurance évaluées |
 | Plan de mission détaillé et programme de travail | 25 % | Objectifs, portée, exclusions, critères ; une matrice risques-contrôles avec un test de conception et un test d'efficacité opérationnelle par contrôle clé ; méthodes de collecte de preuves ; échantillonnage (population, période, unité, méthode, taille) ; TAAO reliés à des risques précis, avec étapes de validation des données |
 | Rapport, suivi et dynamisme | 5 % | Structure des constatations (critères, situation, cause, effet, recommandation, responsable, échéance) ; cotation des problèmes ; validation du suivi ; éléments déclencheurs de modification du plan |
@@ -244,9 +254,9 @@ Chaque membre de l'équipe remplit ce formulaire de façon confidentielle. L'ens
 
 À inclure près de la page titre ou en annexe :
 
-> J'ai / Nous avons utilisé [nom et version de l'outil] pour [objectif : par exemple générer des idées de scénarios de risque, proposer des justifications de paramètres, vérifier la grammaire, résumer une source]. J'ai / Nous avons vérifié tous les résultats par rapport au cas et aux sources primaires, recalculé chaque chiffre avec le moteur de CyberRiskGuardian, révisé le texte, et j'assume / nous assumons la responsabilité de l'ensemble du contenu.
+> J'ai / Nous avons utilisé [nom et version de l'outil — par exemple le Consultant virtuel de CyberRiskGuardian, avec le modèle indiqué dans son journal des décisions] pour [objectif : par exemple générer des idées de scénarios de risque, proposer des justifications de paramètres, vérifier la grammaire, résumer une source]. J'ai / Nous avons vérifié tous les résultats par rapport au cas et aux sources primaires, recalculé chaque chiffre avec le moteur de CyberRiskGuardian, révisé le texte, et j'assume / nous assumons la responsabilité de l'ensemble du contenu.
 > [Ou : Aucun outil d'IA générative n'a été utilisé dans ce travail.]
 
-**Règles.** L'IA générative est permise dans les travaux, avec cette déclaration, et n'est pas permise pendant l'examen. Vous êtes responsable de tout ce que vous remettez. Une source fabriquée ou introuvable constitue à la fois un problème de preuve et une question d'intégrité académique. Ne collez pas de documents confidentiels dans un service d'IA externe, sauf si vous y êtes autorisé.
+**Règles.** L'IA générative est permise dans les travaux, avec cette déclaration, à moins que l'énoncé n'indique le contraire, et n'est pas permise pendant l'examen. Le Consultant virtuel de CyberRiskGuardian est un outil d'IA comme les autres : chaque énoncé précise s'il peut être utilisé. Vous êtes responsable de tout ce que vous remettez. Une source fabriquée ou introuvable constitue à la fois un problème de preuve et une question d'intégrité académique. Ne collez pas de documents confidentiels dans un service d'IA externe, sauf si vous y êtes autorisé.
 
 *© 2026 Marc-André Léger. Sous licence CC BY-NC 4.0. Adapté du guide des travaux de l'auteur pour un cours de premier cycle en cybersécurité.*

@@ -1,4 +1,4 @@
-# Ensemble pédagogique CyberRiskGuardian 1.0
+# Ensemble pédagogique CyberRiskGuardian 2.1.1
 
 *English version: `README.md`*
 
@@ -9,10 +9,10 @@ Matériel pédagogique pour les enseignants et les étudiants qui utilisent Cybe
 | Document | Pour | Ce qu'il vous apporte |
 |---|---|---|
 | `01_Guide_enseignant` — Guide de l'enseignant | Enseignants, auxiliaires d'enseignement | La méthode en une page, les résultats d'apprentissage, les parcours d'outil, quatre modèles d'intégration (d'un seul atelier à une session complète), la liste de vérification de configuration, les notes d'animation des laboratoires, les concepts difficiles à enseigner, la politique sur l'IA générative, le dépannage |
-| `02_Cahier_laboratoires` — Cahier de laboratoires de l'étudiant | Étudiants | Douze laboratoires pas à pas sur le cas pédagogique MediBec, aide-mémoire des formules, modèles, réponses d'autovérification, glossaire |
-| `03_Trousse_evaluation` — Trousse d'évaluation | Étudiants et enseignants | Échelle de notation de 0 à 10, énoncés et grilles d'évaluation pour l'évaluation des risques (A1), la politique IAM (A2) et le plan d'audit (A3), quatre formats plus courts, autovérifications, formulaire d'évaluation par les pairs, déclaration d'utilisation de l'IA |
+| `02_Cahier_laboratoires` — Cahier de laboratoires de l'étudiant | Étudiants | Treize laboratoires pas à pas sur le cas pédagogique MediBec, un cas d'exercice autonome (CanaRetail), aide-mémoire des formules, modèles, réponses d'autovérification, glossaire |
+| `03_Trousse_evaluation` — Trousse d'évaluation | Étudiants et enseignants | Échelle de notation de 0 à 10, énoncés et grilles d'évaluation pour l'évaluation des risques (A1), la politique GIA (A2) et le plan d'audit (A3), quatre formats plus courts, autovérifications, formulaire d'évaluation par les pairs, déclaration d'utilisation de l'IA |
 | `04_Bibliotheque_cas` — Bibliothèque de cas | Étudiants et enseignants | Cinq études de cas fictives et la façon d'en choisir une; les versions étudiantes des cas se trouvent dans `cases/` |
-| `slides/CRG_Intro_Deck_FR` | Enseignants | Un cours d'introduction à la méthode CRG (PowerPoint) |
+| `slides/CRG_Intro_Deck_FR` | Enseignants | Un cours d'introduction à la méthode CRG, avec des captures d'écran de l'application de bureau 1.9.1 (PowerPoint) |
 | `templates/CyberRiskGuardian_Excel_Model_Blank_v2-6.xlsx` | Étudiants et enseignants | Le modèle Excel CyberRiskGuardian vierge (Analyse, S1–S10, M1–M10) utilisé pour le travail d'évaluation des risques — gratuit. Saisies validées, score et vecteur CVSS, règle du produit pour les réductions combinées, calibrage du budget avec les dépenses actuelles, consignation du transfert; suit la procédure en 8 étapes du chapitre 6 du manuel |
 | Présentations des chapitres (fichiers joints aux versions) | Enseignants | 21 présentations PowerPoint du manuel *Introduction to Cybersecurity Governance* (3e éd., v2.51), une par chapitre, en anglais — gratuites; voir ci-dessous |
 
@@ -25,6 +25,19 @@ education/
 ├── templates/     Le modèle Excel CyberRiskGuardian vierge (.xlsx)
 └── cases/         Versions étudiantes des cinq cas, v2.0c (.docx)
 ```
+
+## Nouveautés de la version 2.1.1 (novembre 2026)
+
+Pour **CyberRiskGuardian Desktop 1.9.1**, le plugiciel Core 2.2.0 et le manuel **v2.51b** (en anglais et en français). Le numéro de version suit celui du plugiciel du manuel (2.1.1) qui porte la v2.51b.
+
+- **Laboratoire 13 — Posture des identités, des accès et de la configuration** : les modules facultatifs *Gestion des identités et des accès (GIA/GAP)* et *Gestion de la configuration* de l'application de bureau, appliqués aux registres d'exemple de MediBec — recalculer un indicateur, transformer un constat en élément probant et en proposition de paramètre, et reporter la posture dans la politique GIA du travail A2.
+- **Cas d'exercice CanaRetail** : la solution du module D du cas est fournie dans l'application de bureau (anglais et français, totaux 27 526 / 16 049); CanaRetail devient donc un cas d'exercice autonome pour les laboratoires 4 à 7 et n'est plus recommandé pour le travail noté A1.
+- **L'interface 1.9** : chemins de menu, carte de prochaine étape, niveaux de détail, bouton Aide de la barre supérieure, aide reliée aux chapitres et pied de page épinglé (*✓ Moteur vérifié*); le laboratoire 0 et la liste de préparation renvoient aux guides de première installation et de première configuration de chaque version.
+- **Consultant virtuel** : l'enseignant décide pour chaque travail s'il peut être utilisé; les énoncés A1 à A3 prévoient une ligne à cet effet et la déclaration d'utilisation de l'IA le couvre.
+- **Manuel v2.51b en anglais et en français** : les tableaux « Utiliser le manuel » suivent la v2.51b et ajoutent les chapitres 10 et 14 pour le laboratoire 13; les documents français citent l'édition française (*Introduction à la gouvernance de la cybersécurité*) et en reprennent les termes (*appétence pour le risque*, *joyaux de la couronne*, *registre des éléments probants*, *ratio de tolérance*).
+- **Présentation d'introduction** (anglais et français) : texte corrigé et nouvelles diapositives montrant l'application de bureau 1.9.1.
+
+L'ensemble complet est aussi publié en un seul ZIP dans la version [**education-v2.1.1**](https://github.com/ITriskMgr/CyberRiskGuardian/releases/tag/education-v2.1.1).
 
 ## Présentations des chapitres (manuel v2.51)
 
@@ -75,8 +88,8 @@ Demandes de licence : sales@cyberriskguardian.ca · cyberriskguardian.ca
 
 1. Enseignants : lisez `01_Guide_enseignant` (Guide de l'enseignant), sections 2 (la méthode en une page) et 5 (modèles d'intégration).
 2. Choisissez un parcours d'outil : plugiciel Claude, application de bureau ou modèle Excel.
-3. Faites vous-même le laboratoire 0 et confirmez la vérification du moteur **84 305 / 41 023** (dans Excel : l'exemple du chapitre 6, 3 554,46 / 1 937,18).
-4. Utilisez MediBec pour les laboratoires; attribuez un cas différent pour les travaux notés.
+3. Faites vous-même le laboratoire 0 et confirmez la vérification du moteur **84 305 / 41 023** (application de bureau : le pied de page affiche *✓ Moteur vérifié*; dans Excel : l'exemple du chapitre 6, 3 554,46 / 1 937,18).
+4. Utilisez MediBec pour les laboratoires et CanaRetail pour l'exercice autonome; attribuez Chez Pierre, ACRB ou CNIC pour les travaux notés.
 5. Volet Claude (plugiciel Core 2.2.0) : `/crg-quick-scan` produit au moins vingt candidats, dix scénarios et leurs verdicts avant traitement dans un seul tableau; `/label-check <fichier>` vérifie qu'un livrable porte les trois mentions — **Estimation analytique — validation requise**, **Lacune d’information — validation organisationnelle requise**, **Décision de la direction requise** — et signale la formulation retirée.
 
 Responsables du dépôt : les fichiers .docx et .pdf sont produits à partir des sources Markdown avec `python3 scripts/build_education.py`.
@@ -85,4 +98,4 @@ Responsables du dépôt : les fichiers .docx et .pdf sont produits à partir des
 
 © 2026 Marc-André Léger. Sous licence Creative Commons Attribution - Pas d'Utilisation Commerciale 4.0 International (CC BY-NC 4.0). Les cas sont fictifs; toute ressemblance avec des organisations réelles est fortuite. CyberRiskGuardian est un outil d'aide à la décision : ses estimations sont des hypothèses analytiques initiales, et les décisions relatives au risque demeurent la responsabilité de la direction.
 
-Attribution : *« Ensemble pédagogique CyberRiskGuardian 1.0, © 2026 Marc-André Léger, CC BY-NC 4.0. »*
+Attribution : *« Ensemble pédagogique CyberRiskGuardian 2.1.1, © 2026 Marc-André Léger, CC BY-NC 4.0. »*

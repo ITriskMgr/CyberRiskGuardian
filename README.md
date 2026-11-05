@@ -70,10 +70,10 @@ On older versions:
 
 ## Teaching with CyberRiskGuardian
 
-`education/` is a free teaching package, in English and French, for courses on cybersecurity risk management, governance, IT audit and business technology management:
+`education/` is a free teaching package (**Education Package 2.1.1**, for Desktop 1.9.1 and textbook v2.51b), in English and French, for courses on cybersecurity risk management, governance, IT audit and business technology management:
 
 - **Instructor Guide** — the method in one page, learning outcomes, tool tracks, four integration models from a 3-hour workshop to a full term, lab facilitation notes, generative AI policy.
-- **Student Lab Workbook** — twelve labs on the MediBec teaching case, with self-check answers.
+- **Student Lab Workbook** — thirteen labs on the MediBec teaching case (Lab 13: identity, access and configuration posture), a self-study practice case (CanaRetail), with self-check answers.
 - **Assessment Kit** — briefs, 0–10 rubrics and self-checks for the risk assessment, IAM policy and audit plan.
 - **Case Library** — five fictional business cases (student versions, v2.0c).
 - **Introductory slide deck**, the **21 chapter slide decks** of the textbook (release assets, see `education/README.md`) and the **blank CyberRiskGuardian Excel model** v2-6 (`education/templates/`).
