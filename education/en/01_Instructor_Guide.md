@@ -1,25 +1,25 @@
 ---
 title: "CyberRiskGuardian in the Classroom"
-subtitle: "Instructor Guide — Education Package 1.0"
+subtitle: "Instructor Guide — Education Package 2.1.1"
 author: "Marc-André Léger, PhD"
-date: "October 2026"
+date: "November 2026"
 ---
 
 # About this guide
 
 This guide helps instructors, teaching assistants and program coordinators bring CyberRiskGuardian (CRG) into a course on cybersecurity risk management, governance, IT audit or business technology management. It explains what the method teaches, which version of the tool to use, how to fit it into a single workshop or a full term, how to run the labs, and how to assess the work fairly when students are allowed to use generative AI.
 
-The package was built from the material that ships with CyberRiskGuardian (the method specifications, the governance textbook, the MediBec worked example and the desktop application's teaching features) and from the author's own undergraduate course on information systems risks, security and audit, where CRG has been used for the team risk-assessment assignment.
+The package was built from the material that ships with CyberRiskGuardian (the method specifications, the governance textbook, the MediBec and CanaRetail worked examples and the desktop application's teaching features) and from the author's own undergraduate course on information systems risks, security and audit, where CRG has been used for the team risk-assessment assignment.
 
 ## What is in the package
 
 | Component | Audience | Edition |
 |---|---|---|
 | **Instructor Guide** (this document) | Instructors, TAs, coordinators | Community (free) |
-| **Student Lab Workbook** — twelve labs on the MediBec case, with self-check answers | Students | Community (free) |
+| **Student Lab Workbook** — thirteen labs on the MediBec case and a self-study practice case (CanaRetail), with self-check answers | Students | Community (free) |
 | **Assessment Kit** — assignment briefs, 0–10 rubrics, self-checks, peer-review form, AI acknowledgement | Students and instructors | Community (free) |
 | **Case Library** — five fictional business cases with a guide to choosing one | Students and instructors | Community (free) |
-| **Introductory slide deck** — the CRG method in one class | Instructors | Community (free) |
+| **Introductory slide deck** — the CRG method in one class, with screenshots of the desktop application 1.9.1 | Instructors | Community (free) |
 | **Excel model v2-6** — the blank CyberRiskGuardian Excel model (`templates/`) | Students and instructors | Community (free) |
 | **Chapter slide decks** — 21 decks for the textbook, one per chapter (GitHub release assets) | Instructors | Community (free) |
 | **Educator Edition** — lab answer keys, graded quiz bank, rubric calibration and feedback bank, case teaching notes, the final-exam case and its blueprint, and the textbook's Instructor Resource Guide | Instructors only | Educational edition (Educational Licence) |
@@ -93,6 +93,7 @@ CRG supports learning outcomes that most risk, security and audit courses alread
 | LO9 | Communicate risk to senior management in a decision-oriented memorandum | 10 | A1 memo, exam |
 | LO10 | Use generative AI responsibly: verify its output, label estimates, protect data and disclose its use | All | All (professionalism criterion) |
 | LO11 | Translate risk results into a security policy and a risk-based audit plan | 12 | A2, A3 |
+| LO12 | Read an organization's identity, access and configuration posture from population-level evidence, and turn a finding into evidence and a justified parameter proposal | 13 | A2 |
 
 # Choosing a tool track
 
@@ -101,7 +102,7 @@ The method is the same in every track; only the interface changes. Pick one trac
 | Track | What students use | Strengths | Watch for |
 |---|---|---|---|
 | **A. Claude (plugin or project)** | The free CyberRiskGuardian Core plugin in Claude Code or Claude Cowork, or a Claude project carrying the CRG instructions | Fast scenario drafting, interview-style context intake, built-in label checks, `/crg-quick-scan` and `/crg-assess` commands, verified calculator | Students must verify AI output; institutional AI policy and data-protection rules apply |
-| **B. Desktop application** | CyberRiskGuardian Desktop (current release; 1.8.0 at the time of writing), served locally in a browser | Everything on one screen; classroom workspaces; engine self-check; *Start over* for teaching cases; simulation data for SIEM/SOAR exercises; EN/FR interface; no data leaves the computer unless the student sends it | Requires Python 3 to serve the folder; keep the same port so workspaces are found |
+| **B. Desktop application** | CyberRiskGuardian Desktop (current release; 1.9.1 Beta at the time of writing), served locally in a browser | Everything on one screen; a **next-step card** on the Process page that always says what to do and where; three detail levels (Minimal, Standard, Detailed); help linked to the textbook chapter of each screen; classroom workspaces; engine self-check; *Start over* for teaching cases; MediBec and CanaRetail bundled in English and French; the **Virtual consultant** (answers from the textbook, the ontology and the workspace, on a local model by default); optional **Identity & access management (IAM/PAM)** and **Configuration management** modules; simulation data for SIEM/SOAR exercises; EN/FR interface; no data leaves the computer unless the student sends it | Requires Python 3 to serve the folder; keep the same address and port so workspaces are found; one window at a time (a second window on the same address overwrites the first one's saves) |
 | **C. Excel model** | The free CyberRiskGuardian Excel model (Analyse sheet, S1–S10, M1–M10), in `templates/` | Transparent formulas, familiar to business students, works offline | Manual calculation mode (press F9); validated inputs and a Checks column; CVSS blank and required; the appetite placeholder 0.5 must be replaced |
 
 A **hybrid** works well in practice: students draft context and scenarios with Claude (Track A), then quantify and treat in the desktop application or the workbook (Track B or C), where every number is recomputed by the verified engine.
@@ -118,7 +119,7 @@ pip install cvss "mcp>=1.2"
 
 Restart Claude and approve the `crg-calculator` server when prompted. In claude.ai, the skills work too; calculations use the bundled `crg_calc.py` script.
 
-**Track B — Desktop application.** Unzip the release, then double-click `start.command` (macOS, Linux) or `start.bat` (Windows). The application must be served over `http://localhost:8099`; double-clicking `index.html` does not work. Install it as an app from Chrome or Edge for offline use.
+**Track B — Desktop application.** Students follow the two first-time guides published with each release, in English and French: **First-time installation** (`FIRST-INSTALL.md` in the ZIP, and a PDF on the release page) and **First-time setup** (`FIRST-TIME-SETUP.md`, and a PDF). In short: unzip the release, then double-click `start.command` (macOS, Linux) or `start.bat` (Windows). The application must be served over `http://localhost:8099`; double-clicking `index.html` does not work. On the Process page, an optional card, *Set up the application for your practice*, offers **Answer the set-up questions**: one question about experience sets the **level of detail** (*Detailed* is the best choice for a first assessment) and the module questions choose the optional modules (students keep the defaults unless your course uses one, such as the two modules of Lab 13). Both can be changed later in Settings → Language & detail and Settings → Modules. Install it as an app from Chrome or Edge for offline use.
 
 **Track C — Excel.** The blank model ships free with this package: `templates/CyberRiskGuardian_Excel_Model_Blank_v2-6.xlsx`. Post it on your learning platform. It follows the 8-step procedure of the textbook's chapter 6, printed on the Analyse sheet. Remind students that:
 
@@ -134,7 +135,7 @@ Restart Claude and approve the `crg-calculator` server when prompted. In claude.
 
 Whatever the track, the first thing a student does is confirm that the calculation engine agrees with the reference implementation:
 
-- Desktop: the sidebar footer must read **engine verified · 84,305 / 41,023**.
+- Desktop: the pinned footer of the side menu must read **✓ Engine verified**; pointing at it, or Help → About & versions, shows the totals **84,305 / 41,023**.
 - Claude or command line: `python3 crg_calc.py medibec30.json` must report **total estimated 84,305** and **residual 41,023**.
 - Excel: enter the textbook's chapter 6 worked example in S1 (CVSS 9.3, vector `CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:P/VC:H/VI:H/VA:H/SC:H/SI:H/SA:H`) and confirm estimated risk 3,554.46 and residual 1,937.18 after Calculate Now.
 
@@ -142,7 +143,7 @@ If it does not, nothing produced on that installation should be trusted. Make th
 
 # Using the textbook
 
-The package pairs with the textbook *Introduction to Cybersecurity Governance for Business Technology Management* (Léger, 3rd ed., v2.51, October 2026), which is free as the `crg-governance-textbook` plugin and whose appendix "Using CyberRiskGuardian with this book" maps all 21 chapters to CRG activities. The labs draw on these chapters:
+The package pairs with the textbook *Introduction to Cybersecurity Governance for Business Technology Management* (Léger, 3rd ed., v2.51b — the corrected v2.51 — October 2026), which is free as the `crg-governance-textbook` plugin (version 2.1.1) and whose appendix "Using CyberRiskGuardian with this book" maps all 21 chapters to CRG activities. The book exists in English and in French (*Introduction à la gouvernance de la cybersécurité*); the French documents of this package cite the French edition. In the desktop application, every screen's help opens with a **Read more: Chapter n — section** link to the passage of the textbook that explains it. The labs draw on these chapters:
 
 | Labs and activities | Textbook chapters |
 |---|---|
@@ -153,6 +154,8 @@ The package pairs with the textbook *Introduction to Cybersecurity Governance fo
 | Lab 9 (KRIs) | Chapter 6 (KRIs for monitoring); Chapter 14 (metrics and baselines) |
 | Lab 10 (management memo, budget) | Chapter 6 (management report, budget calibration); Chapter 4; Chapter 17 (investment governance, insurance as transfer) |
 | Lab 12 (from risk to policy and audit) | Chapter 9 (control frameworks), Chapter 10 (IAM), Chapter 3 (compliance and assurance) |
+| Lab 13 (identity, access and configuration posture) | Chapter 10 (IAM and PAM, auditability and evidence); Chapter 14 (baselines, drift detection and remediation) |
+| Practice case: CanaRetail (self-study) | Chapter 6 (the risk index, the workbook procedure); Chapter 4 (appetite-consistent budget) |
 
 Each chapter ends with twenty multiple-choice questions; the answer letters are in the book's appendix. The **Instructor Resource Guide** (rationales for every answer and marking guidance for the essay questions) and the 21 chapter slide decks accompany the book: the slide decks are free release assets of the repository (see `education/README.md`), and the Instructor Resource Guide is part of the Educator Edition.
 
@@ -203,7 +206,7 @@ This is the model used in the author's undergraduate course. The risk assessment
 | 8 | Identity and access management; Zero Trust | Lab 9 (KRIs); A1 feedback | — |
 | 9 | Resilience; monitoring and incident response | Lab 11 (optional, desktop): MediBec simulation pack | — |
 | 10 | Cloud, wireless and mobile security | Lab 12, part 1: from risk to audit plan | — |
-| 11 | Digital forensics; standards and certification | Lab 12, part 2: from risk to IAM policy | **A3 audit plan** (individual) |
+| 11 | Digital forensics; standards and certification | Lab 12, part 2: from risk to IAM policy; Lab 13: identity, access and configuration posture (evidence for A2) | **A3 audit plan** (individual) |
 | 12 | Application security; review | Exam preparation; quiz bank (Educator Edition) | **A2 IAM policy** |
 
 Suggested weights, as in the author's undergraduate course: A1 20% (team), A2 10% (team), A3 10% (individual), final exam 40% (including an essay on a business case), quizzes and labs 20%.
@@ -215,13 +218,14 @@ Students work on a richer case (CNIC or ACRB) or, with the organization's writte
 # Before the term: a checklist
 
 1. **Pick the track** (section 4) and test it on the machines students will use, including the lab computers.
-2. **Pick the cases** (Case Library). Use MediBec for the labs, because its full worked example is public and students can check themselves against it. Assign a *different* case to each team for the graded assignment, and rotate cases from term to term.
-3. **Prepare a classroom workspace** (desktop track): Organization → Workspaces → New workspace → *a copy of the MediBec example*, type *Classroom business case*, tick *Educational case used for training purposes*. When it is ready to hand out, Organization → Reset data → *For the instructor* → **Set the current state as the starting point**, so that teams can start over.
+2. **Pick the cases** (Case Library). Use MediBec for the labs, because its full worked example is public and students can check themselves against it. CanaRetail's solution is public too (in the desktop application), so keep it for self-study practice. Assign Chez Pierre, ACRB or CNIC to each team for the graded assignment, and rotate cases from term to term.
+3. **Prepare a classroom workspace** (desktop track): Organization → Workspaces → New workspace, *Start from* **Teaching example: MediBec — private healthcare** (English or French), type *Classroom business case*, tick *Educational case used for training purposes*. When it is ready to hand out, Organization → Reset data → *For the instructor* → **Set the current state as the starting point**, so that teams can start over.
 4. **Decide which steps students redo** after *Start over* (by default, steps 2 and 3: context and crown jewels).
-5. **Load the simulation pack** if you plan Lab 11 (Settings → Simulation data → MediBec pack). The import report must show 40 alerts, 13 rules, 15 indicators, 4 cases and one refused self-approval (APR-MB-04).
-6. **Write your AI rules into the outline** (section 9) and attach the AI acknowledgement template from the Assessment Kit.
-7. **Publish the Assessment Kit** with your due dates, page limits and weights.
-8. **Check the institution's data-protection rules** for AI tools and decide which AI providers students may use. In the desktop application, AI features can be routed to a local model or switched off.
+5. **Decide on the optional modules.** For Lab 13, students switch on *Identity & access management (IAM/PAM)* and *Configuration management* in Settings → Modules. The MediBec and CanaRetail workspaces already hold fictional sample registers for both modules; nothing in them changes a risk number.
+6. **Load the simulation pack** if you plan Lab 11 (Settings → Simulation data → MediBec pack). The import report must show 40 alerts, 13 rules, 15 indicators, 4 cases and one refused self-approval (APR-MB-04).
+7. **Write your AI rules into the outline** (section 9), including whether the Virtual consultant is allowed on each assignment, and attach the AI acknowledgement template from the Assessment Kit.
+8. **Publish the Assessment Kit** with your due dates, page limits and weights.
+9. **Check the institution's data-protection rules** for AI tools and decide which AI providers students may use. In the desktop application, each AI feature can be routed to a local model or switched off in Settings → AI — local & remote.
 
 # Running the labs
 
@@ -229,7 +233,7 @@ Each lab in the workbook states its objectives, timing, inputs, steps, deliverab
 
 | Lab | Time | What to watch for | A question that unlocks the room |
 |---|---|---|---|
-| 0. Getting started | 30 min | Students opening `index.html` directly (footer stuck on *engine loading…*); different ports losing workspaces | "Why should you not trust any number until the footer says *verified*?" |
+| 0. Getting started | 30 min | Students opening `index.html` directly (footer stuck on *engine loading…*); different ports losing workspaces; two windows open on the same address | "Why should you not trust any number until the footer says *Engine verified*?" |
 | 1. Context and crown jewels | 60 min | Copying the case text instead of analysing it; inventing facts | "Which of these facts would change your risk ranking if it were wrong?" |
 | 2. Risk appetite | 45 min | Confusing appetite (0–1 attitude) with a risk score; ignoring the value the case states | "MediBec states 0.40. Why might an analyst propose 0.30?" |
 | 3. Scenarios | 90 min | Threat names ("phishing") instead of causal chains; ten variants of one technique | "Which step of your chain would a control interrupt?" |
@@ -242,6 +246,7 @@ Each lab in the workbook states its objectives, timing, inputs, steps, deliverab
 | 10. Memo | 60 min | Restating tables; burying the decision | "What do you want the CFO to approve on Monday?" |
 | 11. Security operations (optional) | 120 min | Treating an alert as an incident; using a source confidence as a probability | "Who confirmed this incident, and when?" |
 | 12. From risk to policy and audit | 90 min | Policies full of technical values; audit plans that only check a policy exists | "How would an auditor prove this control works over a period?" |
+| 13. Identity, access and configuration posture | 90 min | Reading a blank count as zero; reading a finding's direction hint as a value; accepting a proposal in the workspace used for the other labs; naming people in register labels | "Which of these counts would you ask the IAM team to confirm first, and why?" |
 
 # Teaching the hard concepts
 
@@ -261,6 +266,8 @@ Experience with the method shows that a handful of ideas cause most of the confu
 
 **Shared controls are counted once.** When one initiative serves several scenarios, its cost is split across them (an equal split is an acceptable default) and the portfolio total comes from the initiatives, not from the sum of scenario allocations.
 
+**Posture registers are evidence, not risk.** The Identity & access management and Configuration management registers hold counts per population, never names. Their indicators (CRG-17 to CRG-25) are *measured* KRIs, not risk indices. A finding gives a direction (Pb(ψ,A) ↑ or θ ↓) and never a value: the analyst types the new value, the application shows the ratio before and after, and accepting it is a separate, journalled act. Use Lab 13 to show students how evidence enters an estimate without anyone "letting the tool decide".
+
 **Two lenses may disagree.** A simple normalized score (threat × exposure × impact × (1 − control maturity)) with escalation thresholds can place a treated risk within authority limits while the CRG ratio flags it above tolerance. Ask students to say which method a governance threshold is tied to.
 
 # Generative AI in the course
@@ -279,6 +286,13 @@ CyberRiskGuardian is itself an AI-assisted tool, so the course must take a clear
 
 **Data protection.** Students do not paste confidential material into an external AI service unless authorized. Fictional cases are safe; real organizations are not, unless the organization has agreed in writing and the institution's rules allow it. In the desktop application, AI requests show the exact payload before anything is sent, can be anonymized, and can be routed to a local model.
 
+**The Virtual consultant: decide for each assignment.** The desktop application includes a Virtual consultant (top-bar **Consultant** button, or Tools → Virtual consultant). It answers from passages retrieved on the student's computer — the textbook, the CRGO ontology, the workspace's documents and records — and keeps them apart from the model's general knowledge, which it marks *Analytical estimate — validation required*. It writes nothing into the assessment, and it removes any risk figure the engine did not compute. Because it is an AI tool, **state in each assignment brief whether it is allowed** (the A1–A3 briefs of the Assessment Kit have a line for this):
+
+- **Allowed:** students declare it on the AI acknowledgement like any other tool, and attach the conversations they relied on (Tools → Virtual consultant → *History* → *Export as Markdown*). A conversation can also be cited in the evidence register (*Cite as evidence*), where it is classified as an assumption.
+- **Not allowed:** students switch it off in Settings → AI — local & remote, setting the rows *Virtual consultant* and *Virtual consultant — parameter critique* to **Off**. Students work on their own computers, so this cannot be enforced technically. Treat it as an academic-integrity rule, and look at the workspace export: every AI call is recorded in the workspace's AI log, which Tools → Virtual consultant → *Decision log* shows.
+
+By default the consultant runs on a **local model**, so no text leaves the computer unless the student routes it to a remote provider.
+
 **The markers are the bridge.** Ask students to keep the three markers in every deliverable. A marker-free deliverable is a warning sign that AI output was taken as fact. The Claude plugin includes a label check (`check_labels.py`) that lists missing markers.
 
 # Assessment strategy
@@ -293,15 +307,15 @@ The Educator Edition adds the lab answer keys, a graded quiz bank with answers, 
 
 **Protecting the integrity of the assessment.**
 
-- Use MediBec for practice only. Its full answer is public.
-- Rotate cases between terms and between sections. The Case Library lists five cases; the Educator Edition holds a sixth, reserved for the exam.
+- Use MediBec and CanaRetail for practice only. Their full answers are public: MediBec's in the published worked example, CanaRetail's in the desktop application (its Module D: the nine supplied scenarios and an original one, quantified and treated).
+- Rotate the other cases (Chez Pierre, ACRB, CNIC) between terms and between sections for graded work. The Educator Edition holds a sixth case, reserved for the exam.
 - Require the original scenario S1 to be distinct from every scenario supplied in the case and in the guides.
 - Require the workbook or workspace export with the memo, and check that the numbers agree. Disagreement between files is the most common sign of unverified AI output.
 - Ask for a short oral walk-through of one scenario's parameters from a randomly chosen team member.
 
 # Bilingual and inclusive delivery
 
-The desktop application switches its whole interface between English and French (EN/FR in the top bar) while leaving case data in its original language. All the free materials in this package exist in both languages. A French case remains French in an English interface; teams may write in either language if your institution allows it.
+The desktop application switches its whole interface between English and French (EN/FR in the top bar) while leaving case data in its original language. Its French terms follow the French edition of the textbook (*appétence pour le risque*, *joyaux de la couronne*, *registre des éléments probants*, *ratio de tolérance*), and MediBec and CanaRetail are bundled in both languages. All the free materials in this package exist in both languages. A French case remains French in an English interface; teams may write in either language if your institution allows it.
 
 For accessibility, the labs can be done entirely with the keyboard in the desktop application and in Excel; the slide deck uses high-contrast text; every figure in the workbook is also given as text. Allow extra time for Lab 3 and Lab 10, which are writing-intensive.
 
@@ -318,13 +332,15 @@ For accessibility, the labs can be done entirely with the keyboard in the deskto
 | "Review M…" verdict, or a warning under the TOTAL row of an M sheet | A coefficient (column K or L) is outside 0–1 | Correct the coefficient; combined reductions use the product rule and never exceed 1 |
 | AI proposes a law the case does not name | AI invention | Remove it; cite only obligations the case names or that a primary source confirms |
 | The simulation pack will not import | The workspace is not a MediBec copy | Import into the MediBec example or a copy of it |
-| `engine DIVERGES` banner | The engine disagrees with the reference | Stop and restore a clean copy of the application |
+| Footer reads *✗ Engine check failed* (banner *Engine does not reproduce the MediBec baseline*) | The engine disagrees with the reference | Stop and restore a clean copy of the application |
+| The Identity & access management or Configuration management screen says the module is off | Optional modules are off by default | Settings → Modules, group Governance |
+| A second MediBec workspace appears after restoring a backup or importing a workspace file (1.9.1) | The bundled case was recognized by its identifier only | Delete the extra copy in Organization → Workspaces; a fix is planned for the next desktop release |
 
 # Support, feedback and updates
 
 - Repository: **github.com/ITriskMgr/CyberRiskGuardian** (Community Edition, CC BY-NC 4.0)
 - Product site and Educational Licence: **cyberriskguardian.ca** · **sales@cyberriskguardian.ca**
-- Desktop application: user guide under **Help → User guide**, in English and French
+- Desktop application: the **Help** button of the top bar opens *Help on this screen*, *Step by step*, the *User guide* (English and French) and *About & versions*; the first-time installation and setup guides are on each release page
 
 Report errors in this package through the repository's issue tracker, naming the document, the section and the language version. Suggested improvements from instructors who have taught with CRG are especially welcome.
 

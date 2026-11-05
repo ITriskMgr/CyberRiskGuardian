@@ -1,4 +1,4 @@
-# CyberRiskGuardian Education Package 1.0
+# CyberRiskGuardian Education Package 2.1.1
 
 *Version française : `LISEZMOI.md`*
 
@@ -9,10 +9,10 @@ Teaching materials for instructors and students who use CyberRiskGuardian in a c
 | Document | For | What it gives you |
 |---|---|---|
 | `01_Instructor_Guide` | Instructors, TAs | The method in one page, learning outcomes, tool tracks, four integration models (one workshop to a full term), set-up checklist, lab facilitation notes, the hard concepts to teach, generative AI policy, troubleshooting |
-| `02_Student_Lab_Workbook` | Students | Twelve step-by-step labs on the MediBec teaching case, formula sheet, templates, self-check answers, glossary |
+| `02_Student_Lab_Workbook` | Students | Thirteen step-by-step labs on the MediBec teaching case, a self-study practice case (CanaRetail), formula sheet, templates, self-check answers, glossary |
 | `03_Assessment_Kit` | Students and instructors | 0–10 grading scale, briefs and rubrics for the risk assessment (A1), IAM policy (A2) and audit plan (A3), four shorter formats, self-checks, peer-review form, AI acknowledgement |
 | `04_Case_Library` | Students and instructors | Five fictional business cases and how to choose one; the student versions of the cases are in `cases/` |
-| `slides/CRG_Intro_Deck` | Instructors | An introductory class on the CRG method (PowerPoint) |
+| `slides/CRG_Intro_Deck` | Instructors | An introductory class on the CRG method, with screenshots of the desktop application 1.9.1 (PowerPoint) |
 | `templates/CyberRiskGuardian_Excel_Model_Blank_v2-6.xlsx` | Students and instructors | The blank CyberRiskGuardian Excel model (Analyse, S1–S10, M1–M10) used for the risk-assessment assignment — free. Validated inputs, CVSS score and vector, product rule for combined reductions, budget calibration with current spending, transfer record; follows the 8-step procedure of the textbook's chapter 6 |
 | Chapter slide decks (release assets) | Instructors | 21 PowerPoint decks for the textbook *Introduction to Cybersecurity Governance* (3rd ed., v2.51), one per chapter, English — free; see below |
 
@@ -25,6 +25,19 @@ education/
 ├── templates/     The blank CyberRiskGuardian Excel model (.xlsx)
 └── cases/         Student versions of the five cases, v2.0c (.docx)
 ```
+
+## What's new in 2.1.1 (November 2026)
+
+For **CyberRiskGuardian Desktop 1.9.1**, the Core plugin 2.2.0 and the textbook **v2.51b** (English and French). The version number follows the textbook plugin (2.1.1) that carries v2.51b.
+
+- **Lab 13 — Identity, access and configuration posture**: the desktop application's optional *Identity & access management (IAM/PAM)* and *Configuration management* modules on MediBec's sample registers — recompute an indicator, turn a finding into evidence and a parameter proposal, and carry the posture into the A2 IAM policy.
+- **CanaRetail practice case**: the case's Module D solution is bundled in the desktop application (English and French, totals 27,526 / 16,049), so CanaRetail becomes a self-study case for Labs 4–7 and is no longer recommended for graded A1 work.
+- **The 1.9 interface**: menu paths, the next-step card, detail levels, the top-bar Help, chapter-linked help and the pinned footer (*✓ Engine verified*); Lab 0 and the set-up checklist point to the first-time installation and setup guides of each release.
+- **Virtual consultant**: the instructor decides for each assignment whether it may be used; the A1–A3 briefs carry a line for it and the AI acknowledgement covers it.
+- **Textbook v2.51b in English and French**: the "Using the textbook" tables follow v2.51b, adding Chapters 10 and 14 for Lab 13; the French documents cite the French edition and use its terms (*appétence pour le risque*, *joyaux de la couronne*, *registre des éléments probants*, *ratio de tolérance*).
+- **Introductory deck** (English and French): corrected text, with new slides showing the desktop application 1.9.1.
+
+The whole package is also published as one ZIP on the release [**education-v2.1.1**](https://github.com/ITriskMgr/CyberRiskGuardian/releases/tag/education-v2.1.1).
 
 ## Chapter slide decks (textbook v2.51)
 
@@ -75,8 +88,8 @@ Licence enquiries: sales@cyberriskguardian.ca · cyberriskguardian.ca
 
 1. Instructors: read `01_Instructor_Guide`, sections 2 (the method in one page) and 5 (integration models).
 2. Choose a tool track: Claude plugin, desktop application, or Excel model.
-3. Run Lab 0 yourself and confirm the engine check **84,305 / 41,023** (in Excel: the chapter 6 worked example, 3,554.46 / 1,937.18).
-4. Use MediBec for the labs; assign a different case for graded work.
+3. Run Lab 0 yourself and confirm the engine check **84,305 / 41,023** (desktop: the footer reads *✓ Engine verified*; in Excel: the chapter 6 worked example, 3,554.46 / 1,937.18).
+4. Use MediBec for the labs and CanaRetail for self-study practice; assign Chez Pierre, ACRB or CNIC for graded work.
 5. Claude track (Core plugin 2.2.0): `/crg-quick-scan` gives at least twenty candidates, ten scenarios and their pre-treatment verdicts in one table; `/label-check <file>` checks a deliverable for the three markers — **Analytical estimate — validation required**, **Information gap — organizational validation required**, **Management decision required** — and reports retired wording.
 
 Maintainers: the .docx and .pdf files are generated from the Markdown sources with `python3 scripts/build_education.py`.
@@ -85,4 +98,4 @@ Maintainers: the .docx and .pdf files are generated from the Markdown sources wi
 
 © 2026 Marc-André Léger. Licensed under Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0). The cases are fictional; any resemblance to real organizations is coincidental. CyberRiskGuardian is decision support: its estimates are initial analytical hypotheses, and risk decisions remain with management.
 
-Attribution: *"CyberRiskGuardian Education Package 1.0, © 2026 Marc-André Léger, CC BY-NC 4.0."*
+Attribution: *"CyberRiskGuardian Education Package 2.1.1, © 2026 Marc-André Léger, CC BY-NC 4.0."*

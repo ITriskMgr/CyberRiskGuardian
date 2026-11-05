@@ -1,15 +1,15 @@
 ---
 title: "CyberRiskGuardian Assessment Kit"
-subtitle: "Assignment briefs, rubrics and self-checks — Education Package 1.0"
+subtitle: "Assignment briefs, rubrics and self-checks — Education Package 2.1.1"
 author: "Marc-André Léger, PhD"
-date: "October 2026"
+date: "November 2026"
 ---
 
 # How to use this kit
 
 This kit gives instructors ready-to-adapt assignment briefs and rubrics for courses that use CyberRiskGuardian, and gives students the criteria their work will be judged on. It is based on the assessment design of an undergraduate cybersecurity course, generalized so that any institution can use it.
 
-**For instructors.** Replace the bracketed items — [due week], [weight], [page limit], [submission platform] — with your own. Keep the criteria and the descriptors: they are what makes grading consistent between sections and teaching assistants. Your course outline and assignment instructions remain the authoritative source; say so to students.
+**For instructors.** Replace the bracketed items — [due week], [weight], [page limit], [submission platform], [allowed / not allowed] — with your own. Keep the criteria and the descriptors: they are what makes grading consistent between sections and teaching assistants. Your course outline and assignment instructions remain the authoritative source; say so to students.
 
 **For students.** Read the rubric before you start, not after. Every criterion tells you what a strong submission shows. Use the self-check list before you submit.
 
@@ -91,6 +91,10 @@ Your team acts as cybersecurity consultants to the organization described in you
 3. **Set the organization's risk appetite**, using the tolerance the case states or a justified alternative.
 4. **Select treatment measures** to bring unacceptable risk to a tolerable level, and compare residual risk with tolerated risk.
 
+Use the case your instructor assigns. MediBec and CanaRetail are practice cases whose solutions are public; they are not used for this assignment.
+
+**Virtual consultant (desktop track): [allowed / not allowed] for this assignment.** If it is allowed, declare it in your AI acknowledgement and attach the conversations you relied on (Tools → Virtual consultant → *History* → *Export as Markdown*). If it is not, set *Virtual consultant* and *Virtual consultant — parameter critique* to **Off** in Settings → AI — local & remote before you start.
+
 ## Deliverables
 
 1. The completed CyberRiskGuardian file: the workbook (Analyse, S1–S10, M1–M10), the desktop workspace export, or the assessment JSON — as your instructor specifies.
@@ -139,6 +143,10 @@ Translate your understanding of the organization's risks into an actionable gove
 
 Recommended format: one focused policy of about 3–5 pages, plus a short management rationale and a hierarchy map showing which standards, guidelines and procedures sit beneath it.
 
+**Evidence from the desktop application.** If your workspace for the case holds Identity & access management (IAM/PAM) registers (Lab 13), you may use them as evidence: cite the indicator (for example CRG-18 Privileged MFA coverage) or the finding with its E-number, and say whether the counts are confirmed or inferred. Registers hold counts per population, never names. They support your argument; they do not replace the case facts, and the rubric is the same whichever track you use.
+
+**Virtual consultant (desktop track): [allowed / not allowed] for this assignment.** If it is allowed, declare it in your AI acknowledgement and attach the conversations you relied on (Tools → Virtual consultant → *History* → *Export as Markdown*). If it is not, set *Virtual consultant* and *Virtual consultant — parameter critique* to **Off** in Settings → AI — local & remote before you start.
+
 ## Rubric
 
 | Criterion | Weight | What a strong submission shows |
@@ -176,6 +184,8 @@ Recommended format: one focused policy of about 3–5 pages, plus a short manage
 Write a formal, risk-based cybersecurity audit plan for the case organization, guided by the internal audit framework covered in class, COBIT 2019 and the IIA's GTAG guidance on developing the IT audit plan. Map the critical IT assets, prioritize audit effort where cyber risk is highest, define the audit scope and design control testing: objectives, specific controls and procedures such as configuration reviews, data analysis and computer-assisted audit tools and techniques (CAATTs).
 
 Recommended structure: executive summary; organization and audit context; audit universe; risk method and ranking; annual audit plan; multi-year roadmap; detailed engagement plan with work program; control-testing method; reporting and follow-up; references and appendices.
+
+**Virtual consultant (desktop track): [allowed / not allowed] for this assignment.** If it is allowed, declare it in your AI acknowledgement and attach the conversations you relied on (Tools → Virtual consultant → *History* → *Export as Markdown*). If it is not, set *Virtual consultant* and *Virtual consultant — parameter critique* to **Off** in Settings → AI — local & remote before you start.
 
 ## Rubric
 
@@ -243,9 +253,9 @@ Each team member completes this form confidentially. The instructor may use it t
 
 Include near the title page or in an appendix:
 
-> I/We used [tool name and version] to [purpose: for example brainstorm risk scenarios, propose parameter rationales, check grammar, summarize a source]. I/We verified all outputs against the case and against primary sources, recomputed every number with the CyberRiskGuardian engine, edited the text, and take responsibility for all content.
+> I/We used [tool name and version — for example the CyberRiskGuardian Virtual consultant, with the model shown in its decision log] to [purpose: for example brainstorm risk scenarios, propose parameter rationales, check grammar, summarize a source]. I/We verified all outputs against the case and against primary sources, recomputed every number with the CyberRiskGuardian engine, edited the text, and take responsibility for all content.
 > [Or: No generative AI tools were used in this assignment.]
 
-**Rules.** Generative AI is allowed on assignments with this acknowledgement and is not allowed during the exam. You are responsible for everything you submit. A fabricated or untraceable source is both an evidence problem and an academic-integrity concern. Do not paste confidential material into an external AI service unless you are authorized to.
+**Rules.** Generative AI is allowed on assignments with this acknowledgement, unless the brief says otherwise, and is not allowed during the exam. The CyberRiskGuardian Virtual consultant is an AI tool like any other: each brief says whether it may be used. You are responsible for everything you submit. A fabricated or untraceable source is both an evidence problem and an academic-integrity concern. Do not paste confidential material into an external AI service unless you are authorized to.
 
 *© 2026 Marc-André Léger. Licensed under CC BY-NC 4.0. Adapted from the author's student assignment guide for an undergraduate cybersecurity course.*

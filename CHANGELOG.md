@@ -4,6 +4,25 @@ All notable changes to the **CyberRiskGuardian Community Edition** (Core plugin 
 `crg-governance-textbook`, examples and education package). Versions follow semver per plugin; the marketplace carries
 the Core version. Earlier releases are described in the commit history (Core 2.1.0 and 2.1.1, 23 October 2026).
 
+## Education Package 2.1.1 — 2026-11-05
+
+Teaching materials (`education/`) updated for **CyberRiskGuardian Desktop 1.9.1**, Core 2.2.0 and the textbook **v2.51b**
+(English and French). No plugin, formula or example changed. Release asset: `CyberRiskGuardian_Education_Package_2.1.1.zip`
+(release `education-v2.1.1`).
+
+- **Lab 13 — Identity, access and configuration posture** (EN/FR): the desktop application's optional Identity & access
+  management (IAM/PAM) and Configuration management modules on MediBec's sample registers; self-check answers with the
+  reference indicator values; learning outcome LO12; Week 11 of the full-term model; facilitation notes.
+- **CanaRetail practice case**: its Module D solution ships in the desktop application (27,526 / 16,049), so it becomes a
+  self-study case for Labs 4–7 and is no longer recommended for graded A1 work; graded cases are Chez Pierre, ACRB and CNIC.
+- **1.9 interface**: menu paths, next-step card, detail levels, top-bar Help, chapter-linked help, footer *✓ Engine verified*;
+  Lab 0 and the set-up checklist point to the first-time installation and setup guides.
+- **Virtual consultant**: decided per assignment (A1–A3 briefs, AI policy, AI acknowledgement).
+- **A2**: the brief allows the IAM/PAM registers as evidence; rubric unchanged.
+- **Textbook v2.51b** in English and French; the French documents cite the French edition and use its terms.
+- **Introductory decks** (EN/FR): corrected text and three new slides with 1.9.1 screenshots; 13 labs.
+- All 16 Word and PDF files rebuilt with `scripts/build_education.py`.
+
 ## Core 2.2.0 · Textbook 2.1.1 — 2026-11-02
 
 Aligned with the textbook *Introduction to Cybersecurity Governance for Business Technology Management*, 3rd ed.,

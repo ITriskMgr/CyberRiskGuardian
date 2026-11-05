@@ -1,8 +1,8 @@
 ---
 title: "CyberRiskGuardian Case Library"
-subtitle: "Five fictional business cases for teaching — Education Package 1.0"
+subtitle: "Five fictional business cases for teaching — Education Package 2.1.1"
 author: "Marc-André Léger, PhD"
-date: "October 2026"
+date: "November 2026"
 ---
 
 # About the cases
@@ -24,15 +24,15 @@ The student versions in `cases/` contain the narrative, the evidence appendices 
 |---|---|---|---|---|---|---|
 | **Chez Pierre** | Restaurants (corporate and franchise) | 30 restaurants; IT team of about 32; cyber budget CAD 1.3M | 0.4 | 9 prompts | Introductory | First risk assessment; business-technology courses; strategy discussion |
 | **MediBec** | Private healthcare | Head office and 10 clinics; 15 IT staff, 2 in cybersecurity; IT budget CAD 100M | 0.40 (executive review above 0.25, Board above 0.40) | 15 scenarios | Intermediate | **The lab case** (fully worked example published); health privacy; patient-safety trade-offs |
-| **CanaRetail** | National retail | 100 stores and e-commerce; about 62 IT staff; IT budget CAD 150M (2026) | 0.5 (risk-neutral) | 50 prompts + 9 supplied scenarios | Intermediate | The graded A1 assignment with the CRG Excel model (Module D is built for it); payment security; budgeting |
+| **CanaRetail** | National retail | 100 stores and e-commerce; about 62 IT staff; IT budget CAD 150M (2026) | 0.5 (risk-neutral) | 50 prompts + 9 supplied scenarios | Intermediate | **Self-study practice** (its Module D solution is bundled in the desktop application, in English and French); payment security; budgeting |
 | **ACRB** | Regional bank | 30 branches; about 750 staff, 83 in IT; 2022 breach | 0.30 (executive review above 0.20, Board above 0.30) | 15 scenarios | Advanced | IT audit with prior findings; regulated sector; board reporting; post-incident recovery |
 | **CNIC** | National insurer | More than 3 million clients; IT budget CAD 315M, of which 50M cybersecurity | 0.34 (executive review above 0.20, Board above 0.34) | 12 scenarios | Advanced | Large enterprise; AI governance (AI claims platform); capstone and graduate seminars |
 
-**Recommended pattern.** Use **MediBec** for the labs (students can check themselves against the published worked example) and assign a **different** case for graded work. Rotate cases between terms and sections. A sixth case, reserved for the final exam, is in the Educator Edition.
+**Recommended pattern.** Use **MediBec** for the labs and **CanaRetail** for self-study practice: students can check themselves against both published solutions. Assign **Chez Pierre**, **ACRB** or **CNIC** for graded work, and rotate them between terms and sections. A sixth case, reserved for the final exam, is in the Educator Edition.
 
 # Using a case with CyberRiskGuardian
 
-1. **Create a workspace for the case.** Desktop: Organization → Workspaces → *New workspace*, type *Classroom business case*, tick *Educational case used for training purposes*, drop the case document and extract the profile and crown jewels. Claude: attach the case document and run `/crg-assess` or `/crg-quick-scan`.
+1. **Create a workspace for the case.** Desktop: MediBec and CanaRetail are bundled — Organization → Workspaces → *New workspace*, *Start from* *Teaching example: …* (English or French). For the other cases: *Start from* *Blank assessment*, type *Classroom business case*, tick *Educational case used for training purposes*, drop the case document and extract the profile and crown jewels. Claude: attach the case document and run `/crg-assess` or `/crg-quick-scan`.
 2. **Use the case's tolerance as the starting appetite.** Students may propose a different value but must justify it (Lab 2).
 3. **Treat the scenario library as candidates, not answers.** Library entries are short themes. Students must rewrite each one they keep as a complete causal chain grounded in the case.
 4. **Translate the case's scoring model into CRG's.** Most cases describe a simple normalized model (threat × exposure × impact, adjusted for control maturity) with escalation thresholds. CRG uses six parameters and a tolerance ratio. The two lenses can disagree; students should say which one a governance threshold refers to.
@@ -65,7 +65,7 @@ The student versions in `cases/` contain the narrative, the evidence appendices 
 
 **Scenario library (15).** MED-CYR-01 to MED-CYR-15: credential compromise, ransomware on the EHR, cloud misconfiguration, API key exposure, clinic wireless compromise, delayed patching, exposed backup servers, inadequate intrusion detection, medical device or IoT foothold, DDoS on patient services, insider exfiltration, phishing of staff, data-integrity attack on patient or billing records, vendor compromise, untested incident response.
 
-**Teaching angles.** Containment decisions with clinical consequences; whether tolerance should differ between administrative and care systems; prioritizing with a two-person team. The published CRG assessment (30 scenarios; 84,305 estimated and 41,023 residual) and the desktop application's MediBec simulation pack (three weeks of SOC activity) make it the natural lab case.
+**Teaching angles.** Containment decisions with clinical consequences; whether tolerance should differ between administrative and care systems; prioritizing with a two-person team. The published CRG assessment (30 scenarios; 84,305 estimated and 41,023 residual), the desktop application's MediBec simulation pack (three weeks of SOC activity) and its sample identity, access and configuration registers (Lab 13) make it the natural lab case. The desktop application bundles it in English and in French.
 
 ## CanaRetail — national retail (intermediate)
 
@@ -75,9 +75,11 @@ The student versions in `cases/` contain the narrative, the evidence appendices 
 
 **Risk context.** Overall appetite moderate, "risk neutral (0.5)", with low appetite for data breaches and reputational damage and very low appetite for regulatory, privacy and payment-compliance risk; online sales outages should not exceed 24 hours. 2026 IT budget CAD 150M including salaries; cybersecurity allocation rising from CAD 6.2M (2023) to CAD 26.57M (2031) in the case's projection. Students are invited to challenge the appetite statement.
 
-**Scenario prompts (50).** Fifty short themes, from executive phishing, ransomware and POS malware to IoT botnets, API weaknesses, shadow IT and teleconferencing eavesdropping. **Module D** asks teams to combine one original scenario with **nine supplied scenarios** in the CRG Excel model; the instructor distributes those nine as a handout (supplied in the Educator Edition).
+**Scenario prompts (50).** Fifty short themes, from executive phishing, ransomware and POS malware to IoT botnets, API weaknesses, shadow IT and teleconferencing eavesdropping. **Module D** asks teams to combine one original scenario with **nine supplied scenarios** in the CRG Excel model.
 
-**Teaching angles.** Built for the A1 assignment with the CRG workbook; payment security; budgeting against the appetite-consistent target (7.8% of the IT budget at the case's appetite of 0.5); a sensitive framing about identity-based targeting that instructors may want to introduce in class.
+**In the desktop application.** CanaRetail is bundled as a teaching example in English and French: its complete Module D assessment (the nine supplied scenarios rewritten as causal chains and an original S10 on an over-privileged integration service account), ten treatment initiatives and a management summary, at appetite 0.5 — totals 27,526 estimated and 16,049 residual. Because that solution is public, CanaRetail is now a **self-study practice case** (see the Student Lab Workbook) and is no longer recommended for graded A1 work.
+
+**Teaching angles.** Practising Labs 4 to 7 against a complete solution; payment security; an identity scenario (S10) with a pending proposal from the Identity & access management sample; budgeting against the appetite-consistent target (7.8% of the IT budget at the case's appetite of 0.5); a sensitive framing about identity-based targeting that instructors may want to introduce in class.
 
 ## ACRB — Atlantic Canada Regional Bank (advanced)
 

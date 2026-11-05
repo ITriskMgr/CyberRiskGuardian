@@ -1,8 +1,8 @@
 ---
 title: "Bibliothèque de cas CyberRiskGuardian"
-subtitle: "Cinq études de cas fictives pour l'enseignement — Ensemble pédagogique 1.0"
+subtitle: "Cinq études de cas fictives pour l'enseignement — Ensemble pédagogique 2.1.1"
 author: "Marc-André Léger, Ph. D."
-date: "octobre 2026"
+date: "novembre 2026"
 ---
 
 # À propos des cas
@@ -24,15 +24,15 @@ Les versions étudiantes dans `cases/` contiennent le récit, les annexes de pre
 |---|---|---|---|---|---|---|
 | **Chez Pierre** | Restauration (établissements corporatifs et franchisés) | 30 restaurants ; équipe TI d'environ 32 personnes ; budget de cybersécurité de 1,3 M$ CA | 0,4 | 9 pistes de scénarios | Introduction | Première évaluation des risques ; cours de technologie d'affaires ; discussion stratégique |
 | **MediBec** | Soins de santé privés | Siège social et 10 cliniques ; 15 employés TI, dont 2 en cybersécurité ; budget TI de 100 M$ CA | 0,40 (revue par la haute direction au-dessus de 0,25, conseil d'administration au-dessus de 0,40) | 15 scénarios | Intermédiaire | **Le cas des laboratoires** (exemple résolu complet publié) ; protection des renseignements de santé ; arbitrages liés à la sécurité des patients |
-| **CanaRetail** | Commerce de détail national | 100 magasins et commerce électronique ; environ 62 employés TI ; budget TI de 150 M$ CA (2026) | 0,5 (neutre face au risque) | 50 pistes + 9 scénarios fournis | Intermédiaire | Le travail noté A1 avec le modèle Excel de CRG (le module D est conçu pour lui) ; sécurité des paiements ; budgétisation |
+| **CanaRetail** | Commerce de détail national | 100 magasins et commerce électronique ; environ 62 employés TI ; budget TI de 150 M$ CA (2026) | 0,5 (neutre face au risque) | 50 pistes + 9 scénarios fournis | Intermédiaire | **Exercice autonome** (la solution de son module D est fournie dans l'application de bureau, en anglais et en français) ; sécurité des paiements ; budgétisation |
 | **ACRB** | Banque régionale | 30 succursales ; environ 750 employés, dont 83 en TI ; brèche en 2022 | 0,30 (revue par la haute direction au-dessus de 0,20, conseil d'administration au-dessus de 0,30) | 15 scénarios | Avancé | Audit des TI avec constatations antérieures ; secteur réglementé ; reddition de comptes au conseil d'administration ; rétablissement après incident |
 | **CNIC** | Assureur national | Plus de 3 millions de clients ; budget TI de 315 M$ CA, dont 50 M$ en cybersécurité | 0,34 (revue par la haute direction au-dessus de 0,20, conseil d'administration au-dessus de 0,34) | 12 scénarios | Avancé | Grande entreprise ; gouvernance de l'IA (plateforme de réclamations fondée sur l'IA) ; projets intégrateurs et séminaires des cycles supérieurs |
 
-**Approche recommandée.** Utilisez **MediBec** pour les laboratoires (les étudiants peuvent se comparer à l'exemple résolu publié) et attribuez un cas **différent** pour les travaux notés. Faites alterner les cas d'une session et d'un groupe-cours à l'autre. Un sixième cas, réservé à l'examen final, se trouve dans l'Édition Éducateur.
+**Approche recommandée.** Utilisez **MediBec** pour les laboratoires et **CanaRetail** pour l'exercice autonome : les étudiants peuvent se comparer aux deux solutions publiées. Attribuez **Chez Pierre**, **ACRB** ou **CNIC** pour les travaux notés, et faites-les alterner d'une session et d'un groupe-cours à l'autre. Un sixième cas, réservé à l'examen final, se trouve dans l'Édition Éducateur.
 
 # Utiliser un cas avec CyberRiskGuardian
 
-1. **Créez un espace de travail pour le cas.** Application de bureau : Organisation → Espaces de travail → *Nouvel espace de travail*, type *Cas d'affaires pour la classe*, cochez *Cas pédagogique utilisé à des fins de formation*, déposez le document du cas et extrayez le profil et les joyaux de la couronne (actifs critiques). Claude : joignez le document du cas et exécutez `/crg-assess` ou `/crg-quick-scan`.
+1. **Créez un espace de travail pour le cas.** Application de bureau : MediBec et CanaRetail sont fournis — Organisation → Espaces de travail → *Nouvel espace de travail*, *Partir de* *Exemple pédagogique : …* (anglais ou français). Pour les autres cas : *Partir de* *Évaluation vierge*, type *Cas d'affaires pour la classe*, cochez *Cas pédagogique utilisé à des fins de formation*, déposez le document du cas et extrayez le profil et les joyaux de la couronne (actifs critiques). Claude : joignez le document du cas et exécutez `/crg-assess` ou `/crg-quick-scan`.
 2. **Utilisez la tolérance au risque du cas comme appétence pour le risque de départ.** Les étudiants peuvent proposer une valeur différente, mais doivent la justifier (laboratoire 2).
 3. **Traitez la bibliothèque de scénarios comme des candidats, et non comme des réponses.** Les entrées de la bibliothèque sont de courts thèmes. Les étudiants doivent réécrire chacune de celles qu'ils retiennent sous la forme d'une chaîne causale complète ancrée dans le cas.
 4. **Transposez le modèle de cotation du cas dans celui de CRG.** La plupart des cas décrivent un modèle normalisé simple (menace × exposition × impact, ajusté selon la maturité des contrôles) assorti de seuils de remontée. CRG utilise six paramètres et un ratio de tolérance. Les deux grilles de lecture peuvent diverger ; les étudiants devraient préciser à laquelle un seuil de gouvernance fait référence.
@@ -65,7 +65,7 @@ Les versions étudiantes dans `cases/` contiennent le récit, les annexes de pre
 
 **Bibliothèque de scénarios (15).** MED-CYR-01 à MED-CYR-15 : compromission d'identifiants, rançongiciel sur le DSE, mauvaise configuration infonuagique, exposition de clés d'API, compromission du réseau sans fil d'une clinique, application tardive des correctifs, serveurs de sauvegarde exposés, détection d'intrusion inadéquate, point d'ancrage par un dispositif médical ou un objet connecté, DDoS sur les services aux patients, exfiltration par un initié, hameçonnage du personnel, attaque contre l'intégrité des données des dossiers des patients ou de facturation, compromission d'un fournisseur, réponse aux incidents non testée.
 
-**Angles pédagogiques.** Des décisions de confinement aux conséquences cliniques ; la question de savoir si la tolérance devrait différer entre les systèmes administratifs et les systèmes de soins ; la priorisation avec une équipe de deux personnes. L'évaluation CRG publiée (30 scénarios ; risque estimé de 84 305 et risque résiduel de 41 023) et la trousse de simulation MediBec de l'application de bureau (trois semaines d'activité du SOC) en font le cas tout désigné pour les laboratoires.
+**Angles pédagogiques.** Des décisions de confinement aux conséquences cliniques ; la question de savoir si la tolérance devrait différer entre les systèmes administratifs et les systèmes de soins ; la priorisation avec une équipe de deux personnes. L'évaluation CRG publiée (30 scénarios ; risque estimé de 84 305 et risque résiduel de 41 023), la trousse de simulation MediBec de l'application de bureau (trois semaines d'activité du SOC) et ses registres d'exemple des identités, des accès et de la configuration (laboratoire 13) en font le cas tout désigné pour les laboratoires. L'application de bureau le fournit en anglais et en français.
 
 ## CanaRetail — commerce de détail national (intermédiaire)
 
@@ -75,9 +75,11 @@ Les versions étudiantes dans `cases/` contiennent le récit, les annexes de pre
 
 **Contexte de risque.** Appétence pour le risque globalement modérée, « neutre face au risque (0,5) », avec une faible appétence pour les brèches de données et l'atteinte à la réputation, et une très faible appétence pour les risques réglementaires, de protection des renseignements personnels et de conformité des paiements ; les interruptions des ventes en ligne ne devraient pas dépasser 24 heures. Budget TI 2026 de 150 M$ CA, salaires compris ; enveloppe de cybersécurité passant de 6,2 M$ CA (2023) à 26,57 M$ CA (2031) selon la projection du cas. Les étudiants sont invités à remettre en question l'énoncé d'appétence pour le risque.
 
-**Pistes de scénarios (50).** Cinquante courts thèmes, de l'hameçonnage visant les dirigeants, du rançongiciel et des logiciels malveillants sur les points de vente jusqu'aux réseaux de zombies d'objets connectés, aux faiblesses des API, à l'informatique fantôme et à l'écoute clandestine des téléconférences. Le **module D** demande aux équipes de combiner un scénario de risque original avec **neuf scénarios fournis** dans le modèle Excel de CRG ; l'enseignant distribue ces neuf scénarios sous forme de document (fourni dans l'Édition Éducateur).
+**Pistes de scénarios (50).** Cinquante courts thèmes, de l'hameçonnage visant les dirigeants, du rançongiciel et des logiciels malveillants sur les points de vente jusqu'aux réseaux de zombies d'objets connectés, aux faiblesses des API, à l'informatique fantôme et à l'écoute clandestine des téléconférences. Le **module D** demande aux équipes de combiner un scénario de risque original avec **neuf scénarios fournis** dans le modèle Excel de CRG.
 
-**Angles pédagogiques.** Conçu pour le travail A1 avec le classeur CRG ; sécurité des paiements ; budgétisation par rapport à la cible cohérente avec l'appétence (7,8 % du budget TI à l'appétence de 0,5 du cas) ; une formulation délicate concernant le ciblage fondé sur l'identité, que les enseignants voudront peut-être présenter en classe.
+**Dans l'application de bureau.** CanaRetail est fourni comme exemple pédagogique en anglais et en français : son évaluation complète du module D (les neuf scénarios fournis, réécrits en chaînes causales, et un scénario original S10 sur un compte de service d'intégration doté de privilèges excessifs), dix initiatives de traitement et un sommaire de gestion, à l'appétence de 0,5 — totaux : 27 526 (estimé) et 16 049 (résiduel). Comme cette solution est publique, CanaRetail devient un **cas d'exercice autonome** (voir le Cahier de laboratoires) et n'est plus recommandé pour le travail noté A1.
+
+**Angles pédagogiques.** S'exercer aux laboratoires 4 à 7 à l'aide d'une solution complète ; sécurité des paiements ; un scénario d'identité (S10) assorti d'une proposition en attente tirée de l'exemple de Gestion des identités et des accès ; budgétisation par rapport à la cible cohérente avec l'appétence (7,8 % du budget TI à l'appétence de 0,5 du cas) ; une formulation délicate concernant le ciblage fondé sur l'identité, que les enseignants voudront peut-être présenter en classe.
 
 ## ACRB — Atlantic Canada Regional Bank (avancé)
 

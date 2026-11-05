@@ -1,8 +1,8 @@
 ---
 title: "Cahier de laboratoires de l'étudiant CyberRiskGuardian"
-subtitle: "Douze laboratoires sur le cas pédagogique MediBec — Ensemble pédagogique 1.0"
+subtitle: "Treize laboratoires sur le cas pédagogique MediBec — Ensemble pédagogique 2.1.1"
 author: "Marc-André Léger, Ph. D."
-date: "octobre 2026"
+date: "novembre 2026"
 toc-title: "Table des matières"
 ---
 
@@ -13,10 +13,10 @@ Ces laboratoires vous apprennent à réaliser, étape par étape, une évaluatio
 Chaque laboratoire présente ses objectifs, sa durée, le matériel requis, les étapes, le livrable et trois questions pour vérifier votre compréhension. Les réponses à ces questions se trouvent à l'annexe D. Travaillez dans le parcours d'outils choisi par votre enseignant :
 
 - **Parcours A — Claude** : le plugiciel ou le projet CyberRiskGuardian dans Claude.
-- **Parcours B — Application de bureau** : l'application de bureau CyberRiskGuardian dans votre navigateur.
+- **Parcours B — Application de bureau** : l'application de bureau CyberRiskGuardian (1.9.1 ou plus récente) dans votre navigateur.
 - **Parcours C — Excel** : le classeur CyberRiskGuardian (feuilles Analyse, S1–S10, M1–M10).
 
-Lorsqu'une étape diffère selon le parcours, elle est marquée **[A]**, **[B]** ou **[C]**.
+Lorsqu'une étape diffère selon le parcours, elle est marquée **[A]**, **[B]** ou **[C]**. Après le laboratoire 7, vous pouvez vous exercer sur un deuxième cas, CanaRetail, à l'aide de sa solution publiée (voir *Cas d'exercice — CanaRetail*).
 
 ## Cinq règles pour chaque laboratoire
 
@@ -35,13 +35,13 @@ Lorsqu'une étape diffère selon le parcours, elle est marquée **[A]**, **[B]**
 
 1. Installez ou ouvrez votre parcours.
    - **[A]** Dans Claude Code : `/plugin install cyberriskguardian --marketplace ITriskMgr/CyberRiskGuardian`, puis `/plugin install crg-governance-textbook --marketplace ITriskMgr/CyberRiskGuardian`. Exécutez une fois `pip install cvss "mcp>=1.2"`, redémarrez et approuvez le serveur `crg-calculator`.
-   - **[B]** Décompressez l'application de bureau, puis double-cliquez sur `start.command` (macOS, Linux) ou `start.bat` (Windows). Laissez la fenêtre du terminal ouverte. L'application s'ouvre à `http://localhost:8099`. Utilisez toujours cette même adresse : votre travail est conservé par votre navigateur pour cette adresse exacte.
+   - **[B]** Suivez le guide **Première installation** de la version (un PDF sur la page de la version, et `FIRST-INSTALL.md` dans le ZIP). En bref : décompressez l'application de bureau, puis double-cliquez sur `start.command` (macOS, Linux) ou `start.bat` (Windows). Laissez la fenêtre du terminal ouverte. L'application s'ouvre à `http://localhost:8099`. Utilisez toujours cette même adresse, dans une seule fenêtre : votre travail est conservé par votre navigateur pour cette adresse exacte. Sur la page Processus, la carte *Configurer l'application pour votre pratique* propose **Répondre aux questions de configuration** : une question sur votre expérience règle le niveau de détail (répondez *Nouveau ou nouvelle — montrez-moi pourquoi chaque écran compte*, ce qui donne **Détaillé**), et les questions sur les modules peuvent garder leurs valeurs par défaut (votre enseignant vous dira si un laboratoire exige un module). Vous pouvez aussi passer cette étape et changer le niveau plus tard dans Paramètres → Langue et détail. Le guide **Première configuration** explique chaque écran d'une première évaluation.
    - **[C]** Ouvrez le modèle vierge `templates/CyberRiskGuardian_Excel_Model_Blank_v2-6.xlsx` (ou la copie que votre enseignant vous a remise) et enregistrez-en une copie au nom de votre équipe. Il s'ouvre en mode de calcul manuel : appuyez sur **F9** (Formules → Calculer maintenant) avant de lire quelque nombre que ce soit.
 2. Vérifiez le moteur.
    - **[A]** Exécutez `python3 crg_calc.py medibec30.json` à partir du dossier `crg-quantify/scripts` du plugiciel sur l'exemple MediBec. Il doit afficher **risque estimé total 84 305** et **résiduel 41 023**.
-   - **[B]** Le bas de la barre latérale gauche doit afficher **moteur vérifié · 84 305 / 41 023**.
+   - **[B]** Le pied de page épinglé du menu latéral doit afficher **✓ Moteur vérifié**. Pointez dessus (ou ouvrez Aide → À propos et versions) pour voir les totaux **84 305 / 41 023**.
    - **[C]** Saisissez l'exemple du chapitre 6 du manuel dans la feuille S1 et à la ligne 3 de la feuille Analyse : Pb(A) 0,70, Pb(ψ,A) 0,60, δe 0,60, δm 0,80, θ 0,50, μ(E) 0,65, CVSS 9,3 en G3 avec le vecteur `CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:P/VC:H/VI:H/VA:H/SC:H/SI:H/SA:H` en H3, appétence 0,35 en E14; dans M1, une ligne « Other / autre » retenue avec un coût de 62 000, une réduction d'impact de 0,70 et une réduction de probabilité de 0,65. Après « Calculer maintenant », vous devez lire un risque estimé de 3 554,46, un risque toléré de 1 777,23, un risque résiduel de 1 937,18 et un ratio de 1,09. Effacez ensuite ces données (ou repartez du modèle vierge).
-3. **[B]** Ouvrez l'espace de travail MediBec, puis **Processus** (premier élément du menu). Lisez les dix-neuf étapes d'une évaluation complète.
+3. **[B]** Ouvrez l'espace de travail MediBec, puis Démarrer → **Processus**. Lisez les dix-neuf étapes d'une évaluation complète. La **carte de prochaine étape**, en haut, nomme toujours la prochaine étape, sa liste de vérification et l'écran qui s'en charge. Sur n'importe quel écran, le bouton **Aide** de la barre supérieure ouvre *Aide sur cet écran*, avec un lien *Pour en savoir plus : chapitre …* vers le passage du manuel correspondant.
 4. Relisez les trois mentions dans les « Cinq règles » ci-dessus. Trouvez un exemple de chacune dans les livrables d'exemple ou l'espace de travail MediBec.
 
 **Livrable :** une capture d'écran du moteur vérifié (ou du résultat de votre calculateur), avec votre nom et la date.
@@ -88,7 +88,7 @@ Une évaluation des risques part de l'organisation, et non d'une liste de menace
 4. Déterminez **cinq ou six joyaux de la couronne** : les actifs ou services dont la perte nuirait le plus à la mission. Pour chacun, indiquez un responsable métier, l'importance de la confidentialité, de l'intégrité et de la disponibilité (Élevée / Très élevée) et ses principales dépendances.
 5. Énumérez au moins trois **lacunes d'information** (faits dont vous auriez besoin mais que le cas ne fournit pas) et deux **hypothèses** que vous formulez, chacune avec sa mention.
    - **[A]** Demandez à l'assistant d'effectuer la collecte du contexte à partir du document du cas. Comparez ses joyaux de la couronne avec les vôtres; ne conservez que ce que le cas appuie.
-   - **[B]** Organisation → Espaces de travail → *Nouvel espace de travail* (type *Cas d'affaires pour la classe*), déposez le document du cas, cochez *Extraire le profil et l'appétit* et *Puis extraire les actifs essentiels*, choisissez **Règles seulement (sans IA, hors ligne)**. Examinez chaque valeur proposée et son étiquette (FACT, INFERENCE, ASSUMPTION, EXTERNAL, UNKNOWN). Résolvez à partir du cas les valeurs UNKNOWN que vous pouvez.
+   - **[B]** Organisation → Espaces de travail → *Nouvel espace de travail*, *Partir de* *Évaluation vierge*, type *Cas d'affaires pour la classe*; déposez le document du cas, cochez *Extraire le profil et l'appétence de ces documents après la création* et *Puis extraire les joyaux de la couronne*, choisissez **Règles seulement (sans IA, hors ligne)** et cliquez sur *Créer l'espace de travail*. Examinez chaque valeur proposée et son étiquette (FACT, INFERENCE, ASSUMPTION, EXTERNAL, UNKNOWN). Résolvez à partir du cas les valeurs UNKNOWN que vous pouvez.
 
 **Livrable :** le tableau de contexte, une chaîne de dépendances, la liste des joyaux de la couronne et la liste des lacunes et hypothèses (deux pages au maximum).
 
@@ -127,7 +127,7 @@ Les valeurs de 0,1 et de 0,9 sont des extrêmes qui ne devraient normalement pas
 3. Choisissez une valeur. Vous pouvez conserver la valeur de 0,40 du cas ou en proposer une autre; dans les deux cas, justifiez-la en cinq à huit phrases. L'évaluation publiée de MediBec a utilisé **0,30** (une estimation analytique inférieure à la valeur énoncée de 0,40, en raison de la sécurité des patients et de la sensibilité des données de santé). Expliquez si vous êtes d'accord.
 4. Consignez la valeur avec sa mention : si elle diffère de celle du cas, il s'agit d'une **Estimation analytique — validation requise**, et le choix final relève d'une **Décision de la direction requise**.
    - **[A]** Demandez : *« Estime l'appétence pour le risque de cybersécurité de MediBec sur une échelle de 0 à 1, avec la justification. »* Comparez la réponse avec l'énoncé du cas; n'acceptez pas une valeur que vous ne pouvez pas justifier vous-même.
-   - **[B]** Organisation → Profil et appétit : saisissez l'appétence et sa justification. L'*estimateur de l'appétit* au bas de la page propose une valeur à partir des facteurs cochés.
+   - **[B]** Organisation → Profil et appétence : saisissez l'appétence et sa justification. L'*Estimateur d'appétence* au bas de la page en propose une à partir des facteurs cochés.
    - **[C]** Saisissez l'appétence dans la feuille Analyse (cellule E14 du modèle standard).
 
 **Livrable :** la valeur d'appétence et sa justification (une demi-page).
@@ -167,7 +167,7 @@ Utilisez la structure de phrase suivante :
 5. **Sélectionnez-en dix.** Ne prenez pas simplement les dix totaux les plus élevés : vérifiez que le portefeuille couvre des actifs, des acteurs et des conséquences variés, et qu'aucune technique unique ne domine. Pour chaque scénario retenu, répondez à la question : *Pourquoi celui-ci, et non le plus solide des scénarios écartés?*
 6. Développez **un** scénario retenu de façon complète : nom, parties prenantes, source de la menace, événement déclencheur, vulnérabilités, actifs et processus touchés, contrôles existants (uniquement ceux dont le cas fait état), séquence d'événements (cinq à huit étapes), conséquences (confidentialité, intégrité, disponibilité, opérations, finances, réglementation, réputation, vie privée, sécurité des personnes), hypothèses.
    - **[A]** `/select-scenarios` exécute la procédure complète de filtrage (sections A à E). Vous pouvez aussi demander 20 candidats, puis remettre chacun en question : *« Quelle étape de cette chaîne le cas appuie-t-il? »*
-   - **[B]** Scénarios en lot → *Modèles de menace × actifs* → cochez les modèles, *Cocher les actifs essentiels + les 5 plus critiques*, réglez le *Nombre de candidats* à 20, **Générer des candidats**. Modifiez les noms et les énoncés dans la grille, cochez-en dix et **Ajouter les … sélectionnés au registre**. Facultatif : Ontologie · CRGO → *Suggérer des scénarios* pour voir les scénarios connexes de la bibliothèque.
+   - **[B]** Scénarios en lot → *Modèles de menace × actifs* → cochez les modèles, *Cocher les joyaux de la couronne + les 5 plus critiques*, réglez le *Nombre de candidats* à 20, **Générer des candidats**. Modifiez les noms et les énoncés dans la grille, cochez les vingt et **Ajouter les lignes cochées comme candidats au filtrage** : l'étape 5 du Processus compte les candidats dans Filtrage des scénarios → *Candidats et notes*, où vous les notez. Après votre sélection, cochez vos dix scénarios dans Scénarios en lot et **Ajouter les … sélectionnés au registre**. Facultatif : Organisation → Ontologie · CRGO → *Suggérer des scénarios* pour voir les scénarios connexes de la bibliothèque.
 
 **Livrable :** les 20 candidats avec leurs notes, vos dix scénarios retenus avec une justification d'une ligne chacun, et un scénario entièrement développé (modèle de l'annexe C).
 
@@ -413,7 +413,7 @@ Le verdict change d'un cas à l'autre : S1 est un scénario de risque pour leque
 
 1. Construisez les cas inférieur, central et supérieur pour votre scénario.
 2. Le verdict change-t-il? S'il est « au-dessus de la tolérance » même dans le cas inférieur, le scénario nécessite un transfert ou une acceptation formelle, et non seulement davantage de dépenses.
-3. Déterminez le paramètre dont la variation modifie le plus le résultat. **[B]** Prévisions → *Facteurs déterminants* (diagramme en tornade); *Monte-Carlo* convertit vos niveaux de confiance en plages.
+3. Déterminez le paramètre dont la variation modifie le plus le résultat. **[B]** Outils → Prévisions → *Facteurs déterminants* (diagramme en tornade); *Monte-Carlo* convertit vos niveaux de confiance en plages.
 4. Rédigez deux phrases à l'intention de la direction : ce dont vous êtes certain et quels éléments probants changeraient la recommandation.
 
 **Livrable :** le tableau des trois cas et l'énoncé de deux phrases.
@@ -447,7 +447,7 @@ Un ICR n'est utile que si quelqu'un peut le mesurer, à partir d'une source nomm
 
 1. Définissez **trois ICR** pour vos principaux scénarios de risque, en remplissant chaque colonne du tableau ci-dessus.
 2. Pour chaque ICR, indiquez ce que la direction devrait faire lorsque le seuil d'avertissement est franchi.
-3. **[B]** Tableau de bord des ICR → *Enregistrer une mesure*. Après quatre relevés, Prévisions → *Projections des ICR* indique si un seuil sera franchi.
+3. **[B]** Évaluation des risques → Tableau de bord des ICR → *Enregistrer une mesure*. Après quatre relevés, Outils → Prévisions → *Projections des ICR* indique si un seuil sera franchi.
 
 **Livrable :** trois ICR complets.
 
@@ -504,7 +504,7 @@ L'évaluation publiée de 30 scénarios a établi ce qui suit : après traitemen
 
 ## Étapes
 
-1. SIEM → *Vue d'ensemble* : réglez la date de référence au **9 octobre 2026**.
+1. Opérations de sécurité → SIEM → *Vue d'ensemble* : réglez la date de référence au **9 octobre 2026**.
 2. Effectuez les dix exercices que votre enseignant vous assigne (EX-01 à EX-10) dans le SIEM et le SOAR : ordre de triage, un vrai positif fermé comme bénin, lacunes de couverture, télémétrie muette, restrictions TLP, un indicateur avec une confiance de 95, un dossier qui peut être ou ne pas être un incident, des actions sans approbation valide, état de préparation des playbooks, lacunes de détection.
 3. Scénarios en lot → *Des opérations de sécurité (SIEM et SOAR)*, en date du 9 octobre. **Consigner la preuve dans S2.** Ouvrez S2 dans l'éditeur de scénarios : la fiche *Preuves des opérations de sécurité* l'affiche, et **aucun paramètre n'a changé**.
 4. Décidez, en équipe, si les éléments probants justifient une modification de Pb(A), de Pb(ψ,A) ou de θ pour S2. Rédigez la justification. Lancez ensuite Gouvernance → *Revue de qualité*.
@@ -537,7 +537,7 @@ L'évaluation publiée de 30 scénarios a établi ce qui suit : après traitemen
 2. Rédigez cinq énoncés de politique numérotés. Chacun nomme un acteur, utilise **doit** ou **ne doit pas** et énonce un résultat vérifiable. Placez les valeurs techniques (longueur des mots de passe, intervalles de revue) dans une *norme* nommée, et non dans la politique.
 3. Définissez un indicateur clé de performance (ICP) pour la politique, avec une cible, un responsable, une source de données et une fréquence.
 
-**Livrable :** la conception du test d'audit et les cinq énoncés de politique avec un ICP.
+**Livrable :** la conception du test d'audit et les cinq énoncés de politique avec un ICP. Si votre cours utilise le laboratoire 13, fondez la partie 2 sur ses registres.
 
 ## Vérifiez votre compréhension
 
@@ -547,6 +547,78 @@ L'évaluation publiée de 30 scénarios a établi ce qui suit : après traitemen
 12.2. Réécrivez sous forme d'énoncé vérifiable : « Des contrôles de sécurité appropriés devraient être utilisés pour l'accès à distance. »
 
 12.3. Où devrait-on inscrire « les mots de passe doivent comporter au moins 14 caractères », et pourquoi?
+
+# Laboratoire 13 — Posture des identités, des accès et de la configuration (parcours application de bureau)
+
+**Objectifs :** lire la posture d'une organisation en matière d'identités, d'accès et de configuration à partir de registres au niveau des populations; recalculer un indicateur à partir de son registre; transformer un constat en élément probant et en proposition de paramètre sans laisser l'outil décider; relier la posture à la politique de gestion des identités et des accès du travail A2.
+**Durée :** 90 minutes. **Prérequis :** l'application de bureau (1.9.1 ou plus récente) et une copie de l'espace de travail MediBec. Les parcours A et C font les étapes 2 et 7, ainsi que le recalcul de CRG-22 de l'étape 4, sur papier avec le tableau 13.1. **À lire d'abord :** chapitre 10 (gestion des identités et des accès privilégiés) et chapitre 14 (configurations de référence et dérives) du manuel.
+
+## Mise en contexte
+
+Deux modules facultatifs de l'application de bureau consignent la qualité de la gouvernance des identités, des accès privilégiés et des configurations : **Gestion des identités et des accès (GIA/GAP)** et **Gestion de la configuration**. Ce sont des registres stratégiques de posture, et non des outils d'administration :
+
+- ils contiennent des **décomptes par population** (un groupe de comptes, un niveau de privilèges, une campagne de revue, un périmètre de configuration), jamais un nom, un nom d'utilisateur, une adresse courriel ni un secret;
+- un **décompte vide est inconnu, et non nul** (« Laissez vide si inconnu — 0 signifie aucun »), et le demeure dans tous les calculs;
+- leurs indicateurs (CRG-17 à CRG-25) sont des **ICR mesurés**, assortis de seuils, et non des indices de risque;
+- un **constat** proposé par une règle ne donne qu'un sens (Pb(ψ,A) ↑ ou θ ↓). C'est vous qui saisissez la nouvelle valeur; l'application montre le ratio avant et après; **Accepter** est un acte distinct, consigné dans le fondement du scénario et dans le journal des révisions. Rien n'est jamais appliqué automatiquement.
+
+L'espace de travail MediBec contient un exemple fictif pour les deux modules, daté du 1er novembre 2026 : cinq populations de comptes, trois niveaux de privilèges, deux ensembles de comptes d'urgence, deux campagnes de revue des accès, deux règles de séparation des tâches, trois configurations de référence, trois périmètres de configuration, trois écarts et un trimestre de changements de configuration. Cinq constats sont déjà consignés (IF-01 à IF-05) et reliés comme éléments probants (E13 à E15). Aucune proposition n'a été acceptée : les totaux restent 84 305 / 41 023.
+
+## Tableau 13.1 — Décomptes de l'exemple MediBec (pour les parcours A et C)
+
+Groupes de rôles privilégiés : PR-01 administrateurs IdP, domaine et locataire infonuagique; PR-02 administrateurs DME, bases de données et serveurs; PR-03 administrateurs d'applications et soutien.
+
+| Groupe | Niveau | Titulaires | Permanents | JAT | AMF | Partagés | Dernière revue |
+|---|---|---|---|---|---|---|---|
+| PR-01 | 0 | 9 | 9 | 0 | 9 | 1 | 2026-03-10 |
+| PR-02 | 1 | 27 | 21 | 6 | 24 | 0 | 2025-10-02 |
+| PR-03 | 2 | 58 | 58 | 0 | 41 | 0 | (vide) |
+
+JAT : titulaires juste-à-temps. AMF : titulaires avec AMF. Partagés : comptes d'administration partagés.
+
+| Périmètre de configuration | Dans le périmètre | Avec une configuration de référence | Évalués | Conformes |
+|---|---|---|---|---|
+| CS-01 Serveurs Windows | 96 | 88 | 70 | 58 |
+| CS-02 Postes cliniques | 1 020 | 1 020 | 912 | 801 |
+| CS-03 Dispositifs médicaux connectés | 340 | 0 | (vide) | (vide) |
+
+## Étapes
+
+1. **[B]** Paramètres → Modules : activez **Gestion des identités et des accès (GIA/GAP)** et **Gestion de la configuration** (groupe Gouvernance). Deux nouveaux écrans apparaissent sous Gouvernance.
+2. **Lisez les indicateurs d'identité.** Gouvernance → Gestion des identités et des accès (GIA/GAP) → Vue d'ensemble. Recopiez les six tuiles d'indicateurs (valeur, numérateur et dénominateur, décomptes inconnus et périmés, statut). Recalculez ensuite vous-même **CRG-18 Couverture de l'AMF des accès privilégiés** et **CRG-19 Proportion de privilèges permanents** à partir de l'onglet Rôles privilégiés (ou du tableau 13.1). CRG-19 ne compte que les niveaux 0 et 1. Vos résultats doivent concorder avec les tuiles.
+3. **Regardez les lignes derrière les indicateurs.** Dans les onglets Comptes et Rôles privilégiés, trouvez une ligne dont le statut est *Inféré* et une ligne marquée **collecte périmée**. Pourquoi les populations de comptes de service et d'agents d'IA n'ont-elles aucun décompte d'AMF?
+4. **Lisez les indicateurs de configuration.** Gouvernance → Gestion de la configuration → Vue d'ensemble. Recopiez les trois tuiles et les données clés. Recalculez **CRG-22 Couverture d'affectation des configurations de référence** à partir des périmètres de configuration. Ouvrez ensuite *Écarts et exceptions* : pourquoi DV-02 est-il marqué *Expirée — non comptée*?
+5. **D'un constat à un élément probant.** Gouvernance → Gestion des identités et des accès (GIA/GAP) → *Constats et propositions*. Parmi les constats proposés, choisissez **IR-03 Privilège permanent de niveau 0** (ligne PR-01). **Consignez-le** (il devient IF-06), puis **Consigner comme preuve** : notez le numéro E qu'il reçoit (E16 dans une copie neuve de MediBec). **Lier un scénario** : reliez-le à S1 (compromission d'identifiants de comptes d'administrateurs cliniques).
+6. **D'un élément probant à une proposition.** Sur le constat consigné, **Proposer une modification de paramètre** pour la Pb(ψ,A) de S1 (actuellement 0,55). Saisissez la valeur que **vous** défendez, un niveau de confiance et une justification qui cite le constat et son numéro E (la boîte de dialogue préremplit la citation), puis lisez le ratio actuel et après, calculé par le moteur. Remarquez que le ratio ne bouge pas (0,93 → 0,93) : Pb(ψ,A) s'annule dans le ratio (laboratoire 6), tandis que les risques estimé et toléré augmentent tous deux. Un constat de posture change habituellement le rang d'un scénario, pas son verdict. **Enregistrer comme proposition.** **N'acceptez pas** la proposition dans l'espace de travail qui sert aux autres laboratoires : l'accepter modifie les totaux de MediBec, et les valeurs de référence des laboratoires 6 à 10 ne concorderaient plus.
+7. **De la posture à la politique (A2).** Rédigez trois besoins de politique de gestion des identités et des accès qu'appuient les registres (par exemple l'AMF pour chaque titulaire de privilèges, l'examen de chaque utilisation d'un compte d'urgence, un propriétaire pour chaque compte de service). Pour chacun, donnez l'indicateur qui en assurerait le suivi, avec une cible, un seuil d'alerte et un seuil critique, ainsi que le registre qui en est la source de données.
+8. Rédigez deux phrases pour la direction : ce que la posture des identités et de la configuration dit de S1 et de S6, et quels décomptes doivent être confirmés avant qu'on s'y fie.
+
+**Livrable :** le tableau des indicateurs avec vos deux valeurs recalculées; une capture d'écran de la proposition enregistrée avec sa justification; les trois besoins de politique avec leurs indicateurs; les deux phrases.
+
+## Vérifiez votre compréhension
+
+13.1. La population des comptes de service (AP-03) n'a aucun décompte d'AMF. Sa couverture d'AMF est-elle de 0 %?
+
+13.2. Le constat IR-02 affiche l'indication de sens « Pb(ψ,A) ↑ ». Pourquoi l'application ne calcule-t-elle pas elle-même la nouvelle valeur?
+
+13.3. DV-02 est un écart *compensé*, et pourtant il est compté dans CRG-24 Exceptions expirées. Pourquoi?
+
+# Cas d'exercice — CanaRetail (autonome, parcours application de bureau)
+
+**Objectifs :** refaire les laboratoires 4 à 7 sur une deuxième organisation et vous vérifier à l'aide d'une solution complète et publiée.
+**Durée :** 2 à 3 heures, seul. **Intrants :** l'étude de cas CanaRetail (`cases/CanaRetail_BusinessCase_v2-0c_Student.docx`) et l'espace de travail CanaRetail fourni.
+
+CanaRetail est un détaillant national fictif : 100 magasins et une plateforme de commerce électronique. L'application de bureau fournit son évaluation du module D en anglais et en français : dix scénarios (les neuf fournis par le cas et un scénario original, S10), leurs paramètres, leurs vecteurs CVSS, dix initiatives de traitement et un sommaire de gestion, à l'appétence de 0,5 que le cas énonce. Comme la solution est publique, CanaRetail sert à l'exercice, **jamais à un travail noté**.
+
+## Étapes
+
+1. **[B]** Organisation → Espaces de travail → Nouvel espace de travail, *Partir de* **Exemple pédagogique : CanaRetail — commerce de détail national** (anglais ou français). Dans Évaluation des risques → Registre des scénarios, lisez **seulement les noms et les énoncés** des dix scénarios et choisissez-en trois. N'ouvrez pas encore leurs paramètres.
+2. **Travaillez d'abord, regardez ensuite.** À partir du document du cas seulement, rédigez les six paramètres de chacun de vos trois scénarios avec leur justification (laboratoire 4) et son vecteur CVSS v4.0 (laboratoire 5). Ouvrez ensuite chacun d'eux dans l'éditeur de scénarios et comparez vos valeurs à celles de la solution. Pour chaque écart de plus de 0,15, rédigez une phrase : quelle preuve du cas appuie chaque valeur?
+3. **Vérifiez le moteur.** Calculateur de risque : pour S1, vous devriez lire un risque estimé de 4 453, un risque toléré de 2 783 et un risque résiduel de 2 572, soit un ratio de 0,92 — environ à la tolérance. Les totaux sont **27 526 (estimé)** et **16 049 (résiduel)**.
+4. **Lisez le portefeuille** (laboratoires 6 et 7). Après traitement, 2 scénarios sont au-dessus de la tolérance (S2, S9), 3 environ à la tolérance (S1, S6, S10) et 5 au-dessous. Pourquoi le traitement de S10 (I02, I03, I06, I08) le laisse-t-il environ à la tolérance plutôt qu'au-dessous?
+5. **Lien avec les identités.** Si votre enseignant utilise le laboratoire 13, ouvrez Gouvernance → Gestion des identités et des accès (GIA/GAP) → *Constats et propositions* dans l'espace de travail CanaRetail : un constat (comptes de service sans propriétaire) porte une proposition **en attente** sur S10 (Pb(ψ,A) 0,40 → 0,45). Décidez si vous l'accepteriez, et pourquoi. Ne l'acceptez pas si vous voulez que les totaux ci-dessus demeurent valides.
+
+**Livrable :** aucun à remettre; conservez vos notes de comparaison pour le travail A1.
 
 # Annexe A — Aide-mémoire des formules
 
@@ -651,6 +723,8 @@ Ligne directrice budgétaire (CRG) : dépenses en cybersécurité de **12 %** d
 
 **Laboratoire 12.** 12.1 Cela vérifie l'existence, et non le fonctionnement. L'efficacité opérationnelle exige des éléments probants démontrant que les revues ont été effectuées sur une période, sur un échantillon, et que les exceptions ont été résolues. 12.2 Exemple : « Les propriétaires de systèmes doivent imposer l'authentification multifacteur pour tout accès à distance aux systèmes qui traitent des renseignements sur les patients, conformément à la norme d'authentification. » 12.3 Dans la norme d'authentification (ou norme sur les mots de passe), parce que les valeurs techniques changent plus vite que la politique et doivent pouvoir être mises à jour sans qu'il faille approuver de nouveau la politique.
 
+**Laboratoire 13.** 13.1 Non. Les décomptes d'AMF ne s'appliquent qu'aux personnes et aux comptes d'urgence; une identité de service ou d'agent d'IA n'a pas d'AMF, et la cellule reste vide. Une cellule vide est inconnue ou sans objet, jamais 0 %. La faiblesse des comptes de service apparaît ailleurs : 11 sur 74 n'ont pas de propriétaire (constat IR-01). 13.2 Une règle sait seulement qu'un registre révèle une faiblesse; elle ne peut pas savoir dans quelle mesure cette faiblesse modifie l'exploitation pour un scénario donné. La valeur est l'estimation de l'analyste (**Estimation analytique — validation requise**), argumentée à partir des preuves, et son acceptation est un acte distinct, consigné : aucun nombre ne change sans qu'une personne le décide. 13.3 Son exception EXC-90 a expiré le 30 septembre 2026. Une exception expirée ne compense rien : l'écart est marqué *Expirée — non comptée* et compte dans CRG-24 jusqu'à ce que l'exception soit renouvelée ou l'écart corrigé. *Valeurs de référence (1er novembre 2026) : CRG-17 98,27 % (1 479 / 1 505), CRG-18 78,72 % (74 / 94), CRG-19 83,33 % (30 / 36), CRG-20 85,06 %, CRG-21 0 %, CRG-23 80,6 %; CRG-22 76,1 % (1 108 / 1 456), CRG-24 1, CRG-25 86,67 %.*
+
 # Annexe E — Glossaire
 
 **Appétence pour le risque** — le niveau de risque de cybersécurité que la direction est disposée à rechercher ou à conserver, sur une échelle de 0 à 1.
@@ -664,5 +738,10 @@ Ligne directrice budgétaire (CRG) : dépenses en cybersécurité de **12 %** d
 **Résilience organisationnelle (θ)** — la capacité démontrée de prévenir, détecter, contenir, intervenir, rétablir et maintenir les opérations critiques.
 **Risque toléré** — l'appétence appliquée à un scénario de risque précis au moyen de la formule CRG.
 **Contrôle partagé** — une initiative unique qui réduit plusieurs scénarios de risque; son coût est compté une seule fois dans le portefeuille.
+**Compte d'urgence** — un compte réservé aux situations où l'accès normal fait défaut; chaque utilisation doit être examinée.
+**Configuration de référence** — une configuration minimale sécuritaire, approuvée et versionnée, pour une plateforme; s'en écarter est un **écart**.
+**Constat (identités, configuration)** — une faiblesse qu'une règle détecte dans un registre; il donne un sens à Pb(ψ,A) ou à θ, jamais une valeur.
+**Privilège permanent** — un accès privilégié détenu en permanence, par opposition à un accès accordé juste-à-temps.
+**Registre au niveau des populations** — un registre qui contient des décomptes par groupe (comptes, niveaux, périmètres), jamais de noms ni d'identifiants.
 
 *© 2026 Marc-André Léger. Sous licence CC BY-NC 4.0. MediBec est une organisation fictive. Toutes les valeurs des paramètres sont des estimations analytiques fournies à titre illustratif à des fins pédagogiques.*
