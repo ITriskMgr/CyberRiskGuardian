@@ -1,6 +1,6 @@
 ---
 title: "CyberRiskGuardian Student Lab Workbook"
-subtitle: "Thirteen labs on the MediBec teaching case — Education Package 2.1.1"
+subtitle: "Thirteen labs on the MediBec teaching case — Education Package 2.1.2"
 author: "Marc-André Léger, PhD"
 date: "November 2026"
 ---
@@ -12,7 +12,7 @@ These labs teach you to run a scenario-driven cybersecurity risk assessment with
 Each lab gives you its objectives, the time it takes, what you need, the steps, the deliverable and three questions to check your understanding. Answers to those questions are in Appendix D. Work in the tool track your instructor chose:
 
 - **Track A — Claude**: the CyberRiskGuardian plugin or project in Claude.
-- **Track B — Desktop**: the CyberRiskGuardian desktop application (1.9.1 or later) in your browser.
+- **Track B — Desktop**: the CyberRiskGuardian desktop application (1.9.2 or later) in your browser.
 - **Track C — Excel**: the CyberRiskGuardian workbook (Analyse, S1–S10, M1–M10 sheets).
 
 Where a step differs by track, it is marked **[A]**, **[B]** or **[C]**. After Lab 7 you can practise on a second case, CanaRetail, with its published solution (see *Practice case — CanaRetail*).
@@ -37,7 +37,7 @@ Where a step differs by track, it is marked **[A]**, **[B]** or **[C]**. After L
    - **[B]** Follow the **First-time installation** guide of the release (a PDF on the release page, and `FIRST-INSTALL.md` in the ZIP). In short: unzip the desktop application, then double-click `start.command` (macOS, Linux) or `start.bat` (Windows). Leave the terminal window open. The application opens at `http://localhost:8099`. Always use this same address, in one window only: your work is stored by your browser for that exact address. On the Process page, the card *Set up the application for your practice* offers **Answer the set-up questions**: one question about your experience sets the level of detail (answer *New to it — show me why each screen matters*, which gives **Detailed**), and the module questions can keep their defaults (your instructor will tell you if a lab needs a module). You can also skip it and change the level later in Settings → Language & detail. The **First-time setup** guide explains each screen of a first assessment.
    - **[C]** Open the blank model `templates/CyberRiskGuardian_Excel_Model_Blank_v2-6.xlsx` (or the copy your instructor gave you); save a copy under your team's name. It opens in manual calculation mode: press **F9** (Formulas → Calculate Now) before reading any number.
 2. Verify the engine.
-   - **[A]** Run `python3 crg_calc.py medibec30.json` from the plugin's `crg-quantify/scripts` folder against the MediBec example. It must print **total estimated 84,305** and **residual 41,023**.
+   - **[A]** From the plugin's `crg-quantify/scripts` folder, run `python3 crg_calc.py ../../../evals/_shared/medibec30.json` (the MediBec example lives in the plugin's `evals/_shared` folder, not beside the script; in a clone of the repository, `examples/medibec/source/medibec30.json` is the same file). It must print **total estimated 84,305** and **residual 41,023**.
    - **[B]** The pinned footer of the side menu must read **✓ Engine verified**. Point at it (or open Help → About & versions) to see the totals **84,305 / 41,023**.
    - **[C]** Enter the textbook's chapter 6 worked example in sheet S1 and row 3 of the Analyse sheet: Pb(A) 0.70, Pb(ψ,A) 0.60, δe 0.60, δm 0.80, θ 0.50, μ(E) 0.65, CVSS 9.3 in G3 with the vector `CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:P/VC:H/VI:H/VA:H/SC:H/SI:H/SA:H` in H3, appetite 0.35 in E14; on M1, an "Other" row with cost 62,000, impact reduction 0.70 and Pb reduction 0.65 included. After Calculate Now you must read estimated risk 3,554.46, tolerated 1,777.23, residual 1,937.18 and a ratio of 1.09. Then clear the inputs (or start again from the blank model).
 3. **[B]** Open the MediBec workspace, then Start → **Process**. Read the nineteen steps of a complete assessment. The **next-step card** at the top always names the next step, its checklist and the screen that does it. On any screen, the top-bar **Help** opens *Help on this screen*, with a *Read more: Chapter …* link to the textbook passage behind it.
@@ -87,7 +87,7 @@ A risk assessment starts from the business, not from a list of threats. You need
 4. Identify **five or six crown jewels**: the assets or services whose loss would most harm the mission. For each, give a business owner, the importance of confidentiality, integrity and availability (High / Very high), and its main dependencies.
 5. List at least three **information gaps** (facts you would need but the case does not give) and two **assumptions** you are making, each with its marker.
    - **[A]** Ask the assistant to run the context intake on the case document. Compare its crown jewels with yours; keep only what the case supports.
-   - **[B]** Organization → Workspaces → *New workspace*, *Start from* *Blank assessment*, type *Classroom business case*; drop the case document, tick *Extract the profile & appetite from these documents after creation* and *Then extract the crown jewels*, choose **Rules only (no AI, offline)** and click *Create workspace*. Review every proposed value and its tag (FACT, INFERENCE, ASSUMPTION, EXTERNAL, UNKNOWN). Resolve the UNKNOWN values you can from the case.
+   - **[B]** Organization → Workspaces → *New workspace*, *Start from* *Blank assessment*, type *Classroom business case*; drop the case document, tick *Extract the profile & appetite from these documents after creation* and *Then extract the crown jewels*, choose **Rules only (no AI, offline)** and click *Create workspace*. Review every proposed value and its tag (FACT, INFERENCE, ASSUMPTION, EXTERNAL, UNKNOWN). Resolve the UNKNOWN values you can from the case. *Known issue, fixed in Desktop 1.9.2:* on 1.9.1 the rules-only extraction wrote `[object Object]` into Name, Size, Region and Context, tagged INFERENCE and ticked; if you still see it, untick those four values and type them from the case.
 
 **Deliverable:** the context table, one dependency chain, the crown-jewel list and the gaps-and-assumptions list (two pages maximum).
 
@@ -412,7 +412,7 @@ The verdict changes across the range: S1 is a scenario where **better evidence i
 
 1. Build the lower, central and higher cases for your scenario.
 2. Does the verdict change? If it is "above" even in the lower case, the scenario needs transfer or formal acceptance, not just more spending.
-3. Identify the single parameter whose change moves the result most. **[B]** Tools → Forecasts → *Drivers* (tornado chart); *Monte Carlo* turns your confidence levels into ranges.
+3. Identify the single parameter whose change moves the result most. **[B]** Tools → Forecasts: run the Monte Carlo trials (they turn your confidence levels into ranges), then, in the *By scenario* table, click the *Drivers* button on your scenario's row to open its tornado chart. *Drivers* is a button on each row, not a screen of its own.
 4. Write two sentences for management: what you are confident about, and what evidence would change the recommendation.
 
 **Deliverable:** the three-case table and the two-sentence statement.
@@ -536,7 +536,9 @@ The published 30-scenario assessment found: after treatment, 12 scenarios above 
 2. Write five numbered policy statements. Each names an actor, uses **must** or **must not**, and states an outcome that can be tested. Put technical values (password length, review intervals) in a named *standard*, not in the policy.
 3. Define one KPI for the policy with target, owner, data source and frequency.
 
-**Deliverable:** the audit test design and the five policy statements with one KPI. If your course uses Lab 13, base Part 2 on its registers.
+4. **[B] Optional — draft the policy with the Security Policy Writer, then judge it.** Governance → Security Policy Writer (switch the module on in Settings → Modules if the screen says it is off; the launcher must be running). On *Start*, set the **Language of the documents** and choose the *Express* interview; click **Propose answers from the profile and the documents**, then complete the *Interview* from the case only — answer **Unknown** or **Decide later** when the case does not say, never guess. On *Documents & facts*, confirm only the facts whose quote you can find in the case; leave conflicts open. On *Legal applicability*, record a **Decision** for P-39.1 and R-22.1 with your name as **Reviewer** and a one-line **Rationale** taken from the case (this is a classroom exercise, not legal advice). On *Library*, tick only the topic-specific *Identity and Access Management Policy* and **Save the selection**; on *Decisions*, answer the open decisions for that document yourself rather than clicking **Accept all suggestions**. Click **Generate the drafts** and open the draft in ISP management. Then compare it with your five statements of step 2: for each of your statements, say whether the draft has an equivalent, is more or less testable, and where it put the technical values. Count the `[DECISION: …]` placeholders and explain, in two or three sentences, why the Writer did not invent them — and what that says about the information gaps of the case. Export the draft to Word (**Word (.docx)**) and attach it, marked *draft, generated, reviewed by [your name]*; it does not replace step 2.
+
+**Deliverable:** the audit test design and the five policy statements with one KPI; with the optional step 4, the Writer's draft and your comparison (half a page). If your course uses Lab 13, base Part 2 on its registers.
 
 ## Check your understanding
 
@@ -550,7 +552,7 @@ The published 30-scenario assessment found: after treatment, 12 scenarios above 
 # Lab 13 — Identity, access and configuration posture (desktop track)
 
 **Objectives:** read an organization's identity, access and configuration posture from population-level registers; recompute an indicator from its register; turn a finding into evidence and a parameter proposal without letting the tool decide; connect the posture to the IAM policy of assignment A2.
-**Time:** 90 minutes. **Requires:** the desktop application (1.9.1 or later) and a copy of the MediBec workspace. Tracks A and C do steps 2 and 7, and the CRG-22 recomputation of step 4, on paper with Table 13.1. **Read first:** textbook Chapter 10 (IAM and PAM) and Chapter 14 (baselines and drift).
+**Time:** 90 minutes. **Requires:** the desktop application (1.9.2 or later) and a copy of the MediBec workspace. Tracks A and C do steps 2 and 7, and the CRG-22 recomputation of step 4, on paper with Table 13.1. **Read first:** textbook Chapter 10 (IAM and PAM) and Chapter 14 (baselines and drift).
 
 ## Background
 

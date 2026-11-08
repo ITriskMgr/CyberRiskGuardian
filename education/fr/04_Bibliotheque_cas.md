@@ -1,6 +1,6 @@
 ---
 title: "Bibliothèque de cas CyberRiskGuardian"
-subtitle: "Cinq études de cas fictives pour l'enseignement — Ensemble pédagogique 2.1.1"
+subtitle: "Cinq études de cas fictives pour l'enseignement — Ensemble pédagogique 2.1.2"
 author: "Marc-André Léger, Ph. D."
 date: "novembre 2026"
 ---

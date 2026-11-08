@@ -1,6 +1,6 @@
 ---
 title: "Trousse d'évaluation CyberRiskGuardian"
-subtitle: "Énoncés de travaux, grilles d'évaluation et autovérifications — Ensemble pédagogique 2.1.1"
+subtitle: "Énoncés de travaux, grilles d'évaluation et autovérifications — Ensemble pédagogique 2.1.2"
 author: "Marc-André Léger, Ph. D."
 date: "novembre 2026"
 toc-title: "Table des matières"
@@ -124,7 +124,7 @@ Les annexes sont permises et ne comptent pas dans les limites de pages.
 - [ ] L'appétence pour le risque est énoncée et justifiée par rapport à la tolérance du cas ; le risque résiduel est comparé au risque toléré.
 - [ ] Chaque mesure est reliée à un scénario et à une étape de sa chaîne, chiffrée sur un seul horizon et justifiée ; les mesures partagées ne sont comptées qu'une fois.
 - [ ] Le mémorandum tient sur une page et commence par la décision ; la recommandation fait deux pages.
-- [ ] Les trois mentions (**Estimation analytique — validation requise**, **Lacune d'information — validation organisationnelle requise**, **Décision de la direction requise**) apparaissent aux endroits appropriés ; la page titre, les citations et la déclaration sur l'IA sont complètes.
+- [ ] Les trois mentions (**Estimation analytique — validation requise**, **Lacune d’information — validation organisationnelle requise**, **Décision de la direction requise**) apparaissent aux endroits appropriés ; la page titre, les citations et la déclaration sur l'IA sont complètes.
 
 ## Conseils
 

@@ -1,4 +1,4 @@
-# CyberRiskGuardian Education Package 2.1.1
+# CyberRiskGuardian Education Package 2.1.2
 
 *Version française : `LISEZMOI.md`*
 
@@ -12,7 +12,7 @@ Teaching materials for instructors and students who use CyberRiskGuardian in a c
 | `02_Student_Lab_Workbook` | Students | Thirteen step-by-step labs on the MediBec teaching case, a self-study practice case (CanaRetail), formula sheet, templates, self-check answers, glossary |
 | `03_Assessment_Kit` | Students and instructors | 0–10 grading scale, briefs and rubrics for the risk assessment (A1), IAM policy (A2) and audit plan (A3), four shorter formats, self-checks, peer-review form, AI acknowledgement |
 | `04_Case_Library` | Students and instructors | Five fictional business cases and how to choose one; the student versions of the cases are in `cases/` |
-| `slides/CRG_Intro_Deck` | Instructors | An introductory class on the CRG method, with screenshots of the desktop application 1.9.1 (PowerPoint) |
+| `slides/CRG_Intro_Deck` | Instructors | An introductory class on the CRG method, with screenshots of the desktop application 1.9.1 (PowerPoint; the 1.9.2 screens differ in wording only) |
 | `templates/CyberRiskGuardian_Excel_Model_Blank_v2-6.xlsx` | Students and instructors | The blank CyberRiskGuardian Excel model (Analyse, S1–S10, M1–M10) used for the risk-assessment assignment — free. Validated inputs, CVSS score and vector, product rule for combined reductions, budget calibration with current spending, transfer record; follows the 8-step procedure of the textbook's chapter 6 |
 | Chapter slide decks (release assets) | Instructors | 21 PowerPoint decks for the textbook *Introduction to Cybersecurity Governance* (3rd ed., v2.51), one per chapter, English — free; see below |
 
@@ -25,6 +25,17 @@ education/
 ├── templates/     The blank CyberRiskGuardian Excel model (.xlsx)
 └── cases/         Student versions of the five cases, v2.0c (.docx)
 ```
+
+## What's new in 2.1.2 (November 2026)
+
+For **CyberRiskGuardian Desktop 1.9.2**, from the test campaign of 8 November 2026. Content changes only; no formula or case value changed.
+
+- **Lab 12, optional step [B]**: draft the IAM policy with the desktop application's **Security Policy Writer** from the case only, then compare the generated draft with your own statements and explain its `[DECISION: …]` placeholders (EN and FR).
+- **Instructor guide**: the troubleshooting table marks the duplicate-MediBec issue *fixed in Desktop 1.9.2* and adds a *Fixed in Desktop 1.9.2* table (rules-only extraction `[object Object]` in Lab 1, promotion from screening in Lab 3, CVSS score vs vector in Lab 5, QC-02 and approvers in Labs 10–11, two windows, duplicate workspaces) for classes still on 1.9.1.
+- **Lab 0** gives the right path to `medibec30.json` for the Claude track; **Lab 8** says where the *Drivers* button is (on each Monte Carlo row).
+- **French documents**: the terminology of Desktop 1.9.2 — « ratio risque résiduel / risque toléré », « probabilité », « éléments probants » — and typographic apostrophes in interface labels.
+- **Blank Excel model**: a bilingual CIS Controls v8.1 notice on the M1–M10 sheets and the Analyse sheet (identifiers and titles only, CC BY-NC-ND 4.0); formulas unchanged.
+- `scripts/build_education.py`: configurable LibreOffice port and documented dependencies.
 
 ## What's new in 2.1.1 (November 2026)
 
@@ -92,10 +103,10 @@ Licence enquiries: sales@cyberriskguardian.ca · cyberriskguardian.ca
 4. Use MediBec for the labs and CanaRetail for self-study practice; assign Chez Pierre, ACRB or CNIC for graded work.
 5. Claude track (Core plugin 2.2.0): `/crg-quick-scan` gives at least twenty candidates, ten scenarios and their pre-treatment verdicts in one table; `/label-check <file>` checks a deliverable for the three markers — **Analytical estimate — validation required**, **Information gap — organizational validation required**, **Management decision required** — and reports retired wording.
 
-Maintainers: the .docx and .pdf files are generated from the Markdown sources with `python3 scripts/build_education.py`.
+Maintainers: the .docx and .pdf files are generated from the Markdown sources with `python3 scripts/build_education.py` (needs pandoc, python-docx and LibreOffice with its Python UNO bridge; `--port` or `CRG_LO_PORT` fixes the LibreOffice port, otherwise a free one is used; see the script's docstring). The CIS notice of the blank Excel model is written by `scripts/add_cis_notice.py` (Core).
 
 ## Licence
 
 © 2026 Marc-André Léger. Licensed under Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0). The cases are fictional; any resemblance to real organizations is coincidental. CyberRiskGuardian is decision support: its estimates are initial analytical hypotheses, and risk decisions remain with management.
 
-Attribution: *"CyberRiskGuardian Education Package 2.1.1, © 2026 Marc-André Léger, CC BY-NC 4.0."*
+Attribution: *"CyberRiskGuardian Education Package 2.1.2, © 2026 Marc-André Léger, CC BY-NC 4.0."*
