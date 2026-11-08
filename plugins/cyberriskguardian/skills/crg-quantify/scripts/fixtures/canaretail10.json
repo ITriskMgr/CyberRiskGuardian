@@ -1,0 +1,297 @@
+{
+ "APPETITE": 0.5,
+ "FACTOR": 1000,
+ "SOURCE": "CanaRetail practice case (fictional teaching case, Module D solution of CyberRiskGuardian Desktop) - cross-engine regression fixture: total estimated 27,526 / residual 16,049 at appetite 0.50",
+ "SCEN": [
+  {
+   "id": "S1",
+   "ref": "CR-S2",
+   "name": "Ransomware encrypting central servers, SAP and store back-end systems, with data theft",
+   "params": {
+    "PbA": {
+     "v": 0.7
+    },
+    "Pbx": {
+     "v": 0.45
+    },
+    "De": {
+     "v": 0.65
+    },
+    "Dm": {
+     "v": 0.95
+    },
+    "Th": {
+     "v": 0.5
+    },
+    "Mu": {
+     "v": 0.95
+    }
+   },
+   "cvss": "CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:P/VC:H/VI:H/VA:H/SC:H/SI:H/SA:H",
+   "cvss_note": "Representative weakness: malicious document leading to code execution (initial vector). AV:L: delivered by e-mail but opened locally (FIRST CVSS v4.0 user guide); AC:L; AT:N; PR:N; UI:P the user opens the document; VC/VI/VA:H on the workstation; SC/SI/SA:H because SAP and the data centre are subsequently affected. CVSS describes the entry weakness only, not the enterprise impact.",
+   "red_p": 0.65,
+   "red_i": 0.65
+  },
+  {
+   "id": "S2",
+   "ref": "CR-S3",
+   "name": "Malicious IT insider exfiltrates customer, supplier and proprietary data",
+   "params": {
+    "PbA": {
+     "v": 0.45
+    },
+    "Pbx": {
+     "v": 0.4
+    },
+    "De": {
+     "v": 0.6
+    },
+    "Dm": {
+     "v": 0.9
+    },
+    "Th": {
+     "v": 0.5
+    },
+    "Mu": {
+     "v": 0.75
+    }
+   },
+   "cvss": "CVSS:4.0/AV:N/AC:L/AT:N/PR:H/UI:N/VC:H/VI:L/VA:N/SC:H/SI:N/SA:N",
+   "cvss_note": "Scored by equivalency (people and process weakness: standing privileges without monitoring). AV:N remote access to the systems; AC:L; AT:N; PR:H administrator rights needed; UI:N; VC:H on SAP data; VI:L possible track covering; VA:N; SC:H customer and supplier data downstream; SI:N; SA:N. Limited applicability.",
+   "red_p": 0.5,
+   "red_i": 0.45
+  },
+  {
+   "id": "S3",
+   "ref": "CR-S5",
+   "name": "POS memory-scraping malware steals card data across stores",
+   "params": {
+    "PbA": {
+     "v": 0.65
+    },
+    "Pbx": {
+     "v": 0.45
+    },
+    "De": {
+     "v": 0.7
+    },
+    "Dm": {
+     "v": 0.95
+    },
+    "Th": {
+     "v": 0.45
+    },
+    "Mu": {
+     "v": 0.95
+    }
+   },
+   "cvss": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:H/VI:H/VA:L/SC:H/SI:L/SA:N",
+   "cvss_note": "Representative weakness: remote-support access to POS through a shared account without MFA (CWE-1390 weak authentication). AV:N; AC:L; AT:P the vendor credential must be obtained first; PR:N; UI:N; VC/VI:H on the terminal; VA:L; SC:H card data of customers downstream; SI:L; SA:N.",
+   "red_p": 0.75,
+   "red_i": 0.7
+  },
+  {
+   "id": "S4",
+   "ref": "CR-S6",
+   "name": "Exploitation of an unpatched internet-facing VPN appliance",
+   "params": {
+    "PbA": {
+     "v": 0.75
+    },
+    "Pbx": {
+     "v": 0.45
+    },
+    "De": {
+     "v": 0.6
+    },
+    "Dm": {
+     "v": 0.9
+    },
+    "Th": {
+     "v": 0.5
+    },
+    "Mu": {
+     "v": 0.85
+    }
+   },
+   "cvss": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:H/SI:H/SA:H",
+   "cvss_note": "Representative weakness: unauthenticated remote code execution in a VPN appliance (CWE-787 class). AV:N; AC:L; AT:N; PR:N; UI:N; VC/VI/VA:H on the appliance; SC/SI/SA:H on the internal network behind it. Exploitation evidence (KEV, EPSS) goes to Pb(ψ,A), not to CVSS.",
+   "red_p": 0.75,
+   "red_i": 0.6
+  },
+  {
+   "id": "S5",
+   "ref": "CR-S10",
+   "name": "Unsecured cloud storage bucket exposes customer information",
+   "params": {
+    "PbA": {
+     "v": 0.55
+    },
+    "Pbx": {
+     "v": 0.4
+    },
+    "De": {
+     "v": 0.55
+    },
+    "Dm": {
+     "v": 0.85
+    },
+    "Th": {
+     "v": 0.55
+    },
+    "Mu": {
+     "v": 0.7
+    }
+   },
+   "cvss": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:N/VA:N/SC:N/SI:N/SA:N",
+   "cvss_note": "Representative weakness: publicly readable storage (CWE-732 incorrect permission assignment). AV:N; AC:L; AT:N; PR:N; UI:N; VC:H; no integrity or availability effect; no subsequent-system effect.",
+   "red_p": 0.8,
+   "red_i": 0.6
+  },
+  {
+   "id": "S6",
+   "ref": "CR-S13a",
+   "name": "Weak encryption and key management allow decryption of stored customer data",
+   "params": {
+    "PbA": {
+     "v": 0.4
+    },
+    "Pbx": {
+     "v": 0.35
+    },
+    "De": {
+     "v": 0.55
+    },
+    "Dm": {
+     "v": 0.9
+    },
+    "Th": {
+     "v": 0.55
+    },
+    "Mu": {
+     "v": 0.8
+    }
+   },
+   "cvss": "CVSS:4.0/AV:N/AC:H/AT:P/PR:L/UI:N/VC:H/VI:N/VA:N/SC:N/SI:N/SA:N",
+   "cvss_note": "Representative weakness: broken or risky cryptographic algorithm with keys stored alongside the data (CWE-327, CWE-321). AV:N; AC:H the attacker must defeat the encryption; AT:P a data copy must first be obtained; PR:L; UI:N; VC:H; no integrity, availability or subsequent effect scored.",
+   "red_p": 0.7,
+   "red_i": 0.5
+  },
+  {
+   "id": "S7",
+   "ref": "CR-S13b",
+   "name": "SQL injection on the e-commerce website exposes back-end customer data",
+   "params": {
+    "PbA": {
+     "v": 0.7
+    },
+    "Pbx": {
+     "v": 0.35
+    },
+    "De": {
+     "v": 0.6
+    },
+    "Dm": {
+     "v": 0.9
+    },
+    "Th": {
+     "v": 0.55
+    },
+    "Mu": {
+     "v": 0.95
+    }
+   },
+   "cvss": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:L/SC:N/SI:N/SA:N",
+   "cvss_note": "Representative weakness: SQL injection (CWE-89). AV:N; AC:L; AT:N; PR:N; UI:N; VC:H and VI:H on the database; VA:L; no subsequent-system effect scored (the skimmer harms customers’ data handled by the same system).",
+   "red_p": 0.8,
+   "red_i": 0.55
+  },
+  {
+   "id": "S8",
+   "ref": "CR-S20",
+   "name": "Firewall misconfiguration exposes internal management services to the internet",
+   "params": {
+    "PbA": {
+     "v": 0.65
+    },
+    "Pbx": {
+     "v": 0.4
+    },
+    "De": {
+     "v": 0.55
+    },
+    "Dm": {
+     "v": 0.85
+    },
+    "Th": {
+     "v": 0.5
+    },
+    "Mu": {
+     "v": 0.85
+    }
+   },
+   "cvss": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:L/SI:L/SA:L",
+   "cvss_note": "Representative weakness: management service exposed to the internet with weak authentication (CWE-284, CWE-307). AV:N; AC:L; AT:N; PR:N; UI:N; VC/VI/VA:H on the server; SC/SI/SA:L on connected systems.",
+   "red_p": 0.75,
+   "red_i": 0.55
+  },
+  {
+   "id": "S9",
+   "ref": "CR-S26",
+   "name": "DNS hijacking redirects customers to malicious look-alike sites",
+   "params": {
+    "PbA": {
+     "v": 0.45
+    },
+    "Pbx": {
+     "v": 0.35
+    },
+    "De": {
+     "v": 0.55
+    },
+    "Dm": {
+     "v": 0.9
+    },
+    "Th": {
+     "v": 0.45
+    },
+    "Mu": {
+     "v": 0.9
+    }
+   },
+   "cvss": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:A/VC:L/VI:H/VA:H/SC:H/SI:H/SA:L",
+   "cvss_note": "Scored by equivalency (third-party and configuration weakness: registrar account without MFA or lock). AV:N; AC:L; AT:P a credential must be phished; PR:N; UI:A the account holder must act on the lure; VC:L; VI/VA:H on the DNS zone; SC/SI:H customers’ data and the site they see; SA:L. Limited applicability.",
+   "red_p": 0.6,
+   "red_i": 0.3
+  },
+  {
+   "id": "S10",
+   "ref": "Original (screening C30)",
+   "name": "Over-privileged integration service account abused for bulk extraction of loyalty and order data",
+   "params": {
+    "PbA": {
+     "v": 0.55
+    },
+    "Pbx": {
+     "v": 0.4
+    },
+    "De": {
+     "v": 0.6
+    },
+    "Dm": {
+     "v": 0.9
+    },
+    "Th": {
+     "v": 0.45
+    },
+    "Mu": {
+     "v": 0.85
+    }
+   },
+   "cvss": "CVSS:4.0/AV:N/AC:L/AT:P/PR:L/UI:N/VC:H/VI:L/VA:N/SC:H/SI:L/SA:N",
+   "cvss_note": "Scored by equivalency (configuration and governance weakness of a machine identity). AV:N; AC:L; AT:P the secret must first be stolen; PR:L the service account’s own rights; UI:N; VC:H; VI:L; VA:N; SC:H customer data downstream; SI:L; SA:N. Limited applicability.",
+   "red_p": 0.7,
+   "red_i": 0.55
+  }
+ ]
+}

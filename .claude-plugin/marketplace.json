@@ -2,18 +2,19 @@
   "name": "cyberriskguardian-marketplace",
   "owner": {
     "name": "Marc-André Léger",
-    "url": "https://www.leger.ca"
+    "url": "https://cyberriskguardian.ca",
+    "email": "sales@cyberriskguardian.ca"
   },
   "metadata": {
     "description": "CyberRiskGuardian Community Edition: free plugins for scenario-driven cybersecurity risk assessment and the cybersecurity governance textbook.",
-    "version": "2.2.0"
+    "version": "2.2.1"
   },
   "plugins": [
     {
       "name": "cyberriskguardian",
       "source": "./plugins/cyberriskguardian",
       "description": "CyberRiskGuardian Core (Community Edition, free) - scenario-driven cybersecurity risk assessment, steps 1-11 of the 19-step CRG method: context and evidence intake, risk appetite, scenario generation (at least twenty candidates, typically 25-40), screening and selection, validated CRG quantification with CVSS v4.0, a quick scan and a management summary, with the label check for the three standard markers (book v2.51b).",
-      "version": "2.2.0",
+      "version": "2.2.1",
       "category": "security",
       "keywords": [
         "cybersecurity",

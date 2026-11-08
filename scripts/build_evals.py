@@ -71,6 +71,22 @@ CORE = {
    dict(name="severity", type="regex", pattern=r"High|[ÉE]lev[ée]", flags="i"),
    dict(name="tool", type="tool_used", tool="Bash", input_match="crg_calc|cvss"),
   ]),
+ "quantify-cvss-base-only": dict(
+  tags=["smoke", "regression", "quantify", "x-1"], runs=2, max_turns=10, tools=["Bash", "Read", "Skill"],
+  prompt="Score this CVSS v4.0 vector with the CyberRiskGuardian calculator and compute the estimated risk for Pb(A) 0.70, Pb(ψ,A) 0.60, δe 0.60, δm 0.80, θ 0.50, μ(E) 0.65, appetite 0.35: CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:P/VC:H/VI:H/VA:H/SC:H/SI:H/SA:H/E:U",
+  graders=[
+   dict(name="calculator-used", type="tool_used", tool="Bash", input_match="crg_calc|cvss"),
+   dict(name="routed", type="regex", pattern=r"Pb\s*\(\s*[ψψ]|Pb\(psi", flags="i"),
+   dict(name="not-8.1-as-base", type="llm", criteria="The reply refuses the Threat metric E:U: it explains that CyberRiskGuardian scores the CVSS v4.0 Base metrics only (CVSS-B, 9.3 for this vector without /E:U), that exploitation evidence (KEV, EPSS, proof of concept) belongs in Pb(ψ,A) instead, and it does not present 8.1 (the CVSS-BT value) as the base score or an estimated risk of 3,095.82 computed from it. If it computes the risk at all, it does so with the Base vector (Re 3,554.46) and says so."),
+  ]),
+ "quantify-zero-tolerance": dict(
+  tags=["regression", "quantify", "x-2"], runs=2, max_turns=10, tools=["Bash", "Read", "Skill"],
+  prompt="Run the CyberRiskGuardian calculator on this scenario and give me its tolerance verdict: Pb(A) 0, Pb(ψ,A) 0.60, δe 0.60, δm 0.80, θ 0.50, μ(E) 0.65, appetite 0.35, no treatment, CVSS vector CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:P/VC:H/VI:H/VA:H/SC:H/SI:H/SA:H.",
+  graders=[
+   dict(name="calculator-used", type="tool_used", tool="Bash", input_match="crg_calc"),
+   dict(name="not-applicable", type="regex", pattern=r"[Nn]ot applicable|[Nn]on applicable|tolerated risk (?:is )?0|risque tol[ée]r[ée] (?:est )?(?:de )?0"),
+   dict(name="no-above", type="llm", criteria="The reply does not classify the scenario as above tolerance. It reports estimated and tolerated risk of 0, says the risk-to-tolerance ratio is not applicable because tolerated risk is 0, and asks the analyst to confirm that Pb(A) = 0 is deliberate (the threat is not expected in the period) rather than a placeholder, marking it Analytical estimate — validation required or Information gap — organizational validation required."),
+  ]),
  "quantify-medibec30-regression": dict(
   tags=["regression", "quantify"], runs=1, fixtures=["medibec30.json"], max_turns=10, tools=["Bash", "Read", "Glob", "Skill"],
   prompt=FIND.format(f="medibec30.json") + " It is a CyberRiskGuardian data model for the 30-scenario MediBec assessment. Run the CyberRiskGuardian calculator on it and report the total estimated risk, the total residual risk and the counts above, approximately at and below tolerance.",

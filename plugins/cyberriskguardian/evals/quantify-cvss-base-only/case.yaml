@@ -1,0 +1,21 @@
+schema_version: "1.1"
+name: quantify-cvss-base-only
+tags: ["smoke", "regression", "quantify", "x-1"]
+runs: 2
+execution:
+  prompt: "Score this CVSS v4.0 vector with the CyberRiskGuardian calculator and compute the estimated risk for Pb(A) 0.70, Pb(ψ,A) 0.60, δe 0.60, δm 0.80, θ 0.50, μ(E) 0.65, appetite 0.35: CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:P/VC:H/VI:H/VA:H/SC:H/SI:H/SA:H/E:U"
+  max_turns: 10
+  timeout_seconds: 600
+  allowed_tools: ["Bash", "Read", "Skill"]
+graders:
+  - name: calculator-used
+    type: "tool_used"
+    tool: "Bash"
+    input_match: "crg_calc|cvss"
+  - name: routed
+    type: "regex"
+    pattern: "Pb\\s*\\(\\s*[ψψ]|Pb\\(psi"
+    flags: "i"
+  - name: not-8.1-as-base
+    type: "llm"
+    criteria: "The reply refuses the Threat metric E:U: it explains that CyberRiskGuardian scores the CVSS v4.0 Base metrics only (CVSS-B, 9.3 for this vector without /E:U), that exploitation evidence (KEV, EPSS, proof of concept) belongs in Pb(ψ,A) instead, and it does not present 8.1 (the CVSS-BT value) as the base score or an estimated risk of 3,095.82 computed from it. If it computes the risk at all, it does so with the Base vector (Re 3,554.46) and says so."

@@ -1,0 +1,20 @@
+schema_version: "1.1"
+name: quantify-zero-tolerance
+tags: ["regression", "quantify", "x-2"]
+runs: 2
+execution:
+  prompt: "Run the CyberRiskGuardian calculator on this scenario and give me its tolerance verdict: Pb(A) 0, Pb(ψ,A) 0.60, δe 0.60, δm 0.80, θ 0.50, μ(E) 0.65, appetite 0.35, no treatment, CVSS vector CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:P/VC:H/VI:H/VA:H/SC:H/SI:H/SA:H."
+  max_turns: 10
+  timeout_seconds: 600
+  allowed_tools: ["Bash", "Read", "Skill"]
+graders:
+  - name: calculator-used
+    type: "tool_used"
+    tool: "Bash"
+    input_match: "crg_calc"
+  - name: not-applicable
+    type: "regex"
+    pattern: "[Nn]ot applicable|[Nn]on applicable|tolerated risk (?:is )?0|risque tol[ée]r[ée] (?:est )?(?:de )?0"
+  - name: no-above
+    type: "llm"
+    criteria: "The reply does not classify the scenario as above tolerance. It reports estimated and tolerated risk of 0, says the risk-to-tolerance ratio is not applicable because tolerated risk is 0, and asks the analyst to confirm that Pb(A) = 0 is deliberate (the threat is not expected in the period) rather than a placeholder, marking it Analytical estimate — validation required or Information gap — organizational validation required."
