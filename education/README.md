@@ -37,6 +37,8 @@ For **CyberRiskGuardian Desktop 1.9.2**, from the test campaign of 8 November 20
 - **Blank Excel model**: a bilingual CIS Controls v8.1 notice on the M1–M10 sheets and the Analyse sheet (identifiers and titles only, CC BY-NC-ND 4.0); formulas unchanged.
 - `scripts/build_education.py`: configurable LibreOffice port and documented dependencies.
 
+The whole package is also published as one ZIP on the release [**education-v2.1.2**](https://github.com/ITriskMgr/CyberRiskGuardian/releases/tag/education-v2.1.2) (`CyberRiskGuardian_Education_Package_2.1.2.zip` with its `.sha256`).
+
 ## What's new in 2.1.1 (November 2026)
 
 For **CyberRiskGuardian Desktop 1.9.1**, the Core plugin 2.2.0 and the textbook **v2.51b** (English and French). The version number follows the textbook plugin (2.1.1) that carries v2.51b.
