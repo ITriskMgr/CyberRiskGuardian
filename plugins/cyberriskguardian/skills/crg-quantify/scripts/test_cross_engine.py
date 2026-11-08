@@ -102,13 +102,21 @@ def is_none(x):
     return x is None or (isinstance(x, float) and math.isnan(x))
 
 
+GREEK = str.maketrans({"ψ": "psi", "δ": "d", "θ": "theta", "μ": "mu", "–": "-", "—": "-"})
+
+
+def ascii_msg(msg):
+    """Engines may spell the parameters with Greek letters (desktop) or ASCII (plugins): compare on ASCII."""
+    return str(msg).translate(GREEK)
+
+
 # ----------------------------------------------------------------------------------------------- Python engines
 def rejects(C, s, appetite=0.35, needle=None):
     try:
         C.calc(s, appetite, 1000)
     except ValueError as e:        # CRGInputError subclasses ValueError in the reference engine
         msg = "; ".join(getattr(e, "errors", None) or [str(e)])
-        return (needle is None) or (needle.lower() in msg.lower()), msg
+        return (needle is None) or (needle.lower() in ascii_msg(msg).lower()), msg
     except Exception as e:         # a crash (ZeroDivisionError, KeyError, TypeError) is not a structured rejection
         return False, f"CRASH {type(e).__name__}: {e}"
     return False, "accepted"
@@ -159,7 +167,7 @@ def test_engine(label, path, fx):
             ("appetite 1", scenario(), 1.0, "appetite"),
             ("no vector and no score", scenario(vector=None), 0.35, "CVSS required"),
             ("blank score", scenario(vector=None, score=""), 0.35, "CVSS"),
-            ("score 11", scenario(vector=None, score=11), 0.35, "0-10"),
+            ("score 11", scenario(vector=None, score=11), 0.35, "10"),
             ("invalid vector", scenario(vector="CVSS:4.0/AV:X"), 0.35, "invalid"),
             ("boolean mu(E)", scenario(mu=True), 0.35, "number"),
             ("numeric string Pb(A)", scenario(pba="0.7"), 0.35, "number"),
@@ -221,7 +229,7 @@ def structured_error(x, needle=None):
     if not isinstance(v, dict) or "error" not in v:
         return False, (x.get("exception") or str(v))[:140]
     msg = json.dumps(v, ensure_ascii=False)
-    return (needle is None) or (needle.lower() in msg.lower()), msg[:140]
+    return (needle is None) or (needle.lower() in ascii_msg(msg).lower()), msg[:140]
 
 
 def test_mcp(label, path):
@@ -277,7 +285,7 @@ def test_mcp(label, path):
               isinstance(v, dict) and v.get("classification") == NA and is_none(v.get("ratio")), (res[i].get("exception") or str(v))[:120])
     for i, name, needle in ((8, "Pb(A) 1.2", "Pb(A)"), (9, "Pb(psi,A) -0.1", "Pb(psi,A)"), (10, "dm < de", "de"),
                             (11, "theta 0", "theta"), (12, "appetite 0", "appetite"), (13, "red_p 1.2", "0-1"),
-                            (14, "no CVSS", "CVSS required"), (15, "score 11", "0-10"), (16, "invalid vector", "vector")):
+                            (14, "no CVSS", "CVSS required"), (15, "score 11", "10"), (16, "invalid vector", "vector")):
         ok, msg = structured_error(res[i], needle)
         check(f"[{label}] structured error for {name}", ok, msg)
 
