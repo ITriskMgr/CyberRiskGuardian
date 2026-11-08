@@ -219,6 +219,9 @@ async def mcp_calls(cmd, calls):
             tools = await s.list_tools()
             names = [t.name for t in tools.tools]
             for tool, args in calls:
+                if tool not in names:                      # optional tool (e.g. sensitivity on the Core server)
+                    res.append({"isError": True, "exception": f"tool {tool} not offered"})
+                    continue
                 try:
                     out = await s.call_tool(tool, args)
                     txt = [x.text for x in out.content if getattr(x, "type", "") == "text"]
