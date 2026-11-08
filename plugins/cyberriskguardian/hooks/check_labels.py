@@ -25,7 +25,7 @@ Modes
 
 Reads only the files and messages it is given. No network access, no storage.
 """
-import json, os, re, sys, unicodedata, zipfile
+import html, json, os, re, sys, unicodedata, zipfile
 
 DASH = r"\s*[—–\-:]\s*"
 CURRENT = {
@@ -169,7 +169,7 @@ def read_file(path):
     if ext == ".docx":
         with zipfile.ZipFile(path) as z:
             xml = z.read("word/document.xml").decode("utf-8", "ignore")
-        return re.sub(r"<[^>]+>", " ", xml.replace("</w:p>", "\n"))
+        return html.unescape(re.sub(r"<[^>]+>", " ", xml.replace("</w:p>", "\n")))
     if ext == ".xlsx":                 # shared strings, inline strings and text literals in formulas (NV-P11)
         parts = []
         with zipfile.ZipFile(path) as z:
@@ -178,7 +178,7 @@ def read_file(path):
                         or name == "xl/comments1.xml" or (name.startswith("xl/comments") and name.endswith(".xml")):
                     xml = z.read(name).decode("utf-8", "ignore")
                     parts.append(re.sub(r"<[^>]+>", " ", xml.replace("</si>", "\n").replace("</row>", "\n")))
-        return "\n".join(parts).replace("&quot;", '"').replace("&amp;", "&").replace("&lt;", "<").replace("&gt;", ">")
+        return html.unescape("\n".join(parts))
     if ext in TEXT_EXT or ext in CODE_EXT:
         with open(path, encoding="utf-8", errors="ignore") as f:
             return f.read()
