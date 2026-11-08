@@ -180,6 +180,20 @@ def test_engine(label, path, fx):
         check(f"[{label}] missing reductions mean 0: residual = estimated", round(r["res"], 2) == 3554.46 and r["res"] == r["est"], f"{r['res']:.2f}")
     except Exception as e:
         check(f"[{label}] missing reductions mean 0", False, f"{type(e).__name__}: {e}")
+    # NV-045 sensitivity (engines that ship shift(): TI, Pro, desktop): central never shifted or clamped, directional clamp
+    if hasattr(C, "shift"):
+        edge = scenario(pba=1.0, pbx=0.02, theta=0.03, red_p=0.0, red_i=1.0)
+        try:
+            c0, hi, lo = C.shift(edge, 0), C.shift(edge, 0.10), C.shift(edge, -0.10)
+            v = lambda t, k: t["params"][k]["v"] if isinstance(t["params"][k], dict) else t["params"][k]
+            check(f"[{label}] sensitivity central case = unshifted scenario (Pb(A) 1.00, Pb(psi,A) 0.02, theta 0.03 kept)",
+                  (v(c0, "PbA"), v(c0, "Pbx"), v(c0, "Th"), c0.get("red_p") or 0) == (1.0, 0.02, 0.03, 0.0))
+            check(f"[{label}] higher case never milder than central (Pb(A) stays 1.00, red_p stays 0, theta stays 0.03)",
+                  v(hi, "PbA") == 1.0 and (hi.get("red_p") or 0) == 0.0 and v(hi, "Th") == 0.03, str((v(hi, "PbA"), hi.get("red_p"), v(hi, "Th"))))
+            check(f"[{label}] lower case never harsher than central (Pb(psi,A) stays 0.02, red_i stays 1.00)",
+                  v(lo, "Pbx") == 0.02 and lo.get("red_i") == 1.0, str((v(lo, "Pbx"), lo.get("red_i"))))
+        except Exception as e:
+            check(f"[{label}] sensitivity shift must not crash", False, f"{type(e).__name__}: {e}")
     # regression fixtures
     for name, (path_, est, res) in fx.items():
         try:
@@ -258,6 +272,7 @@ def test_mcp(label, path):
         ("crg_risk", dict(a)),                                                    # 14 no CVSS at all
         ("crg_risk", dict(a, cvss_score=11)),                                     # 15 score above 10
         ("cvss4_score", {"vector": "garbage"}),                                   # 16 invalid vector
+        ("sensitivity", dict(a, pba=1.0, red_p=0.0, cvss_vector=VEC)),            # 17 NV-045 (servers that have the tool)
     ]
     try:
         names, res = asyncio.run(mcp_calls([sys.executable, path], calls))
@@ -283,6 +298,13 @@ def test_mcp(label, path):
         v = res[i].get("value") or {}
         check(f"[{label}] crg_risk {name}: verdict '{NA}', no crash",
               isinstance(v, dict) and v.get("classification") == NA and is_none(v.get("ratio")), (res[i].get("exception") or str(v))[:120])
+    if "sensitivity" in names:
+        v = res[17].get("value") or {}
+        c = v.get("central", {}) if isinstance(v, dict) else {}
+        check(f"[{label}] sensitivity: central case not clamped (Pb(A) 1.00 kept: central estimated = crg_risk estimated) and higher >= central >= lower",
+              isinstance(v, dict) and round(c.get("estimated", -1), 2) == round((res[0].get("value") or {}).get("est", 0) * (1.0 / BASE["pba"]), 2)
+              and v["higher"]["estimated"] >= c["estimated"] >= v["lower"]["estimated"] and v["higher"]["residual"] >= c["residual"],
+              str(v)[:160])
     for i, name, needle in ((8, "Pb(A) 1.2", "Pb(A)"), (9, "Pb(psi,A) -0.1", "Pb(psi,A)"), (10, "dm < de", "de"),
                             (11, "theta 0", "theta"), (12, "appetite 0", "appetite"), (13, "red_p 1.2", "0-1"),
                             (14, "no CVSS", "CVSS required"), (15, "score 11", "10"), (16, "invalid vector", "vector")):
