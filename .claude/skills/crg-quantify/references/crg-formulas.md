@@ -26,6 +26,20 @@ Worked example (guide s.16 parameters, MediBec ransomware, vector `CVSS:4.0/AV:L
 | rp, ri | 0–1 each | a value above 1 is rejected |
 | Factor | constant, 1,000 | warning when another value is used |
 
+**Unified engine rules (CRG 1.9.2; the same rules in the Threat Live-feed plugin — the reference implementation — CRG Pro and the desktop application).**
+
+| Rule | Behaviour |
+|---|---|
+| CVSS precedence | The vector wins. A stored score differing by more than 0.05 is flagged in the warnings and never used. |
+| CVSS scope | Base metrics only (CVSS-B). `/E:…` (Threat) is refused: *route exploitation evidence (KEV, EPSS, proof of concept) to Pb(ψ,A)*. Environmental (`CR`, `IR`, `AR`, `M*`) and Supplemental (`S`, `AU`, `R`, `V`, `RE`, `U`) metrics are refused; organizational context enters through μ(E), δe, δm and θ. CVSS-BT / CVSS-BE are never reported as the base score (book example: `/E:U` would give 8.1 and Re 3,095.82 instead of 9.3 and 3,554.46). |
+| Zero tolerated risk | Pb(A), Pb(ψ,A), μ(E) and CVSS equal to 0 are admissible inputs. Estimated = tolerated = 0, the ratios are undefined (`None`; `n/a` in workbooks) and the verdict is **"Not applicable (tolerated risk 0)"** — never "Above tolerance", never a division error. A warning asks the analyst to confirm the zero is deliberate (the scenario is then not a risk in the period) rather than a placeholder. |
+| Missing reductions | A missing or null `red_p` / `red_i` means 0 (no treatment). |
+| Typing | Numeric strings (`"0.7"`), booleans, NaN and infinity are rejected ("must be a number"). |
+| Default appetite | A data model without `APPETITE` (or an MCP call without `appetite`) uses the configured default and is reported as an **Analytical estimate — validation required**. |
+| Errors | Structured: every validation error of the file at once; the MCP tools return `{"error": "Input validation failed", "errors": [...]}`, never a bare exception. |
+
+The conformance test `scripts/test_cross_engine.py` (the same file in the Threat Live-feed and Pro repositories) checks these rules against every engine and MCP server of a repository; the MediBec (84,305 / 41,023) and CanaRetail (27,526 / 16,049, `scripts/fixtures/canaretail10.json`) totals are its regressions.
+
 ## Conventions
 - **Factor**: 1,000, constant across all scenarios of an assessment and across assessments that will be compared. It scales indices, never ratios.
 - **CVSS**: v4.0 base score (CVSS-B) unless the workbook specifies otherwise. Compute scores with `scripts/crg_calc.py` or the `crg-calculator` MCP tool `cvss4_score`; never estimate a score by eye. Non-technical weaknesses are scored by equivalency, labelled *limited applicability* (book ch06).
@@ -35,7 +49,7 @@ Worked example (guide s.16 parameters, MediBec ransomware, vector `CVSS:4.0/AV:L
 - **FTE valuation** in the template: 1,950 h × $80 = $156,000 per year.
 - **Cost allocation**: when one initiative serves several scenarios, split its cost across those scenarios (equal split is an acceptable default) so no scenario carries the full enterprise cost; totals come from the portfolio, not the sum of scenario allocations.
 - **Transfer and avoidance**: transfer (insurance, contract terms) is a costed portfolio line plus a management decision; record the share of loss covered (0–1, informational) and the approver, but claim no reduction in the index. Avoidance is a management decision with an owner.
-- **Budget calibration** (step 18, best practice): target = 12% of total IT budget including salaries at appetite 0.30 or below, 7.8% at 0.50, 4% at 0.70 or above, linear interpolation in between (clamped outside). Compare current spending plus the portfolio with the target; report the gap and the implied appetite; closing the gap or revising the appetite is a **Management decision required**. Use `crg_calc.py --budget-target A` or the `crg_budget_target` MCP tool.
+- **Budget calibration** (step 18, best practice): target = 12% of total IT budget including salaries at appetite 0.30 or below, 7.8% at 0.50, 4% at 0.70 or above, linear interpolation in between (clamped outside). Compare current spending plus the portfolio with the target; report the gap and the implied appetite; closing the gap or revising the appetite is a **Management decision required**. Use `crg_calc.py --budget-target A` or the `crg_budget_target` MCP tool. Conventions shared by every CyberRiskGuardian product (NV-094): the **gap is planned − target** (negative = below target, as an amount and in percentage points); the **implied appetite** is undefined ("outside the guideline, below 4%") when the planned share is under the 4% point target — never clamped to 0.70; the **position** reads "Below the 4% point target (funding implies an appetite above 0.70, outside the guideline)", "Between the 4% and 12% point targets" or "Above the 12% point target (more than a risk-averse organization's best-practice target)"; the **status** reads "Below the appetite-consistent target" or "At or above the appetite-consistent target". A 2% spend therefore shows an undefined implied appetite, a negative gap and the "below the 4% point target" position.
 - **Workbook structure** (template v2-6, `education/templates/`): Analyse (row per scenario: E–L parameters with G CVSS score and H CVSS vector, M estimated, N tolerated, P cost, Q Pb reduction, R impact reduction, S mitigated, T residual, Y pre-treatment ratio, Z risk-to-tolerance ratio, AA verdict, AB cost-effectiveness, W recommend 0/1, AC checks, AD transfer share of loss covered and AE approver (informational); appetite E14, factor E15; budget calibration block Y14:AC25 with current cybersecurity spending, gap to target and implied appetite), S1–S10 scenario inputs, M1–M10 mitigation sheets (rows 2–6 "Other" package lines; reductions combined with the product rule; catalogues ISO/IEC 27002:2022 93 controls, NIST CSF 2.0 106 subcategories, CIS Controls v8.1 18 controls, with indicative default costs by effort profile for a mid-sized organization (about 500 staff; cost basis table under each catalogue, Analytical estimate — validation required) and French ISO/IEC 27002:2022 titles as an unofficial working translation). The template holds 10 scenarios; the CRG Pro workbook builder extends the same formulas to any number of rows.
 
 ## Interpretation notes (methodological observations)
@@ -56,4 +70,4 @@ Lower / central / higher cases: shift Pb(A), Pb(ψ,A), δe, δm by ∓/± 0.10, 
 | δe / δm | limited records or one site | material, several sites | network-wide, safety, catastrophic data loss |
 | θ | resilience weak: no tested recovery, small team | partial | tested recovery, 24×7 detection |
 | μ(E) organizational criticality (expected utility) | supporting process | important process | mission-critical (care delivery, identity) |
-Each value needs rationale, evidence reference and confidence; mark **Analytical estimate — validation required**.
+Each value needs rationale, evidence reference and confidence; mark **Analytical estimate — validation required**; a fact nobody has supplied is **Information gap — organizational validation required**.

@@ -6,4 +6,5 @@
 - Validate before release: `claude plugin validate plugins/cyberriskguardian/.claude-plugin/plugin.json`, `claude plugin validate plugins/crg-governance-textbook/.claude-plugin/plugin.json` and `claude plugin validate .`.
 - Regenerate and run the evals: `python3 scripts/build_evals.py`, then `claude plugin eval plugins/cyberriskguardian --allow-tools Bash Write` and `claude plugin eval plugins/crg-governance-textbook`.
 - Regression check: `python3 plugins/cyberriskguardian/skills/crg-quantify/scripts/crg_calc.py examples/medibec/source/medibec30.json` must reproduce total estimated 84,305 and residual 41,023.
+- Cross-engine conformance (X-1 / X-2): `python3 plugins/cyberriskguardian/skills/crg-quantify/scripts/test_cross_engine.py` must pass (MediBec 84,305 / 41,023 and CanaRetail 27,526 / 16,049; add `--engine` / `--mcp` to test the Threat Live-feed and Pro engines from their checkouts).
 - Never change a CRG formula silently; record methodology decisions in `master-task-spec.md` ("Resolved methodology choices").
