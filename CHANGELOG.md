@@ -41,6 +41,42 @@ aligned with the textbook plugin's 2.1.x line; release asset `CyberRiskGuardian_
 - Version 2.1.2 and Desktop 1.9.2 in every subtitle, README/LISEZMOI and lab prerequisite; all 16 Word and PDF files
   rebuilt. The introductory decks keep their 1.9.1 screenshots (the 1.9.2 screens differ in wording only; see the notes).
 
+## Core 2.2.1 — 2026-11-08
+
+Plugin patch shipped with CyberRiskGuardian Desktop 1.9.2 Beta (test campaign of 8 November 2026, spec v6 §5). **No formula
+change: MediBec 84,305 / 41,023 unchanged; CanaRetail 27,526 / 16,049 added as a second regression.** The Core engine now
+follows the unified engine rules (X-1, X-2) whose reference implementation is the Threat Live-feed plugin 1.7.2.
+
+### Changed — engine (NV-P03, NV-P08, NV-P10, NV-094, NV-095)
+- **CVSS-B only (NV-P03).** `crg_calc.cvss4` and the `cvss4_score` / `crg_risk` tools refuse a vector carrying Threat
+  (`/E:…`), Environmental or Supplemental metrics instead of reporting CVSS-BT / CVSS-BE as the base score (`/E:U` gave
+  8.1 and Re 3,095.82 instead of 9.3 and 3,554.46); the message routes exploitation evidence to Pb(ψ,A).
+- **Zero tolerated risk (NV-P08, as NV-016).** Pb(A), Pb(ψ,A), μ(E) or CVSS = 0 gives ratio `None` and the verdict
+  **"Not applicable (tolerated risk 0)"** with a warning — the NaN ratio used to fall through to "Above tolerance".
+- **Residual guard** `MAX(0, Re − Mitigated)` in the engine (identical while reductions stay within 0–1); NaN and infinity
+  rejected; a null reduction means 0 (unified typing rules, NV-095).
+- **Budget conventions (NV-094).** `budget_position` now follows the shared convention: `gap_amount` / `gap_pct` =
+  planned − target (negative = below target; the former `gap_to_target` had the opposite sign), `implied_appetite` is
+  `None` below the 4% point target (no longer clamped to 0.70), plus `position` and `status` wording; a negative IT budget
+  or spend is an error (it used to fall back to the target-only answer).
+- **MCP server (NV-P10).** Every refusal is `{"error": "Input validation failed", "errors": [...]}` instead of a protocol
+  error; `appetite` and `cvss_score` are optional (the 2.2.0 `-1` sentinels still work); `cvss4_score` reports `CVSS-B`.
+
+### Changed — label check (NV-P11)
+- A negation after the match counts ("the 1.25 threshold is retired"); "unknown external actor" no longer demands the
+  Information-gap marker; two parameter-value pairs require the estimate marker; `.xlsx` files are read; the skip list is
+  anchored to the plugin, `.claude/` and `plugins/` folders instead of any path containing `/plugins/` or `/references/`.
+
+### Added
+- `skills/crg-quantify/scripts/test_cross_engine.py` — the shared cross-engine conformance test (same file in the Threat
+  Live-feed and Pro repositories) and the CanaRetail fixture `scripts/fixtures/canaretail10.json`.
+- Evals `quantify-cvss-base-only` and `quantify-zero-tolerance` (Core 14 cases); `build_evals.py` regenerated.
+- `scripts/add_cis_notice.py` (NV-P12, D3): writes the bilingual CIS Controls® notice on the blank Excel template's M
+  sheets and Analyse sheet; to be run on `education/templates/CyberRiskGuardian_Excel_Model_Blank_v2-6.xlsx` with the
+  Education 2.1.2 package (the template is an education asset).
+- References (`crg-formulas.md`, `master-task-spec.md`) document the unified engine rules and the budget conventions.
+- One contact in the plugin metadata: cyberriskguardian.ca and sales@cyberriskguardian.ca (X-8).
+
 ## Education Package 2.1.1 — 2026-11-05
 
 Teaching materials (`education/`) updated for **CyberRiskGuardian Desktop 1.9.1**, Core 2.2.0 and the textbook **v2.51b**

@@ -15,7 +15,7 @@ People stay accountable for validation and risk decisions.
 
 The latest version is CyberRiskGuardian with Threat Live-feed, available here: https://github.com/ITriskMgr/CyberRiskGuardian_ThreatIntel
 
-Methodology and textbook © Marc-André Léger. This repository is the free **Community Edition**, licensed under **CC BY-NC 4.0**. The Educational and Professional editions are available under the Educational or Commercial Licence (see [Licence](#licence)). Packaged with Claude: Core 2.2.0 and textbook plugin 2.1.1 (November 2026), aligned with the textbook *Introduction to Cybersecurity Governance*, 3rd ed., v2.51b (the corrected v2.51). Release notes: `CHANGELOG.md`.
+Methodology and textbook © Marc-André Léger. This repository is the free **Community Edition**, licensed under **CC BY-NC 4.0**. The Educational and Professional editions are available under the Educational or Commercial Licence (see [Licence](#licence)). Packaged with Claude: Core 2.2.1 and textbook plugin 2.1.1 (November 2026), aligned with the textbook *Introduction to Cybersecurity Governance*, 3rd ed., v2.51b (the corrected v2.51). Release notes: `CHANGELOG.md`.
 
 ## What's inside
 
@@ -105,7 +105,7 @@ Label check: `python3 plugins/cyberriskguardian/hooks/check_labels.py report.md`
 4. Regression: `crg_calc.py examples/medibec/source/medibec30.json` must report total estimated 84,305 and residual 41,023.
    Template check: the textbook's chapter 6 worked example entered in `education/templates/CyberRiskGuardian_Excel_Model_Blank_v2-6.xlsx` must give 3,554.46 estimated and 1,937.18 residual after recalculation.
    Education documents: after editing a Markdown source in `education/`, rebuild its .docx and .pdf with `python3 scripts/build_education.py` (pandoc, python-docx, LibreOffice).
-5. Bump the versions (semver) in each changed `plugin.json` and in `marketplace.json`; current versions: Core 2.2.0, textbook 2.1.1. Record the change in `CHANGELOG.md`.
+5. Bump the versions (semver) in each changed `plugin.json` and in `marketplace.json`; current versions: Core 2.2.1, textbook 2.1.1. Record the change in `CHANGELOG.md`.
 
 ## Deliberately excluded
 - `CLAUDE.local.md` and `.claude/settings.local.json`, which hold private preferences.
