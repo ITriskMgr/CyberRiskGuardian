@@ -1,6 +1,6 @@
 ---
 title: "CyberRiskGuardian Case Library"
-subtitle: "Five fictional business cases for teaching — Education Package 2.1.1"
+subtitle: "Five fictional business cases for teaching — Education Package 2.1.2"
 author: "Marc-André Léger, PhD"
 date: "November 2026"
 ---

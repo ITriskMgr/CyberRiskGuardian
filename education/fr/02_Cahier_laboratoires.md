@@ -1,6 +1,6 @@
 ---
 title: "Cahier de laboratoires de l'étudiant CyberRiskGuardian"
-subtitle: "Treize laboratoires sur le cas pédagogique MediBec — Ensemble pédagogique 2.1.1"
+subtitle: "Treize laboratoires sur le cas pédagogique MediBec — Ensemble pédagogique 2.1.2"
 author: "Marc-André Léger, Ph. D."
 date: "novembre 2026"
 toc-title: "Table des matières"
@@ -13,7 +13,7 @@ Ces laboratoires vous apprennent à réaliser, étape par étape, une évaluatio
 Chaque laboratoire présente ses objectifs, sa durée, le matériel requis, les étapes, le livrable et trois questions pour vérifier votre compréhension. Les réponses à ces questions se trouvent à l'annexe D. Travaillez dans le parcours d'outils choisi par votre enseignant :
 
 - **Parcours A — Claude** : le plugiciel ou le projet CyberRiskGuardian dans Claude.
-- **Parcours B — Application de bureau** : l'application de bureau CyberRiskGuardian (1.9.1 ou plus récente) dans votre navigateur.
+- **Parcours B — Application de bureau** : l'application de bureau CyberRiskGuardian (1.9.2 ou plus récente) dans votre navigateur.
 - **Parcours C — Excel** : le classeur CyberRiskGuardian (feuilles Analyse, S1–S10, M1–M10).
 
 Lorsqu'une étape diffère selon le parcours, elle est marquée **[A]**, **[B]** ou **[C]**. Après le laboratoire 7, vous pouvez vous exercer sur un deuxième cas, CanaRetail, à l'aide de sa solution publiée (voir *Cas d'exercice — CanaRetail*).
@@ -21,7 +21,7 @@ Lorsqu'une étape diffère selon le parcours, elle est marquée **[A]**, **[B]**
 ## Cinq règles pour chaque laboratoire
 
 1. **Utilisez le cas comme source des faits.** Si vous avez besoin d'un fait que le cas ne fournit pas, indiquez-le, formulez une hypothèse raisonnable et expliquez ce qui changerait si elle était fausse.
-2. **Étiquetez ce que vous estimez.** Chaque nombre estimé par vous ou par un outil d'IA porte la mention **Estimation analytique — validation requise**. Chaque fait manquant porte la mention **Lacune d'information — validation organisationnelle requise**. Chaque choix qui relève de la direction porte la mention **Décision de la direction requise**.
+2. **Étiquetez ce que vous estimez.** Chaque nombre estimé par vous ou par un outil d'IA porte la mention **Estimation analytique — validation requise**. Chaque fait manquant porte la mention **Lacune d’information — validation organisationnelle requise**. Chaque choix qui relève de la direction porte la mention **Décision de la direction requise**.
 3. **Laissez le moteur calculer.** Les résultats finaux proviennent du calculateur vérifié (application de bureau, `crg_calc.py` ou classeur recalculé), jamais de l'arithmétique d'une IA.
 4. **Vérifiez les résultats de l'IA.** Les outils d'IA inventent des normes, des identifiants de contrôles, des lois, des statistiques et des vecteurs CVSS qui semblent exacts. Vérifiez chacun d'eux auprès d'une source primaire avant de l'utiliser.
 5. **Protégez les données.** Ne collez pas de documents confidentiels dans un service d'IA à moins d'y être autorisé. MediBec est fictive et peut être utilisée sans risque.
@@ -35,10 +35,10 @@ Lorsqu'une étape diffère selon le parcours, elle est marquée **[A]**, **[B]**
 
 1. Installez ou ouvrez votre parcours.
    - **[A]** Dans Claude Code : `/plugin install cyberriskguardian --marketplace ITriskMgr/CyberRiskGuardian`, puis `/plugin install crg-governance-textbook --marketplace ITriskMgr/CyberRiskGuardian`. Exécutez une fois `pip install cvss "mcp>=1.2"`, redémarrez et approuvez le serveur `crg-calculator`.
-   - **[B]** Suivez le guide **Première installation** de la version (un PDF sur la page de la version, et `FIRST-INSTALL.md` dans le ZIP). En bref : décompressez l'application de bureau, puis double-cliquez sur `start.command` (macOS, Linux) ou `start.bat` (Windows). Laissez la fenêtre du terminal ouverte. L'application s'ouvre à `http://localhost:8099`. Utilisez toujours cette même adresse, dans une seule fenêtre : votre travail est conservé par votre navigateur pour cette adresse exacte. Sur la page Processus, la carte *Configurer l'application pour votre pratique* propose **Répondre aux questions de configuration** : une question sur votre expérience règle le niveau de détail (répondez *Nouveau ou nouvelle — montrez-moi pourquoi chaque écran compte*, ce qui donne **Détaillé**), et les questions sur les modules peuvent garder leurs valeurs par défaut (votre enseignant vous dira si un laboratoire exige un module). Vous pouvez aussi passer cette étape et changer le niveau plus tard dans Paramètres → Langue et détail. Le guide **Première configuration** explique chaque écran d'une première évaluation.
+   - **[B]** Suivez le guide **Première installation** de la version (un PDF sur la page de la version, et `FIRST-INSTALL.md` dans le ZIP). En bref : décompressez l'application de bureau, puis double-cliquez sur `start.command` (macOS, Linux) ou `start.bat` (Windows). Laissez la fenêtre du terminal ouverte. L'application s'ouvre à `http://localhost:8099`. Utilisez toujours cette même adresse, dans une seule fenêtre : votre travail est conservé par votre navigateur pour cette adresse exacte. Sur la page Processus, la carte *Configurer l’application pour votre pratique* propose **Répondre aux questions de configuration** : une question sur votre expérience règle le niveau de détail (répondez *Nouveau ou nouvelle — montrez-moi pourquoi chaque écran compte*, ce qui donne **Détaillé**), et les questions sur les modules peuvent garder leurs valeurs par défaut (votre enseignant vous dira si un laboratoire exige un module). Vous pouvez aussi passer cette étape et changer le niveau plus tard dans Paramètres → Langue et détail. Le guide **Première configuration** explique chaque écran d'une première évaluation.
    - **[C]** Ouvrez le modèle vierge `templates/CyberRiskGuardian_Excel_Model_Blank_v2-6.xlsx` (ou la copie que votre enseignant vous a remise) et enregistrez-en une copie au nom de votre équipe. Il s'ouvre en mode de calcul manuel : appuyez sur **F9** (Formules → Calculer maintenant) avant de lire quelque nombre que ce soit.
 2. Vérifiez le moteur.
-   - **[A]** Exécutez `python3 crg_calc.py medibec30.json` à partir du dossier `crg-quantify/scripts` du plugiciel sur l'exemple MediBec. Il doit afficher **risque estimé total 84 305** et **résiduel 41 023**.
+   - **[A]** À partir du dossier `crg-quantify/scripts` du plugiciel, exécutez `python3 crg_calc.py ../../../evals/_shared/medibec30.json` (l'exemple MediBec se trouve dans le dossier `evals/_shared` du plugiciel, et non à côté du script; dans un clone du dépôt, `examples/medibec/source/medibec30.json` est le même fichier). Il doit afficher **risque estimé total 84 305** et **résiduel 41 023**.
    - **[B]** Le pied de page épinglé du menu latéral doit afficher **✓ Moteur vérifié**. Pointez dessus (ou ouvrez Aide → À propos et versions) pour voir les totaux **84 305 / 41 023**.
    - **[C]** Saisissez l'exemple du chapitre 6 du manuel dans la feuille S1 et à la ligne 3 de la feuille Analyse : Pb(A) 0,70, Pb(ψ,A) 0,60, δe 0,60, δm 0,80, θ 0,50, μ(E) 0,65, CVSS 9,3 en G3 avec le vecteur `CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:P/VC:H/VI:H/VA:H/SC:H/SI:H/SA:H` en H3, appétence 0,35 en E14; dans M1, une ligne « Other / autre » retenue avec un coût de 62 000, une réduction d'impact de 0,70 et une réduction de probabilité de 0,65. Après « Calculer maintenant », vous devez lire un risque estimé de 3 554,46, un risque toléré de 1 777,23, un risque résiduel de 1 937,18 et un ratio de 1,09. Effacez ensuite ces données (ou repartez du modèle vierge).
 3. **[B]** Ouvrez l'espace de travail MediBec, puis Démarrer → **Processus**. Lisez les dix-neuf étapes d'une évaluation complète. La **carte de prochaine étape**, en haut, nomme toujours la prochaine étape, sa liste de vérification et l'écran qui s'en charge. Sur n'importe quel écran, le bouton **Aide** de la barre supérieure ouvre *Aide sur cet écran*, avec un lien *Pour en savoir plus : chapitre …* vers le passage du manuel correspondant.
@@ -88,7 +88,7 @@ Une évaluation des risques part de l'organisation, et non d'une liste de menace
 4. Déterminez **cinq ou six joyaux de la couronne** : les actifs ou services dont la perte nuirait le plus à la mission. Pour chacun, indiquez un responsable métier, l'importance de la confidentialité, de l'intégrité et de la disponibilité (Élevée / Très élevée) et ses principales dépendances.
 5. Énumérez au moins trois **lacunes d'information** (faits dont vous auriez besoin mais que le cas ne fournit pas) et deux **hypothèses** que vous formulez, chacune avec sa mention.
    - **[A]** Demandez à l'assistant d'effectuer la collecte du contexte à partir du document du cas. Comparez ses joyaux de la couronne avec les vôtres; ne conservez que ce que le cas appuie.
-   - **[B]** Organisation → Espaces de travail → *Nouvel espace de travail*, *Partir de* *Évaluation vierge*, type *Cas d'affaires pour la classe*; déposez le document du cas, cochez *Extraire le profil et l'appétence de ces documents après la création* et *Puis extraire les joyaux de la couronne*, choisissez **Règles seulement (sans IA, hors ligne)** et cliquez sur *Créer l'espace de travail*. Examinez chaque valeur proposée et son étiquette (FACT, INFERENCE, ASSUMPTION, EXTERNAL, UNKNOWN). Résolvez à partir du cas les valeurs UNKNOWN que vous pouvez.
+   - **[B]** Organisation → Espaces de travail → *Nouvel espace de travail*, *Partir de* *Évaluation vierge*, type *Cas d'affaires pour la classe*; déposez le document du cas, cochez *Extraire le profil et l'appétence de ces documents après la création* et *Puis extraire les joyaux de la couronne*, choisissez **Règles seulement (sans IA, hors ligne)** et cliquez sur *Créer l'espace de travail*. Examinez chaque valeur proposée et son étiquette (FACT, INFERENCE, ASSUMPTION, EXTERNAL, UNKNOWN). Résolvez à partir du cas les valeurs UNKNOWN que vous pouvez. *Problème connu, corrigé dans Desktop 1.9.2 :* en 1.9.1, l'extraction par règles seulement inscrivait `[object Object]` dans Nom, Taille, Région et Contexte, avec l'étiquette INFERENCE et la case cochée; si vous le voyez encore, décochez ces quatre valeurs et saisissez-les à partir du cas.
 
 **Livrable :** le tableau de contexte, une chaîne de dépendances, la liste des joyaux de la couronne et la liste des lacunes et hypothèses (deux pages au maximum).
 
@@ -227,7 +227,7 @@ Les six valeurs sont des **Estimations analytiques — validation requise.**
 ## Vérifiez votre compréhension
 
 
-4.1. Pourquoi le fait de fusionner Pb(A) et Pb(ψ,A) en une seule « vraisemblance » entraînerait-il un double comptage?
+4.1. Pourquoi le fait de fusionner Pb(A) et Pb(ψ,A) en une seule « probabilité » entraînerait-il un double comptage?
 
 4.2. Un coéquipier fixe θ = 0,90 « parce que MediBec a des pare-feu et un antivirus ». Qu'est-ce qui cloche dans ce raisonnement?
 
@@ -413,7 +413,7 @@ Le verdict change d'un cas à l'autre : S1 est un scénario de risque pour leque
 
 1. Construisez les cas inférieur, central et supérieur pour votre scénario.
 2. Le verdict change-t-il? S'il est « au-dessus de la tolérance » même dans le cas inférieur, le scénario nécessite un transfert ou une acceptation formelle, et non seulement davantage de dépenses.
-3. Déterminez le paramètre dont la variation modifie le plus le résultat. **[B]** Outils → Prévisions → *Facteurs déterminants* (diagramme en tornade); *Monte-Carlo* convertit vos niveaux de confiance en plages.
+3. Déterminez le paramètre dont la variation modifie le plus le résultat. **[B]** Outils → Prévisions : lancez les essais Monte-Carlo (ils convertissent vos niveaux de confiance en plages), puis, dans le tableau *Par scénario*, cliquez sur le bouton *Facteurs déterminants* de la ligne de votre scénario pour ouvrir son diagramme en tornade. *Facteurs déterminants* est un bouton sur chaque ligne, et non un écran distinct.
 4. Rédigez deux phrases à l'intention de la direction : ce dont vous êtes certain et quels éléments probants changeraient la recommandation.
 
 **Livrable :** le tableau des trois cas et l'énoncé de deux phrases.
@@ -506,7 +506,7 @@ L'évaluation publiée de 30 scénarios a établi ce qui suit : après traitemen
 
 1. Opérations de sécurité → SIEM → *Vue d'ensemble* : réglez la date de référence au **9 octobre 2026**.
 2. Effectuez les dix exercices que votre enseignant vous assigne (EX-01 à EX-10) dans le SIEM et le SOAR : ordre de triage, un vrai positif fermé comme bénin, lacunes de couverture, télémétrie muette, restrictions TLP, un indicateur avec une confiance de 95, un dossier qui peut être ou ne pas être un incident, des actions sans approbation valide, état de préparation des playbooks, lacunes de détection.
-3. Scénarios en lot → *Des opérations de sécurité (SIEM et SOAR)*, en date du 9 octobre. **Consigner la preuve dans S2.** Ouvrez S2 dans l'éditeur de scénarios : la fiche *Preuves des opérations de sécurité* l'affiche, et **aucun paramètre n'a changé**.
+3. Scénarios en lot → *Des opérations de sécurité (SIEM et SOAR)*, en date du 9 octobre. **Consigner l'élément probant dans S2.** Ouvrez S2 dans l'éditeur de scénarios : la fiche *Éléments probants des opérations de sécurité* l'affiche, et **aucun paramètre n'a changé**.
 4. Décidez, en équipe, si les éléments probants justifient une modification de Pb(A), de Pb(ψ,A) ou de θ pour S2. Rédigez la justification. Lancez ensuite Gouvernance → *Revue de qualité*.
 
 **Livrable :** les réponses aux exercices assignés et la justification relative à S2.
@@ -537,7 +537,9 @@ L'évaluation publiée de 30 scénarios a établi ce qui suit : après traitemen
 2. Rédigez cinq énoncés de politique numérotés. Chacun nomme un acteur, utilise **doit** ou **ne doit pas** et énonce un résultat vérifiable. Placez les valeurs techniques (longueur des mots de passe, intervalles de revue) dans une *norme* nommée, et non dans la politique.
 3. Définissez un indicateur clé de performance (ICP) pour la politique, avec une cible, un responsable, une source de données et une fréquence.
 
-**Livrable :** la conception du test d'audit et les cinq énoncés de politique avec un ICP. Si votre cours utilise le laboratoire 13, fondez la partie 2 sur ses registres.
+4. **[B] Facultatif — rédigez la politique avec le Rédacteur de politiques de sécurité, puis jugez-la.** Gouvernance → Rédacteur de politiques de sécurité (activez le module dans Paramètres → Modules si l'écran indique qu'il est désactivé; le lanceur doit être en marche). Sur *Départ*, réglez la **Langue des documents** et choisissez l'entrevue *Express*; cliquez sur **Proposer des réponses à partir du profil et des documents**, puis complétez l'*Entrevue* à partir du cas seulement — répondez **Inconnu** ou **Décider plus tard** quand le cas ne le dit pas, sans jamais deviner. Sur *Documents et faits*, confirmez seulement les faits dont vous retrouvez la citation dans le cas; laissez les conflits ouverts. Sur *Applicabilité juridique*, consignez une **Décision** pour P-39.1 et R-22.1 avec votre nom comme **Réviseur** et une **Justification** d'une ligne tirée du cas (exercice en classe, et non un avis juridique). Sur *Bibliothèque*, cochez seulement la *Politique de gestion des identités et des accès* (politique thématique) et **Enregistrer la sélection**; sur *Décisions*, répondez vous-même aux décisions ouvertes de ce document plutôt que de cliquer sur **Accepter toutes les suggestions**. Cliquez sur **Générer les brouillons** et ouvrez le brouillon dans la gestion des PSI. Comparez-le ensuite à vos cinq énoncés de l'étape 2 : pour chacun de vos énoncés, dites si le brouillon en a un équivalent, s'il est plus ou moins vérifiable, et où il a placé les valeurs techniques. Comptez les espaces réservés `[DÉCISION : …]` et expliquez, en deux ou trois phrases, pourquoi le rédacteur ne les a pas inventés — et ce que cela révèle des lacunes d'information du cas. Exportez le brouillon en Word (**Word (.docx)**) et joignez-le, marqué *brouillon, généré, révisé par [votre nom]*; il ne remplace pas l'étape 2.
+
+**Livrable :** la conception du test d'audit et les cinq énoncés de politique avec un ICP; avec l'étape 4 facultative, le brouillon du rédacteur et votre comparaison (une demi-page). Si votre cours utilise le laboratoire 13, fondez la partie 2 sur ses registres.
 
 ## Vérifiez votre compréhension
 
@@ -551,7 +553,7 @@ L'évaluation publiée de 30 scénarios a établi ce qui suit : après traitemen
 # Laboratoire 13 — Posture des identités, des accès et de la configuration (parcours application de bureau)
 
 **Objectifs :** lire la posture d'une organisation en matière d'identités, d'accès et de configuration à partir de registres au niveau des populations; recalculer un indicateur à partir de son registre; transformer un constat en élément probant et en proposition de paramètre sans laisser l'outil décider; relier la posture à la politique de gestion des identités et des accès du travail A2.
-**Durée :** 90 minutes. **Prérequis :** l'application de bureau (1.9.1 ou plus récente) et une copie de l'espace de travail MediBec. Les parcours A et C font les étapes 2 et 7, ainsi que le recalcul de CRG-22 de l'étape 4, sur papier avec le tableau 13.1. **À lire d'abord :** chapitre 10 (gestion des identités et des accès privilégiés) et chapitre 14 (configurations de référence et dérives) du manuel.
+**Durée :** 90 minutes. **Prérequis :** l'application de bureau (1.9.2 ou plus récente) et une copie de l'espace de travail MediBec. Les parcours A et C font les étapes 2 et 7, ainsi que le recalcul de CRG-22 de l'étape 4, sur papier avec le tableau 13.1. **À lire d'abord :** chapitre 10 (gestion des identités et des accès privilégiés) et chapitre 14 (configurations de référence et dérives) du manuel.
 
 ## Mise en contexte
 
@@ -697,7 +699,7 @@ Ligne directrice budgétaire (CRG) : dépenses en cybersécurité de **12 %** d
 
 # Annexe D — Réponses aux questions d'autovérification
 
-**Laboratoire 0.** 0.1 Un moteur non vérifié peut calculer différemment de l'implémentation de référence; tout nombre qu'il produit pourrait être erroné sans avertissement. 0.2 Le navigateur conserve les espaces de travail par adresse exacte; `127.0.0.1:8099` et `localhost:8099` sont des adresses différentes. 0.3 **Lacune d'information — validation organisationnelle requise.**
+**Laboratoire 0.** 0.1 Un moteur non vérifié peut calculer différemment de l'implémentation de référence; tout nombre qu'il produit pourrait être erroné sans avertissement. 0.2 Le navigateur conserve les espaces de travail par adresse exacte; `127.0.0.1:8099` et `localhost:8099` sont des adresses différentes. 0.3 **Lacune d’information — validation organisationnelle requise.**
 
 **Laboratoire 1.** 1.1 Tous les services cliniques et administratifs en dépendent; sa compromission ouvre l'accès à tous les autres joyaux de la couronne. 1.2 C'est un fait énoncé dans le cas. Vous ne pouvez pas conclure que les contrôles ont arrêté les tentatives, que les journaux suffisent à prouver qu'elles ont échoué, ni qu'aucune tentative n'a réussi sans être détectée. 1.3 Le centre de données de Montréal et le nœud central du réseau étendu (WAN), ou le service d'identité et d'annuaire.
 
@@ -705,7 +707,7 @@ Ligne directrice budgétaire (CRG) : dépenses en cybersécurité de **12 %** d
 
 **Laboratoire 3.** 3.1 Exemple : « Un acteur externe exploite un emplacement de stockage infonuagique exposé publiquement, utilisé pour le transfert d'images médicales et dépourvu de restrictions d'accès et de journalisation, afin de télécharger des fichiers d'imagerie contenant des identifiants de patients, ce qui cause une atteinte à la vie privée devant être déclarée, des coûts de notification et une perte de confiance des patients. » 3.2 Parce que l'impact pourrait être catastrophique (aucune reprise possible après une attaque destructrice); les scénarios de faible probabilité et à conséquences graves portent un indicateur de remontée et peuvent nécessiter une investigation plutôt qu'une exclusion. 3.3 En général, il faut les fusionner. Ne les gardez distincts que si les actifs, les conséquences, les contrôles, les responsables ou les décisions de traitement diffèrent de façon importante (par exemple, le personnel de la facturation peut détourner des paiements — une conséquence de fraude que le personnel des cliniques ne crée pas).
 
-**Laboratoire 4.** 4.1 Pb(A) indique déjà si la menace agit; si votre « vraisemblance » inclut aussi la réussite de l'attaque, la multiplier par Pb(ψ,A) compte deux fois la même incertitude. 4.2 Posséder des contrôles n'équivaut pas à de la résilience. θ mesure la capacité démontrée de prévenir, détecter, contenir, intervenir, rétablir et poursuivre les activités; le cas fait état d'une équipe de deux personnes, d'un triage faible et d'une reprise non testée. 4.3 Le dommage maximal correspond au pire cas plausible; le cas attendu ne peut pas le dépasser.
+**Laboratoire 4.** 4.1 Pb(A) indique déjà si la menace agit; si votre « probabilité » unique inclut aussi la réussite de l'attaque, la multiplier par Pb(ψ,A) compte deux fois la même incertitude. 4.2 Posséder des contrôles n'équivaut pas à de la résilience. θ mesure la capacité démontrée de prévenir, détecter, contenir, intervenir, rétablir et poursuivre les activités; le cas fait état d'une équipe de deux personnes, d'un triage faible et d'une reprise non testée. 4.3 Le dommage maximal correspond au pire cas plausible; le cas attendu ne peut pas le dépasser.
 
 **Laboratoire 5.** 5.1 Il augmenterait, de 9,3 à 9,9, parce qu'une attaque qui ne nécessite aucune action de l'utilisateur est plus facile à réaliser. 5.2 Le vecteur montre *pourquoi* le score est ce qu'il est, permet à un réviseur de le recalculer et révèle des erreurs qu'un nombre seul dissimule. 5.3 Exemple : S21, divulgation accidentelle par le personnel — il n'y a aucune vulnérabilité technique à exploiter; tout score ne décrit qu'une faiblesse représentative.
 

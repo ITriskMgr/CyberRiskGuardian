@@ -1,6 +1,6 @@
 ---
 title: "CyberRiskGuardian en classe"
-subtitle: "Guide de l'enseignant — Ensemble pédagogique 2.1.1"
+subtitle: "Guide de l'enseignant — Ensemble pédagogique 2.1.2"
 author: "Marc-André Léger, Ph. D."
 date: "novembre 2026"
 toc-title: "Table des matières"
@@ -20,7 +20,7 @@ L'ensemble a été conçu à partir du matériel fourni avec CyberRiskGuardian (
 | **Cahier de laboratoires de l'étudiant** — treize laboratoires sur le cas MediBec et un cas d'exercice autonome (CanaRetail), avec les réponses d'autovérification | Étudiants | Communautaire (gratuite) |
 | **Trousse d'évaluation** — énoncés de travaux, grilles d'évaluation sur 0–10, autovérifications, formulaire d'évaluation par les pairs, déclaration d'utilisation de l'IA | Étudiants et enseignants | Communautaire (gratuite) |
 | **Bibliothèque de cas** — cinq études de cas fictives avec un guide pour en choisir une | Étudiants et enseignants | Communautaire (gratuite) |
-| **Présentation d'introduction** — la méthode CRG en un cours, avec des captures d'écran de l'application de bureau 1.9.1 | Enseignants | Communautaire (gratuite) |
+| **Présentation d'introduction** — la méthode CRG en un cours, avec des captures d'écran de l'application de bureau 1.9.1 (les écrans de la 1.9.2 ne diffèrent que par le libellé) | Enseignants | Communautaire (gratuite) |
 | **Modèle Excel v2-6** — le modèle Excel CyberRiskGuardian vierge (`templates/`) | Étudiants et enseignants | Communautaire (gratuite) |
 | **Présentations des chapitres** — 21 présentations du manuel, une par chapitre (fichiers joints aux versions GitHub, en anglais) | Enseignants | Communautaire (gratuite) |
 | **Édition Éducateur** — corrigés des laboratoires, banque de questions de quiz notées, calibrage des grilles d'évaluation et banque de commentaires, notes pédagogiques des cas, cas de l'examen final et son plan, et le guide de ressources de l'enseignant du manuel | Enseignants seulement | Édition éducative (Licence éducative) |
@@ -62,7 +62,7 @@ Risque estimé   Re = Pb(A) × Pb(ψ,A) × CVSS × ((δe + δm) / 2) × μ(E) ÷
 Risque toléré   Rt = Pb(A) × Pb(ψ,A) × CVSS × Appétence × μ(E) ÷ θ × Facteur
 Risque atténué     = Re × Réduction de la probabilité × Réduction de l'impact
 Risque résiduel    = Re − Risque atténué
-Ratio de tolérance    = Résiduel ÷ Toléré
+Ratio (risque résiduel / risque toléré) = Résiduel ÷ Toléré
 ```
 
 Un ratio inférieur à 0,90 se lit **sous la tolérance**, de 0,90 à 1,10 **approximativement à la tolérance**, et supérieur à 1,10 **au-dessus de la tolérance**. Le facteur (habituellement 1 000) met les résultats à l'échelle; il ne modifie jamais un ratio.
@@ -72,7 +72,7 @@ Un ratio inférieur à 0,90 se lit **sous la tolérance**, de 0,90 à 1,10 **app
 | Mention | Signification |
 |---|---|
 | **Estimation analytique — validation requise** | Une valeur estimée par l'analyste (ou par l'IA) |
-| **Lacune d'information — validation organisationnelle requise** | Un fait que personne n'a fourni |
+| **Lacune d’information — validation organisationnelle requise** | Un fait que personne n'a fourni |
 | **Décision de la direction requise** | Un choix que seule la direction peut faire |
 
 Ces mentions constituent l'habitude la plus utile qu'enseigne la méthode. Un étudiant qui les utilise correctement a compris la différence entre la preuve, l'inférence et le jugement.
@@ -103,7 +103,7 @@ La méthode est la même dans chaque parcours; seule l'interface change. Choisis
 | Parcours | Ce qu'utilisent les étudiants | Forces | Points de vigilance |
 |---|---|---|---|
 | **A. Claude (plugiciel ou projet)** | Le plugiciel gratuit CyberRiskGuardian Core dans Claude Code ou Claude Cowork, ou un projet Claude contenant les instructions CRG | Rédaction rapide de scénarios de risque, collecte du contexte sous forme d'entrevue, vérification intégrée des mentions, commandes `/crg-quick-scan` et `/crg-assess`, calculateur vérifié | Les étudiants doivent vérifier les résultats de l'IA; la politique institutionnelle sur l'IA et les règles de protection des données s'appliquent |
-| **B. Application de bureau** | CyberRiskGuardian Desktop (version courante; 1.9.1 bêta au moment de la rédaction), servie localement dans un navigateur | Tout sur un seul écran; une **carte de prochaine étape** sur la page Processus qui indique toujours quoi faire et où; trois niveaux de détail (Minimal, Standard, Détaillé); une aide reliée au chapitre du manuel de chaque écran; espaces de travail de classe; autovérification du moteur; *Recommencer* pour les cas pédagogiques; MediBec et CanaRetail fournis en anglais et en français; le **Consultant virtuel** (réponses tirées du manuel, de l'ontologie et de l'espace de travail, sur un modèle local par défaut); modules facultatifs **Gestion des identités et des accès (GIA/GAP)** et **Gestion de la configuration**; données de simulation pour des exercices SIEM/SOAR; interface EN/FR; aucune donnée ne quitte l'ordinateur à moins que l'étudiant ne l'envoie | Nécessite Python 3 pour servir le dossier; conserver la même adresse et le même port pour que les espaces de travail soient retrouvés; une seule fenêtre à la fois (une deuxième fenêtre à la même adresse écrase les sauvegardes de la première) |
+| **B. Application de bureau** | CyberRiskGuardian Desktop (version courante; 1.9.2 bêta au moment de la rédaction), servie localement dans un navigateur | Tout sur un seul écran; une **carte de prochaine étape** sur la page Processus qui indique toujours quoi faire et où; trois niveaux de détail (Minimal, Standard, Détaillé); une aide reliée au chapitre du manuel de chaque écran; espaces de travail de classe; autovérification du moteur; *Recommencer* pour les cas pédagogiques; MediBec et CanaRetail fournis en anglais et en français; le **Consultant virtuel** (réponses tirées du manuel, de l'ontologie et de l'espace de travail, sur un modèle local par défaut); modules facultatifs **Gestion des identités et des accès (GIA/GAP)** et **Gestion de la configuration**; données de simulation pour des exercices SIEM/SOAR; interface EN/FR; aucune donnée ne quitte l'ordinateur à moins que l'étudiant ne l'envoie | Nécessite Python 3 pour servir le dossier; conserver la même adresse et le même port pour que les espaces de travail soient retrouvés; une seule fenêtre à la fois (une deuxième fenêtre à la même adresse écrase les sauvegardes de la première) |
 | **C. Modèle Excel** | Le modèle Excel CyberRiskGuardian gratuit (feuille Analyse, S1–S10, M1–M10), dans `templates/` | Formules transparentes, familières aux étudiants en gestion, fonctionne hors ligne | Mode de calcul manuel (appuyer sur F9); saisies validées et colonne de contrôles; CVSS vide et obligatoire; la valeur provisoire d'appétence 0,5 doit être remplacée |
 
 Une approche **hybride** fonctionne bien en pratique : les étudiants rédigent le contexte et les scénarios de risque avec Claude (parcours A), puis quantifient et traitent les risques dans l'application de bureau ou le classeur (parcours B ou C), où chaque nombre est recalculé par le moteur vérifié.
@@ -120,7 +120,7 @@ pip install cvss "mcp>=1.2"
 
 Redémarrez Claude et approuvez le serveur `crg-calculator` lorsque vous y êtes invité. Dans claude.ai, les compétences (skills) fonctionnent aussi; les calculs utilisent le script `crg_calc.py` fourni.
 
-**Parcours B — Application de bureau.** Les étudiants suivent les deux guides de première utilisation publiés avec chaque version, en anglais et en français : **Première installation** (`FIRST-INSTALL.md` dans le ZIP, et un PDF sur la page de la version) et **Première configuration** (`FIRST-TIME-SETUP.md`, et un PDF). En bref : décompressez la version, puis double-cliquez sur `start.command` (macOS, Linux) ou `start.bat` (Windows). L'application doit être servie à l'adresse `http://localhost:8099`; double-cliquer sur `index.html` ne fonctionne pas. Sur la page Processus, une carte facultative, *Configurer l'application pour votre pratique*, propose **Répondre aux questions de configuration** : une question sur l'expérience règle le **niveau de détail** (*Détaillé* convient le mieux à une première évaluation) et les questions sur les modules choisissent les modules facultatifs (les étudiants gardent les valeurs par défaut, sauf si votre cours en utilise un, comme les deux modules du laboratoire 13). Les deux se changent plus tard dans Paramètres → Langue et détail et Paramètres → Modules. Installez-la comme application à partir de Chrome ou d'Edge pour l'utiliser hors ligne.
+**Parcours B — Application de bureau.** Les étudiants suivent les deux guides de première utilisation publiés avec chaque version, en anglais et en français : **Première installation** (`FIRST-INSTALL.md` dans le ZIP, et un PDF sur la page de la version) et **Première configuration** (`FIRST-TIME-SETUP.md`, et un PDF). En bref : décompressez la version, puis double-cliquez sur `start.command` (macOS, Linux) ou `start.bat` (Windows). L'application doit être servie à l'adresse `http://localhost:8099`; double-cliquer sur `index.html` ne fonctionne pas. Sur la page Processus, une carte facultative, *Configurer l’application pour votre pratique*, propose **Répondre aux questions de configuration** : une question sur l'expérience règle le **niveau de détail** (*Détaillé* convient le mieux à une première évaluation) et les questions sur les modules choisissent les modules facultatifs (les étudiants gardent les valeurs par défaut, sauf si votre cours en utilise un, comme les deux modules du laboratoire 13). Les deux se changent plus tard dans Paramètres → Langue et détail et Paramètres → Modules. Installez-la comme application à partir de Chrome ou d'Edge pour l'utiliser hors ligne.
 
 **Parcours C — Excel.** Le modèle vierge est fourni gratuitement avec cet ensemble : `templates/CyberRiskGuardian_Excel_Model_Blank_v2-6.xlsx`. Publiez-le sur votre plateforme d'apprentissage. Il suit la procédure en 8 étapes du chapitre 6 du manuel, imprimée dans la feuille Analyse. Rappelez aux étudiants que :
 
@@ -137,7 +137,7 @@ Redémarrez Claude et approuvez le serveur `crg-calculator` lorsque vous y êtes
 Quel que soit le parcours, la première chose que fait un étudiant est de confirmer que le moteur de calcul concorde avec l'implémentation de référence :
 
 - Application de bureau : le pied de page épinglé du menu latéral doit afficher **✓ Moteur vérifié**; en pointant dessus, ou dans Aide → À propos et versions, on voit les totaux **84 305 / 41 023**.
-- Claude ou ligne de commande : `python3 crg_calc.py medibec30.json` doit indiquer **total estimated 84,305** et **residual 41,023** (risque estimé total de 84 305 et risque résiduel de 41 023).
+- Claude ou ligne de commande : à partir du dossier `crg-quantify/scripts` du plugiciel, `python3 crg_calc.py ../../../evals/_shared/medibec30.json` (dans un clone du dépôt, `examples/medibec/source/medibec30.json` est le même fichier) doit indiquer **total estimated 84,305** et **residual 41,023** (risque estimé total de 84 305 et risque résiduel de 41 023).
 - Excel : saisissez l'exemple du chapitre 6 du manuel en S1 (CVSS 9,3, vecteur `CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:P/VC:H/VI:H/VA:H/SC:H/SI:H/SA:H`) et confirmez un risque estimé de 3 554,46 et un risque résiduel de 1 937,18 après « Calculer maintenant ».
 
 Si ce n'est pas le cas, rien de ce qui est produit sur cette installation ne doit être considéré comme fiable. Intégrez cette vérification au laboratoire 0 et demandez une capture d'écran.
@@ -246,7 +246,7 @@ Chaque laboratoire du cahier présente ses objectifs, sa durée, ses intrants, s
 | 9. ICR | 45 min | Des indicateurs sans responsable, sans source ou sans seuils | « Qui mesurera cet indicateur le premier du mois, et à partir de quel système? » |
 | 10. Note de service | 60 min | Reprendre les tableaux; enfouir la décision | « Qu'attendez-vous du chef de la direction financière lundi? » |
 | 11. Opérations de sécurité (facultatif) | 120 min | Considérer une alerte comme un incident; utiliser le niveau de confiance d'une source comme une probabilité | « Qui a confirmé cet incident, et quand? » |
-| 12. Du risque à la politique et à l'audit | 90 min | Des politiques remplies de valeurs techniques; des plans d'audit qui vérifient seulement l'existence d'une politique | « Comment un auditeur prouverait-il que ce contrôle fonctionne sur une période donnée? » |
+| 12. Du risque à la politique et à l'audit | 90 min | Des politiques remplies de valeurs techniques; des plans d'audit qui vérifient seulement l'existence d'une politique; avec l'étape facultative du rédacteur, remettre le brouillon généré comme réponse | « Comment un auditeur prouverait-il que ce contrôle fonctionne sur une période donnée? » · « Pourquoi le rédacteur a-t-il laissé cette décision en espace réservé au lieu de décider? » |
 | 13. Posture des identités, des accès et de la configuration | 90 min | Lire un décompte vide comme un zéro; lire l'indication de sens d'un constat comme une valeur; accepter une proposition dans l'espace de travail utilisé pour les autres laboratoires; nommer des personnes dans les libellés des registres | « Lequel de ces décomptes demanderiez-vous d'abord à l'équipe GIA de confirmer, et pourquoi? » |
 
 # Enseigner les concepts difficiles
@@ -316,7 +316,7 @@ L'Édition Éducateur ajoute les corrigés des laboratoires, une banque de quest
 
 # Prestation bilingue et inclusive
 
-L'application de bureau fait basculer toute son interface entre l'anglais et le français (EN/FR dans la barre supérieure) tout en laissant les données du cas dans leur langue d'origine. Ses termes français suivent l'édition française du manuel (*appétence pour le risque*, *joyaux de la couronne*, *registre des éléments probants*, *ratio de tolérance*), et MediBec et CanaRetail sont fournis dans les deux langues. Tout le matériel gratuit de cet ensemble existe dans les deux langues. Un cas en français demeure en français dans une interface anglaise; les équipes peuvent rédiger dans l'une ou l'autre langue si votre établissement le permet.
+L'application de bureau fait basculer toute son interface entre l'anglais et le français (EN/FR dans la barre supérieure) tout en laissant les données du cas dans leur langue d'origine. Ses termes français suivent l'édition française du manuel (*appétence pour le risque*, *joyaux de la couronne*, *registre des éléments probants*, *ratio risque résiduel / risque toléré*), et MediBec et CanaRetail sont fournis dans les deux langues. Tout le matériel gratuit de cet ensemble existe dans les deux langues. Un cas en français demeure en français dans une interface anglaise; les équipes peuvent rédiger dans l'une ou l'autre langue si votre établissement le permet.
 
 Pour l'accessibilité, les laboratoires peuvent être réalisés entièrement au clavier dans l'application de bureau et dans Excel; la présentation utilise un texte à contraste élevé; chaque figure du cahier est aussi fournie sous forme de texte. Accordez du temps supplémentaire pour les laboratoires 3 et 10, qui exigent beaucoup de rédaction.
 
@@ -335,7 +335,19 @@ Pour l'accessibilité, les laboratoires peuvent être réalisés entièrement au
 | La trousse de simulation ne s'importe pas | L'espace de travail n'est pas une copie de MediBec | Importer dans l'exemple MediBec ou dans une copie de celui-ci |
 | Le pied de page affiche *✗ Échec de la vérification du moteur* (bandeau *Le moteur ne reproduit pas la référence MediBec*) | Le moteur ne concorde pas avec la référence | Arrêter et restaurer une copie intacte de l'application |
 | L'écran Gestion des identités et des accès ou Gestion de la configuration indique que le module est désactivé | Les modules facultatifs sont désactivés par défaut | Paramètres → Modules, groupe Gouvernance |
-| Un deuxième espace de travail MediBec apparaît après la restauration d'une sauvegarde ou l'importation d'un fichier d'espace de travail (1.9.1) | Le cas fourni n'était reconnu que par son identifiant | Supprimer la copie en trop dans Organisation → Espaces de travail; un correctif est prévu dans la prochaine version de l'application |
+| Un deuxième espace de travail MediBec apparaît après la restauration d'une sauvegarde ou l'importation d'un fichier d'espace de travail (1.9.1) | Le cas fourni n'était reconnu que par son identifiant | Corrigé dans Desktop 1.9.2 (la restauration et l'importation reconnaissent le cas fourni). En 1.9.1, supprimer la copie en trop dans Organisation → Espaces de travail |
+
+**Corrigé dans Desktop 1.9.2.** Les problèmes ci-dessous ont été rencontrés dans les laboratoires avec Desktop 1.9.1 et sont corrigés en 1.9.2; la ligne indique ce que les étudiants qui utilisent encore la 1.9.1 verront et quoi faire.
+
+| Problème et laboratoires (Desktop 1.9.1) | En 1.9.1 | En 1.9.2 |
+|---|---|---|
+| **Laboratoire 1** — L'extraction par règles seulement inscrivait `[object Object]` dans Nom, Taille, Région et Contexte, avec l'étiquette INFERENCE et la case cochée (no 18) | Décocher les quatre valeurs et les saisir à partir du cas | Corrigé : l'extraction inscrit le texte trouvé |
+| **Laboratoire 3** — La promotion d'un candidat depuis le tri perdait ses paramètres, ses liens et sa chaîne causale (no 20) | Ressaisir les six paramètres, les techniques et la chaîne sur le scénario promu | Corrigé : le scénario promu conserve tout |
+| **Laboratoire 5** — Un score CVSS enregistré pouvait contredire son vecteur (no 21) | Recalculer le score à partir du vecteur dans l'éditeur avant de lire le risque | Corrigé : le vecteur l'emporte et un score discordant est signalé |
+| **Laboratoires 10 et 11** — QC-02 échouait pour toute recommandation approuvée dans l'interface, et un approbateur vide était accepté (no 22) | Ignorer l'échec de QC-02 pour les approbations faites dans l'interface; toujours nommer l'approbateur | Corrigé : QC-02 lit les approbations de l'interface; aucune approbation sans personne nommée |
+| **Tous les laboratoires** — Deux fenêtres ouvertes à la même adresse perdaient du travail sans avertissement (no 2) | Une seule fenêtre (laboratoire 0) | Corrigé : la deuxième fenêtre est avertie et en lecture seule |
+| **Tous les laboratoires** — La restauration et l'importation créaient un espace de travail MediBec en double (nos 4 et 5) | Supprimer la copie en trop | Corrigé |
+| **Laboratoire 0** — Le laboratoire 0 [A] pointait `crg_calc.py` vers un `medibec30.json` absent du dossier des scripts | Utiliser le chemin indiqué au laboratoire 0 (`../../../evals/_shared/medibec30.json`) | Documentation corrigée dans cet ensemble (2.1.2) |
 
 # Soutien, rétroaction et mises à jour
 

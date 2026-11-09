@@ -1,6 +1,6 @@
 ---
 title: "CyberRiskGuardian in the Classroom"
-subtitle: "Instructor Guide — Education Package 2.1.1"
+subtitle: "Instructor Guide — Education Package 2.1.2"
 author: "Marc-André Léger, PhD"
 date: "November 2026"
 ---
@@ -19,7 +19,7 @@ The package was built from the material that ships with CyberRiskGuardian (the m
 | **Student Lab Workbook** — thirteen labs on the MediBec case and a self-study practice case (CanaRetail), with self-check answers | Students | Community (free) |
 | **Assessment Kit** — assignment briefs, 0–10 rubrics, self-checks, peer-review form, AI acknowledgement | Students and instructors | Community (free) |
 | **Case Library** — five fictional business cases with a guide to choosing one | Students and instructors | Community (free) |
-| **Introductory slide deck** — the CRG method in one class, with screenshots of the desktop application 1.9.1 | Instructors | Community (free) |
+| **Introductory slide deck** — the CRG method in one class, with screenshots of the desktop application 1.9.1 (the 1.9.2 screens differ only in wording) | Instructors | Community (free) |
 | **Excel model v2-6** — the blank CyberRiskGuardian Excel model (`templates/`) | Students and instructors | Community (free) |
 | **Chapter slide decks** — 21 decks for the textbook, one per chapter (GitHub release assets) | Instructors | Community (free) |
 | **Educator Edition** — lab answer keys, graded quiz bank, rubric calibration and feedback bank, case teaching notes, the final-exam case and its blueprint, and the textbook's Instructor Resource Guide | Instructors only | Educational edition (Educational Licence) |
@@ -102,7 +102,7 @@ The method is the same in every track; only the interface changes. Pick one trac
 | Track | What students use | Strengths | Watch for |
 |---|---|---|---|
 | **A. Claude (plugin or project)** | The free CyberRiskGuardian Core plugin in Claude Code or Claude Cowork, or a Claude project carrying the CRG instructions | Fast scenario drafting, interview-style context intake, built-in label checks, `/crg-quick-scan` and `/crg-assess` commands, verified calculator | Students must verify AI output; institutional AI policy and data-protection rules apply |
-| **B. Desktop application** | CyberRiskGuardian Desktop (current release; 1.9.1 Beta at the time of writing), served locally in a browser | Everything on one screen; a **next-step card** on the Process page that always says what to do and where; three detail levels (Minimal, Standard, Detailed); help linked to the textbook chapter of each screen; classroom workspaces; engine self-check; *Start over* for teaching cases; MediBec and CanaRetail bundled in English and French; the **Virtual consultant** (answers from the textbook, the ontology and the workspace, on a local model by default); optional **Identity & access management (IAM/PAM)** and **Configuration management** modules; simulation data for SIEM/SOAR exercises; EN/FR interface; no data leaves the computer unless the student sends it | Requires Python 3 to serve the folder; keep the same address and port so workspaces are found; one window at a time (a second window on the same address overwrites the first one's saves) |
+| **B. Desktop application** | CyberRiskGuardian Desktop (current release; 1.9.2 Beta at the time of writing), served locally in a browser | Everything on one screen; a **next-step card** on the Process page that always says what to do and where; three detail levels (Minimal, Standard, Detailed); help linked to the textbook chapter of each screen; classroom workspaces; engine self-check; *Start over* for teaching cases; MediBec and CanaRetail bundled in English and French; the **Virtual consultant** (answers from the textbook, the ontology and the workspace, on a local model by default); optional **Identity & access management (IAM/PAM)** and **Configuration management** modules; simulation data for SIEM/SOAR exercises; EN/FR interface; no data leaves the computer unless the student sends it | Requires Python 3 to serve the folder; keep the same address and port so workspaces are found; one window at a time (a second window on the same address overwrites the first one's saves) |
 | **C. Excel model** | The free CyberRiskGuardian Excel model (Analyse sheet, S1–S10, M1–M10), in `templates/` | Transparent formulas, familiar to business students, works offline | Manual calculation mode (press F9); validated inputs and a Checks column; CVSS blank and required; the appetite placeholder 0.5 must be replaced |
 
 A **hybrid** works well in practice: students draft context and scenarios with Claude (Track A), then quantify and treat in the desktop application or the workbook (Track B or C), where every number is recomputed by the verified engine.
@@ -136,7 +136,7 @@ Restart Claude and approve the `crg-calculator` server when prompted. In claude.
 Whatever the track, the first thing a student does is confirm that the calculation engine agrees with the reference implementation:
 
 - Desktop: the pinned footer of the side menu must read **✓ Engine verified**; pointing at it, or Help → About & versions, shows the totals **84,305 / 41,023**.
-- Claude or command line: `python3 crg_calc.py medibec30.json` must report **total estimated 84,305** and **residual 41,023**.
+- Claude or command line: from the plugin's `crg-quantify/scripts` folder, `python3 crg_calc.py ../../../evals/_shared/medibec30.json` must report **total estimated 84,305** and **residual 41,023** (in a clone of the repository, `examples/medibec/source/medibec30.json` is the same file).
 - Excel: enter the textbook's chapter 6 worked example in S1 (CVSS 9.3, vector `CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:P/VC:H/VI:H/VA:H/SC:H/SI:H/SA:H`) and confirm estimated risk 3,554.46 and residual 1,937.18 after Calculate Now.
 
 If it does not, nothing produced on that installation should be trusted. Make this check part of Lab 0 and ask for a screenshot.
@@ -245,7 +245,7 @@ Each lab in the workbook states its objectives, timing, inputs, steps, deliverab
 | 9. KRIs | 45 min | Indicators without owners, sources or thresholds | "Who will measure this on the first of the month, and from which system?" |
 | 10. Memo | 60 min | Restating tables; burying the decision | "What do you want the CFO to approve on Monday?" |
 | 11. Security operations (optional) | 120 min | Treating an alert as an incident; using a source confidence as a probability | "Who confirmed this incident, and when?" |
-| 12. From risk to policy and audit | 90 min | Policies full of technical values; audit plans that only check a policy exists | "How would an auditor prove this control works over a period?" |
+| 12. From risk to policy and audit | 90 min | Policies full of technical values; audit plans that only check a policy exists; with the optional Writer step, handing in the generated draft as the answer | "How would an auditor prove this control works over a period?" · "Why did the Writer leave this decision as a placeholder instead of deciding?" |
 | 13. Identity, access and configuration posture | 90 min | Reading a blank count as zero; reading a finding's direction hint as a value; accepting a proposal in the workspace used for the other labs; naming people in register labels | "Which of these counts would you ask the IAM team to confirm first, and why?" |
 
 # Teaching the hard concepts
@@ -334,7 +334,19 @@ For accessibility, the labs can be done entirely with the keyboard in the deskto
 | The simulation pack will not import | The workspace is not a MediBec copy | Import into the MediBec example or a copy of it |
 | Footer reads *✗ Engine check failed* (banner *Engine does not reproduce the MediBec baseline*) | The engine disagrees with the reference | Stop and restore a clean copy of the application |
 | The Identity & access management or Configuration management screen says the module is off | Optional modules are off by default | Settings → Modules, group Governance |
-| A second MediBec workspace appears after restoring a backup or importing a workspace file (1.9.1) | The bundled case was recognized by its identifier only | Delete the extra copy in Organization → Workspaces; a fix is planned for the next desktop release |
+| A second MediBec workspace appears after restoring a backup or importing a workspace file (1.9.1) | The bundled case was recognized by its identifier only | Fixed in Desktop 1.9.2 (restore and import recognize the bundled case). On 1.9.1, delete the extra copy in Organization → Workspaces |
+
+**Fixed in Desktop 1.9.2.** The issues below were met in the labs with Desktop 1.9.1 and are corrected in 1.9.2; the row tells you what students on 1.9.1 will still see and what to do.
+
+| Issue and labs (Desktop 1.9.1) | On 1.9.1 | In 1.9.2 |
+|---|---|---|
+| **Lab 1** — Rules-only extraction wrote `[object Object]` into Name, Size, Region and Context, tagged INFERENCE and ticked (#18) | Untick the four values and type them from the case | Fixed: the extraction writes the text it found |
+| **Lab 3** — Promoting a candidate from the screening dropped its parameters, links and causal chain (#20) | Re-enter the six parameters, the techniques and the chain on the promoted scenario | Fixed: the promoted scenario keeps everything |
+| **Lab 5** — A stored CVSS score could disagree with its vector (#21) | Recompute the score from the vector in the editor before reading the risk | Fixed: the vector wins and a disagreeing score is flagged |
+| **Labs 10–11** — QC-02 failed every recommendation approved in the interface, and an empty approver was accepted (#22) | Ignore the QC-02 failure for interface approvals; always name the approver | Fixed: QC-02 reads interface approvals; no approval without a named person |
+| **All labs** — Two windows open on the same address silently lost work (#2) | One window only (Lab 0) | Fixed: the second window is warned and read-only |
+| **All labs** — Restore and import created a duplicate MediBec workspace (#4, #5) | Delete the extra copy | Fixed |
+| **Lab 0** — Lab 0 [A] pointed `crg_calc.py` at a `medibec30.json` that is not in the scripts folder | Use the path given in Lab 0 (`../../../evals/_shared/medibec30.json`) | Documentation fixed in this package (2.1.2) |
 
 # Support, feedback and updates
 

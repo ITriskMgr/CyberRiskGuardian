@@ -4,13 +4,29 @@
 """Rebuild the education package .docx and .pdf files from their Markdown sources.
 
     python3 scripts/build_education.py [education/en/01_Instructor_Guide.md ...]   (default: all eight documents)
+    python3 scripts/build_education.py --port 2199 ...                              (fixed LibreOffice port)
+    CRG_LO_PORT=2199 python3 scripts/build_education.py ...                         (same, by environment)
 
 Each document is converted with pandoc, using its current .docx as the style reference (title page, footer,
 heading and table styles); tables get explicit DXA widths (9,600 twips, weighted by content), the navy header row
 and compact cell spacing; LibreOffice (headless, through its Python UNO bridge) updates the table of contents and
-exports the PDF. Requires pandoc, python-docx and LibreOffice.
+exports the PDF.
+
+The running footer (package version) is set from PACKAGE_VERSION below: bump it with the package.
+
+Dependencies (Education 2.1.2, NV-E06):
+  - pandoc 3.x on PATH (https://pandoc.org; macOS: brew install pandoc; Debian/Ubuntu: apt install pandoc);
+  - Python 3.10+ with python-docx (pip install python-docx);
+  - LibreOffice 7.x or 24.x with its Python UNO bridge: `soffice` on PATH and `import uno` available to the Python that
+    runs this script. On Debian/Ubuntu: apt install libreoffice-writer python3-uno, run with the system python3.
+    On macOS, run with LibreOffice's own Python: /Applications/LibreOffice.app/Contents/Resources/python scripts/build_education.py.
+  The Node `docx` package of package.json is NOT used here (it serves the report builder of the Pro edition).
+
+LibreOffice listens on a local TCP port for the UNO bridge. By default a free port is picked for each run (so two
+builds, or another soffice instance, never collide); --port / CRG_LO_PORT fix it. The listener accepts connections
+from this computer only (host=localhost).
 """
-import os, shutil, subprocess, sys, tempfile, time
+import os, re, shutil, socket, subprocess, sys, tempfile, time
 import docx
 from docx.oxml.ns import qn
 from docx.oxml import OxmlElement
@@ -23,6 +39,24 @@ DOCS = {  # source -> (toc, numbered sections)
     "education/en/04_Case_Library.md": (False, True), "education/fr/04_Bibliotheque_cas.md": (False, True),
 }
 TOTAL = 9600
+PACKAGE_VERSION = "2.1.2"   # written into the running footer of every document (the footer lives in the .docx reference, not in Markdown)
+VERSION_RX = re.compile(r"((?:Education Package|Ensemble pédagogique CyberRiskGuardian) )\d+\.\d+\.\d+")
+
+
+def fix_footer(path):
+    """The footer text comes from the style reference (the previous .docx), so its package version is set here (2.1.2)."""
+    d = docx.Document(path)
+    n = 0
+    for sec in d.sections:
+        for part in (sec.footer, sec.header, sec.first_page_footer, sec.first_page_header):
+            for para in part.paragraphs:
+                for run in para.runs:
+                    new = VERSION_RX.sub(lambda m: m.group(1) + PACKAGE_VERSION, run.text)
+                    if new != run.text:
+                        run.text = new; n += 1
+    if n:
+        d.save(path)
+    return n
 
 
 def fix_tables(path):
@@ -78,22 +112,42 @@ def fix_tables(path):
     d.save(path)
 
 
-def to_pdf(pairs):
-    import uno
-    from com.sun.star.beans import PropertyValue
+def free_port():
+    """A TCP port nobody listens on right now (the kernel picks it; LibreOffice binds it a moment later)."""
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        s.bind(("127.0.0.1", 0))
+        return s.getsockname()[1]
+
+
+def to_pdf(pairs, port=None):
+    try:
+        import uno
+        from com.sun.star.beans import PropertyValue
+    except ImportError:
+        sys.exit("LibreOffice's Python UNO bridge is not available to this Python (import uno failed). "
+                 "Install python3-uno (Debian/Ubuntu) or run the script with LibreOffice's own Python; see the docstring.")
+    if shutil.which("soffice") is None:
+        sys.exit("soffice (LibreOffice) is not on PATH.")
+    port = int(port or os.environ.get("CRG_LO_PORT") or free_port())
     def pv(n, v):
         p = PropertyValue(); p.Name = n; p.Value = v; return p
     prof = tempfile.mkdtemp(prefix="crg-lo-")
     proc = subprocess.Popen(["soffice", f"-env:UserInstallation=file://{prof}", "--headless", "--invisible", "--norestore",
-                             "--accept=socket,host=localhost,port=2099;urp;"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                             f"--accept=socket,host=localhost,port={port};urp;"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     ctx = None
     for _ in range(120):
         try:
             local = uno.getComponentContext()
             res = local.ServiceManager.createInstanceWithContext("com.sun.star.bridge.UnoUrlResolver", local)
-            ctx = res.resolve("uno:socket,host=localhost,port=2099;urp;StarOffice.ComponentContext"); break
+            ctx = res.resolve(f"uno:socket,host=localhost,port={port};urp;StarOffice.ComponentContext"); break
         except Exception:
+            if proc.poll() is not None:
+                break
             time.sleep(0.5)
+    if ctx is None:
+        proc.kill(); shutil.rmtree(prof, ignore_errors=True)
+        sys.exit(f"LibreOffice did not answer on port {port} within 60 s (is another soffice using the port? try --port).")
+    print(f"libreoffice listening on localhost:{port}")
     desk = ctx.ServiceManager.createInstanceWithContext("com.sun.star.frame.Desktop", ctx)
     try:
         for src, out in pairs:
@@ -115,6 +169,12 @@ def to_pdf(pairs):
 
 
 def main(args):
+    port = None
+    if "--port" in args:
+        i = args.index("--port"); port = args[i + 1]; args = args[:i] + args[i + 2:]
+    for tool in ("pandoc",):
+        if shutil.which(tool) is None:
+            sys.exit(f"{tool} is not on PATH (see the docstring for the dependencies).")
     srcs = args or list(DOCS)
     tmp = tempfile.mkdtemp(prefix="crg-edu-")
     pairs = []
@@ -133,9 +193,10 @@ def main(args):
             cmd.append("--number-sections")
         subprocess.run(cmd, check=True)
         fix_tables(base + ".docx")
+        fix_footer(base + ".docx")
         print("docx", rel[:-3] + ".docx")
         pairs.append((base + ".docx", base + ".pdf"))
-    to_pdf(pairs)
+    to_pdf(pairs, port)
     shutil.rmtree(tmp, ignore_errors=True)
 
 

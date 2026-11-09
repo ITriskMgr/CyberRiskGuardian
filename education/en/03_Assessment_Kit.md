@@ -1,6 +1,6 @@
 ---
 title: "CyberRiskGuardian Assessment Kit"
-subtitle: "Assignment briefs, rubrics and self-checks — Education Package 2.1.1"
+subtitle: "Assignment briefs, rubrics and self-checks — Education Package 2.1.2"
 author: "Marc-André Léger, PhD"
 date: "November 2026"
 ---

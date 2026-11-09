@@ -4,6 +4,43 @@ All notable changes to the **CyberRiskGuardian Community Edition** (Core plugin 
 `crg-governance-textbook`, examples and education package). Versions follow semver per plugin; the marketplace carries
 the Core version. Earlier releases are described in the commit history (Core 2.1.0 and 2.1.1, 23 October 2026).
 
+## Education Package 2.1.2 — 2026-11-08
+
+Teaching materials (`education/`) refreshed for **CyberRiskGuardian Desktop 1.9.2** (findings NV-E01 to NV-E07 of the test
+campaign of 8 November 2026, decisions FR-1 to FR-3 and D3). No plugin, formula or example changed. The version number stays
+aligned with the textbook plugin's 2.1.x line; release asset `CyberRiskGuardian_Education_Package_2.1.2.zip` (release
+`education-v2.1.2`).
+
+- **Lab 12, optional step 4 [B] — Security Policy Writer** (EN/FR, NV-E07): students draft the IAM policy with Governance →
+  Security Policy Writer from the case only (Unknown / Decide later, confirmed facts, a recorded legal decision with a named
+  reviewer, their own decisions instead of *Accept all suggestions*), then compare the generated draft with their own five
+  statements and explain the `[DECISION: …]` placeholders; the deliverable and the facilitation notes say the draft never
+  replaces the students' statements.
+- **Instructor guide, troubleshooting** (NV-E05, NV-E01): the duplicate-MediBec row says *fixed in Desktop 1.9.2*; a new
+  *Fixed in Desktop 1.9.2* table lists what students still on 1.9.1 will meet and what to do — `[object Object]` from the
+  rules-only extraction (#18, Lab 1), promotion losing parameters (#20, Lab 3), CVSS score vs vector (#21, Lab 5), QC-02 and
+  empty approvers (#22, Labs 10–11), two windows (#2, all labs), duplicate workspaces (#4, #5), and the Lab 0 path. Lab 1
+  carries the same known-issue note.
+- **Lab 0 [A]** (NV-E02, EN/FR, and the set-up checklist): `crg_calc.py ../../../evals/_shared/medibec30.json` from the
+  plugin's `crg-quantify/scripts` folder (the example is not beside the script); `examples/medibec/source/medibec30.json` in
+  a clone.
+- **Lab 8** (NV-E03, EN/FR): *Drivers* is the button on each row of the Monte Carlo *By scenario* table, not a Forecasts
+  screen.
+- **French terminology of Desktop 1.9.2** (FR-1 to FR-3): the formula sheet reads « Ratio (risque résiduel / risque toléré) »
+  and the terminology sentences « ratio risque résiduel / risque toléré »; Lab 4 says « probabilité », not « vraisemblance »;
+  Lab 11 says « Consigner l'élément probant » and names the card *Éléments probants des opérations de sécurité*. Interface
+  labels and the marker « Lacune d’information — validation organisationnelle requise » use the typographic apostrophe
+  (NV-E04).
+- **Blank Excel model** (`templates/CyberRiskGuardian_Excel_Model_Blank_v2-6.xlsx`, NV-P12 / decision D3): the CIS Controls
+  v8.1 notice (bilingual, CC BY-NC-ND 4.0, identifiers and titles only) written on each M sheet (U36, U37, U245) and on
+  Analyse!C53:C54 with `scripts/add_cis_notice.py` from Core 2.2.1; no formula, value or layout changed, 0 formula errors
+  after recalculation.
+- **`scripts/build_education.py`** (NV-E06): LibreOffice's UNO port is free by default, or fixed with `--port` /
+  `CRG_LO_PORT`; the dependencies (pandoc, python-docx, LibreOffice with its Python UNO bridge; the Node `docx` package is not
+  used) are documented and checked before the build.
+- Version 2.1.2 and Desktop 1.9.2 in every subtitle, README/LISEZMOI and lab prerequisite; all 16 Word and PDF files
+  rebuilt. The introductory decks keep their 1.9.1 screenshots (the 1.9.2 screens differ in wording only; see the notes).
+
 ## Core 2.2.1 — 2026-11-08
 
 Plugin patch shipped with CyberRiskGuardian Desktop 1.9.2 Beta (test campaign of 8 November 2026, spec v6 §5). **No formula
