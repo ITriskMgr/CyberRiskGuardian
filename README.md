@@ -1,5 +1,12 @@
 # CyberRiskGuardian Agent
 
+> **This edition is retired (19 November 2026).** CyberRiskGuardian Core (last release: Core plugin 2.2.1, with the
+> governance textbook plugin 2.1.1) is no longer maintained. Use **CyberRiskGuardian with Threat Live-feed**
+> ([`ITriskMgr/CyberRiskGuardian_ThreatIntel`](https://github.com/ITriskMgr/CyberRiskGuardian_ThreatIntel)): the same
+> formulas and the same MediBec totals, plus dated threat-context calibration and the textbook skill. Existing installs keep
+> working; disable this plugin (`claude plugin disable cyberriskguardian`) before enabling Threat Live-feed, so two methods
+> never answer the same request. This repository stays readable under CC BY-NC 4.0.
+
 AI-assisted, scenario-driven cybersecurity risk assessment for Claude Code, Claude Cowork and claude.ai. The free **CyberRiskGuardian Core** plugin acts as a Senior Cybersecurity Risk Analyst:
 
 - building the evidence register, context and crown-jewel map;
