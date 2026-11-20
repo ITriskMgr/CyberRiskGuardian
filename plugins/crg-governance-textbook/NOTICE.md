@@ -27,7 +27,7 @@ Definitions used by the licences:
 - *Non-profit organisation*: a registered charity or not-for-profit corporation, excluding colleges, universities and government bodies.
 - *Commercial use*: any use intended for, or directed toward, commercial advantage or monetary compensation, including delivering paid services to third parties.
 
-Versions already released under CC BY-NC 4.0 remain available under that licence. Version 1.1.1, which bundled the budget guideline, workbook builder and sensitivity tools, stays available on the `release/1.x` branch.
+Versions already released under CC BY-NC 4.0 remain available under that licence. Version 1.1.1, which bundled the budget guideline, workbook builder and sensitivity tools, stays available as the v1.1.1 release (tag `v1.1.1`, https://github.com/ITriskMgr/CyberRiskGuardian/releases/tag/v1.1.1).
 
 ## What the Community Edition covers
 - The CyberRiskGuardian methodology (core method specifications), including:

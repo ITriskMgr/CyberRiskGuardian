@@ -1,6 +1,6 @@
 # Publier CyberRiskGuardian
 
-> **Version 2.1** : le dépôt est un un marketplace de plusieurs plugiciels (Core et manuel). Pour publier une nouvelle version, suivez la section « Maintain and release » du README. La version 1.1.1 reste disponible sur la branche `release/1.x`.
+> **Version 2.1** : le dépôt est un un marketplace de plusieurs plugiciels (Core et manuel). Pour publier une nouvelle version, suivez la section « Maintain and release » du README. La version 1.1.1 reste disponible dans la version publiée [v1.1.1](https://github.com/ITriskMgr/CyberRiskGuardian/releases/tag/v1.1.1) (étiquette `v1.1.1`).
 
 Deux voies complémentaires :
 - **Dépôt GitHub public** : n'importe qui peut installer l'agent dès que le dépôt est en ligne.

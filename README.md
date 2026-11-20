@@ -72,7 +72,7 @@ On older versions:
 
 **Prerequisites:** Python 3.10+ (`pip install -r requirements.txt`); Node 18+ with `npm install` for Word output; LibreOffice for rendering.
 
-**Version 1.1.1** (single plugin with workbook, sensitivity and budget tools) remains available on the `release/1.x` branch.
+**Version 1.1.1** (single plugin with workbook, sensitivity and budget tools) remains available as the [v1.1.1 release](https://github.com/ITriskMgr/CyberRiskGuardian/releases/tag/v1.1.1) (tag `v1.1.1`).
 
 ## Teaching with CyberRiskGuardian
 
