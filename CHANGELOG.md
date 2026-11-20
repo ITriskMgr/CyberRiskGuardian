@@ -4,6 +4,16 @@ All notable changes to the **CyberRiskGuardian Community Edition** (Core plugin 
 `crg-governance-textbook`, examples and education package). Versions follow semver per plugin; the marketplace carries
 the Core version. Earlier releases are described in the commit history (Core 2.1.0 and 2.1.1, 23 October 2026).
 
+## Repository — 2026-11-20
+
+- **Core edition retired** (19 November 2026): the README points to CyberRiskGuardian with Threat Live-feed
+  (`ITriskMgr/CyberRiskGuardian_ThreatIntel`) and asks users to disable the Core plugin first.
+- **Education package moved out of this repository.** `education/` (Education Package 2.1.2) and
+  `scripts/build_education.py` are removed; the package is maintained outside this repository and supplied with the
+  Educational edition. README, the three NOTICE files, the workbook reference in `crg-formulas.md` and the example path
+  of `scripts/add_cis_notice.py` updated. Copies published here earlier keep their CC BY-NC 4.0 licence. No plugin,
+  formula or example changed (MediBec regression 84,305 / 41,023).
+
 ## Education Package 2.1.2 — 2026-11-08
 
 Teaching materials (`education/`) refreshed for **CyberRiskGuardian Desktop 1.9.2** (findings NV-E01 to NV-E07 of the test

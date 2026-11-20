@@ -9,7 +9,7 @@ a notice. This script writes, on every M sheet, a bilingual notice beside the ca
 the CIS block (C245 keeps its heading; the notice goes in the free cell U245), and a one-line notice on the Analyse
 sheet below the last used row. Formulas, values and layout are untouched. Idempotent: an existing notice is replaced.
 
-    python3 scripts/add_cis_notice.py education/templates/CyberRiskGuardian_Excel_Model_Blank_v2-6.xlsx
+    python3 scripts/add_cis_notice.py path/to/CyberRiskGuardian_Excel_Model_Blank_v2-6.xlsx
     python3 scripts/add_cis_notice.py <template.xlsx> --out /tmp/check.xlsx    # write elsewhere, leave the source alone
 
 The commercial desktop build carries CIS identifiers only until CIS approves (desktop edition switch, ws2); the

@@ -1,5 +1,12 @@
 # CyberRiskGuardian Agent
 
+> **This edition is retired (19 November 2026).** CyberRiskGuardian Core (last release: Core plugin 2.2.1, with the
+> governance textbook plugin 2.1.1) is no longer maintained. Use **CyberRiskGuardian with Threat Live-feed**
+> ([`ITriskMgr/CyberRiskGuardian_ThreatIntel`](https://github.com/ITriskMgr/CyberRiskGuardian_ThreatIntel)): the same
+> formulas and the same MediBec totals, plus dated threat-context calibration and the textbook skill. Existing installs keep
+> working; disable this plugin (`claude plugin disable cyberriskguardian`) before enabling Threat Live-feed, so two methods
+> never answer the same request. This repository stays readable under CC BY-NC 4.0.
+
 AI-assisted, scenario-driven cybersecurity risk assessment for Claude Code, Claude Cowork and claude.ai. The free **CyberRiskGuardian Core** plugin acts as a Senior Cybersecurity Risk Analyst:
 
 - building the evidence register, context and crown-jewel map;
@@ -35,9 +42,8 @@ CyberRiskGuardian/
 │   │   └── evals/     one suite per skill (claude plugin eval)
 │   └── crg-governance-textbook/        # the governance textbook as a skill (free)
 ├── docs/                               # quick-start guides (EN, FR) and demo script
-├── education/                          # teaching package for instructors and students (EN, FR)
 ├── examples/medibec/                   # worked example (fictional teaching case)
-├── scripts/  sync-project-config.sh, build_evals.py, build_education.py, package-plugins.sh
+├── scripts/  sync-project-config.sh, build_evals.py, add_cis_notice.py, package-plugins.sh
 ├── CLAUDE.md  AGENTS.md  .claude/      # project mode for Claude Code
 └── LICENSE  NOTICE.md
 ```
@@ -70,15 +76,12 @@ On older versions:
 
 ## Teaching with CyberRiskGuardian
 
-`education/` is a free teaching package (**Education Package 2.1.1**, for Desktop 1.9.1 and textbook v2.51b), in English and French, for courses on cybersecurity risk management, governance, IT audit and business technology management:
-
-- **Instructor Guide** — the method in one page, learning outcomes, tool tracks, four integration models from a 3-hour workshop to a full term, lab facilitation notes, generative AI policy.
-- **Student Lab Workbook** — thirteen labs on the MediBec teaching case (Lab 13: identity, access and configuration posture), a self-study practice case (CanaRetail), with self-check answers.
-- **Assessment Kit** — briefs, 0–10 rubrics and self-checks for the risk assessment, IAM policy and audit plan.
-- **Case Library** — five fictional business cases (student versions, v2.0c).
-- **Introductory slide deck**, the **21 chapter slide decks** of the textbook (release assets, see `education/README.md`) and the **blank CyberRiskGuardian Excel model** v2-6 (`education/templates/`).
-
-Start with `education/README.md` (or `education/LISEZMOI.md`). Lab answer keys, the graded quiz bank, rubric calibration examples, case teaching notes, the instructor annexes of the cases, the reserved final-examination case and the textbook's Instructor Resource Guide form the **Educator Edition**, supplied with the Educational edition.
+The teaching package (instructor guide, student lab workbook, assessment kit, case library, introductory slides and the
+blank CyberRiskGuardian Excel model, in English and French) was published here up to **Education Package 2.1.2**
+(8 November 2026). Since 20 November 2026 it is maintained outside this repository and supplied with the **Educational
+edition**, together with the Educator Edition (lab answer keys, graded quiz bank, rubric calibration examples, case teaching
+notes and the textbook's Instructor Resource Guide). Copies obtained from this repository's history or its earlier release
+assets keep the CC BY-NC 4.0 licence they were published under. Enquiries: sales@cyberriskguardian.ca.
 
 ## Use
 
@@ -103,8 +106,6 @@ Label check: `python3 plugins/cyberriskguardian/hooks/check_labels.py report.md`
    - `claude plugin eval plugins/cyberriskguardian --allow-tools Bash Write`
    - `claude plugin eval plugins/crg-governance-textbook`
 4. Regression: `crg_calc.py examples/medibec/source/medibec30.json` must report total estimated 84,305 and residual 41,023.
-   Template check: the textbook's chapter 6 worked example entered in `education/templates/CyberRiskGuardian_Excel_Model_Blank_v2-6.xlsx` must give 3,554.46 estimated and 1,937.18 residual after recalculation.
-   Education documents: after editing a Markdown source in `education/`, rebuild its .docx and .pdf with `python3 scripts/build_education.py` (pandoc, python-docx, LibreOffice).
 5. Bump the versions (semver) in each changed `plugin.json` and in `marketplace.json`; current versions: Core 2.2.1, textbook 2.1.1. Record the change in `CHANGELOG.md`.
 
 ## Deliberately excluded
@@ -126,8 +127,7 @@ Label check: `python3 plugins/cyberriskguardian/hooks/check_labels.py report.md`
 The Community Edition in this repository covers:
 - the core method specifications and the CyberRiskGuardian Core and CRG Governance Textbook plugins (methodology, skills, agents, commands, hooks, calculator, evals);
 - the governance textbook (3rd ed., v2.51b) packaged as a reference skill (English; the French reference set awaits the French v2.51b source);
-- the MediBec example;
-- the education package (`education/`) and the blank Excel model.
+- the MediBec example.
 
 You may share and adapt it for non-commercial purposes with attribution. Using it to deliver paid work, or using it inside a company or government body, is commercial use and requires the Commercial Licence.
 
